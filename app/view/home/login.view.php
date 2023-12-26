@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=ROOT?>/css/login.css">
+    <link rel="stylesheet" href="<?=ROOT?>/css/home/login.css">
 
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
@@ -26,14 +26,24 @@
             <h2>Welcome to InternEase</h2>
                 <div class="box">
 
-                    <?php if (isset($data['loginError'])) { ?>
-                        <p class="error"><?= $data['loginError'] ?></p>
-                    <?php } ?>
-
-
-                    <div class="login-each-field"> 
+                   
+                    <p class="error">
+                        
+                        <?php
+                                
+                                if (isset($data['loginError'])) {
+                                        echo $data['loginError'];
+                                } elseif (isset($_SESSION['loginError'])) {
+                                        echo $_SESSION['loginError'];
+                                        unset($_SESSION['loginError']);
+                                }
+                        ?>    
+                    
+                    </p>
+                   
+                    <div class="login-each-field">      
                         <p class="label1">Username:<br></p>
-                        <input name="username" type="text" placeholder="Enter your username" class="box1">
+                        <input name="username" type="text" placeholder="Enter your email" class="box1">
                     </div>
 
                     <div class="login-each-field">

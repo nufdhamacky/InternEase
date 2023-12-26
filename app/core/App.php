@@ -1,17 +1,18 @@
 <?php
 
-    class App {
+    class App { 
 
-        protected $controller = 'home';
-        protected $method = 'index';
-        protected $params = [];
+        protected $controller = 'home'; //default controller
+        protected $method = 'index'; //default method
+        protected $params = []; //default params
 
 
+        //constructor function to parse url and call controller and method
         public function __construct() {
+        
+            session_start();
             
             $url = $this->parseUrl();
-
-            // print_r($url);
 
             if (isset($url[0]))
             {
@@ -26,10 +27,12 @@
             require_once '../app/controller/' . $this->controller . '.php';
 
             $this->controller = new $this->controller;
-
+            
             if (isset($url[1]))
-            {
+            {   
+
                 if(method_exists($this->controller, $url[1])) {
+
                     $this->method = $url[1];
                     unset($url[1]);
                 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=ROOT?>/css/signup.css">
+    <link rel="stylesheet" href="<?=ROOT?>/css/home/signup.css">
 
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
@@ -22,38 +22,58 @@
 
         <div class="rightpart">
             
-        <form class="box" method="POST">
+        <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
             <h4>Create Account</h4>
-                    <?php if (isset($error)) { ?>
-                        <p class="error"><?= $error ?></p>
-                    <?php } ?>
-                    <?php if(isset($_SESSION['error_msg'])){ ?>
-                        <p class="error"><?= $_SESSION["error_msg"]; ?></p>
-                    <?php } ?>
+
             <p class="label1">Company Name: 
-                <?php if (isset($errors['company_name'])) { ?>
-                    <span class="error"><?= $errors['company_name'] ?></span>
-                <?php } ?><br></p>
-            <input type="text"  name="company_name" class="box1" value="<?= isset($_POST['company_name']) ? $_POST['company_name'] : '' ?>">
+                <?php 
+                    if (isset($data['signupError']['companyName'])) { 
+                ?>
+
+                    <span class="error"><?= $data['signupError']['companyName'] ?></span>
+
+                <?php } ?>
+                <br>
+            </p>
+            <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
             
             <p class="label1">Email:
-                <?php if (isset($errors['email'])) { ?>
-                    <span class="error"><?= $errors['email'] ?></span>
-                <?php } ?><br></p>
-            <input type="email"  name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+                <?php 
+                    if (isset($data['signupError']['email'])) { 
+                ?>
+                
+                    <span class="error"><?= $data['signupError']['email'] ?></span>
+                    
+                <?php } ?>
+                <br>
+            </p>
+            <input type="email" name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
             
             <p class="label1">Password:
-                <?php if (isset($errors['password'])) { ?>
-                    <span class="error"><?= $errors['password'] ?></span>
-                <?php } ?><br></p>
-            <input type="password" name="password"  class="box2">
+                <?php 
+                    if (isset($data['signupError']['password'])) { 
+                ?>
+                    
+                    <span class="error"><?= $data['signupError']['password'] ?></span>
+
+                <?php } ?>
+                <br>
+            </p>
+            <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
            
             <i class='bx bxs-show eye-icon'></i>
+            
             <p class="label1">Confirm Password:
-                <?php if (isset($errors['confirm_password'])) { ?>
-                    <span class="error"><?= $errors['confirm_password'] ?></span>
-                <?php } ?><br></p>
-            <input type="password"  name="confirm_password" class="box2">
+                <?php 
+                    if (isset($data['signupError']['confirmPassword'])) { 
+                ?>
+                
+                    <span class="error"><?= $data['signupError']['confirmPassword'] ?></span>
+
+                <?php } ?>
+                <br>
+            </p>
+            <input type="password" name="confirmPassword" class="box2">
             
 
             <div class="member">

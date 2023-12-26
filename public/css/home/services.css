@@ -1,0 +1,163 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu' , sans-serif;
+  }
+  
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+  }
+    
+  /* body{
+    min-height: 100vh;
+    overflow-x: hidden;
+  } */
+  
+  .container{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .header {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+  }
+    
+  .logo img {
+      width: 150px;
+      margin-left: 150px;
+      margin-bottom: 10px;
+  }
+    
+  .nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+    
+  .nav ul li {
+    margin-right: 1rem;
+  }
+    
+  .nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+    
+  .nav ul li.active a {
+    color: white;
+  }
+    
+  .main .hero {
+    /* background-size: cover; */
+    background-position: center;
+    height: 500px;
+    margin-bottom: 40px;
+    margin-left: 150px;
+    margin-right: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background: rgba(7, 81, 102, 0.214);
+  }
+  
+  .nav .topbar{
+    margin-right: 145px;
+  }
+    
+  .main .hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+    
+  .main .hero .about-us {
+    padding: 2rem;
+    text-align: center;
+  }
+    
+  .main .about-us h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #0B5A6F;
+  }
+    
+  .main .about-us p {
+    line-height: 1.5;
+    text-align: justify;
+  }
+  
+  .main .about-us h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #0B5A6F;
+  }
+  
+  .main-right{
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .topbar .card{
+    display: inline-block;
+    padding: 25px 50px;
+    align-items: center;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .topbar .card:hover{
+    background-color: #0B5A6F;
+    color: white;
+  }
+
+/* .cardbox{
+    position: relative;
+    width:100%;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 20px;
+} */
+
+.hero .cardhead{
+    height: 70%;
+    width: 90%;
+    position: relative;
+    background:#0B5A6F;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hero .cardhead .heading {
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    color:white;
+}
+
+.hero .cardhead .cardName{
+    color:white;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+}
