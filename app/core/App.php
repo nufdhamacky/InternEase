@@ -14,6 +14,7 @@
             
             $url = $this->parseUrl();
 
+
             if (isset($url[0]))
             {
 

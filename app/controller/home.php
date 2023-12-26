@@ -2,12 +2,12 @@
 
     class Home extends Controller {
         public function index(){
-    
+            
             $this->view('home/home');
 
         }
 
-        public function about(){
+        public function about(){ 
 
            $this->view('home/aboutus');
 
@@ -30,7 +30,7 @@
             $this->view('home/signup');
 
         }
-
+        
         public function logincheck(){
             
             //store psot varialble in local variable

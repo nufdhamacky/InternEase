@@ -1,6 +1,6 @@
 
 <div class = "navigation">
-    <img src = "../Login/images/logo.png" alt="">
+    <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
     <li>
             <a href="../CompanyDashboard/Dashboard.php">
