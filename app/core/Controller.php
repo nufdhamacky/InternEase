@@ -24,4 +24,4 @@
             require_once '../app/view/' . $view . '.view.php';
         }
 
-    } 
+    }  
