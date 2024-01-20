@@ -28,7 +28,7 @@
             <p class="label1">Company Name: 
                 
 
-                    <span class="error"><?= $data['signupError']['companyName'] ?></span>
+                    <span class="error"><?= isset($data['signupError']['companyName']) ?></span>
 
     
                 <br>
@@ -38,7 +38,7 @@
             <p class="label1">Email:
                 
                 
-                    <span class="error"><?= $data['signupError']['email'] ?></span>
+                    <span class="error"><?= isset($data['signupError']['email']) ?></span>
                     
                 
                 <br>
@@ -48,7 +48,7 @@
             <p class="label1">Password:
                 
                     
-                    <span class="error"><?= $data['signupError']['password'] ?></span>
+                    <span class="error"><?= isset($data['signupError']['password']) ?></span>
 
                 
                 <br>
@@ -60,7 +60,7 @@
             <p class="label1">Confirm Password:
                 
                 
-                    <span class="error"><?= $data['signupError']['confirmPassword'] ?></span>
+                    <span class="error"><?= isset($data['signupError']['confirmPassword']) ?></span>
 
                 
                 <br>
