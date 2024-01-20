@@ -29,15 +29,7 @@
                    
                     <p class="error">
                         
-                        <?php
-                                
-                                if (isset($data['loginError'])) {
-                                        echo $data['loginError'];
-                                } elseif (isset($_SESSION['loginError'])) {
-                                        echo $_SESSION['loginError'];
-                                        unset($_SESSION['loginError']);
-                                }
-                        ?>    
+                         
                     
                     </p>
                    

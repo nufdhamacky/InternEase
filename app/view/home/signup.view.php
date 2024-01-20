@@ -26,37 +26,31 @@
             <h4>Create Account</h4>
 
             <p class="label1">Company Name: 
-                <?php 
-                    if (isset($data['signupError']['companyName'])) { 
-                ?>
+                
 
                     <span class="error"><?= $data['signupError']['companyName'] ?></span>
 
-                <?php } ?>
+    
                 <br>
             </p>
             <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
             
             <p class="label1">Email:
-                <?php 
-                    if (isset($data['signupError']['email'])) { 
-                ?>
+                
                 
                     <span class="error"><?= $data['signupError']['email'] ?></span>
                     
-                <?php } ?>
+                
                 <br>
             </p>
             <input type="email" name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
             
             <p class="label1">Password:
-                <?php 
-                    if (isset($data['signupError']['password'])) { 
-                ?>
+                
                     
                     <span class="error"><?= $data['signupError']['password'] ?></span>
 
-                <?php } ?>
+                
                 <br>
             </p>
             <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
@@ -64,13 +58,11 @@
             <i class='bx bxs-show eye-icon'></i>
             
             <p class="label1">Confirm Password:
-                <?php 
-                    if (isset($data['signupError']['confirmPassword'])) { 
-                ?>
+                
                 
                     <span class="error"><?= $data['signupError']['confirmPassword'] ?></span>
 
-                <?php } ?>
+                
                 <br>
             </p>
             <input type="password" name="confirmPassword" class="box2">

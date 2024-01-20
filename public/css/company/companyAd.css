@@ -1,0 +1,347 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu' , sans-serif;
+}
+
+body
+{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container
+{
+    position: relative;
+    width: 100%;
+}
+
+.navigation 
+{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0b596f;
+    border-left: 10px solid #0B5A6F;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation img
+{
+    width: 150px;
+    margin-left: 60px;
+}
+
+.navigation img ul
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li
+{
+    position: relative;
+    width:100%;
+    list-style: none;
+}
+ 
+.navigation ul li:hover
+{
+    background-color: #CFE3EA;
+}
+
+.navigation ul li:nth-child(7)
+{
+    margin-bottom: 50px;
+}
+
+.navigation ul li a
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+}
+
+.navigation ul li a .icon
+{
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon
+{
+    font-size: 0.75cm;
+}
+
+.navigation ul li a .title
+{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+/* main */
+
+.main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: white;
+    transition: 0.5s;
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.topbar{
+    width : 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle{
+    width: 60px;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.user span{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.bell-icon{
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.profile-icon{
+    font-size: 3rem;
+}
+
+.heading-advertisement{
+    display: flex;  
+    flex-direction: row;
+    gap: 25px;
+    font-size: 20px;
+    margin: 10px 0px 10px 50px;
+    color: #0b596f;
+}
+
+.heading-advertisement button{
+    border: 1px solid #0b596f;
+    background-color: none;
+    color: #0b596f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    height: 100%;
+}
+
+.heading-advertisement button:hover{
+    border: none;
+    background-color: #0b596f;
+    color: white;
+    padding: 5px 10px;
+    transition: .3s;
+}
+
+/* Style for search bar*/
+.filter-details{
+    margin-top: 30px;
+    margin-left: 10%;
+}
+
+.secondbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: 40px;
+}
+
+.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px; 
+    border-radius: 5px;
+}
+
+.search input{
+    border: none;
+    font-size: 15px;
+}
+
+.search input:focus{
+    outline: none;
+}
+
+.search input::placeholder{
+    font-size: 15px;
+} 
+
+.allstudents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.allstudents select{
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px; 
+    border-radius: 5px;
+}
+
+
+/* ================== table css ============== */
+.ad-table{
+    width: 75%;
+    height: 100vh;
+    margin-left: 10%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.ad-table .table-heading{
+    display: flex;
+    flex-direction: row;
+    background-color: #0b596f;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    padding:15px;
+    border-radius: 15px;
+    width: 85%;
+}
+
+.position-class{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.requirement-class{
+    width: 43%;
+    display: flex;
+    justify-content: center;
+}
+
+.intake-class{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.mode-class{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}   
+
+.table-all-data{
+    display: flex;
+    flex-direction: column; 
+    color: #0b596f;
+    margin-top: 20px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.each-data{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #0b596f;
+    background-color: #ffffff;
+    border: 1px solid #0b596f;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.data-view-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    width: 75%;
+    margin-left: 15px;
+    border: 1px solid #0b596f;
+    color: #0b596f;
+}
+
+.data-delete-btn{
+    width: 100%;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    border: 1px solid red;
+    color: red;
+}
+
+.data-delete-btn:hover{
+    background-color: red;
+    color: white;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.data-view-btn:hover{
+    background-color: #0b596f;
+    color: white;
+    transition: .3s;
+    cursor: pointer;
+}
