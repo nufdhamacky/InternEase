@@ -6,7 +6,7 @@
         public $conn;
 
         //dependency injection - passing database connection to controller
-        public function __construct() {
+        public function __construct() { 
             $this->database = new Database();
             $this->conn = $this->database->connection();
         }

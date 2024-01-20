@@ -17,7 +17,6 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <ion-icon class="bell-icon" name="notifications-circle-outline"></ion-icon>
                     <span><?php //echo $_SESSION['company_name']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
