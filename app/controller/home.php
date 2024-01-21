@@ -59,11 +59,11 @@
                         if($_SESSION['userRole'] == 'company' )
                             echo "<script> window.location.href='http://localhost/internease/public/company/dashboard';</script>";
                         else if($_SESSION['userRole'] == 'student')
-                            echo "<script> window.location.href='http://localhost/internease/public/student/index';</script>";
+                            echo "<script> window.location.href='http://localhost/internease/public/student/dashboard';</script>";
                         else if($_SESSION['userRole'] == 'admin')
                             echo "<script> window.location.href='http://localhost/internease/public/admin/index';</script>";
                         else
-                            echo "<script> window.location.href='http://localhost/internease/public/pdc/index';</script>";
+                            echo "<script> window.location.href='http://localhost/internease/public/pdc/dashboard';</script>";
                     }
                     else{
                         $data['loginError'] = 'Your account is not activated yet !';

@@ -1,0 +1,334 @@
+:root{
+    --blue: #0B5A6F;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: azure;
+    
+}
+
+.container{
+    position: relative;
+    width: 100%;
+}
+
+.main{
+    left: 318px;
+    width: 800px;
+    height: 839px;
+    position:relative;
+
+}
+
+.main .top{
+    top: 30px;
+    display: inline-flex;
+}
+
+.lefticon{
+    width: 45px;
+    height: 41px;
+    flex-shrink: 0;
+    padding-top: 8px;
+
+}
+
+.leftfont{
+    width: 133px;
+    height: 21px;
+    flex-shrink: 0;
+    color: #000;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-top: 10px;
+}
+
+.leftfont, .lefticon{
+    padding-left: 20px ;
+}
+/* Define a container for the user information */
+.user-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 860px;
+    display: flex;
+    align-items: right;
+    
+}
+
+/* Define styles for the user name */
+.rightuser {
+    width: 169px;
+    height: 27px;
+    color: #000;
+    text-align: right;
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    padding-top: 10px; /* Add margin for spacing between user icon and user name */
+}
+
+/* Define styles for the user icon */
+.righticon {
+    width: 55px;
+    height: 50px;
+}
+.heading{
+    left: 412px;
+    text-align: center;
+    color: #0B5A6F;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    }
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+    
+    .display-info {
+        width: 70%;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    
+    .info-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .info-list label {
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .editable {
+        font-weight: bold;
+        border-bottom: 1px dotted transparent;
+        cursor: pointer;
+    }
+    
+    .editable:focus {
+        outline: none;
+        border-bottom-color: #007bff; /* Highlight the editable field */
+    }
+    
+    .status-info {
+        font-weight: bold;
+        color: #FF8800; /* Color for "Pending" status */
+    }
+    
+    .edit-button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .edit-button:hover {
+        background-color: #0056b3; /* Hover color change for the edit button */
+    }
+    
+
+/* Common styles for multiple sections */
+.info-box,
+.comp-appl,
+.intv-schedule,
+.bottom-info,
+.bottom2-info {
+    width: 753px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    padding: 10px;
+}
+
+.info-box{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+}
+
+/* Colors based on section */
+.comp,
+.comp-appl .text,
+.intv-schedule .text {
+    background: #718E96;
+}
+
+.intv,
+.intv-schedule .num {
+    background: #5397A9;
+}
+
+/* Text styles */
+.textbottom,
+.number,
+.text,
+.num {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.textbottom,
+.text {
+    padding-left: 25px;
+}
+
+.num {
+    padding-left: 40px;
+    padding-right: 200px;
+}
+
+/* Button styles */
+.button,
+.button-info {
+    display: inline-block;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #AAD4E1;
+    color: #000; /* Adjust text color as needed */
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.button:hover,
+.button-info:hover {
+    background-color: burlywood;
+    color: #016fff; /* Text color on hover */
+}
+
+.button:active,
+.button-info:active {
+    background-color: darkcyan;
+    color: black; /* Text color when active */
+}
+
+/* Specific positioning */
+.bottom-info {
+    top: 483px;
+    left: 57px;
+    position: relative;
+}
+
+.bottom2-info {
+    top: 561px;
+    left: 57px;
+    position: absolute;
+}
+
+.appl-info {
+    left: 375px;
+    top: 462px;
+    max-width: 753px;
+    position: absolute;
+}
+
+
+.metrics {
+    display: flex;
+    width: 76vw;
+    justify-content: space-around;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each canvas */
+.metrics canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.customChart{
+    width: 800px;
+    height: 500px;
+}
+
+/* Container for the form */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style for labels and input fields */
+.info-list label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.info-list input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #eee;
+}
+
+/* Center the form */
+.center {
+    text-align: center;
+}
+
+/* Add responsive CSS */
+@media screen and (max-width: 600px) {
+    .form-container {
+        width: 90%;
+    }
+
+    .info-list input[type="text"] {
+        width: 100%;
+    }
+}
+    .form{
+        max-width: 460px;
+        margin: 20px auto;
+        padding: 20px;
+    }

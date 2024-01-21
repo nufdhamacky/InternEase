@@ -1,0 +1,42 @@
+/* General table styles */
+.schedule-container{
+    padding-top: 100px;
+    width: 77vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scheduleTable {
+    padding-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styles */
+.scheduleTable th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Alternate row colors for better readability */
+.scheduleTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Data cell styles */
+.scheduleTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect */
+.scheduleTable tbody tr:hover {
+    background-color: #cceeff;
+}
