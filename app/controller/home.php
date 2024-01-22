@@ -30,6 +30,12 @@
             $this->view('home/signup');
 
         }
+
+        public function signupStd(){
+            
+            $this->view('home/signupStd');
+
+        }
         
         public function logincheck(){
             
@@ -128,6 +134,51 @@
             }
 
         }
+
+        public function signupcheck_student(){
+            
+            //store psot varialble in local variable
+            $username = $_POST['userName'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+
+            //including validation file
+            require_once '../app/controller/helper/validation.php';
+
+            //creating validation object
+            $validation = new Validation();
+
+            $errors = $validation->validateSignup($username, $email, $password, $confirmPassword);
+
+            if(!$errors){
+
+                //creating user model object
+                $user = $this->model('User');
+
+                //calling signup function from user model to check signup
+                $signupAccess = $user->signupStudent($username, $email, $password, $this->conn);
+
+                if($signupAccess == 0){
+                    $data['signupError'] = 'Email already registered !';
+                    $this->view('home/signupStd', $data);
+                }
+                else if($signupAccess == 2){
+                    $data['signupError'] = 'Something went wrong. Try again later !';
+                    $this->view('home/signupStd', $data);
+                    
+                } else {
+                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                }
+
+            } else {
+                $data['signupError'] = $errors;
+                $this->view('home/signupStd', $data);
+            }
+
+        }
+
 
     }
 
