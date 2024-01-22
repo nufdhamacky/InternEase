@@ -21,7 +21,7 @@
                     <p>for Undergraduates</p>
                 </div>
                 <div class="submit">
-                <a href="login"><button type="submit">Login</button></a>
+                <a href="home/login"><button type="submit">Login</button></a>
                 </div>
             </div>
         </div>

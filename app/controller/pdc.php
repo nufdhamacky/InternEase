@@ -10,7 +10,7 @@
         //     }
         // }
 
-        public function dashboard(){
+        public function index(){
 
             //$isLoggedIn = $this->isLoggedIn();
             
