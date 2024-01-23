@@ -10,6 +10,7 @@
 <body>
     <div class="container">
     <?php require_once('../app/view/layout/companyMenubar.php') ?>
+    
         <div class ="main">
             <div class = "topbar">
                 
@@ -17,8 +18,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <ion-icon class="bell-icon" name="notifications-circle-outline"></ion-icon>
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 

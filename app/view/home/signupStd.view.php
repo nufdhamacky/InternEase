@@ -22,18 +22,18 @@
 
         <div class="rightpart">
             
-        <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
+        <form action="<?=ROOT?>/home/signupcheck_student" class="box" method="POST">
             <h4>Create Account</h4>
 
-            <p class="label1">Company Name: 
+            <p class="label1">User Name: 
                 
 
-                    <span class="error"><?= $data['signupError']['companyName'] ?></span>
+                    <span class="error"><?= $data['signupError']['userName'] ?></span>
 
     
                 <br>
             </p>
-            <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
+            <input type="text" name="userName" class="box1" value="<?= isset($_POST['userName']) ? $_POST['userName'] : '' ?>">
             
             <p class="label1">Email:
                 

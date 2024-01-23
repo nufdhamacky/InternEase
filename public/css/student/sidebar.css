@@ -1,0 +1,42 @@
+
+/* Styling for the top bar */
+.top-bar {
+    position: fixed;
+    display: flex;
+    width: 77vw;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a2a7a8a5;
+    color: #000;
+    padding: 15px;
+    margin-bottom: 100px;
+    border-radius: 15px;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(190, 102, 102, 0.29);
+}
+
+.content{
+    padding-top: 70px;
+}
+
+.page-title {
+    font-size: 24px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin-right: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* For a circular avatar */
+}
