@@ -31,7 +31,7 @@
 
         }
 
-        public function signupStd(){
+        public function signupStudent(){
             
             $this->view('home/signupStd');
 
