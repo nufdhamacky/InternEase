@@ -24,6 +24,6 @@ if ($pageTitle === '') {
     <div class="title"><?= $pageTitle ?></div>
     <div class="user-profile">
         <div class="username">Shamah</div>
-        <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/shamah.png" alt="User Avatar"></a>
+        <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
     </div>
 </header>
