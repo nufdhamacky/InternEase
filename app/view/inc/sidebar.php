@@ -1,44 +1,44 @@
 <div class="navigation">
-            <img src = "assets/InternEaseLogo.png" alt="">
+            <img src ="<?=ROOT?>/assets/images/logo.png" alt="">
             <ul>
                 <li>
-                    <a href="<?=ROOT?>/dashboard">
+                    <a href="dashboard">
                         <span class="icon"><i class="fa-solid fa-gauge-high"></i></span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=ROOT?>/advertisements">
+                    <a href="advertisement">
                         <span class="icon"><i class="fa-solid fa-rectangle-ad"></i></span>
                         <span class="title">Advertisements</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=ROOT?>/complaints">
+                    <a href="complaints">
                         <span class="icon"><i class="fa-solid fa-circle-question"></i></span>
                         <span class="title">Complaints</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=ROOT?>/profile">
+                    <a href="profile">
                         <span class="icon"><i class="fa-solid fa-user"></i></span>
                         <span class="title">Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=ROOT?>/schedule">
+                    <a href="schedule">
                         <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
                         <span class="title">Schedule</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=ROOT?>/selectionlist">
+                    <a href="selectionlist">
                         <span class="icon"><i class="fa-solid fa-rectangle-list"></i></ion-icon></span>
                         <span class="title">Selection List</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="logout">
                         <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                         <span class="title">Sign Out</span>
                     </a>

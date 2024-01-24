@@ -1,10 +1,10 @@
-<?php require_once("../app/views/inc/header.php"); ?>
+<?php require_once("../app/view/inc/header.php"); ?>
 
 <div class="container">
-        <?php require_once("../app/views/inc/sidebar.php"); ?>
+        <?php require_once("../app/view/inc/sidebar.php"); ?>
     
         <div class="main">
-            <?php require_once("../app/views/inc/topbar.php"); ?>
+            <?php require_once("../app/view/inc/topbar.php"); ?>
             <div class="complaint-container">
                 <div class="complaint-form">
                     <h2>Enter Your Complaint</h2>
@@ -46,4 +46,4 @@
 
     </script>
     
-<?php require_once("../app/views/inc/footer.php"); ?>
+<?php require_once("../app/view/inc/footer.php"); ?>
