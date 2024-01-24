@@ -10,7 +10,7 @@
                 <div class="profile-box">
                     <div class="profile-header">
                         <div class="profile">
-                            <img class="profile-picture" src="<?=ROOT?>/assets/shamah.png" alt="Profile Picture">
+                            <img class="profile-picture" src="<?=ROOT?>/assets/images/Sham.jpg" alt="Profile Picture">
                             <div class="profile-name">Shamah</div>
                         </div>
                         <button class="edit-button">Edit</button>

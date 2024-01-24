@@ -20,40 +20,5 @@
                 //$_SESSION['loginError'] = "Please login first !";
                 //echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
             //}
-            
-        }   
-        public function managestudent()
-        {
-            $this->view('pdc/managestudent');
-        }
-
-        public function managecompany()
-        {
-            $this->view('pdc/managecompany');
-        }
-
-        public function roundselection()
-        {
-            $this->view('pdc/roundselection');
-        }
-
-        public function advertisement()
-        {
-            $this->view('pdc/advertisement');
-        }
-
-        public function request()
-        {
-            $this->view('pdc/request');
-        }
-
-        public function viewstudent()
-        {
-            $this->view('pdc/viewstudent');
-        }
-
-        public function logout(){
-            session_destroy();
-            echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
-        }
-    }
+        
+        
