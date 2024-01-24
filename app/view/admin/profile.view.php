@@ -3,20 +3,19 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Admin</title>
-    <link rel="stylesheet" type="text/css" href="../../../public/css/com.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="../../public/css/com.css?v=<?php echo time(); ?>">
+    <title>admin profile</title>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
 
 </head>
 <body>
 
 
 <div class="container">
-    <?php include_once('sidemenu.php') ?>
+    <?php include('../view/layout/Adminsidemenu.php') ?>
     <div class ="main">
         <div class="content">
             <form class="update-form" method="POST" action='../../controllers/Admin_profile.php'>
-
                 <div class="formgroup">
                     <label for="col">Attribute:</label>
                     <select name="col" id="col" onchange="togglePasswordFields()">

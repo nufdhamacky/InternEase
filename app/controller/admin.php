@@ -34,6 +34,19 @@ class admin extends Controller{
         session_destroy();
         echo "<script> window.location.href='http://localhost/internease/public/home/index';</script>";
     }
+
+    public function complaints(){
+        $this->view('admin/viewComplaints');
+    }
+
+    public function managepdc(){
+        $this->view('admin/managepdc');
+    }
+
+    public function report(){
+        $this->view('admin/report');
+    }
 }
+
 
 ?>

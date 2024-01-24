@@ -4,19 +4,15 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage pdc</title>
-    <link rel="stylesheet" type="text/css" href="../../../public/css/com.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="../../public/css/com.css?v=<?php echo time(); ?>">
-
+    <link rel="stylesheet" type="text/css" href="../../../public/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
     <div class="container">
-        <?php include_once('sidemenu.php') ?>
-    
-
+        <?php include_once('../view/layout/Adminsidemenu.php') ?>
             <div class="main">
-                <div class="content">
-        
+                <div class="content">        
                     <form class="insert-form" method="post">
 
                         <div class="formgroup">
