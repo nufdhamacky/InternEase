@@ -1,54 +1,39 @@
-<?php
+<?php 
+ 
+    class App{
 
-    class App { 
+        protected $controller = "commoncontrols"; //default controller
+        protected $method = "index";
+        protected $params = array();
 
-        protected $controller = 'home'; //default controller
-        protected $method = 'index'; //default method
-        protected $params = []; //default params
+        public function __construct(){
+            $URL = $this->getURL();
 
-
-        //constructor function to parse url and call controller and method
-        public function __construct() {
-        
-            session_start();
-            
-            $url = $this->parseUrl();
-
-
-            if (isset($url[0]))
-            {
-
-                if(file_exists('../app/controller/' . $url[0] . '.php')) {
-                    $this->controller = $url[0];
-                    unset($url[0]);
-                }
-
+            if (file_exists("../app/controllers/".$URL[0].".php")) {
+                $this->controller = strtolower($URL[0]);
+                unset($URL[0]);
             }
 
-            require_once '../app/controller/' . $this->controller . '.php';
-
+            require "../app/controllers/".$this->controller.".php";
             $this->controller = new $this->controller;
+
+            if (isset($URL[1])) {
+                if(method_exists($this->controller,$URL[1])){
+                    $this->method = $URL[1];
+                    unset($URL[1]);
+                } 
+            }
             
-            if (isset($url[1]))
-            {   
-
-                if(method_exists($this->controller, $url[1])) {
-
-                    $this->method = $url[1];
-                    unset($url[1]);
-                }
-            }
-
-            $this->params = $url ? array_values($url) : [];
-
-            call_user_func_array([$this->controller, $this->method], $this->params);
-
+            $URL = array_values($URL);
+            $this->params = $URL;
+            call_user_func_array(array($this->controller,$this->method),$this->params);
         }
 
-        public function parseUrl() {
-            if(isset($_GET['url'])) {
-                return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
-            }
+        private function getURL(){
+           
+            $url = isset($_GET['url']) ? $_GET['url'] : "home";
+            return explode("/",filter_var(trim($url,"/")),FILTER_SANITIZE_URL);
         }
-
     }
+
+?>

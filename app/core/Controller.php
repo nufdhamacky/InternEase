@@ -1,27 +1,34 @@
 <?php
+    class Controller{
 
-    class Controller {
+        // load view
+       public function view($viewname,$data=[])
+        {  
+           extract($data);
 
-        public $database;
-        public $conn;
+           if(file_exists("../app/views/".$viewname.".php")){
+               require ("../app/views/".$viewname.".php");
+           }else{
+               require ("../app/views/main/404view.php");
+           } }
 
-        //dependency injection - passing database connection to controller
-        public function __construct() { 
-            $this->database = new Database();
-            $this->conn = $this->database->connection();
+        // load model
+        public function loadmodel($modelname)
+        {
+            if(file_exists("../app/models/".$modelname.".php")){
+                require ("../app/models/".$modelname.".php");
+                return $modelname = new $modelname();
+            }else{
+                return file_get_contents("../app/views/main/404view.php");
+            }
         }
 
-        //function to load model
-        public function model($model) {
-            require_once '../app/model/' . $model . '.php';
-            return new $model();
+        // redirect
+        public function redirect($link)
+        {
+            header("Location: ".trim($link,"/"));
+            exit();
         }
+    }
 
-
-        //function to load view
-        public function view($view, $data = []) {
-            
-            require_once '../app/view/' . $view . '.view.php';
-        }
-
-    }  
+?>
