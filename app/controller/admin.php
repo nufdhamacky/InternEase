@@ -2,6 +2,7 @@
 
 class admin extends Controller{
 
+
     public function profile(){
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
@@ -13,9 +14,7 @@ class admin extends Controller{
             $updateValue = $_POST["updatevalue"];
             $confirmPassword = $_POST["confirmPassword"];
         
-            
-            $dbconnection = new Database;
-            $adminModel = new AdminModel(connect()); 
+            $adminModel = new AdminModel; 
         
             
             if ($adminModel->updateAdmin($id, $column, $updateValue, $confirmPassword)) {
@@ -36,7 +35,13 @@ class admin extends Controller{
     }
 
     public function complaints(){
-        $this->view('admin/viewComplaints');
+        
+        $adminModel = new AdminModel;
+
+        $complaintsArray = $adminmodel->getcomplaints();
+
+        $this->view('admin/viewComplaints',array('complaintsArray' => $complaintsArray));
+
     }
 
     public function managepdc(){
@@ -45,6 +50,10 @@ class admin extends Controller{
 
     public function report(){
         $this->view('admin/report');
+    }
+
+    public function editreport(){
+        var_dump($_POST);
     }
 }
 

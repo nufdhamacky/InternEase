@@ -13,15 +13,16 @@
 
         //function to load model
         public function model($model) {
-            require_once '../app/model/' . $model . '.php';
+            require ('../model/' . $model . '.php');
             return new $model();
         }
 
 
         //function to load view
         public function view($view, $data = []) {
+            extract($data);
             
-            require_once '../view/' . $view . '.view.php';
+            require ('../view/' . $view . '.view.php');
         }
 
     }  

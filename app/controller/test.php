@@ -3,4 +3,6 @@ include "../init.php";
 include "admin.php";
 
 $new = new admin;
-$new->complaints();
+$new->model('AdminModel');
+$new->profile();
+?>
