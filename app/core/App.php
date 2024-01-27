@@ -13,7 +13,7 @@
             session_start();
             
             $url = $this->parseUrl();
-            print_r($url);
+         
 
             if (isset($url[0]))
             {
@@ -45,10 +45,6 @@
 
         }
 
-        public function getURL() {
-            
-            return explode('/',$_GET['url']);
-        }
 
 
         public function parseUrl() {

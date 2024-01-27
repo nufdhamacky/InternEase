@@ -5,7 +5,6 @@ class admin extends Controller{
 
     public function profile(){
 
-        echo "PROFILE";
 
         $this->view('admin/profile');
 

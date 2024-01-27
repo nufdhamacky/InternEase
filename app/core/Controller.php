@@ -22,7 +22,7 @@
         public function view($view, $data = []) {
             extract($data);
             
-            require ('../view/' . $view . '.view.php');
+            require ('../app/view/' . $view . '.view.php');
         }
 
     }  
