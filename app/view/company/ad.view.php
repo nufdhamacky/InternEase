@@ -27,7 +27,7 @@
             <div class="details">
                 <div class="heading-advertisement">
                     <h2>Advertisements</h2>
-                    <a href="addAd.php">
+                    <a href="addAd">
                         <button class="add-advertisement">+ Add</button>
                     </a>
                 </div>
@@ -36,7 +36,7 @@
                     <div class = "secondbar">
                         <div class = "search">
                             <ion-icon name="search-outline"></ion-icon>
-                            <input type = "text" placeholder = "Search Student" class = "box1">
+                            <input type = "text" placeholder = "Search Position" class = "box1">
                         </div>
 
                         <div class = "allstudents">
@@ -51,7 +51,9 @@
                     <div class="table-heading">
                         <div class="position-class">Poisition</div>
                         <div class="requirement-class">Requirements</div>
-                        <div class="intake-class">No of intakes</div>
+                        <div class="qual-class">Qualifications</div>
+                        <div class="inetrnship-class">Internship Period</div>
+                        <div class="interns-class">No. of Interns</div>
                         <div class="mode-class">Working mode</div>
                     </div>
                     <div class="table-all-data">
@@ -59,11 +61,11 @@
                                     <div class="position-class">
                                         
                                     </div>
-                                    <div class="requirement-class"><?php echo $row['requirements'] ?></div>
-                                    <div class="intake-class"><?php echo $row['no_of_intern'] ?></div>
-                                    <div class="mode-class"><?php echo $row['working_mode'] ?></div>
+                                    <div class="requirement-class"><?php //echo $row['requirements'] ?></div>
+                                    <div class="intake-class"><?php //echo $row['no_of_intern'] ?></div>
+                                    <div class="mode-class"><?php //echo $row['working_mode'] ?></div>
                                     <div>
-                                        <a href="adView.php?id=<?php echo $row['ad_id']; ?>">
+                                        <a href="adView.php?id=<?php //echo $row['ad_id']; ?>">
                                             <button class="data-view-btn" type="submit">View</button></div>
                                         </a>
                                     <div>
