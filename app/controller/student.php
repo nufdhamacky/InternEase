@@ -23,6 +23,8 @@ class Student extends Controller{
     }
     public function selectionlist(){
         $this->view('student/selectionlist');
+        $this->model('User');
+        
 
     }
     

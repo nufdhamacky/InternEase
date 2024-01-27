@@ -8,53 +8,53 @@
 
             <div class="ad-cards">
                 <div class="ad-card" onclick="displayAdDetails(1)">
-                    <img src="<?=ROOT?>assets/images/company1.png" alt="Advertisement 1">
+                    <img src="<?=ROOT?>/assets/images/wso2.png" alt="Advertisement 1">
                     <h3>WSO2</h3>
                     <p>Description of the advertisement 1</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company2.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/codegen.png" alt="Advertisement 2">
                     <h3>Codegen</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company2.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/sysco.png" alt="Advertisement 2">
                     <h3>SyscoLabs</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company1.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/ifs.png" alt="Advertisement 2">
                     <h3>IFS</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company2.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/virtusa.png" alt="Advertisement 2">
                     <h3>Virtusa</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company1.png" alt="Advertisement 2">
-                    <h3>Synergen</h3>
+                    <img src="<?=ROOT?>/assets/images/sh.png" alt="Advertisement 2">
+                    <h3>Synergen Health</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company2.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/sysco.png" alt="Advertisement 2">
                     <h3>SyscoLabs</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company1.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/ifs.png" alt="Advertisement 2">
                     <h3>IFS</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company2.png" alt="Advertisement 2">
+                    <img src="<?=ROOT?>/assets/images/virtusa.png" alt="Advertisement 2">
                     <h3>Virtusa</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
                 <div class="ad-card" onclick="displayAdDetails(2)">
-                    <img src="<?ROOT?>assets/images/company1.png" alt="Advertisement 2">
-                    <h3>Synergen</h3>
+                    <img src="<?=ROOT?>/assets/images/sh.png" alt="Advertisement 2">
+                    <h3>Synergen Health</h3>
                     <p>Description of the advertisement 2</p>
                 </div>
             </div>
