@@ -228,6 +228,17 @@ body
     color: #0b596f;
 }
 
+.compdetails .row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px o;
+}
+
+.row label{
+    position: relative;
+    height: 20px;
+}
 
 .card{
     display: flex;
