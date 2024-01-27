@@ -13,7 +13,7 @@
             session_start();
             
             $url = $this->parseUrl();
-         
+
 
             if (isset($url[0]))
             {
@@ -44,8 +44,6 @@
             call_user_func_array([$this->controller, $this->method], $this->params);
 
         }
-
-
 
         public function parseUrl() {
             if(isset($_GET['url'])) {

@@ -1,12 +1,13 @@
 <?php
 
-class admin extends Controller{
+class Admin extends Controller {
 
 
     public function profile(){
 
 
         $this->view('admin/profile');
+
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
         
