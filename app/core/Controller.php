@@ -21,7 +21,7 @@
         //function to load view
         public function view($view, $data = []) {
             
-            require_once '../view/' . $view . '.view.php';
+            require_once '../app/view/' . $view . '.view.php';
         }
 
     }  
