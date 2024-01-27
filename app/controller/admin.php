@@ -5,6 +5,10 @@ class admin extends Controller{
 
     public function profile(){
 
+        echo "PROFILE";
+
+        $this->view('admin/profile');
+
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
         
             var_dump($_POST);
@@ -25,7 +29,7 @@ class admin extends Controller{
             }
         }
 
-        $this->view('admin/profile');
+       
 
     }
 
@@ -56,6 +60,7 @@ class admin extends Controller{
         var_dump($_POST);
     }
 }
+
 
 
 ?>

@@ -1,8 +1,9 @@
-<?php
-include "../init.php";
-include "admin.php";
+<?php 
+
+include("../core/init.php");
+include("admin.php");
+
 
 $new = new admin;
-$new->model('AdminModel');
+echo    "done";
 $new->profile();
-?>

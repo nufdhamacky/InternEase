@@ -1,7 +1,5 @@
-Options -MultiViews
-RewriteEngine On 
 
-RewriteBase /internease/public
+RewriteEngine On 
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
