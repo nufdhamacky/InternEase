@@ -1,7 +1,6 @@
-<?php session_start(); ?>
+
 <div class="navigation">
     <img src = "../../public/assets/images/logo.png" alt="">
-    <img src = "../../../public/assets/images/logo.png" alt="">
     <ul>
     <li>
         <li>

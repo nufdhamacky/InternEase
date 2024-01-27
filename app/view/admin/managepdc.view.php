@@ -10,7 +10,7 @@
 <body>
 
     <div class="container">
-        <?php include_once('../view/layout/Adminsidemenu.php') ?>
+        <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
             <div class="main">
                 <div class="content">        
                     <form class="insert-form" method="post">

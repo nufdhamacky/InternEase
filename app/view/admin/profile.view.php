@@ -12,10 +12,10 @@
 
 
 <div class="container">
-    <?php include('../view/layout/Adminsidemenu.php') ?>
+    <?php include('../app/view/layout/Admin_sidemenu.php') ?>
     <div class ="main">
         <div class="content">
-            <form class="update-form" method="POST" action='../../controllers/Admin_profile.php'>
+            <form class="update-form" method="POST" action='admin/editprofile'>
                 <div class="formgroup">
                     <label for="col">Attribute:</label>
                     <select name="col" id="col" onchange="togglePasswordFields()">

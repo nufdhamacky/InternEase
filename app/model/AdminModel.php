@@ -1,14 +1,15 @@
 <?php
-include ("../core/connection.php");
 
+class AdminModel extends Database {
 
-class AdminModel {
     private $connection;
+    
+    
 
-    public function __construct($conn) {
-        $this->connection = $conn;
-         $this->connection = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+    public function __construct() {
+        $this->connection = $this->connection();
     }
+
 
     public function updateAdmin($id, $column, $value, $confirmPassword) {
        
@@ -35,6 +36,15 @@ class AdminModel {
         }
     }
 
+    public function getComplaints() {
+        $sql = 'SELECT * FROM complaints';
+        $result = mysqli_query($this->connection, $sql);
+        $complaints = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+        return $complaints;
+    }
+
+
     public function updateStatus($complaintID) {
         $status = array(
             'status' => 1 
@@ -54,14 +64,7 @@ class AdminModel {
         
     */
         
-   /* public function getComplaints() {
-        $sql = 'SELECT * FROM complaints';
-        $result = mysqli_query($this->connection, $sql);
-        $complaints = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_free_result($result);
-        return $complaints;
-    }
-    */
+
 }
     
 
