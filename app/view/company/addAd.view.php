@@ -30,18 +30,79 @@
                         <h2>Add Advertisements</h2>
                 </div>
                 <div class="compdetails">
-                        <h4>Positions</h4>
+                        <h4>Position</h4>
                         <select name="position">
                             <option value = "se">Sofware Engineer</option>
                             <option value = "qa">Quality Assuarance</option>
                             <option value = "ba">Business Analyst</option>
                         </select>
-                        
+                        <br>
+
                         <h4>Requirements</h4>
-                        <input name="requirement" type = "text" class = "bx1">
+                        <br>
+
+                        <div class="row">
+                            <label for="req1">React</label><br>
+                            <input type="checkbox" id="req1" name="req1">
+                        </div>
+                        <div class="row">
+                            <label for="req2">.Net</label><br>
+                            <input type="checkbox" id="req2" name="req2">
+                        </div>
+                        <div class="row">
+                            <label for="req3">Node</label><br>
+                            <input type="checkbox" id="req3" name="req3">
+                        </div>
+                        <div class="row">
+                            <label for="req4">Java</label><br>
+                            <input type="checkbox" id="req4" name="req4">
+                        </div>
+                        <div class="row">
+                            <label for="req1">JavaScript</label><br>
+                            <input type="checkbox" id="req1" name="req1">
+                        </div>
+                        <div class="row">
+                            <label for="req5">DevOps</label><br>
+                            <input type="checkbox" id="req5" name="req5">
+                        </div>
+                        <div class="row">
+                            <label for="req6">C++</label><br>
+                            <input type="checkbox" id="req6" name="req6">
+                        </div>
+                        <div class="row">
+                            <label for="req6">SQL</label><br>
+                            <input type="checkbox" id="req6" name="req6">
+                        </div>
+                        <div class="row">
+                            <label for="req6">Python</label><br>
+                            <input type="checkbox" id="req6" name="req6">
+                        </div>
+                        <br>
+
+                        <!-- <input name="requirement" type = "text" class = "bx1"> -->
                     
                         <h4>Qualifications</h4>
-                        <input name="qualifications" type = "text" class = "bx1">
+                        <br>
+
+                        <div class="row">
+                            <label for="req1">BSc. in Computer Science</label><br>
+                            <input type="checkbox" id="req1" name="req1" value="Bike">
+                        </div>
+                        <div class="row">
+                            <label for="req2">BSc. in Information systems</label><br>
+                            <input type="checkbox" id="req2" name="req2" value="Bike">
+                        </div>
+                        <div class="row">
+                            <label for="req3">BSc.(Hons) in Computer Science</label><br>
+                            <input type="checkbox" id="req3" name="req3" value="Bike">
+                        </div>
+                        <div class="row">
+                            <label for="req5">BSc.(Hons) in Information systems</label>
+                            <input type="checkbox" id="req4" name="req4" value="Bike">
+                        </div>
+                        <br>
+
+                        <!-- <input name="qualifications" type = "text" class = "bx1"> -->
                         
                         <h4>Internship Period</h4>
                         <div class = "card">
@@ -49,6 +110,7 @@
                             <h4 class = "h4">to</h4>
                             <input name="end_date" class="ad-date" type = "month" class = "bx1">
                         </div>
+                        <br>
 
                         <div class = "card">
                             <h4>No. of Interns</h4>
