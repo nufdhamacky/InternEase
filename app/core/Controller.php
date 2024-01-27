@@ -9,7 +9,7 @@
         public function __construct() {
             $this->database = new Database();
             $this->conn = $this->database->connection();
-        }
+        }       
 
         //function to load model
         public function model($model) {

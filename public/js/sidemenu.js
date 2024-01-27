@@ -8,35 +8,38 @@ const request=document.getElementById('request');
 const schedule=document.getElementById('schedule');
 const profile=document.getElementById('profile');
 const color="#CFE3EA";
-if(path.startsWith('/PDC/index.php'))
+const startUrl='/internease/public/pdc';
+
+
+if(path.startsWith(`${startUrl}/index`)||path.startsWith(`${startUrl}/dashboard`))
 {
     dashboard.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/advertisement.php'))
+else if(path.startsWith(`${startUrl}/advertisement`))
 {
     advertisement.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/managestudent.php'))
+else if(path.startsWith(`${startUrl}/managestudent`))
 {
     manageStudent.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/managecompany.php'))
+else if(path.startsWith(`${startUrl}/managecompany`))
 {
     manageCompany.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/roundselection.php'))
+else if(path.startsWith(`${startUrl}/roundselection`))
 {
     roundSelection.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/request.php'))
+else if(path.startsWith(`${startUrl}/request`))
 {
     request.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/schedule.php'))
+else if(path.startsWith(`${startUrl}/schedule`))
 {
     schedule.style.backgroundColor=color;
 }
-else if(path.startsWith('/PDC/profile.php'))
+else if(path.startsWith(`${startUrl}/profile.php`))
 {
     profile.style.backgroundColor=color;
 }

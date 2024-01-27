@@ -2,49 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDC Advertisement</title>
+    <title>Company Request</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/pdc/ad.css">
 </head>
 <body>
-    <div class="container">
-    <?php include_once('../app/view/layout/pdcSidemenu.php') ?>
-        <div class ="main">
-            <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-                <div class = "user">
-                    <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span>Hamsayini</span>
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    
-                </div>
-
-            </div>
-
-        <!--order data list-->
-        <div class="details">
+<div class="details">
             <div class="internshipAds">
                 <div class = "cardHeader">
-                    <h2>Internship Advertisements</h2>
+                    <h2>Company Requests</h2>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <td>Company Name</td>
-                            <td>No of Interns</td>
-                            <td>Job</td>
+                            <td>Email</td>
+                            <td>Website</td>
+                            <td>Contact Person </td>
+                            <td>Contact No</td>
                             <td>Status</td>
+                            <td>View</td>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr>
                             <td>WSO2</td>
-                            <td>5</td>
-                            <td>Software Engineering</td>
+                            <td>wso2@gmail.com</td>
+                            <td>
+                                <a href="https://wso2.com/" target="_blank">https://wso2.com/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -52,13 +41,17 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td><a href="ads" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
                             <td>99X</td>
-                            <td>2</td>
-                            <td>QA</td>
+                            <td>99X@gmail.com</td>
+                            <td>
+                                <a href="https://99x.io/" target="_blank">https://99x.io/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -66,13 +59,17 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td><a href="ads" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
                             <td>Virtusa</td>
-                            <td>2</td>
-                            <td>Web Development</td>
+                            <td>virtusa@gmail.com</td>
+                            <td>
+                                <a href="https://www.virtusa.com/" target="_blank">https://www.virtusa.com/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -80,83 +77,17 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>                            
-                            <td><a href="ads" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>CodeGen</td>
-                            <td>1</td>
-                            <td>Software Engineering</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="ads" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>IFS</td>
-                            <td>2</td>
-                            <td>QA</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>99X</td>
-                            <td>3</td>
-                            <td>Software Engineering</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Virtusa</td>
-                            <td>3</td>
-                            <td>Web Development</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
                             <td>CodeGen</td>
-                            <td>5</td>
-                            <td>QA</td>
+                            <td>codegen@gmail.com</td>
                             <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
+                                <a href="https://codegen.co.uk/" target="_blank">https://codegen.co.uk/</a>
                             </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Virtusa</td>
-                            <td>4</td>
-                            <td>Software Engineering</td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -169,8 +100,12 @@
 
                         <tr>
                             <td>IFS</td>
-                            <td>3</td>
-                            <td>Web Development</td>
+                            <td>ifs@gmail.com</td>
+                            <td>
+                                <a href="https://www.ifs.com/" target="_blank">https://www.ifs.com/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -180,11 +115,14 @@
                             </td>
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
-
                         <tr>
-                            <td>CodeGen</td>
-                            <td>4</td>
-                            <td>QA</td>
+                            <td>Microsoft</td>
+                            <td>microsoft@gmail.com</td>
+                            <td>
+                                <a href="https://www.microsoft.com/en-lk" target="_blank">https://www.microsoft.com/en-lk</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -194,11 +132,31 @@
                             </td>
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
-
                         <tr>
-                            <td>Virtusa</td>
-                            <td>5</td>
-                            <td>QA</td>
+                            <td>applexus</td>
+                            <td>applexus@gmail.com</td>
+                            <td>
+                                <a href="https://www.applexus.com/" target="_blank">https://www.applexus.com/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
+                            <td>
+                                <select class="status-select">
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </td>
+                            <td><a href="#" span class = "view"></span>View</td>
+                        </tr>
+                        <tr>
+                            <td>Sysco Labs</td>
+                            <td>sysco@gmail.com</td>
+                            <td>
+                                <a href="https://syscolabs.lk/" target="_blank">https://syscolabs.lk/</a>
+                            </td>
+                            <td>Sayi </td>
+                            <td>0776453123</td>
                             <td>
                                 <select class="status-select">
                                     <option value="pending">Pending</option>
@@ -214,11 +172,5 @@
             </div>
         </div>
         
-        
-            
-        </div>
-    </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
