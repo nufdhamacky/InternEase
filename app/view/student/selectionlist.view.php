@@ -9,12 +9,14 @@
             <?php require_once("../app/view/inc/topbar.php"); ?>
             
         <!-- Sample form trial-->
-        <div class="form">
-            <form action="<?=ROOT?>/student/selectionlist" method="get">
-            Name: <input type="text" name="name"><br>
-            E-mail: <input type="text" name="email"><br>
-            <input type="submit">
-            </form>
+        <div class="grid-container">
+            <div class="form">
+                <form action="<?=ROOT?>/student/selectionlist" method="get">
+                Name: <input type="text" name="name"><br>
+                E-mail: <input type="text" name="email"><br>
+                <input type="submit">
+                </form>
+            </div>
         </div>
         
 

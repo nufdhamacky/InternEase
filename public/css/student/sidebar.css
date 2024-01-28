@@ -1,42 +1,97 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu' , sans-serif;
+}
 
-/* Styling for the top bar */
-.top-bar {
+body
+{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container
+{
+    position: relative;
+    width: 100%;
+}
+
+.navigation 
+{
     position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0B5A6F;
+    border-left: 10px solid #0B5A6F;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation img
+{
+    width: 150px;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+.navigation img ul
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li
+{
+    position: relative;
+    width:100%;
+    list-style: none;
+}
+ 
+.navigation ul li:hover
+{
+    background-color: #cfe3ea7f;
+    border-radius: 10px;
+}
+
+.navigation ul li:nth-child(7)
+{
+    margin-bottom: 50px;
+}
+
+.navigation ul li a
+{
+    position: relative;
+    display: block;
+    width: 100%;
     display: flex;
-    width: 77vw;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #a2a7a8a5;
-    color: #000;
-    padding: 15px;
-    margin-bottom: 100px;
-    border-radius: 15px;
-    z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.2px);
-    -webkit-backdrop-filter: blur(5.2px);
-    border: 1px solid rgba(190, 102, 102, 0.29);
+    text-decoration: none;
+    color: white;
 }
 
-.content{
-    padding-top: 70px;
+.navigation ul li a .icon
+{
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
 }
 
-.page-title {
-    font-size: 24px;
+.navigation ul li a .icon ion-icon
+{
+    font-size: 0.75cm;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-}
-
-.username {
-    margin-right: 10px;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; /* For a circular avatar */
+.navigation ul li a .title
+{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
 }

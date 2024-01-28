@@ -1,0 +1,79 @@
+
+/* Styling for the top bar */
+.top-bar {
+    position: fixed;
+    display: flex;
+    width: 77vw;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6a8595;
+    color: #000;
+    padding: 15px;
+    margin-bottom: 100px;
+    border-radius: 15px;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(190, 102, 102, 0.29);
+    
+}
+.grid-container {
+    display: inline-grid;
+    column-gap: 20px; /* Adjust the gap between items as needed */
+    grid-template-columns: auto auto auto;
+    background-color: #2b4c5d;
+    padding: 10px;
+    
+    width: 250px; /* Set your desired width */
+    box-sizing: border-box; /* Include padding in the total width */
+}
+.grid-items {
+    display: inline-flex; /* Use inline-flex to make the items appear in a row */
+    color: azure;
+}
+
+.user-profile,
+.notification,
+.logout {
+    display: inline-block; /* Make individual items appear next to each other */
+    margin-right: 20px; /* Adjust margin as needed */
+}
+.notification,
+.logout{
+    padding-top: 10px;
+}
+.notification{
+    padding-left: 20px;
+}
+
+div.title{
+    display: inline;
+    font-size: 35px ;
+    font-family: 'Consolas, 'Courier New', monospace';
+}
+.content{
+    padding-top: 70px;
+}
+
+.page-title {
+    font-size: 40px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin-right: 10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: azure;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* For a circular avatar */
+}

@@ -14,12 +14,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="complaints">
-                        <span class="icon"><i class="fa-solid fa-circle-question"></i></span>
-                        <span class="title">Complaints</span>
-                    </a>
-                </li>
-                <li>
                     <a href="profile">
                         <span class="icon"><i class="fa-solid fa-user"></i></span>
                         <span class="title">Profile</span>

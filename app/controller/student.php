@@ -9,10 +9,6 @@ class Student extends Controller{
         $this->view('student/advertisement');
 
     }
-    public function complaints(){
-        $this->view('student/complaints');
-
-    }
     public function profile(){
         $this->view('student/profile');
 
@@ -25,7 +21,6 @@ class Student extends Controller{
         $this->view('student/selectionlist');
         $this->model('User');
         
-
     }
     
     public function logout(){

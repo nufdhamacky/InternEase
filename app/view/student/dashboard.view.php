@@ -27,7 +27,7 @@
                     <input type="text" name="email" id="email">
                 </li>
                 <li>
-                    <label for="status">Application Status:</label>
+                    <label for="status">Status:</label>
                     <input type="text" name="status" id="status">
                 </li>
             </ul>
@@ -47,7 +47,7 @@
             <div class="info-box intv">
                 <div class="textbottom" style="flex-grow: 3;">Interviews Scheduled</div>
                 <div class="number" style="flex-grow: 1;">03</div> 
-                <button class="button button-info" style="flex-grow: 1;" onclick="redirectPage('interview.html')">View All</button>
+                <button class="button button-info" style="flex-grow: 1;" onclick="redirectPage('/interview.html')">View All</button>
             </div>
             </div>
 
