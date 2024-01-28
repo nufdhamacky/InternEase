@@ -142,7 +142,6 @@ body
     margin-left: 10px;
 }
 
-/* ================== Student Details List ============== */
 .details {
   position: relative;
   width: 100%;
@@ -271,4 +270,22 @@ select{
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
+}
+
+.submit .sbtn{
+    background-color: #96D1E1; 
+    font-size: 20px;
+    color: black; 
+    width: 350px;
+    font-weight: bold;
+    border-color: #c7c5bbb1; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.submit button :hover {
+    background-color: #72abbb;
 }
