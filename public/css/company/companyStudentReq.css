@@ -271,27 +271,34 @@ body
     cursor: pointer;
 }
 
-.status.recruited {
-    color: #8de02c;
-    font-size: 14px;
-    font-weight: 500;
-  }
-.status.pending {
-    color: #5BC4CB;
-    font-size: 14px;
-    font-weight: 500;
-}
-.status.rejected {
-    color:#f00;
-    font-size: 14px;
-    font-weight: 500;
+.details select option[value="shortlist"] {
+    background-color: #8de02c;
+    color: white;
 }
 
-.details select{
+.details select option[value="reject"] {
+    background-color: #f00; 
+    color: white;
+}
+
+.details select {
     padding: 2px 10px;
     border: 1px solid rgba(11, 90, 111, 1);
     color: rgba(11, 90, 111, 1);
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Add a class for styling the selected option */
+.details select.selected-shortlist {
+    background-color: #8de02c; 
+    color: white; 
+}
+
+.details select.selected-reject {
+    background-color: #f00; 
+    color: white; 
 }
