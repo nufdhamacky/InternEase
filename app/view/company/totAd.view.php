@@ -24,7 +24,6 @@
 
             </div>
             
-        <!--Advertisements list-->
         <div class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
