@@ -5,8 +5,7 @@ class Admin extends Controller {
 
     public function profile(){
 
-
-        $this->view('admin/profile');
+        $this->model('AdminModel');
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
@@ -22,11 +21,20 @@ class Admin extends Controller {
         
             
             if ($adminModel->updateAdmin($id, $column, $updateValue, $confirmPassword)) {
+                echo '<script type="text/javascript">';
+                echo 'alert("Updated Successfully");';
+                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
+                echo '</script>';
                 exit();
             } else {
-                echo("FAIL");
+                echo '<script type="text/javascript">';
+                echo 'alert("Unsucessful Update");';
+                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
+                echo '</script>';
                 exit();
             }
+        }else{
+            $this->view('admin/profile');
         }
 
        

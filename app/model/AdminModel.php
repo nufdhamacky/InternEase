@@ -22,16 +22,8 @@ class AdminModel extends Database {
         $updateStatement->bind_param("ss", $value, $id);
 
         if ($updateStatement->execute()) {
-            echo '<script type="text/javascript">';
-            echo 'alert("Updated Sucessfully");';
-            echo 'window.location.href = "'.$_SERVER['PHP_SELF'].'";'; 
-            echo '</script>';
             return true;
         } else {
-            echo '<script type="text/javascript">';
-            echo 'alert("Updated Sucessfully");';
-            echo 'window.location.href = "'.$_SERVER['PHP_SELF'].'";'; 
-            echo '</script>';
             return false;   
         }
     }

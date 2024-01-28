@@ -15,7 +15,7 @@
     <?php include('../app/view/layout/Admin_sidemenu.php') ?>
     <div class ="main">
         <div class="content">
-            <form class="update-form" method="POST" action='admin/editprofile'>
+            <form class="update-form" method="POST" action='profile'>
                 <div class="formgroup">
                     <label for="col">Attribute:</label>
                     <select name="col" id="col" onchange="togglePasswordFields()">

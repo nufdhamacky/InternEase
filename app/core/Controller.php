@@ -24,4 +24,10 @@
             require_once '../app/view/' . $view . '.view.php';
         }
 
+        public function redirect($link)
+        {
+            header("Location: ".trim($link,"/"));
+            exit();
+        }
+
     }  
