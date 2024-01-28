@@ -49,10 +49,11 @@
     align-items: center;
 }
 
-.rightpart h4{
+.rightpart h2{
     margin-top: 50px;
-    font-size: 30px;
+    font-size: 50px;
     color: #0B5A6F;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .box{
@@ -60,41 +61,31 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .box1, .box2{
     font-size: 15px;
     color: black;
     background-color: #EAEDF1;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #B5B4B0;
-    margin-top: 10px;
-    padding: 5px 10px;
-    height: 25px;
-}
-/* .box1, .box2{
-    font-size: 15px;
-    color: black;
-    background-color: #EAEDF1;
-    border: none;
-    outline: none;   
     margin-top: 10px;
     padding: 10px 15px;
     height: 30px;
-} */
+}
 
-/* .box1::placeholder, 
+.box1::placeholder, 
 .box2::placeholder{
-    color: #c7c5bbb1;
-} */
+    color: #c7c5bbb1;  
+}
 
 .eye-icon{
     position: absolute;
     font-size: 25px;
-    top: 66%;
-    right: 245px;
-    transform: translateY(0%);
+    top: 50%;
+    right: 250px;
+    transform: translateY(-60%);
     cursor: pointer;
 }
 
@@ -102,16 +93,14 @@
     font-size: 25px;
     margin-right: 300px;
     margin-top: 20px;
-    width: 100%;
 }
 
-/* .member{
+.fp{
+    align-self: flex-end;
     margin-top: 10px;
-    text-align: center;
-} */
+}
 
-.submit button{
-   
+.submit button {
     background-color: #AAD4E1; 
     font-size: 20px;
     color: black; 
@@ -122,55 +111,19 @@
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-.submit button :hover {
+.submit button:hover {
     background-color: #72abbb;
 }
 
-.member{
-    margin-top: 10px;
+.dontacc{
+    margin-top: 170px;
     text-align: center;
 }
 
-.login{
+.su{
     color: #0B5A6F;
     font-weight: bold;
-}
-
-.error{
-    color: red;
-    font-size: 15px;
-    margin-top: 10px;
-}
-
-@media screen and (max-width: 768px) {
-    .main-div {
-        flex-direction: column;
-    }
-
-    .leftpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .rightpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .leftpart h1 {
-        font-size: 24px;
-    }
-
-    .rightpart h4 {
-        font-size: 24px;
-    }
-
-    .box {
-        width: 100%;
-    }
-
-    .danger{
-        color: red;
-    }    
 }

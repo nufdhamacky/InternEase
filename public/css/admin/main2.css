@@ -92,9 +92,9 @@
 .eye-icon{
     position: absolute;
     font-size: 25px;
-    top: 66%;
+    top: 55%;
     right: 245px;
-    transform: translateY(0%);
+    transform: translateY(-90%);
     cursor: pointer;
 }
 
@@ -110,8 +110,7 @@
     text-align: center;
 } */
 
-.submit button{
-   
+.submit button {
     background-color: #AAD4E1; 
     font-size: 20px;
     color: black; 
@@ -125,7 +124,7 @@
     margin-top: 40px;
 }
 
-.submit button :hover {
+.submit button:hover {
     background-color: #72abbb;
 }
 
@@ -137,40 +136,4 @@
 .login{
     color: #0B5A6F;
     font-weight: bold;
-}
-
-.error{
-    color: red;
-    font-size: 15px;
-    margin-top: 10px;
-}
-
-@media screen and (max-width: 768px) {
-    .main-div {
-        flex-direction: column;
-    }
-
-    .leftpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .rightpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .leftpart h1 {
-        font-size: 24px;
-    }
-
-    .rightpart h4 {
-        font-size: 24px;
-    }
-
-    .box {
-        width: 100%;
-    }
-
-    .danger{
-        color: red;
-    }    
 }
