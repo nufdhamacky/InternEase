@@ -20,9 +20,9 @@
             </a>
         </li>
         <li>
-            <a href="shortlistStudents">
+            <a href="shortlistedStu">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                <span class="title">Shortlist Students</span>
+                <span class="title">Shortlisted Students</span>
             </a>
         </li>
         <li>
@@ -31,18 +31,19 @@
                 <span class="title">Schedule</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="request">
                 <span class="icon"><ion-icon name="swap-horizontal-outline"></ion-icon></span>
                 <span class="title">Request</span>
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="profile">
                 <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
                 <span class="title">Profile</span>
             </a>
         </li>
+        <br>
         <li>
             <a href="logout">
                 <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
