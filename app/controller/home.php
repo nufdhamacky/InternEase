@@ -119,7 +119,7 @@
                     $this->view('home/signup', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                    echo "<script> window.location.href='http://localhost/internease/public/company/index';</script>";
                 }
 
             } else {
