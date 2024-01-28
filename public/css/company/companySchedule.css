@@ -151,12 +151,11 @@ body
     font-size: 3rem;
 }
 
-.submit {
+.submit{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 70vh;
 }
 
 .submit button{
