@@ -1,42 +1,38 @@
-/* General table styles */
-.schedule-container{
-    padding-top: 100px;
-    width: 77vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.scheduleTable {
-    padding-top: 10px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .calendar {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Header styles */
-.scheduleTable th {
-    background-color: #007bff;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #4CAF50;
     color: white;
-    font-weight: bold;
-    padding: 10px;
-    text-align: left;
-}
-
-/* Alternate row colors for better readability */
-.scheduleTable tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Data cell styles */
-.scheduleTable td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Hover effect */
-.scheduleTable tbody tr:hover {
-    background-color: #cceeff;
-}
+  }
+  
