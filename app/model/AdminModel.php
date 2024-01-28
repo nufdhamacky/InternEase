@@ -1,6 +1,6 @@
 <?php
 
-class AdminModel extends Database {
+class AdminModel extends model {
 
     private $connection;
     
@@ -16,8 +16,7 @@ class AdminModel extends Database {
         if ($column === 'password') {
             $value = password_hash($confirmPassword, PASSWORD_DEFAULT);
         }
-
-      
+        
         $updateStatement = $this->connection->prepare("UPDATE admins SET $column = ? WHERE Admin_ID = ?");
         $updateStatement->bind_param("ss", $value, $id);
 
@@ -26,6 +25,28 @@ class AdminModel extends Database {
         } else {
             return false;   
         }
+    }
+
+    public function insertPDC($data = [], $confirmPassword) {
+        if ($data['password'] !== $confirmPassword) {
+            return false;
+        } else {
+            $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
+            if ($this->query("INSERT INTO " . $this->getTable() . " (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", array_values($data))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+
+    public function getCompany() {
+        $sql = 'SELECT * FROM company';
+        $result = mysqli_query($this->connection, $sql);
+        $companyData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+        return $companyData;
     }
 
     public function getComplaints() {
@@ -59,5 +80,3 @@ class AdminModel extends Database {
 
 }
     
-
-?>

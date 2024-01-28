@@ -13,7 +13,7 @@
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
             <div class="main">
                 <div class="content">        
-                    <form class="insert-form" method="post">
+                    <form class="insertPDC_form" method="post" action="managepdc">
 
                         <div class="formgroup">
                         <label for="pdc_id">PDC ID:</label>
@@ -48,7 +48,7 @@
                     </form>
 
 
-                    <form class="update-form"  method="post">
+                    <form class="updatePDC-form"  method="post" action="managepdc">
 
                         <div class="formgroup">
                             <label for="col">Column:</label>

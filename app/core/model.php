@@ -18,18 +18,27 @@ class Model extends Database {
         ]);
     }
 
+    public function setTable($table) {
+        $this->table = $table;
+    }
+
     // get all data
     public function findall() {
         $query = "SELECT * FROM $this->table ";
         return $this->query($query, []);
     }
 
+    public function getTable() {
+        return $this->table;
+    }
+
     // insert data
     public function insert($data) {
         $columns = implode(", ", array_keys($data));
-        $values = ":" . implode(", :", array_keys($data));
+        $values = implode(", ", array_fill(0, count($data), "?"));
         $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
-        return $this->query($query, $data);
+    
+        return $this->query($query, array_values($data), 'object');
     }
 
     // update data
@@ -86,5 +95,3 @@ class Model extends Database {
     }
     
 }
-?>
-

@@ -9,8 +9,6 @@ class Admin extends Controller {
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
-        
-            var_dump($_POST);
             
             $id = $_POST['id']; 
             $column = $_POST["col"];
@@ -41,6 +39,10 @@ class Admin extends Controller {
 
     }
 
+    public function report(){
+        $this->view('admin/report');
+    }
+
     public function logout(){
         session_destroy();
         echo "<script> window.location.href='http://localhost/internease/public/home/index';</script>";
@@ -57,12 +59,44 @@ class Admin extends Controller {
     }
 
     public function managepdc(){
-        $this->view('admin/managepdc');
+        $this->model('AdminModel');
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
+                
+                $data =[
+                    
+                'id' => $_POST["pdc_id"],
+                'first_name' => $_POST["pdc_fname"],
+                'last_name' => $_POST["pdc_lname"],
+                'email' => $_POST["pdc_email"],
+                'password' => $_POST["pdc_pwd"],
+            
+            ];
+
+            $confirmPassword = $_POST["pdc_rpwd"] ;
+            
+            $adminModel = new AdminModel; 
+            $adminModel->setTable('pdc_user');
+            
+                if ($adminModel->insertPDC($data,$confirmPassword)) {
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Inserted PDC User Successfully");';
+                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                    echo '</script>';
+                    exit();
+                } else {
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Unsucessful PDC user insertion");';
+                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                    echo '</script>';
+                    exit();
+                }
+        }else{
+            $this->view('admin/managepdc');
+        }
+
     }
 
-    public function report(){
-        $this->view('admin/report');
-    }
 
     public function editreport(){
         var_dump($_POST);
