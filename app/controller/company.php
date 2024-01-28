@@ -31,7 +31,7 @@
 
         public function addAd(){
             
-            $this->view('company/addAdd');
+            $this->view('company/addAd');
 
         }
 
@@ -43,7 +43,7 @@
 
         public function schedule(){
             
-            $this->view('company/schedule');
+            $this->view('company/scheduleInt');
 
         }
 
@@ -59,10 +59,52 @@
 
         }
 
-        public function techTalk(){
+        public function tech(){
             
-            $this->view('company/techTalk');
+            $this->view('company/tech');
 
+        }
+
+        public function companyVisit(){
+            
+            $this->view('company/companyVisit');
+
+        }
+
+        public function profile(){
+            
+            $this->view('company/profile');
+
+        }
+
+        public function totStudents(){
+            
+            $this->view('company/totStudents');
+
+        }
+
+        public function shortlistedStu(){
+            
+            $this->view('company/shortlistedStu');
+
+        }
+
+        public function totAd(){
+            
+            $this->view('company/totAd');
+
+        }
+
+        public function getTotalAd(){
+            $CompanyModel = $this->model('CompanyModel');
+            $adCount = $CompanyModel->getTotalAd($this->conn);
+            return $adCount;
+        }
+
+        public function getTotalStudents(){
+            $CompanyModel = $this->model('CompanyModel');
+            $studentCount = $CompanyModel->getTotalStudents($this->conn);
+            return $studentCount;
         }
 
         public function logout(){
