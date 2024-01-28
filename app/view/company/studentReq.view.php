@@ -32,7 +32,9 @@
 
                 <div class = "allstudents">
                     <select>
-                        <option value = "all">All</option>
+                        <option value = "se">Software Engineer</option>
+                        <option value = "qa">Quality Assuarance</option>
+                        <option value = "ba">Business Analyst</option>
                     </select>
                 </div>
             </div>
@@ -154,6 +156,7 @@
             
         </div>
     </div>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
