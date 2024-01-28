@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,13 +24,13 @@
 
             </div>
 
-            <div class="submit" align="center">
+            <div class="submit">
 
                 <a href="scheduleInt">
                     <button type="submit">SCHEDULE INTERVIEW</button>
                 </a>
 
-                <a href="techTalk">
+                <a href="tech">
                     <button type="submit">SCHEDULE TECH-TALK</button>
                 </a>
 
@@ -45,4 +45,4 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
-</html>
+</html> -->
