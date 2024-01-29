@@ -1,14 +1,4 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Ubuntu' , sans-serif;
-}
 
-body
-{
-    min-height: 100vh;
-    overflow-x: hidden;
-}
 
 .container
 {

@@ -161,4 +161,4 @@ const adTypesChart = new Chart(document.getElementById('adTypesChart').getContex
 
     </script>
 
-<?php require_once("../app/views/inc/footer.php"); ?>
+<?php require_once("../app/view/inc/footer.php"); ?>
