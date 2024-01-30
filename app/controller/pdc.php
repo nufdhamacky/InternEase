@@ -1,26 +1,28 @@
 <?php 
-
+    include_once('../app/repository/CompanyRepository.php');
+    include_once('../app/repository/StudentRepository.php');
+    include_once('../app/model/StudentModel.php');
     class Pdc extends Controller {
 
-        // public function isLoggedIn(){
-        //     if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="company"){
-        //         return 1;
-        //     } else{
-        //         return 0;
-        //     }
-        // }
+        private $companyRepository;
+        private $studentRepository;
 
+        public function __construct() {
+            parent::__construct();
+            $this->companyRepository = new CompanyRepository($this->conn);
+            $this->studentRepository = new StudentRepository($this->conn);
 
-        public function getCompanyCount(){
-            $pdcModel = $this->model('PdcModel');
-            $companyCount=$pdcModel->getCompanyCount($this->conn);
-            return $companyCount;
         }
 
-        public function getBlackListCompanyCount(){
-            $pdcModel = $this->model('PdcModel');
-            $companyCount=$pdcModel->getBlackListCount($this->conn);
-            return $companyCount;
+
+        public function getCompanyCount():int{
+            $count=$this->companyRepository->getCount();
+            return $count;
+        }
+
+        public function getBlackListCompanyCount():int{
+            $count=$this->companyRepository->getBlackListCount();
+            return $count;
         }
 
         public function getStudentCount(){
@@ -28,6 +30,33 @@
             $count=$pdcModel->getStudentCount($this->conn);
             return $count;
         }
+
+        public function getAllCompany():array{
+            
+            return $this->companyRepository->getAll();;
+        }
+
+        public function getAllStudent():array{
+            
+            return $this->studentRepository->getAll();;
+        }
+
+        public function addNewStudent(){
+           
+            $userId=$_SESSION["userId"];
+            $email = mysqli_real_escape_string($this->conn, $_POST['email']);
+			$password = mysqli_real_escape_string($this->conn, $_POST['password']);
+            $firstName=mysqli_real_escape_string($this->conn, $_POST['first_name']);
+            $lastName=mysqli_real_escape_string($this->conn, $_POST['last_name']);
+            $regNo=mysqli_real_escape_string($this->conn, $_POST['reg_no']);
+            $indexNo=mysqli_real_escape_string($this->conn, $_POST['index_no']);
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            $student=new StudentModel($userId,$email,$firstName,$lastName,$hashed_password,$regNo,$indexNo);
+            $this->studentRepository->save($student);
+            echo "<script> window.location.href='http://localhost/internease/public/pdc/managestudent';</script>";
+        }
+
 
         public function index(){
 
@@ -100,6 +129,10 @@
         public function ads()
         {
             $this->view('pdc/ads');
+        }
+
+        public function addstudent(){
+            $this->view('pdc/addstudent');
         }
         public function logout(){
             session_destroy();

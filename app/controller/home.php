@@ -44,7 +44,7 @@
             $validation = new Validation();
 
             $errors = $validation->validateLogin($username, $password);
-
+            
             if(!$errors){
 
                 //creating user model object

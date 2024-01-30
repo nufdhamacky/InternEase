@@ -46,7 +46,7 @@
                 <div class ="card">
                     <a style = "text-decoration: none" href="managestudent">
                     <div>
-                        <div class="number"><?php echo $pdController->getStudentCount() ?></div>
+                        <div class="number"><?php echo $pdController->getStudentCount(); ?></div>
                         <div class="cardName">Registered Students</div>
                     </div>
                     </a>

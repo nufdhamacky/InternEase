@@ -34,4 +34,16 @@ class PdcModel{
         }
         return 0;
     }
+
+    function getCompanyDetails($conn)
+    {
+        $sql="SELECT * FROM company";
+
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        if($result->num_rows > 0){
+            return $row;
+        }
+        return 0;
+    }
 }

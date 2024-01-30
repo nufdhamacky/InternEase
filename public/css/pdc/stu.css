@@ -187,7 +187,7 @@ body
 .details table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: -572px;
+    margin-top: 10px;
 }
 
 .details table thead td {
