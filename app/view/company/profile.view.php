@@ -1,3 +1,8 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

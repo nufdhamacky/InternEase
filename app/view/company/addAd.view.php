@@ -1,3 +1,8 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +35,15 @@
                         <h2>Add Advertisements</h2>
                 </div>
                 <div class="compdetails">
+
+                <?php
+                  //  if(isset($_SESSION['status'])){
+                    //    echo "<h6>".$_SESSION['status']. "</h6>";
+                   //    unset($_SESSION['status']);
+                    //}
+                ?>
+
+                    <form action="<?=ROOT?>/app/controller/company.php" method="POST">
                         <h4>Position</h4>
                         <select name="position">
                             <option value = "se">Sofware Engineer</option>
@@ -84,25 +98,15 @@
                         <h4>Qualifications</h4>
                         <br>
 
-                        <div class="row">
-                            <label for="req1">BSc. in Computer Science</label><br>
-                            <input type="checkbox" id="req1" name="req1" value="Bike">
-                        </div>
-                        <div class="row">
-                            <label for="req2">BSc. in Information systems</label><br>
-                            <input type="checkbox" id="req2" name="req2" value="Bike">
-                        </div>
-                        <div class="row">
-                            <label for="req3">BSc.(Hons) in Computer Science</label><br>
-                            <input type="checkbox" id="req3" name="req3" value="Bike">
-                        </div>
-                        <div class="row">
-                            <label for="req5">BSc.(Hons) in Information systems</label>
-                            <input type="checkbox" id="req4" name="req4" value="Bike">
-                        </div>
+                        <select name="position">
+                            <option value = "cs">BSc. in Computer Science</option>
+                            <option value = "is">BSc. in Information systems</option>
+                            <option value = "cs-sp">BSc.(Hons) in Computer Science</option>
+                            <option value = "is-sp">BSc.(Hons) in Information systems</option>
+                        </select>
                         <br>
 
-                        <!-- <input name="qualifications" type = "text" class = "bx1"> -->
+                        <br>
                         
                         <h4>Internship Period</h4>
                         <div class = "card">
@@ -126,8 +130,9 @@
                         </div>
                         
                         <div class="submit">
-                            <button type="submit">SAVE</button>
+                            <button type="submit" name="submit" value="saveAd">SAVE</button>
                         </div>
+                    </form>
                 </div>
             </div>
         </form>

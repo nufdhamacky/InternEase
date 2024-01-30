@@ -52,3 +52,5 @@
         </li>
     </ul>
 </div>
+
+<script src="<?=ROOT?>/js/companySidemenu.js"></script>

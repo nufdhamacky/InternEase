@@ -11,6 +11,10 @@
 <body>
     <div class="container">
         <div class="main-left">
+            <div class="img">
+                <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
+            </div>
+            
             <div class="box">
                 <div class="welcome-part">
                     <h1>WELCOME TO</h1>
@@ -33,7 +37,7 @@
                 <a href="home/service"><div class="card">Services</div></a>
                 <a href="home/contact"><div class="card">Contact Us</div></a>
             </div>
-            <img src="<?=ROOT?>/assets/images/landing-img.PNG" alt="">
+            <img src="<?=ROOT?>/assets/images/Job-interview.jpg" alt="">
         </div>
     </div>
 </body>
