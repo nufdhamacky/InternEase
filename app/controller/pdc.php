@@ -138,6 +138,10 @@
         public function firstround(){
             $this->view('pdc/firstround');
         }
+
+        public function secondround(){
+            $this->view('pdc/secondround');
+        }
         public function logout(){
             session_destroy();
             echo "<script> window.location.href='http://localhost/internease/public/home';</script>";

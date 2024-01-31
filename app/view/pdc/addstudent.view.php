@@ -19,6 +19,7 @@
             <form class="box" action="<?=ROOT?>/pdc/addNewStudent" method="post">
                 <h2>Welcome to InternEase</h2>
                     <p class="label1">First Name:<br></p>
+               
                 <input type="text" required name="first_name" placeholder="Enter your first name" class="box1">
                     <p class="label1">Last Name:<br></p>
                 <input type="text" required name="last_name" placeholder="Enter your last name" class="box2">

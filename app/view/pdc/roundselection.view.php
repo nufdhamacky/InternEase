@@ -37,10 +37,12 @@
                     
                 </div>
                 <div class ="card">
+                <a style = "text-decoration: none" href="secondround">
                     <div>
                         <div class="number"></div>
                         <div class="cardName"><b>Set Second Round</b></div>
                     </div>
+                </a>
                     <div class="iconBx">
                     <ion-icon name="calendar-outline"></ion-icon>
                     </div>
