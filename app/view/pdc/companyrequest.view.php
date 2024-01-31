@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/pdc/ad.css">
 </head>
 <body>
-<div class="details">
+    <div class="details">
             <div class="internshipAds">
                 <div class = "cardHeader">
                     <h2>Company Requests</h2>

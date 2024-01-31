@@ -25,10 +25,12 @@
             </div>
             <div class ="cardBox">
                 <div class ="card">
+                <a style = "text-decoration: none" href="firstround">
                     <div>
-                        <div class="number">2023.11.04</div>
-                        <div class="cardName">Ending period of First Round</div>
+                        <!-- <div class="number">2023.11.04</div> -->
+                        <div class="cardName"><b>Set First Round</b></div>
                     </div>
+                </a>
                     <div class="iconBx">
                     <ion-icon name="alert-circle-outline"></ion-icon>   
                 </div>
@@ -37,7 +39,7 @@
                 <div class ="card">
                     <div>
                         <div class="number"></div>
-                        <div class="cardName">Set Second Round</div>
+                        <div class="cardName"><b>Set Second Round</b></div>
                     </div>
                     <div class="iconBx">
                     <ion-icon name="calendar-outline"></ion-icon>

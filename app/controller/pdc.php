@@ -134,6 +134,10 @@
         public function addstudent(){
             $this->view('pdc/addstudent');
         }
+
+        public function firstround(){
+            $this->view('pdc/firstround');
+        }
         public function logout(){
             session_destroy();
             echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
