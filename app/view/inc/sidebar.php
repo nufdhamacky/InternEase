@@ -31,11 +31,5 @@
                         <span class="title">Selection List</span>
                     </a>
                 </li>
-                <li>
-                    <a href="logout">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        <span class="title">Sign Out</span>
-                    </a>
-                </li>
             </ul>
         </div>

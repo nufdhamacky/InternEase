@@ -52,6 +52,7 @@ div.title{
     font-size: 35px ;
     font-family: 'Consolas, 'Courier New', monospace';
 }
+
 .content{
     padding-top: 70px;
 }
@@ -77,3 +78,77 @@ div.title{
     height: 40px;
     border-radius: 50%; /* For a circular avatar */
 }
+
+a{
+    text-decoration: none;
+    color: azure;
+}
+
+.topbar {
+    background-color: #333;
+    padding: 10px;
+    text-align: right;
+  }
+  
+  .notification {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  /* Bell icon styles */
+  .notify {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .fa-bell {
+    font-size: 1.5em;
+  }
+  
+  .fa-bell::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  
+  /* Notification Modal styles */
+  .notif-modal {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+  }
+  
+  .notif-modal.show {
+    display: flex;
+  }
+  
+  .fa-flag-o {
+    margin-right: 10px;
+  }
+  
+  .notif {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .msg {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .time {
+    color: #888;
+    font-size: 0.8em;
+  }

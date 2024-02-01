@@ -1,64 +1,61 @@
 <?php require_once("../app/view/inc/header.php"); ?>
 
+
 <div class="container">
-        <?php require_once("../app/view/inc/sidebar.php"); ?>
+    <?php require_once("../app/view/inc/sidebar.php"); ?>
 
-        <!-- main -->
+    <!-- main -->
 
-        <div class="main">
-            <?php require_once("../app/view/inc/topbar.php"); ?>
-            <?php
-// Sample schedule data (replace with your actual data)
-$scheduleData = [
-    [
-        'company_name' => 'Company A',
-        'topic' => 'Topic 1',
-        'date' => '2023-11-10',
-        'venue' => 'Venue A',
-        'time' => '10:00 AM',
-    ],
-    [
-        'company_name' => 'Company B',
-        'topic' => 'Topic 2',
-        'date' => '2023-11-12',
-        'venue' => 'Venue B',
-        'time' => '2:30 PM',
-    ],
-];
+    <div class="main">
+        <?php require_once("../app/view/inc/topbar.php"); ?>
+        <div class="content">
+            <div class="calendar">
+                <?php
+                    // Get the current month and year
+                    $month = date('n');
+                    $year = date('Y');
 
-// Generate the table structure using PHP
-echo '<div class="schedule-container">
-        <table id="scheduleTable" class="scheduleTable">
-            <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Topic</th>
-                    <th>Date</th>
-                    <th>Venue</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody id="scheduleData" class="scheduleData">';
+                    // Get the first day of the month
+                    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
 
-foreach ($scheduleData as $entry) {
-    echo '<tr>';
-    echo '<td>' . $entry['company_name'] . '</td>';
-    echo '<td>' . $entry['topic'] . '</td>';
-    echo '<td>' . $entry['date'] . '</td>';
-    echo '<td>' . $entry['venue'] . '</td>';
-    echo '<td>' . $entry['time'] . '</td>';
-    echo '</tr>';
-}
+                    // Get the number of days in the month
+                    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
-echo '</tbody>
-        </table>
-    </div>';
-?>
-  
-                  
+                    // Get the day of the week for the first day of the month
+                    $dayOfWeek = date('w', $firstDayOfMonth);
 
-    
+                    // Display the calendar table
+                    echo '<table>';
+                    echo '<tr><th colspan="7">' . date('F Y', $firstDayOfMonth) . '</th></tr>';
+                    echo '<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>';
+                    echo '<tr>';
 
+                    // Add empty cells for days before the first day of the month
+                    for ($i = 0; $i < $dayOfWeek; $i++) {
+                        echo '<td></td>';
+                    }
+
+                    // Add days of the month
+                    for ($day = 1; $day <= $daysInMonth; $day++) {
+                        echo '<td>' . $day . '</td>';
+
+                        // Start a new row after each Saturday
+                        if (($day + $dayOfWeek) % 7 == 0) {
+                            echo '</tr><tr>';
+                        }
+                    }
+
+                    // Add empty cells for remaining days in the last row
+                    $remainingDays = 7 - (($daysInMonth + $dayOfWeek) % 7);
+                    for ($i = 0; $i < $remainingDays; $i++) {
+                        echo '<td></td>';
+                    }
+
+                    echo '</tr>';
+                    echo '</table>';
+                ?>
+            </div>
+        </div>
     </div>
 </div>
 

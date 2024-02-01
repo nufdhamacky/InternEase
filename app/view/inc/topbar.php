@@ -29,12 +29,24 @@ if ($pageTitle === '') {
                     <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
                 </div>
                 <!-- notification-->
-                <div class="notification">
+                <a class="notification" href="#" id="notification-icon">
                     <span class="notify"><i class="fa fa-bell" aria-hidden="true"></i></span>
-                </div>
-                <div class="logout">
+                </a>
+                <a class="logout" href="logout">
                     <span class="notify"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-                </div>
+                </a>
+            </div>
+        </div>
+        <div class="notif-modal">
+            <i class="fa fa-flag-o" aria-hidden="true"></i>
+            <div class="notif">
+                <div class="msg" id="msg"></div>
+                <div class="time" id="time"></div>
             </div>
         </div>
 </header>
+
+<script>
+    
+</script>
+
