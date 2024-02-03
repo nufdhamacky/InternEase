@@ -6,6 +6,11 @@
         <div class="main">
             <?php require_once("../app/view/inc/topbar.php"); ?>
 
+            <div class="grid-container-adtop">
+                <div class="grid-container-round1">Round 1</div>
+                <div class="grid-container-round2">Round 2</div>
+            </div>
+
             <div class="ad-cards">
                 <div class="ad-card" onclick="displayAdDetails(1)">
                     <img src="<?=ROOT?>/assets/images/wso2.png" alt="Advertisement 1">

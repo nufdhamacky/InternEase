@@ -1,3 +1,19 @@
+.grid-container-adtop {
+    display: inline-grid;
+    column-gap: 100px; /* Adjust the gap between items as needed */
+    grid-template-columns: auto auto;
+    background-color: #2b4c5d;
+    padding-top: 80px;
+    
+    width: 2rem; /* Set your desired width */
+    box-sizing: border-box; /* Include padding in the total width */
+}
+.grid-container-round1, .grid-container-round2 {
+    display: inline-flex; /* Use inline-flex to make the items appear in a row */
+    color: azure;
+    font-size: 25px;
+}
+
 .ad-cards {
     display: flex;
     flex-wrap: wrap;
