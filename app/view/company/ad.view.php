@@ -31,7 +31,7 @@
                         <button class="add-advertisement">+ Add</button>
                     </a>
                 </div>
-                
+                <br>
                 <div class="filter-details">
                     <div class = "secondbar">
                         <div class = "search">
@@ -45,7 +45,81 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div><br>
+
+                <div class="studentdetails">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Position</td>
+                            <td>Requirements</td>
+                            <td>Qualifications</td>
+                            <td>Internship Period</td>
+                            <td>No. of Interns</td>
+                            <td>Working Mode</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Software Engineer</td>
+                            <td>React<br>Node<br>Java<br>DevOps</td>
+                            <td>BSc. in Computer Science</td>
+                            <td>Dec - May</td>
+                            <td>2</td>
+                            <td>Online</td>
+                        </tr>
+
+                        <tr>
+                            <td>Software Engineer</td>
+                            <td>React<br>Node<br>Java</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>Dec - May</td>
+                            <td>2</td>
+                            <td>Online</td>
+                        </tr>
+
+                        <tr>
+                            <td>Quality Assuarance</td>
+                            <td>Java<br>C++<br>Python<br>JavaScript</td>
+                            <td>BSc. in Computer Science</td>
+                            <td>Dec - May</td>
+                            <td>3</td>
+                            <td>Hybrid</td>
+                        </tr>
+
+                        <tr>
+                            <td>Quality Assuarance</td>
+                            <td>Java<br>C++<br>Python<br>JavaScript</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>Dec - May</td>
+                            <td>3</td>
+                            <td>Hybrid</td>
+                        </tr>
+
+                        <tr>
+                            <td>Business Analyst</td>
+                            <td>Java<br>SQL<br>Python<br>JavaScript</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>Dec - May</td>
+                            <td>3</td>
+                            <td>Physical</td>
+                        </tr>
+
+                        <tr>
+                            <td>Business Analyst</td>
+                            <td>Java<br>SQL<br>Python<br>JavaScript</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>Dec - May</td>
+                            <td>4</td>
+                            <td>Physical</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
 
                 <div class="ad-table">
                     <div class="table-heading">
