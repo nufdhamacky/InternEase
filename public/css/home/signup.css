@@ -4,11 +4,16 @@
     text-decoration: none;
 }
 
+html, body {
+    height: 100%; /* Ensures the body covers the full height of the viewport */
+    overflow: hidden; /* Hides any overflow from the body */
+}
+
 .main-div{
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 
 .leftpart{
@@ -50,9 +55,9 @@
 }
 
 .rightpart h4{
-    margin-top: 50px;
-    font-size: 30px;
+    font-size: 24px;
     color: #0B5A6F;
+    text-align: center;
 }
 
 .box{
@@ -60,7 +65,7 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .box1, .box2{
@@ -99,9 +104,9 @@
 }
 
 .label1{
-    font-size: 25px;
-    margin-right: 300px;
-    margin-top: 20px;
+    font-size: 20px;
+    /* margin-right: 100px; */
+    margin-top: 5px;
     width: 100%;
 }
 
@@ -115,14 +120,14 @@
     background-color: #AAD4E1; 
     font-size: 20px;
     color: black; 
-    width: 150px;
+    width: 120px;
     font-weight: bold;
     border-color: #c7c5bbb1; 
-    padding: 10px 20px; 
+    padding: 10px 10px; 
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .submit button :hover {
@@ -143,34 +148,4 @@
     color: red;
     font-size: 15px;
     margin-top: 10px;
-}
-
-@media screen and (max-width: 768px) {
-    .main-div {
-        flex-direction: column;
-    }
-
-    .leftpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .rightpart {
-        width: 100%; /* Take up the full width on smaller screens */
-    }
-
-    .leftpart h1 {
-        font-size: 24px;
-    }
-
-    .rightpart h4 {
-        font-size: 24px;
-    }
-
-    .box {
-        width: 100%;
-    }
-
-    .danger{
-        color: red;
-    }    
 }
