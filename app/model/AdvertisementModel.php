@@ -12,8 +12,7 @@ class AdvertisementModel{
     public $companyId;
     public $qualification;
 
-    public function __construct($adId, $position, $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification){
-        $this->adId = $adId;
+    public function __construct( $position, $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification){
         $this->position = $position;
         $this->req = $req;
         $this->interns = $interns;
