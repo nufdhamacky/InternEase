@@ -32,7 +32,7 @@
                 <div class ="card">
                     <div>
                         <div class="number">23-Nov 2023</div>
-                        <div class="cardName">Ending Date of Recruitment Period </div>
+                        <div class="cardName">Final Date for Applications</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="calendar-outline"></ion-icon>
@@ -40,7 +40,7 @@
                 </div>
                 
                 <div class ="card">
-                <a href="totStudents">
+                <a href="studentReq">
                     <div>
                         <div class="number"><?php echo $companyController->getTotalStudents(); ?></div>
                         <div class="cardName">Total Students Applied</div>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class ="card">
-                <a href="totAd">
+                <a href="ad">
                     <div>
                         <div class="number"><?php echo $companyController->getTotalAd(); ?></div>
                         <div class="cardName">Total Advertisements</div>
