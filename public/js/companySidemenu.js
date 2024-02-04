@@ -1,35 +1,35 @@
-const path=window.location.pathname;
-const dashboard=document.getElementById('dashboard');
-const ad=document.getElementById('ad');
-const studentReq=document.getElementById('studentReq');
-const shortlistedStu=document.getElementById('shortlistedStu');
-const scheduleInt=document.getElementById('scheduleInt');
-const profile=document.getElementById('profile');
+const path = window.location.pathname;
+const dashboard = document.querySelector('a[href="dashboard"]');
+const ad = document.querySelector('a[href="ad"]');
+const studentReq = document.querySelector('a[href="studentReq"]');
+const shortlistedStu = document.querySelector('a[href="shortlistedStu"]');
+const schedule = document.querySelector('a[href="schedule"]');
+const profile = document.querySelector('a[href="profile"]');
 
-const color="#CFE3EA";
+const color = "#CFE3EA";
 const startUrl2 = '/internease/public/company';
 
-if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/dashboard'))
-{
-    dashboard.style.backgroundColor=color;
+if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/dashboard' || path === startUrl2 + '/totStudents') {
+    dashboard.style.backgroundColor = color;
+} 
+
+ // Highlight "Advertisements" for both ad and addAd
+else if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/ad' || path === startUrl2 + '/addAd') {
+    ad.style.backgroundColor = color;
 }
-else if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/ad'))
-{
-    ad.style.backgroundColor=color;
-}
-else if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/studentReq'))
-{
-    studentReq.style.backgroundColor=color;
-}
-else if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/shortlistedStu'))
-{
-    shortlistedStu.style.backgroundColor=color;
-}
-else if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/scheduleInt'))
-{
-    scheduleInt.style.backgroundColor=color;
-}
-else if(path.startsWith('${startUrl2}/index')||path.startsWith('${startUrl2}/profile'))
-{
-    profile.style.backgroundColor=color;
+
+else if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/studentReq') {
+    studentReq.style.backgroundColor = color;
+} 
+
+else if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/shortlistedStu' || path === startUrl2 + '/shortlistedQA' || path === startUrl2 + '/shortlistedSE' || path === startUrl2 + '/shortlistedBA' || path === startUrl2 + '/scheduleInt') {
+    shortlistedStu.style.backgroundColor = color;
+} 
+
+else if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/schedule' || path === startUrl2 + '/tech' || path === startUrl2 + '/companyVisit') {
+    schedule.style.backgroundColor = color;
+} 
+
+else if (path.startsWith(startUrl2 + '/index') || path === startUrl2 + '/profile') {
+    profile.style.backgroundColor = color;
 }
