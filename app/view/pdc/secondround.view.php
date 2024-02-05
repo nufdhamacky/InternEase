@@ -24,7 +24,7 @@
             <div class="details">
                 <div class="compdetails"> 
                     <div class = "cardHeader">
-                        <h2>First Round</h2>
+                        <h2>Second   Round</h2>
                     </div>   
                     
 

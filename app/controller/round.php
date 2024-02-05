@@ -1,12 +1,16 @@
 <?php
 include_once('../app/repository/RoundRepository.php');
+include_once('../app/repository/StudentRepository.php');
 include_once('../app/model/RoundModel.php');
 class Round extends Controller{
 
     private RoundRepository $roundRepository;
+    private StudentRepository $studentRepository;
+
     public function __construct() {
         parent::__construct();
         $this->roundRepository = new RoundRepository($this->conn);
+        $this->studentRepository = new StudentRepository($this->conn);
     }
 
 
@@ -40,5 +44,9 @@ class Round extends Controller{
                 }
             }
         }
+    }
+
+    public function getFirstRoundStudents():array{
+        return $this->studentRepository->findAllByRoundId(1);
     }
 }

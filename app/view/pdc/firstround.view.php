@@ -1,3 +1,10 @@
+<?php
+    include_once('../app/controller/round.php');
+    $roundController=new Round();
+    $students=$roundController->getFirstRoundStudents();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,62 +27,66 @@
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
             </div>
+                    <div class="details">
+                        <div class="compdetails">
+                            <div class="cardHeader">
+                                <h2>First Round</h2>
+                            </div>
 
-            <div class="details">
-                <div class="compdetails"> 
-                    <div class = "cardHeader">
-                        <h2>First Round</h2>
-                    </div>   
-                    
+                            <div id="viewSection">
+                                <h4> Start Date : <span id="startDate">2024.01.03</span> </h4>
+                                <h4> End Date : <span id="endDate">2024.01.31</span> </h4>
+                                <br/>
+                                <h4>No of advertisements students can apply: <span id="advertisementCount">4</span></h4>
+                            </div>
 
-                    <div id="viewSection">
-                        <h4> Start Date : <span id="startDate">2024.01.03</span> </h4>
-                        <h4> End Date : <span id="endDate">2024.01.31</span> </h4>
-                        <br/>
-                        <h4>No of advertisements students can apply: <span id="advertisementCount">4</span></h4>
-
-                        <div class="submit">
+                            <div class="submit">
                             <button onclick="editSection()">EDIT</button>
-                        </div>
-                    </div>
+                            </div>
 
-                    <div id="editSection" style="display: none;">
-                        <h4>Date Period:</h4>
-                        <div class="card">
-                            <div class="input-container">
-                                <input type="date" id="editStartDate" class="bx1">
+                            <div id="editSection" style="display: none;">
+                                <h4>Date Period:</h4>
+                                <div class="card">
+                                    <label for="editStartDate">Start Date:</label>
+                                    <div class="input-container">
+                                        <input type="date" id="editStartDate" name="start_date" class="bx1">
+                                    </div>
+                                    <h4 class="h4">to</h4>
+                                    <label for="editEndDate">End Date:</label>
+                                    <div class="input-container">
+                                        <input type="date" id="editEndDate" name="end_date" class="bx1">
+                                    </div>
+                                </div>
+                                <h4>No of advertisements students can apply:</h4>
+                                <div class="card">
+                                    <label for="editAdvertisementCount">Select Count:</label>
+                                    <div class="input-container">
+                                        <select id="editAdvertisementCount" name="advertisement_count">
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+                                    <div class="submit">
+                                    <button onclick="saveChanges()">SAVE</button>
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="h4">to</h4>
-                            <div class="input-container">
-                                <input type="date" id="editEndDate" class="bx1">
-                            </div>
-                        </div>
-                        <h4>No of advertisements students can apply:</h4>
-                        <div class="card">
-                            <select id="editAdvertisementCount">
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                        <div class="submit">
-                            <button onclick="saveChanges()">SAVE</button>
                         </div>
                     </div>
-                </div>
-            </div>
+            
 
             <div class="details">
                 <div class="internshipAds">
                     <div class = "cardHeader">
                         <h2>Applied Students</h2>
                     </div>
-                    <table>
+                    
                 <table>
                     <thead>
                         <tr>
@@ -89,29 +100,20 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Hamsayini</td>
-                            <td>21020337</td>
-                            <td>sayisenthil@gmail.com</td>
-                            <td><br> IBM<br> Virtusa <br> 99X <br> CodeGen <br>Sysco Labs <br>    </td>
-                            <td><br> BA<br> BA <br> QA <br> SE <br>Web   <br></td>
-                        </tr>
-
-                        <tr>
-                            <td>Nufdha</td>
-                            <td>21020698</td>
-                            <td>nufdha@gmail.com</td>
-                            <td><br>Zone 24*7 <br> WSO2 <br> Virtusa <br> Virtusa <br>99X<br></td>
-                            <td><br>QA<br> BA <br> QA <br> BA <br>SE <br></td>
-                        </tr>
-
-                        <tr>
-                            <td>Sharmi</td>
-                            <td>21020431</td>
-                            <td>minisen@gmail.com</td>
-                            <td><br>99X<br> Pachero <br> 99X <br> WSO2 <br>Sysco Labs <br></td>
-                            <td><br>BA<br> BA <br> QA <br> SE <br>Dev <br></td>
-                        </tr>
+                    <?php 
+                        foreach ($students as $student){ ?>
+                            <tr>
+                                <td><?php echo $student->firstName." ".$student->lastName; ?></td>
+                                <td><?php echo $student->indexNo; ?></td>
+                                <td><?php echo $student->email; ?></td>
+                                <td><?php foreach($student->ads as $r){ echo $r->company->name; ?> <br> <?php } ?></td>
+                                <td>
+                                <?php foreach($student->ads as $r){ echo $r->position; ?> <br> <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>    
+                </table>
             </div>
         </div>
     </div>

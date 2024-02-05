@@ -43,7 +43,7 @@
 
         public function addNewStudent(){
            
-            $userId=$_SESSION["userId"];
+            // $userId=$_SESSION["userId"];
             $email = mysqli_real_escape_string($this->conn, $_POST['email']);
 			$password = mysqli_real_escape_string($this->conn, $_POST['password']);
             $firstName=mysqli_real_escape_string($this->conn, $_POST['first_name']);
@@ -52,7 +52,7 @@
             $indexNo=mysqli_real_escape_string($this->conn, $_POST['index_no']);
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $student=new StudentModel($userId,$email,$firstName,$lastName,$hashed_password,$regNo,$indexNo);
+            $student=new StudentModel(null,$email,$firstName,$lastName,$hashed_password,$regNo,$indexNo,array());
             $this->studentRepository->save($student);
             echo "<script> window.location.href='http://localhost/internease/public/pdc/managestudent';</script>";
         }
