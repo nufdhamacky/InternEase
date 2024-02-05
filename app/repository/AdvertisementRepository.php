@@ -22,9 +22,9 @@ class AdvertisementRepository{
 
     // } 
 
-    public function save(AdvertisementModel $advertisement) : ?AdvertisementModel {
-        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
+    public function save(AdvertisementModel $advertisement): ?AdvertisementModel {
+        $sql = "INSERT INTO company_ad (position, no_of_intern, working_mode, from_date, to_date, company_id, qualification) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
         // Prepare the statement
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -32,18 +32,19 @@ class AdvertisementRepository{
             return null;
         }
     
-        // Bind parameters
-        $stmt->bind_param("ssisssis", $advertisement->position, $advertisement->req, $advertisement->interns, $advertisement->workMode, $advertisement->fromDate, $advertisement->toDate, $advertisement->companyId, $advertisement->qualification);
+        // Bind parameters with data types
+        $stmt->bind_param('sisssis', $advertisement->position, $advertisement->interns, $advertisement->workMode, $advertisement->fromDate, $advertisement->toDate, $advertisement->companyId, $advertisement->qualification);
     
         // Execute the statement
         $result = $stmt->execute();
     
-        if($result) {
+        if ($result) {
             return $advertisement;
         } else {
             // Handle the error, return null or throw an exception
             return null;
         }
     }
+    
     
 }
