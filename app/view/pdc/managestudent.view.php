@@ -1,4 +1,10 @@
- <!DOCTYPE html>
+<?php
+    include_once('../app/controller/pdc.php');
+    $pdController=new Pdc();
+    $students=$pdController->getAllStudent();
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +35,7 @@
             <div class="studentList">
                 <div class = "cardHeader">
                     <h2>Students List</h2>
-                    <a href="addstudent.php" class="btn">Add</a> 
+                    <a href="addstudent" class="btn">Add</a> 
                 </div>
                 <table>
                     <thead>
@@ -41,7 +47,20 @@
                             <td>Action</td>
                         </tr>
                     </thead>
-
+                    <tbody>
+                    <?php 
+                        foreach ($students as $student){ ?>
+                            <tr>
+                                <td><?php echo $student->firstName." ".$student->lastName; ?></td>
+                                <td><?php echo $student->regNo; ?></td>
+                                <td><?php echo $student->email; ?></td>
+                                <td><?php echo $student->indexNo; ?></td>
+                                <td>
+                                   
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
                 </table>
 
             </div>

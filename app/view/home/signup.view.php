@@ -39,11 +39,17 @@
                 
                 
                     <span class="error"><?= isset($data['signupError']['email']) ?></span>
-                    
-                
-                <br>
+                    <br>
             </p>
             <input type="email" name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+
+            <p class="label1">Company Website:
+                
+                
+                    <span class="error"><?= isset($data['signupError']['website']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
             
             <p class="label1">Password:
                 
@@ -54,16 +60,12 @@
                 <br>
             </p>
             <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
-           
             <i class='bx bxs-show eye-icon'></i>
             
             <p class="label1">Confirm Password:
                 
-                
-                    <span class="error"><?= $data['signupError']['confirmPassword'] ?></span>
-
-                
-                <br>
+                    <span class="error"><?= isset($data['signupError']['confirmPassword']) ?></span>
+                    <br>
             </p>
             <input type="password" name="confirmPassword" class="box2">
             
@@ -72,16 +74,24 @@
                 <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
             </div>
 
-            <div class="submit" align="center">
-                <button type="submit">Sign Up</button>
-            </div>
+                <div class="submit" align="center">
+                    <button type="submit">Sign Up</button>
+                </div>
 
         </form>
         </div>  
+        
     </div>
-    
+
     <script src="<?=ROOT?>/js/login.js"></script>
-    <!-- <script src= "./auth.js"></script> -->
+    <?php
+        // Check if the form is submitted and there are no signup errors
+        if (isset($_POST['signup']) && empty($data['signupError'])) {
+            // Redirect to the home page
+            header("Location: " . ROOT . "../login");
+            exit();
+        }
+    ?>
 
 </body>
 </html>

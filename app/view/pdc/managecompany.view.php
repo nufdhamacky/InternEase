@@ -25,7 +25,7 @@
             </div>
             <div class ="cardBox">
                 <div class ="card">
-                <a style = "text-decoration: none" href="blacklistedcompanies.html">
+                <a style = "text-decoration: none" href="blacklistedcompanies">
                     <div>
                         <div class="number">5</div>
                         <div class="cardName">Black listed Companies</div>
@@ -44,7 +44,7 @@
             <div class="companyList">
                 <div class = "cardHeader">
                     <h2>Company List</h2>
-                    <a href="#" class="btn">Add</a> 
+                    <a href="companyrequest" class="btn">Add</a> 
                 </div>
                 <table>
                     <thead>
