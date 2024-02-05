@@ -301,11 +301,13 @@ body
     font-size: 14px;
     font-weight: 500;
   }
+
 .status.pending {
     color: #5BC4CB;
     font-size: 14px;
     font-weight: 500;
 }
+
 .status.rejected {
     color:#f00;
     font-size: 14px;

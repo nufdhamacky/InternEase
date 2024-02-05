@@ -37,8 +37,10 @@
                 <a href="home/service"><div class="card">Services</div></a>
                 <a href="home/contact"><div class="card">Contact Us</div></a>
             </div>
-            <img src="<?=ROOT?>/assets/images/Job-interview.jpg" alt="">
+            <img src="<?=ROOT?>/assets/images/landing-img.PNG" alt="">
         </div>
     </div>
+
+    <script src="<?=ROOT?>/js/topbar.js"></script>
 </body>
 </html>

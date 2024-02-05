@@ -9,6 +9,8 @@ body
 {
     min-height: 100vh;
     overflow-x: hidden;
+    background-image: url('../../assets/images/inter.jpg');
+    background-size: cover;
 }
 
 .container
@@ -97,12 +99,11 @@ body
     white-space: nowrap;
 }
 
-.main{
+.main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
-    background: white;
     transition: 0.5s;
 }
 

@@ -221,6 +221,15 @@ body
   margin: 0 auto;
 }
 
+.details .compdetails label {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.details .compdetails label input[type="checkbox"] {
+    margin-right: 5px;
+}
+
 .heading-advertisement{
     display: flex;  
     flex-direction: row;
@@ -228,18 +237,6 @@ body
     font-size: 20px;
     margin: 10px 0px 25px 50px;
     color: #0b596f;
-}
-
-.compdetails .row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 30px o;
-}
-
-.row label{
-    position: relative;
-    height: 20px;
 }
 
 .card{

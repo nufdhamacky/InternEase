@@ -22,7 +22,7 @@ body
     position: fixed;
     width: 300px;
     height: 100%;
-    background-color: #0B5A6F;
+    background-color: #0b596f;
     border-left: 10px solid #0B5A6F;
     transition: 0.5s;
     overflow: hidden;
@@ -108,6 +108,7 @@ body
     transition: 0.5s;
 }
 
+
 .topbar{
     width : 100%;
     height: 80px;
@@ -152,27 +153,201 @@ body
     font-size: 3rem;
 }
 
-.submit{
+.secondbar{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: 40px;
+}
+
+.search{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-}
-
-.submit button{
-    background-color: #96D1E1; 
-    font-size: 20px;
-    color: black; 
-    width: 350px;
-    font-weight: bold;
-    border-color: #c7c5bbb1; 
-    padding: 10px 20px; 
-    border-radius: 25px; 
-    cursor: pointer;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 15px;
+    font-size: 20px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px; 
+    border-radius: 5px;
 }
 
-.submit button :hover {
-    background-color: #72abbb;
+.search input{
+    border: none;
+    font-size: 15px;
+}
+
+.search input:focus{
+    outline: none;
+}
+
+.search input::placeholder{
+    font-size: 15px;
+} 
+
+.allstudents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.allstudents select{
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px; 
+    border-radius: 5px;
+}
+
+
+/* ================== Student Details List ============== */
+.details {
+  position: relative;
+  width: 120%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+}
+
+.details .studentdetails{
+  position: relative;
+  display: grid;
+  min-height: 350px;
+  width: 120%;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.details .studentdetails table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.studentdetails table tbody .del{
+    color: red;
+}
+
+.download-cv-btn {
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-cv-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.details .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardHeader h2 {
+    font-weight: 600;
+    color: rgba(9, 62, 76, 1);
+}
+
+.cardHeader .btn {
+    position: relative;
+    padding: 5px 15px;
+    background:rgba(170, 212, 225, 1);
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.details table thead td {
+    font-weight: 600;
+}
+
+.details .studentdetails table tr {
+    color: var black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details .studentdetails table thead{
+    background-color: #D9D9D9;
+}
+.details .studentdetails table tr:last-child {
+    border-bottom: none;
+}
+
+.details .studentdetails table tr td {
+    padding: 7.25px;
+}
+
+.details .studentdetails table tr td:last-child {
+    text-align: end;
+}
+
+.details .studentdetails table tr td select {
+    cursor: pointer;
+}
+
+.details select option[value="shortlist"] {
+    background-color: #8de02c;
+    color: white;
+}
+
+.details select option[value="reject"] {
+    background-color: #f00; 
+    color: white;
+}
+
+.details select option[value="pending"] {
+    background-color: #5BC4CB; 
+    color: white;
+}
+
+.details select {
+    padding: 2px 10px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    color: rgba(11, 90, 111, 1);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Add a class for styling the selected option */
+.details select.selected-shortlist {
+    background-color: #8de02c; 
+    color: white; 
+}
+
+.details .view{
+    padding: 2px 10px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    color: rgba(11, 90, 111, 1);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.details select.selected-reject {
+    background-color: #f00; 
+    color: white; 
+}
+
+.details select.selected-pending {
+    background-color: #5BC4CB; 
+    color: white; 
 }

@@ -45,56 +45,56 @@
                             <td>Hamsayini Senthilrasa</td>
                             <td>CS</td>
                             <td>hamsayini@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Nufdha Macky</td>
                             <td>IS</td>
                             <td>nufdha@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Gien Gawesh</td>
                             <td>CS</td>
                             <td>gien@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Shamah Lafir</td>
                             <td>IS</td>
                             <td>shamah@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Binali Ukwatte</td>
                             <td>IS</td>
                             <td>binali@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Sathurshika Manoharajan</td>
                             <td>CS</td>
                             <td>sathu@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Himasha Senevirathne</td>
                             <td>CS</td>
                             <td>himasha@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
 
                         <tr>
                             <td>Achchuthan Kalanithy</td>
                             <td>IS</td>
                             <td>achchu@gmail.com</td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
                         </tr>
                     </tbody>
                 </table>

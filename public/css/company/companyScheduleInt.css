@@ -144,7 +144,7 @@ body
     margin-left: 10px;
 }
 
-.details {
+.details{
   position: relative;
   width: 100%;
   display: grid;
@@ -180,7 +180,7 @@ body
     color: rgba(9, 62, 76, 1);
 }
 
-.details .grid {
+.details .grid{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0px; /* Add some spacing between grid items */
@@ -272,6 +272,7 @@ select{
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
+    margin-right: 10px;
 }
 
 .submit .sbtn{

@@ -29,13 +29,13 @@
                     <button type="submit" class="sbtn">SCHEDULE INTERVIEW</button>
                 </a>
 
-                <a href="tech">
+                <!-- <a href="tech">
                     <button type="submit" class="sbtn">SCHEDULE TECH-TALK</button>
                 </a>
 
                 <a href="companyVisit">
                     <button type="submit"class="sbtn">SCHEDULE COMPANY VISIT</button>
-                </a>
+                </a> -->
                 
             </div>
         
@@ -48,13 +48,11 @@
                         <h4>Date Period:</h4>
                         <div class = "card">
                             <div class = "input-container">
-                                <input type = "text" class = "bx1">
-                                <ion-icon name="calendar-outline" class = "calendar-icon"></ion-icon>
+                                <input type = "date" class = "bx1">
                             </div>
                             <h4 class = "h4">to</h4>
                             <div class = "input-container">
-                                <input type = "text" class = "bx1">
-                                <ion-icon name="calendar-outline" class = "calendar-icon"></ion-icon>
+                                <input type = "date" class = "bx1">
                             </div>
                         </div>
 
@@ -80,8 +78,10 @@
                         </div>
 
                         <div class="submit">
-                            <button type="submit" class="btn">SAVE</button>
+                            <a href="schedule"><button type="submit" class="btn">SAVE</button></a>
                         </div>
+
+                        
                 </div>
             </div>
         

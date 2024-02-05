@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortlisted Students</title>
+    <title>Shortlisted Students - BA</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companyShortlistedStu.css">
 </head>
 <body>
@@ -28,13 +28,15 @@
         <div class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Shortlisted Details</h2>
+                    <h2>Shortlisted Students for Business Analyst</h2>
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            <td>Job Role</td>
-                            <td>No. of Shortlisted Students</td>
+                            <td>Student Name</td>
+                            <td>Degree</td>
+                            <td>Index No.</td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -42,21 +44,27 @@
                     <tbody>
 
                         <tr>
-                            <td>Quality Assurance</td>
-                            <td>18</td>
-                            <td><a href="shortlistedQA" span class = "view"></span>View List</a></td>
+                            <td>Shamah Lafir</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>21020586</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
+                            <td><a href="#" span class = "view"></span>Schedule Interview</td>
                         </tr>
 
                         <tr>
-                            <td>Software Engineer</td>
-                            <td>10</td>
-                            <td><a href="shortlistedSE" span class = "view"></span>View List</td>
+                            <td>Hemadri Perera</td>
+                            <td>BSc. in Information Systems</td>
+                            <td>21020559</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
+                            <td><a href="#" span class = "view"></span>Schedule Interview</td>
                         </tr>
 
                         <tr>
-                            <td>Business Analyst</td>
-                            <td>12</td>
-                            <td><a href="shortlistedBA" span class = "view"></span>View List</td>
+                            <td>Sathurshika Manoharajan</td>
+                            <td>BSc. in Computer Science</td>
+                            <td>21020369</td>
+                            <td><a href="#" span class = "view"></span>View Profile</td>
+                            <td><a href="#" span class = "view"></span>Schedule Interview</td>
                         </tr>
 
                     </tbody>

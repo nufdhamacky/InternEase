@@ -202,7 +202,7 @@ body
 /* ================== Student Details List ============== */
 .details {
   position: relative;
-  width: 100%;
+  width: 90%;
   padding: 20px;
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -218,6 +218,28 @@ body
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
 }
+
+.details .studentdetails table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.download-cv-btn {
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-cv-btn:hover {
+    background-color: #0056b3;
+}
+
 
 .details .cardHeader {
     display: flex;
@@ -283,6 +305,11 @@ body
     color: white;
 }
 
+.details select option[value="pending"] {
+    background-color: #5BC4CB; 
+    color: white;
+}
+
 .details select {
     padding: 2px 10px;
     border: 1px solid rgba(11, 90, 111, 1);
@@ -300,7 +327,22 @@ body
     color: white; 
 }
 
+.details .view{
+    padding: 2px 10px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    color: rgba(11, 90, 111, 1);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
 .details select.selected-reject {
     background-color: #f00; 
+    color: white; 
+}
+
+.details select.selected-pending {
+    background-color: #5BC4CB; 
     color: white; 
 }

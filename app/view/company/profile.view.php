@@ -42,39 +42,41 @@
                 </div>
 
                 <div class="compdetails">
-                    <h4>Company Name: </h4>
-                    <div class="col">
-                        <input type="text" name="companyName" class="box1" value="">
-                        <br>
-                    </div>
+                    <form action="" method="POST">
+                        <h4>Company Name: </h4>
+                        <div class="col">
+                            <input type="text" name="companyName" class="box1" value="">
+                            <br>
+                        </div>
 
-                    <h4>Email: </h4>
-                    <div class="col">
-                        <input type="text" name="companyName" class="box1" value="">
-                        <br>
-                    </div>
+                        <h4>Email: </h4>
+                        <div class="col">
+                            <input type="text" name="companyName" class="box1" value="">
+                            <br>
+                        </div>
 
-                    <h4>Company Website: </h4>
-                    <div class="col">
-                        <input type="text" name="companyName" class="box1" value="">
-                        <br>
-                    </div>
+                        <h4>Company Website: </h4>
+                        <div class="col">
+                            <input type="text" name="companyName" class="box1" value="">
+                            <br>
+                        </div>
 
-                    <h4>Contact No: </h4>
-                    <div class="col">
-                        <input type="text" name="companyName" class="box1" value="">
-                        <br>
-                    </div>
+                        <h4>Contact No: </h4>
+                        <div class="col">
+                            <input type="text" name="companyName" class="box1" value="">
+                            <br>
+                        </div>
 
-                    <h4>Address: </h4>
-                    <div class="col">
-                        <input type="text" name="companyName" class="box1" value="">
-                        <br>
-                    </div>
-                    
-                    <div class="submit">
-                        <button type="submit">SAVE</button>
-                    </div>
+                        <h4>Address: </h4>
+                        <div class="col">
+                            <input type="text" name="companyName" class="box1" value="">
+                            <br>
+                        </div>
+                        
+                        <div class="submit">
+                            <button type="submit">SAVE</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             </form>

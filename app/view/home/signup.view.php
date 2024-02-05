@@ -48,6 +48,22 @@
                     <br>
             </p>
             <input type="text" name="compsite" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+
+            <p class="label1">Contact Person: 
+                
+
+                    <span class="error"><?= isset($data['signupError']['contactPerson']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="contactPerson" class="box1" value="<?= isset($_POST['contactPerson']) ? $_POST['contactPerson'] : '' ?>">
+
+            <p class="label1">Contact No: 
+                
+
+                    <span class="error"><?= isset($data['signupError']['contactNo']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="contactNo" class="box1" value="<?= isset($_POST['contactNo']) ? $_POST['contactNo'] : '' ?>">
             
             <p class="label1">Password:
                 
