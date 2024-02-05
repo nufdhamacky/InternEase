@@ -50,7 +50,7 @@
             $validation = new Validation();
 
             $errors = $validation->validateLogin($username, $password);
-
+            
             if(!$errors){
 
                 //creating user model object
@@ -60,7 +60,7 @@
                 $loginAccess = $user->login($username, $password, $this->conn);
 
                 if($loginAccess == 1){
-                    
+                   
                     if($_SESSION['userStatus']== 1){    
                         if($_SESSION['userRole'] == 'company' )
                             echo "<script> window.location.href='http://localhost/internease/public/company/dashboard';</script>";
@@ -125,7 +125,7 @@
                     $this->view('home/signup', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                    echo "<script> window.location.href='http://localhost/internease/public/company/index';</script>";
                 }
 
             } else {

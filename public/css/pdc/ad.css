@@ -230,12 +230,17 @@ body
     appearance: none;
 }
 
+
+.details .internshipAds table tr td select.status-select [value="pending"] {
+    background: rgb(194, 43, 43);
+    color: black;
+}
+
 .details .internshipAds table tr td select.status-select option {
     background: white;
     color: black;
 }
 
-/* Optional styling for the selected status */
 .details .internshipAds table tr td select.status-select option[value="pending"] {
     background: #1795ce;
     color: white;
@@ -249,29 +254,31 @@ body
 .details .internshipAds table tr td select.status-select option[value="rejected"] {
     background: #f00;
     color: white;
-}
+} 
 
 
-.status.approved {
+
+
+.status-select.approved {
     padding: 2px 4px;
-    background: #8de02c;
-    color: white;
+    /* background: #8de02c; */
+    /* color: white; */
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
   }
-.status.pending {
+.status-select.pending {
     padding: 2px 4px;
-    background: #1795ce;
-    color: white;
+    /* background: #1795ce;
+    color: white; */
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
 }
-.status.rejected {
+.status-select.rejected {
     padding: 2px 4px;
-    background: #f00;
-    color:white;
+    /* background: #f00; */
+    /* color:white; */
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
