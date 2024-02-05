@@ -34,9 +34,9 @@ class AdvertisementRepository{
     
         // Bind parameters with data types
         $stmt->bind_param('sisssis', $advertisement->position, $advertisement->interns, $advertisement->workMode, $advertisement->fromDate, $advertisement->toDate, $advertisement->companyId, $advertisement->qualification);
-    
         // Execute the statement
         $result = $stmt->execute();
+       
     
         if ($result) {
             return $advertisement;
