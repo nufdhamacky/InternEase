@@ -45,8 +45,7 @@
 
                     <h4>Date:</h4>
                     <div class = "input-container">
-                        <input type = "text" class = "bx1">
-                        <ion-icon name="calendar-outline" class = "calendar-icon"></ion-icon>
+                        <input type = "date" class = "bx1">
                     </div>
 
                     <h4>Duration:</h4>
@@ -76,6 +75,9 @@
                             </select>
                         </div>
                     </div>
+                    <div class="submit">
+                            <button type="submit" class="btn">SAVE</button>
+                        </div>
                 </div>
             </div>
         </div>
