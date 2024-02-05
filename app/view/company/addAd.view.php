@@ -34,15 +34,8 @@
                     <div class="heading-advertisement">
                             <h2>Add Advertisements</h2>
                     </div>
+
                     <div class="compdetails">
-
-                    <?php
-                    //  if(isset($_SESSION['status'])){
-                        //    echo "<h6>".$_SESSION['status']. "</h6>";
-                    //    unset($_SESSION['status']);
-                        //}
-                    ?>
-
                         
                             <h4>Position</h4>
                             <select name="position">
@@ -65,11 +58,11 @@
                             <label for="req7"><input type="checkbox" name="req"> C++</label><br>
                             <label for="req8"><input type="checkbox" name="req"> SQL</label><br>
                             <label for="req9"><input type="checkbox" name="req"> Python</label><br>
-                        
+                           
                             <h4>Qualifications</h4>
                             <br>
 
-                            <select name="position">
+                            <select name="qualification">
                                 <option value = "" selected hidden>Select Qualification</option>
                                 <option value = "cs">BSc. in Computer Science</option>
                                 <option value = "is">BSc. in Information systems</option>
