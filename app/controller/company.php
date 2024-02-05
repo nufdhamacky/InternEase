@@ -164,7 +164,7 @@
              $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
              $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']); // Correct the input name
              $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']); // Correct the input name
-             //$companyId = mysqli_real_escape_string($this->conn, $_POST['company_id']); // You need to fetch the company ID from session or somewhere else
+             //$companyId = mysqli_real_escape_string($this->conn, $_POST['company_id']); 
              $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
              
              // Assuming you have a company_id available somewhere
