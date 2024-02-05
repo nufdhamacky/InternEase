@@ -43,6 +43,12 @@
 .logout{
     padding-top: 10px;
 }
+
+a.logout{
+    text-decoration: none;
+    color: inherit;
+}
+
 .notification{
     padding-left: 20px;
 }

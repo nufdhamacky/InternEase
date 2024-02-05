@@ -32,9 +32,9 @@ if ($pageTitle === '') {
                 <div class="notification">
                     <span class="notify"><i class="fa fa-bell" aria-hidden="true"></i></span>
                 </div>
-                <div class="logout">
+                <a href="logout" class="logout">
                     <span class="notify"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-                </div>
+                </a>
             </div>
         </div>
 </header>
