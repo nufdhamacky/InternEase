@@ -1,7 +1,7 @@
 <?php
 
 class CompanyModel {
-    function getTotalAd($conn){
+    public function getTotalAd($conn){
         $sql = "SELECT count(*) as count FROM company_ad";
 
         $result = $conn->query($sql);
