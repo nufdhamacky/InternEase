@@ -1,9 +1,10 @@
 
 <div class="navigation">
     <img src = "../../public/assets/images/logo.png" alt="">
+    <img src = "assets/images/logo.png" alt="">
     <ul>
     <li>
-        <li>
+        <li> 
             <a href="managepdc.view.php">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">Manage PDC</span>
@@ -35,6 +36,5 @@
         </li>
     </ul>
 </div>
-
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

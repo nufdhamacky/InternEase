@@ -13,7 +13,7 @@
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
             <div class="main">
                 <div class="content">        
-                    <form class="insertPDC_form" method="post" action="managepdc">
+                    <form class="insert-form" method="post" action="managepdc">
 
                         <div class="formgroup">
                         <label for="pdc_id">PDC ID:</label>
@@ -21,34 +21,34 @@
                         </div>
 
                         <div class="formgroup">
-                        <label for="pdc_fname">PDC first name:</label>
+                        <label for="pdc_fname">First name:</label>
                         <input class="input-text" type="text" name="pdc_fname" id="pdc_fname">
                         </div>
 
                         <div class="formgroup">
-                        <label for="pdc_lname">PDC last name:</label>
+                        <label for="pdc_lname">Last name:</label>
                         <input class="input-text" type="text" name="pdc_lname" id="pdc_lname">
                         </div>
 
                         <div class="formgroup">
-                        <label for="pdc_email">PDC email:</label>
+                        <label for="pdc_email">Email:</label>
                         <input class="input-text" type="text" name="pdc_email" id="pdc_email">
                         </div>
 
                         <div class="formgroup">
-                        <label for="pdc_pwd">PDC password:</label>
+                        <label for="pdc_pwd">password:</label>
                         <input class="input-text" type="password" name="pdc_pwd" id="pdc_pwd">
                         </div>  
                         
                         <div class="formgroup">
-                        <label for="pdc_rpwd">re-password:</label>
+                        <label for="pdc_rpwd">Confirm-password:</label>
                         <input class="input-text" type="password" name="pdc_rpwd" id="pdc_rpwd">
                         <input type="submit"  class="btn" value="INSERT" name="insertpdc">
                         </div>   
                     </form>
 
 
-                    <form class="updatePDC-form"  method="post" action="managepdc">
+                    <form class="update-form"  method="post">
 
                         <div class="formgroup">
                             <label for="col">Column:</label>

@@ -230,6 +230,7 @@ body
 }
 
 .details table thead td {
+    width: fit-content;
     color: rgba(9, 62, 76, 1);
     font-weight: 600;
 }
@@ -238,6 +239,7 @@ body
 
 .details .companyList table tr {
     color: black;
+    margin: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .details .companyList table tr:last-child {
@@ -250,7 +252,7 @@ body
 }
 
 .details .companyList table tr td {
-    padding: 7.25px;
+    padding: 1.7vw;
 }
 
 .details .companyList table tr td:last-child {
@@ -274,16 +276,6 @@ body
     font-size: 14px;
     font-weight: 500;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -337,14 +329,13 @@ body
 
 
 select {
-    border: 2px solid #2f89fd;
+    border: 2px solid #f5f5f5;
     padding: 0.5vw 1.5vw 0.5vw 1.5vw;
     margin-right: 1vw;
     margin-top: 1vw;
     margin-bottom: 1vw;
     text-align: left;
 }
-
 
 
 .userhover {
@@ -364,13 +355,10 @@ select {
 }
 
 
-
-
-
-
-
 form {
-    border:2px solid #5768e4;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
     border-radius: 6px;
     margin-top: 3vw;
     margin-bottom: 3vw;
@@ -380,21 +368,19 @@ form {
 {   
     display:inline-block;
     text-align: center;
-    color: #fbfbfb;
-    background-color: #0a6485;
-    border-radius: 10px;
-    padding:0.5vw;
-    margin-top: 1vw;
-    margin-bottom:1vw;
-    margin-left: 2vw ;
-    margin-left: 2vw ;
+    color: #030202;
+    background-color: #d9eff7;
+    border-color: #d9eff7;
+    border-radius: 0.5vw;
+    padding:0.7vw;
+    margin-top: 0.5vw;
     font-weight: 300px;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
-    background-color: #5768e4; /* Change the background color on hover */
+    background-color: #d2d2f7; /* Change the background color on hover */
 }
 
 
@@ -404,12 +390,14 @@ label {
     width: 11vw;
     display: inline-block;
     color: #070707;
-    font-weight:500;
+    font-weight:bold;
 }
 
 .input-text {
-    padding:0.4vw 1vw 0.4vw 1vw;
-    background-color: #bfdbf8;
+    padding:0.5vw;
+    background-color: #e4ecf4;
+    border-radius: 0.3vw;
+    border-color: #ffffff;
     color: #1a0b0b;
     width: auto;
 }
@@ -462,4 +450,25 @@ div > span {
     margin-left: auto;
     margin-left: auto;
 }
+
+.description {
+    border-radius: 0.7vw;
+    padding: 1vw;
+    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
+    background-color: rgb(252, 251, 251);
+    
+}
+
+.description > h3 {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+
+}
+
+.description > p {
+    margin-top: 3vw;
+    margin-bottom: 1vw;
+
+}
+
 

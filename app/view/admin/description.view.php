@@ -27,33 +27,15 @@
             </div>
 
         <div class="details">
-                <div class="companyList">
-                        <div class = "cardHeader">
-                            <h2>Complaint Description</h2>
-                            <!-- <a href="#" class="btn">View All</a>  -->
-                        </div>
-                    <table>
-                    
-                        <thead>
-                            <tr>
-                                <td>Complaint ID</td>
-                                <td>Description</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php if ($complaintsArray && count($complaintsArray) > 0): ?>
-                        <?php foreach ($complaintsArray as $complaint): ?>
-                            <tr>
-
-                                <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
-                                <td><?php echo htmlspecialchars($complaint['description']); ?></td>
-
-                            </tr>
-                            <?php endforeach; ?>
+                    <div class="description">
+                        <?php if ($complaintDetails && count($complaintDetails) > 0): ?>
+                        <?php foreach ($complaintDetails as $complaint): ?>
+                            <h3>Complaint ID :  <?php echo htmlspecialchars($complaint['complaint_id']); ?> </h3>
+                            <h3>User Email :  <?php echo htmlspecialchars($complaint['email']); ?> </h3>
+                            <p><?php echo htmlspecialchars($complaint['description']); ?></p>
+                        <?php endforeach; ?>
                         <?php endif; ?>   
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
         </div>
     </div>

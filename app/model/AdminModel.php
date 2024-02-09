@@ -27,7 +27,7 @@ class AdminModel extends model {
         }
     }
 
-    public function insertPDC($data = [], $confirmPassword) {
+    public function insertPDC($confirmPassword,$data = []) {
         if ($data['password'] !== $confirmPassword) {
             return false;
         } else {
@@ -42,21 +42,60 @@ class AdminModel extends model {
     
 
     public function getCompany() {
-        $sql = 'SELECT * FROM company';
-        $result = mysqli_query($this->connection, $sql);
-        $companyData = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_free_result($result);
-        return $companyData;
+        if ($this->query("INSERT INTO " . $this->getTable() . " (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", array_values($data))) {
+                 return true;
+            } else {
+                return false;
+            }
+       
     }
 
     public function getComplaints() {
-        $sql = 'SELECT * FROM complaints';
-        $result = mysqli_query($this->connection, $sql);
-        $complaints = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_free_result($result);
-        return $complaints;
+        $query = "SELECT * FROM " . $this->getTable();
+        $complaints = $this->query($query);
+        $complaintsArray = [];
+        foreach ($complaints as $complaint) {
+            $complaintsArray[] = [
+                'status' => $complaint['status'],
+                'complaint_id' => $complaint['com_id'],
+                'title' => $complaint['title'],
+                'id' => $complaint['id'],
+                'description' => $complaint['description'],
+                'email' => $complaint['email'],
+        ];
+        }
+        return $complaintsArray;
     }
 
+    public function check_status($id){
+        $query = "UPDATE " . $this->getTable() . " SET status = 1 WHERE com_id = $id";
+        if($this->query($query)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getComplaintDetail($complaintId) {
+        $query = "SELECT * FROM " . $this->getTable() . " WHERE com_id = ?";
+        $complaints = $this->query($query, [$complaintId]);
+    
+        $complaintsArray = [];
+    
+        foreach ($complaints as $complaint) {
+            $complaintsArray[] = [
+                'status' => ($complaint['status'] == 0) ? 'un-reviewed' : 'reviewed',
+                'complaint_id' => $complaint['com_id'],
+                'title' => $complaint['title'],
+                'id' => $complaint['id'],
+                'description' => $complaint['description'],
+                'email' => $complaint['email'],
+            ];
+        }
+    
+        return $complaintsArray;
+    }
+    
 
     public function updateStatus($complaintID) {
         $status = array(
