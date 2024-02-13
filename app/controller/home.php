@@ -67,7 +67,7 @@
                         else if($_SESSION['userRole'] == 'student')
                             echo "<script> window.location.href='http://localhost/internease/public/student/dashboard';</script>";
                         else if($_SESSION['userRole'] == 'admin')
-                            echo "<script> window.location.href='http://localhost/newinternease/internease/public/admin/report';</script>";
+                            echo "<script> window.location.href='http://localhost/internease/public/admin/index';</script>";
                         else
                             echo "<script> window.location.href='http://localhost/internease/public/pdc/dashboard';</script>";
                     }

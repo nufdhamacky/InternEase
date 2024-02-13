@@ -16,7 +16,7 @@ class Admin extends Controller {
         $isLoggedIn = $this->isLoggedIn();
         
         if($isLoggedIn == 1){
-            $this->view('admin/report');
+            $this->view('admin/index');
         } else{
             $_SESSION['loginError'] = "Please login first!";
             echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
@@ -78,8 +78,8 @@ class Admin extends Controller {
 
     }
 
-    public function report(){
-        $this->view('admin/report');
+    public function index(){
+        $this->view('admin/index');
     }
 
     public function logout(){
@@ -154,7 +154,7 @@ class Admin extends Controller {
     }
 
 
-    public function editreport(){
+    public function editindex(){
     }
 
 

@@ -19,7 +19,7 @@
                 </div>
                 <div class = "user">
                     <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span>Hamsayini</span>
+                    <span><?php echo isset($_SESSION['userName']) ? $_SESSION['userName'] : 'Guest'; ?></span>
                     <ion-icon name="person-circle-outline"></ion-icon>
                     
                 </div>
