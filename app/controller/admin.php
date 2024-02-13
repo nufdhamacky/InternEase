@@ -3,6 +3,45 @@
 class Admin extends Controller {
 
 
+    public function isLoggedIn(){
+        if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="admin"){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+
+    public function dashboard(){
+
+        $isLoggedIn = $this->isLoggedIn();
+        
+        if($isLoggedIn == 1){
+            $this->view('admin/report');
+        } else{
+            $_SESSION['loginError'] = "Please login first!";
+            echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
+        }
+    
+    }   
+
+    public function add_admin(){
+        $this->model('AdminModel');
+        $admin = new adminmodel;
+        $admin->setTable('users');
+        $data =[
+                    
+            'user_name' => 'admin@gmail.com' ,
+            'user_role' => 'admin',
+            'user_profile' => 'admin.jpg',
+            'user_Status' => 1 ,
+            'password' => '12345' ,
+        
+        ];
+
+       $admin->insertadmin($data);
+    }
+
+
     public function profile(){
 
         $this->model('AdminModel');
@@ -45,7 +84,7 @@ class Admin extends Controller {
 
     public function logout(){
         session_destroy();
-        echo "<script> window.location.href='http://localhost/internease/public/home/index';</script>";
+        $this->redirect('..');
     }
 
     public function complaints(){
@@ -113,8 +152,12 @@ class Admin extends Controller {
         $complaintDetails = $adminModel->getComplaintDetail($complaintId);
         $this->view('admin/description', array('complaintDetails' => $complaintDetails));
     }
+
+
     public function editreport(){
     }
+
+
 }
 
 

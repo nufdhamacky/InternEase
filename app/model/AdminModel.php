@@ -104,6 +104,21 @@ class AdminModel extends model {
         // Assuming $this refers to the current class instance where the 'update()' method is available
         $this->update($complaintID, $status, 'complaint_id');
     }
+
+    public function insertadmin($data =[]){
+
+        $hasedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['password'] = $hasedPassword;
+        if($this->query("INSERT INTO " . $this->getTable() . "(user_name,user_role,user_profile,user_status,password) VALUES (?,?,?,?,?)", array_values($data))){
+            echo "1";
+        }else{
+
+            echo "0";
+        }
+        
+    }
+
+
     
     
    /* public function getAllProfiles() {
