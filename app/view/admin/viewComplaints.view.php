@@ -6,7 +6,6 @@
     <title>Complaints</title>
      <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 
-    
 </head>
 <body>
 
@@ -37,14 +36,14 @@
                             <tr>
                                 <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                 <td><?php echo htmlspecialchars($complaint['title']); ?></td>
-                                <?php 
-                                    if($complaint['student_id'] == NULL){
+                                    <?php 
+                                        if($complaint['student_id'] == NULL){
 
-                                        $id= $complaint['company_id'];
-                                    }else{
-                                        $id=$complaint['student_id'];
-                                    }
-                                ?>
+                                            $id= $complaint['company_id'];
+                                        }else{
+                                            $id=$complaint['student_id'];
+                                        }
+                                    ?>
                                 <td><?php echo htmlspecialchars($id);?></td>
                                 <td><?php echo htmlspecialchars($complaint['user_type']);?></td>
                                 <td><?php echo htmlspecialchars($complaint['date']); ?></td>

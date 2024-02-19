@@ -12,21 +12,16 @@ class AdminModel extends model {
 
 //PROFILE
 public function updateAdmin($data) {
-    // Check if the column is 'password' and hash the value if necessary
+
     if ($data['column'] === 'password') {
         $data['value'] = password_hash($data['confirmPassword'], PASSWORD_DEFAULT);
     }
 
-    // Construct the SQL query with placeholders
     $query = "UPDATE users SET {$data['column']} = ? WHERE user_id = ?";
-
-    // Bind the parameters
     $params = array($data['value'], $data['id']);
 
-    // Execute the query
     $update = $this->query($query, $params);
 
-    // Check if the update was successful
     if ($update) {
         return true;
     } else {
@@ -55,13 +50,13 @@ public function updateAdmin($data) {
 //REPORT/DASHBOARD FUNCTIONS
 
     public function getCompany() {
-        if ($this->query("INSERT INTO " . $this->getTable() . " (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", array_values($data))) {
-                 return true;
-            } else {
-                return false;
-            }
-       
+        return $this->findall();
     }
+
+    public function getCompanyAD() {
+        return $this->findall();
+    }
+
 
 //COMPLAINTS FUNCTIONS ADMIN
     public function getComplaints() {

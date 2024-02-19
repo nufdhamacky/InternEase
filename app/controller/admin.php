@@ -5,24 +5,14 @@ class Admin extends Controller {
 
     public function isLoggedIn(){
         if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="admin"){
-            return 1;
+            return true;
         } else{
+            $_SESSION['loginError'] = "Please login first!";
+            echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
             return 0;
         }
     }
 
-    public function dashboard(){
-
-        $isLoggedIn = $this->isLoggedIn();
-        
-        if($isLoggedIn == 1){
-            $this->view('admin/index');
-        } else{
-            $_SESSION['loginError'] = "Please login first!";
-            echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
-        }
-    
-    }   
 
     public function add_admin(){
         $this->model('AdminModel');
@@ -45,49 +35,50 @@ class Admin extends Controller {
 //PROFILE UPDATE ADMIN
 
     public function profile() {
-        $this->model('AdminModel');
+        if (!$this->isLoggedIn()){return;}
+                $this->model('AdminModel');
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
-           
-            $data = [
-                'id' => $_SESSION["userId"],
-                'column' => $_POST["col"],
-                'value' => $_POST["updatevalue"],
-                'confirmPassword' => $_POST["confirmPassword"]
-            ];
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
+                
+                    $data = [
+                        'id' => $_SESSION["userId"],
+                        'column' => $_POST["col"],
+                        'value' => $_POST["updatevalue"],
+                        'confirmPassword' => $_POST["confirmPassword"]
+                    ];
 
-            $adminModel = new AdminModel; 
-            $adminModel->setTable('users');
+                    $adminModel = new AdminModel; 
+                    $adminModel->setTable('users');
 
-            if ($adminModel->updateAdmin($data)) {
-                if($_POST["col"] !='password'){
-                    $_SESSION["userName"] =$data['value'];
-                    echo '<script type="text/javascript">';
-                    echo 'alert("Updated Successfully");';
-                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
-                    echo '</script>';
-                }else{ 
-                    echo '<script type="text/javascript">';
-                    echo 'alert("Updated Successfully");';
-                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/logout";';
-                    echo '</script>';
+                    if ($adminModel->updateAdmin($data)) {
+                        if($_POST["col"] !='password'){
+                            $_SESSION["userName"] =$data['value'];
+                            echo '<script type="text/javascript">';
+                            echo 'alert("Updated Successfully");';
+                            echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
+                            echo '</script>';
+                        }else{ 
+                            echo '<script type="text/javascript">';
+                            echo 'alert("Updated Successfully");';
+                            echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/logout";';
+                            echo '</script>';
+                        }
+
+                        exit();
+                    } else {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Unsuccessful Update");';
+                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
+                        echo '</script>';
+                        exit();
+                    }
+                } else {
+                    $this->view('admin/profile');
                 }
 
-                exit();
-            } else {
-                echo '<script type="text/javascript">';
-                echo 'alert("Unsuccessful Update");';
-                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
-                echo '</script>';
-                exit();
-            }
-        } else {
-            $this->view('admin/profile');
-        }
     }
-
-
-       
+        
+  
 
 
    /* public function insertAdmin(){
@@ -103,8 +94,25 @@ class Admin extends Controller {
     }
     */
     public function index(){
-        $this->view('admin/index');
+        if (!$this->isLoggedIn()){return;}
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+        
+            $adminModel->setTable('company');
+            $companies = $adminModel->getCompany();
+        
+            $adminModel->setTable('company_ad');
+            $advertisments = $adminModel->getCompanyAD();
+        
+            $data = array(
+                'companies' => $companies,
+                'advertisments' => $advertisments
+            );
+        
+            $this->view('admin/index', $data);
+
     }
+    
 
     public function logout(){
         session_destroy();
@@ -112,15 +120,17 @@ class Admin extends Controller {
     }
 
     public function complaints(){
-        $this->model('AdminModel');
-        $adminModel = new AdminModel;
-        $adminModel->setTable('complaint');
-        $complaintsArray = $adminModel->getComplaints();
-        $this->view('admin/viewComplaints',array('complaintsArray' => $complaintsArray));
-
+        if (!$this->isLoggedIn()){return;}
+                
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+            $adminModel->setTable('complaint');
+            $complaintsArray = $adminModel->getComplaints();
+            $this->view('admin/viewComplaints',array('complaintsArray' => $complaintsArray)); 
     }
 
-    public function checkcomplaint($complaintID){
+    function checkcomplaint($complaintID){
+
         $this->model('AdminModel');
         $adminModel = new AdminModel;
         $adminModel->setTable('complaint');
@@ -129,47 +139,49 @@ class Admin extends Controller {
     }
 
     public function managepdc(){
-        $this->model('AdminModel');
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
-                
-                $data =[
+        if (!$this->isLoggedIn()){return;}
+            $this->model('AdminModel');
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
                     
-                'id' => $_POST["pdc_id"],
-                'first_name' => $_POST["pdc_fname"],
-                'last_name' => $_POST["pdc_lname"],
-                'email' => $_POST["pdc_email"],
-                'password' => $_POST["pdc_pwd"],
-            
-            ];
-
-            $confirmPassword = $_POST["pdc_rpwd"] ;
-            
-            $adminModel = new AdminModel; 
-            $adminModel->setTable('pdc_user');
-            
-                if ($adminModel->insertPDC($confirmPassword,$data)) {
-                    echo '<script type="text/javascript">';
-                    echo 'alert("Inserted PDC User Successfully");';
-                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                    echo '</script>';
-                    exit();
-                } else {
-                    echo '<script type="text/javascript">';
-                    echo 'alert("Unsucessful PDC user insertion");';
-                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                    echo '</script>';
-                    exit();
-                }
-       
-            
-        }else{
-            $this->view('admin/managepdc');
-        }
+                    $data =[
+                        
+                    'id' => $_POST["pdc_id"],
+                    'first_name' => $_POST["pdc_fname"],
+                    'last_name' => $_POST["pdc_lname"],
+                    'email' => $_POST["pdc_email"],
+                    'password' => $_POST["pdc_pwd"],
+                
+                ];
+    
+                $confirmPassword = $_POST["pdc_rpwd"] ;
+                
+                $adminModel = new AdminModel; 
+                $adminModel->setTable('pdc_user');
+                
+                    if ($adminModel->insertPDC($confirmPassword,$data)) {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Inserted PDC User Successfully");';
+                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                        echo '</script>';
+                        exit();
+                    } else {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Unsucessful PDC user insertion");';
+                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                        echo '</script>';
+                        exit();
+                    }
+           
+                
+            }else{
+                $this->view('admin/managepdc');
+            }
 
     }
 
-    public function description($complaintId) {
+     function description($complaintId) {
         $this->model('AdminModel');
         $adminModel = new AdminModel;
         $adminModel->setTable('complaint');
@@ -177,7 +189,7 @@ class Admin extends Controller {
         $this->view('admin/description', array('complaintDetails' => $complaintDetails));
     }
 
-    public function company_report(){
+    function company_report(){
         $this->model('AdminModel');
         $adminModel = new AdminModel;
         $adminModel->setTable('complaint');

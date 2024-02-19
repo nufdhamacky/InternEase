@@ -62,35 +62,49 @@
                     <tr>
                         <td>Company name</td>
                         <td>job position</td>
-                        <td>interns</td>
+                        <td>no.of interns</td>
+                        <td>working mode</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>99x</td>
-                        <td>Network Enginner</td>
-                        <td>6</td>
-                    </tr>
+                <tbody>
+                <?php if ($advertisments && count($advertisments)> 0): ?>
+                    <?php foreach ($advertisments as $ad): ?>
 
+                        <?php
+                        foreach ($companies as $company) {
+                            $companyName = 'N/A';
+                            if ($company['user_id'] == $ad['company_id']) {
+                                $companyName = $company['company_name'];
+                                break;
+                            }
+                        }
+                        ?>   
                     <tr>
-                        <td>WSO2</td>
-                        <td>Cyber secruity</td>
-                        <td>4</td>
-                    </tr>
+                        
+                        <td><?php echo htmlspecialchars($companyName);?></td>
+                        
+                        <?php
+                            switch ($ad['position']) {
+                                case 'qa':
+                                    $position = 'Quality Assurance';
+                                    break;
+                                case 'ba':
+                                    $position = 'Business Analyst';
+                                    break;
+                            
+                                default:
+                                $position = 'N/a';
+                             
+                            }
+                        ?>
+                        <td><?php echo htmlspecialchars($position); ?></td>
+                        <td><?php echo htmlspecialchars($ad['no_of_intern']); ?></td>
+                        <td><?php echo htmlspecialchars($ad['working_mode']); ?></td>
 
-                    <tr>
-                        <td>Virtusa</td>
-                        <td>IT officer</td>
-                        <td>1</td>
                     </tr>
-
-                    <tr>
-                        <td>CodeGen</td>
-                        <td>Software Enginner</td>
-                        <td>12</td>
-                    </tr>
-                        <td class="td-left" colspan="3">TOTAL = 23</td>
-                    <tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>  
                 </tbody>
             </table>
             </div>
@@ -109,35 +123,18 @@
                 </thead>
 
                 <tbody>
+                <?php if ($companies && count($companies)> 0): ?>
+                    <?php foreach ($companies as $company): ?>
 
-                    <tr>
-                        <td>99x</td>
-                        <td>Ruwan</td>
-                        <td>077-8982122</td>
-                        <td>Ruwan@gmail.com</td>
-                    </tr>
+                        <tr>
+                            <td><?php echo htmlspecialchars($company['company_name']);?></td>
+                            <td><?php echo htmlspecialchars($company['contact_person']); ?></td>
+                            <td><?php echo htmlspecialchars($company['contact_no']); ?></td>
+                            <td><?php echo htmlspecialchars($company['Email']); ?></td>
+                        </tr>
 
-                    <tr>
-                        <td>WSO2</td>
-                        <td>Ajitd</td>
-                        <td>077-8982122</td>
-                        <td>Ajitd@gmail.com</td>
-                    </tr>
-
-                    <tr>
-                        <td>Virtusa</td>
-                        <td>fernando</td>
-                        <td>077-8982122</td>
-                        <td>fernando@gmail.com</td>
-                    </tr>
-
-                    <tr>
-                        <td>CodeGen</td>
-                        <td>kanitd</td>
-                        <td>077-8982122</td>
-                        <td>kanitd@gmail.com</td>
-                </tbody>
-
+                    <?php endforeach; ?>
+                <?php endif; ?>   
                 </table>
             </div>
     </div>
