@@ -518,19 +518,26 @@ div > span {
 
 
 .report  table thead{
-    font-size: 1.5vw;
+    border: solid ;
+    border-radius: 4vw;
+    border-color: white;
+    font-size: 2vw;
     font-weight: bold;
 
 }
 
 
 .report  table tr td {
+    width: auto;
+    font-size: 1.3vw;
     padding: 1.0vw;
     
 }
 
-.report  table tr {
-    width: fit-content;
+.report table tr {
+    border: solid ;
+    border-radius: 4vw;
+    border-color:white;
     padding: 1.3vw;
     
 }
@@ -538,7 +545,7 @@ div > span {
 
 .report  table tbody tr:hover {
     animation-duration: 0.3ms;
-    background-color: #96b8e8;
+    background-color: #badef3;
     
 }
 
@@ -575,6 +582,8 @@ p{
     padding: 1vw;
     margin: 0.4vw;
 }
+
+
 
 
 

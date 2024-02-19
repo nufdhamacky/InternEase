@@ -4,8 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin profile</title>
-    <link rel="stylesheet" type="text/css" href="../../../public/css/admin/com.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 
 </head>
 <body>
@@ -18,8 +17,8 @@
                 <div class="formgroup">
                     <label for="col">Attribute:</label>
                     <select name="col" id="col" onchange="togglePasswordFields()">
-                        <option value="Email">Email</option>
-                        <option value="Password">Password</option>
+                        <option value="user_name">Email</option>
+                        <option value="password">Password</option>
                     </select>
 
                     <div id="updatevalue">
@@ -52,7 +51,7 @@
         var updatevalue = document.getElementById("updatevalue");
         var confirmPasswordField = document.getElementById("confirmPassword");
 
-        if (col.value === "Password") {
+        if (col.value === "password") {
             confirmPasswordField.style.display = "block";
         } else {
             confirmPasswordField.style.display = "none";

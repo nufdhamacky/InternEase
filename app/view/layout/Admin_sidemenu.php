@@ -1,35 +1,34 @@
 
 <div class="navigation">
-    <img src = "../../public/assets/images/logo.png" alt="">
-    <img src = "assets/images/logo.png" alt="">
+    <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
     <li>
         <li> 
-            <a href="managepdc">
+            <a href="<?=ROOT?>/admin/managepdc">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">Manage PDC</span>
             </a>
         </li>
         <li>
-            <a href="report">
+            <a href="<?=ROOT?>/admin/report">
                 <span class="icon"><ion-icon name="bag-remove-outline"></ion-icon></span>
                 <span class="title">Reports</span>
             </a>
         </li>
         <li>
-            <a href="Complaints">
+            <a href="<?=ROOT?>/admin/Complaints">
                 <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>
                 <span class="title">Complaints</span>
             </a>
         </li>
         <li>
-            <a href="profile">
+            <a href="<?=ROOT?>/admin/profile">
                 <span class="icon"><ion-icon name="swap-horizontal-outline"></ion-icon></span>
                 <span class="title">Profile</span>
             </a>
         </li>
         <li>
-            <a href="logout">
+            <a href="<?=ROOT?>/admin/logout">
                 <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
                 <span class="title">Sign Out </span>
             </a>

@@ -42,43 +42,55 @@ class Admin extends Controller {
     }
 
 
-    public function profile(){
+//PROFILE UPDATE ADMIN
 
+    public function profile() {
         $this->model('AdminModel');
 
-
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
-            
-            $id = $_SESSION['userName']; 
-            $column = $_POST["col"];
-            $updateValue = $_POST["updatevalue"];
-            $confirmPassword = $_POST["confirmPassword"];
-        
+           
+            $data = [
+                'id' => $_SESSION["userId"],
+                'column' => $_POST["col"],
+                'value' => $_POST["updatevalue"],
+                'confirmPassword' => $_POST["confirmPassword"]
+            ];
+
             $adminModel = new AdminModel; 
-        
-            
-            if ($adminModel->updateAdmin($id, $column, $updateValue, $confirmPassword)) {
-                echo '<script type="text/javascript">';
-                echo 'alert("Updated Successfully");';
-                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
-                echo '</script>';
+            $adminModel->setTable('users');
+
+            if ($adminModel->updateAdmin($data)) {
+                if($_POST["col"] !='password'){
+                    $_SESSION["userName"] =$data['value'];
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Updated Successfully");';
+                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
+                    echo '</script>';
+                }else{ 
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Updated Successfully");';
+                    echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/logout";';
+                    echo '</script>';
+                }
+
                 exit();
             } else {
                 echo '<script type="text/javascript">';
-                echo 'alert("Unsucessful Update");';
+                echo 'alert("Unsuccessful Update");';
                 echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
                 echo '</script>';
                 exit();
             }
-        }else{
+        } else {
             $this->view('admin/profile');
         }
+    }
+
 
        
 
-    }
 
-    public function insertAdmin(){
+   /* public function insertAdmin(){
         
         $this->model('AdminModel');
         $adminModel = new AdminModel;  
@@ -89,7 +101,7 @@ class Admin extends Controller {
         }
 
     }
-
+    */
     public function index(){
         $this->view('admin/index');
     }
@@ -163,6 +175,12 @@ class Admin extends Controller {
         $adminModel->setTable('complaint');
         $complaintDetails = $adminModel->getComplaintDetail($complaintId);
         $this->view('admin/description', array('complaintDetails' => $complaintDetails));
+    }
+
+    public function company_report(){
+        $this->model('AdminModel');
+        $adminModel = new AdminModel;
+        $adminModel->setTable('complaint');
     }
 
 

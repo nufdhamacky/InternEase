@@ -10,22 +10,34 @@ class AdminModel extends model {
         $this->connection = $this->connection();
     }
 
-
-    public function updateAdmin($id, $column, $value, $confirmPassword) {
-       
-        if ($column === 'password') {
-            $value = password_hash($confirmPassword, PASSWORD_DEFAULT);
-        }
-        
-        $updateStatement = $this->connection->prepare("UPDATE admin SET $column = ? WHERE Email = ?");
-        $updateStatement->bind_param("ss", $value, $id);
-
-        if ($updateStatement->execute()) {
-            return true;
-        } else {
-            return false;   
-        }
+//PROFILE
+public function updateAdmin($data) {
+    // Check if the column is 'password' and hash the value if necessary
+    if ($data['column'] === 'password') {
+        $data['value'] = password_hash($data['confirmPassword'], PASSWORD_DEFAULT);
     }
+
+    // Construct the SQL query with placeholders
+    $query = "UPDATE users SET {$data['column']} = ? WHERE user_id = ?";
+
+    // Bind the parameters
+    $params = array($data['value'], $data['id']);
+
+    // Execute the query
+    $update = $this->query($query, $params);
+
+    // Check if the update was successful
+    if ($update) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
+//MANAGE PDC FUNCS
 
     public function insertPDC($confirmPassword,$data = []) {
         if ($data['password'] !== $confirmPassword) {
@@ -40,6 +52,7 @@ class AdminModel extends model {
         }
     }
     
+//REPORT/DASHBOARD FUNCTIONS
 
     public function getCompany() {
         if ($this->query("INSERT INTO " . $this->getTable() . " (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", array_values($data))) {
@@ -50,6 +63,7 @@ class AdminModel extends model {
        
     }
 
+//COMPLAINTS FUNCTIONS ADMIN
     public function getComplaints() {
         $query = "SELECT * FROM " . $this->getTable();
         $complaints = $this->query($query);
@@ -87,18 +101,24 @@ class AdminModel extends model {
 
         foreach ($complaints as $complaint) {
             $MoreDetail = $this->query("SELECT * FROM company WHERE user_id = ?", [$complaint['company_id']]);
+            $MoreDetail_s = $this->query("SELECT * FROM student WHERE registration_no = ?", [$complaint['student_id']]);
+
             if (!empty($MoreDetail)) {
+                
                 $id =$complaint['company_id'];
                 $email = $MoreDetail[0]['Email'];
                 $contact_no = $MoreDetail[0]['contact_no'];
                 $contact_person = $MoreDetail[0]['contact_person'];
                 $user_type = 'Company';
-            } else if(!empty($this->query("SELECT * FROM student WHERE registration_no = ?", [$complaint['student_id']]))){
-                $id =$complaint['student_id'];
-                $email = $MoreDetail['Email'];
-                $contact_no = $MoreDetail['contact_no'];
-                $contact_person = $MoreDetail['f_name'];
+
+            } else if(!empty($MoreDetail_s)){
+
+                $id =$MoreDetail_s[0]['registration_no'];
+                $email = $MoreDetail_s[0]['Email'];
+                $contact_no = $MoreDetail_s[0]['contact_no'];
+                $contact_person = $MoreDetail_s[0]['f_name'];
                 $user_type = 'Student';
+
             }else{
                 
                 $user_type = 'Not available';
@@ -123,15 +143,19 @@ class AdminModel extends model {
     
         return $complaintsArray;
     }
+
+
     
 
     public function updateStatus($complaintID) {
         $status = array(
             'status' => 1 
         );
-        // Assuming $this refers to the current class instance where the 'update()' method is available
         $this->update($complaintID, $status, 'complaint_id');
     }
+
+
+//INSERT ADMIN on configuration
 
     public function insertadmin($data =[]){
 

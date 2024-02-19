@@ -34,7 +34,7 @@
                 }else if($row['user_role'] == 'admin'){
                     if(password_verify($password, $row['password'])){
                     
-                        $sql = "SELECT * FROM admin WHERE Admin_ID = {$row['user_id']}";
+                        $sql = "SELECT * FROM admin WHERE admin_id = {$row['user_id']}";
                         $result1 = $conn->query($sql);  
     
                         $_SESSION['userId']= $row['user_id'];

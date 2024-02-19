@@ -4,22 +4,19 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
     <title>Complaints</title>
-    <link rel="stylesheet" type="text/css" href="../../../public/css/admin/com.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
+     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 
-
+    
 </head>
 <body>
 
 
 <div class="container">
     <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
-        <div class="details">
-                <div class="companyList">
-                        <div class = "cardHeader">
-                            <h2>Complaints</h2>
-                            <!-- <a href="#" class="btn">View All</a>  -->
-                        </div>
+        <div class="report">
+                <div class="report_item">
+                    <h2>Complaints</h2>
+
                     <table>
                     
                         <thead>
