@@ -49,7 +49,7 @@ class Admin extends Controller {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
             
-            $id = $_POST['id']; 
+            $id = $_SESSION['userName']; 
             $column = $_POST["col"];
             $updateValue = $_POST["updatevalue"];
             $confirmPassword = $_POST["confirmPassword"];
@@ -75,6 +75,18 @@ class Admin extends Controller {
         }
 
        
+
+    }
+
+    public function insertAdmin(){
+        
+        $this->model('AdminModel');
+        $adminModel = new AdminModel;  
+        if ($adminModel->updateAdmin('admin@gmail.com', 'password', '12345', '12345')) {
+            echo "1";
+        } else {
+                echo "0";
+        }
 
     }
 
@@ -151,10 +163,6 @@ class Admin extends Controller {
         $adminModel->setTable('complaint');
         $complaintDetails = $adminModel->getComplaintDetail($complaintId);
         $this->view('admin/description', array('complaintDetails' => $complaintDetails));
-    }
-
-
-    public function editindex(){
     }
 
 

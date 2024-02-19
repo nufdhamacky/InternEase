@@ -14,17 +14,6 @@
 
 <div class="container">
     <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
-    <div class ="main">
-            <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-                <div class = "user">
-                    <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span>Hamsayini</span>
-                    <ion-icon name="person-circle-outline"></ion-icon>      
-                </div>
-            </div>
         <div class="details">
                 <div class="companyList">
                         <div class = "cardHeader">
@@ -38,7 +27,8 @@
                                 <td>Complaint ID</td>
                                 <td>Title</td>
                                 <td>User-ID</td>
-                                <td>Email</td>
+                                <td>User</td>
+                                <td>Date</td>
                                 <td>Description</td>
                                 <td>Review-status</td>
                                 <td></td>
@@ -50,8 +40,17 @@
                             <tr>
                                 <td><?php echo htmlspecialchars($complaint['complaint_id']); ?></td>
                                 <td><?php echo htmlspecialchars($complaint['title']); ?></td>
-                                <td><?php echo htmlspecialchars($complaint['id']); ?></td>
-                                <td><?php echo htmlspecialchars($complaint['email']); ?></td>
+                                <?php 
+                                    if($complaint['student_id'] == NULL){
+
+                                        $id= $complaint['company_id'];
+                                    }else{
+                                        $id=$complaint['student_id'];
+                                    }
+                                ?>
+                                <td><?php echo htmlspecialchars($id);?></td>
+                                <td><?php echo htmlspecialchars($complaint['user_type']);?></td>
+                                <td><?php echo htmlspecialchars($complaint['date']); ?></td>
                                 <td><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/admin/description/<?php echo $complaint['complaint_id']; ?>" target="_blank"><button class="btn">View</button></a></td>
                                 <td>
                                     <?php if ($complaint['status'] == 0): ?>

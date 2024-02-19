@@ -12,20 +12,6 @@
 
 <div class="container">
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
-        <div class ="main">
-            <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-                <div class = "user">
-                    <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span><?php echo isset($_SESSION['userName']) ? $_SESSION['userName'] : 'Guest'; ?></span>
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    
-                </div>
-
-            </div>
-
         <div class="notification">
                     <div class="notibutton">
                         <a href="">
@@ -68,12 +54,10 @@
         </div>
     
 
-    <div class="details">
-        <div class="companyList">
-                <div class = "cardHeader">
-                    <h2>Advertisment Report</h2>
-                    <!-- <a href="#" class="btn">View All</a>  -->
-                </div>
+    <div class="report">
+            <div class='report_item'>
+            <h2>Advertisment Report</h2>
+
             <table>
                 <thead>
                     <tr>
@@ -110,13 +94,10 @@
                     <tr>
                 </tbody>
             </table>
-        </div>
+            </div>
 
-        <div class="companyList">
-                <div class = "cardHeader">
-                    <h2>Registration report</h2>
-                    <!-- <a href="#" class="btn">View All</a>  -->
-                </div>
+            <div class='report_item'>      
+            <h2>Registration report</h2>
 
             <table>
                 <thead>
@@ -158,10 +139,9 @@
                         <td>kanitd@gmail.com</td>
                 </tbody>
 
-            </table>
-        </div>
+                </table>
+            </div>
     </div>
-    
 
 </div>   
     

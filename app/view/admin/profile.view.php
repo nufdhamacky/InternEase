@@ -13,7 +13,6 @@
 
 <div class="container">
     <?php include('../app/view/layout/Admin_sidemenu.php') ?>
-    <div class ="main">
         <div class="content">
             <form class="update-form" method="POST" action='profile'>
                 <div class="formgroup">
@@ -22,10 +21,6 @@
                         <option value="Email">Email</option>
                         <option value="Password">Password</option>
                     </select>
-                    <div id="id">
-                        <label for="id">Admin ID</label>
-                        <input class="input-text" type="text" name="id" id="id">
-                    </div>
 
                     <div id="updatevalue">
                         <label for="updatevalue">Value:</label>

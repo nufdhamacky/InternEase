@@ -17,7 +17,7 @@ class AdminModel extends model {
             $value = password_hash($confirmPassword, PASSWORD_DEFAULT);
         }
         
-        $updateStatement = $this->connection->prepare("UPDATE admins SET $column = ? WHERE Admin_ID = ?");
+        $updateStatement = $this->connection->prepare("UPDATE admin SET $column = ? WHERE Email = ?");
         $updateStatement->bind_param("ss", $value, $id);
 
         if ($updateStatement->execute()) {
@@ -57,18 +57,20 @@ class AdminModel extends model {
         foreach ($complaints as $complaint) {
             $complaintsArray[] = [
                 'status' => $complaint['status'],
-                'complaint_id' => $complaint['com_id'],
+                'complaint_id' => $complaint['complaint_id'],
                 'title' => $complaint['title'],
-                'id' => $complaint['id'],
+                'student_id' => $complaint['student_id'],
+                'user_type' => $complaint['user_type'],
                 'description' => $complaint['description'],
-                'email' => $complaint['email'],
-        ];
+                'company_id' => $complaint['company_id'],
+                'date' => $complaint['created_at']
+            ];
         }
         return $complaintsArray;
     }
 
     public function check_status($id){
-        $query = "UPDATE " . $this->getTable() . " SET status = 1 WHERE com_id = $id";
+        $query = "UPDATE " . $this->getTable() . " SET status = 1 WHERE complaint_id = $id";
         if($this->query($query)) {
             return true;
         }else{
@@ -77,21 +79,47 @@ class AdminModel extends model {
     }
 
     public function getComplaintDetail($complaintId) {
-        $query = "SELECT * FROM " . $this->getTable() . " WHERE com_id = ?";
+        $query = "SELECT * FROM " . $this->getTable() . " WHERE complaint_id = ?";
+             
         $complaints = $this->query($query, [$complaintId]);
     
         $complaintsArray = [];
-    
+
         foreach ($complaints as $complaint) {
+            $MoreDetail = $this->query("SELECT * FROM company WHERE user_id = ?", [$complaint['company_id']]);
+            if (!empty($MoreDetail)) {
+                $id =$complaint['company_id'];
+                $email = $MoreDetail[0]['Email'];
+                $contact_no = $MoreDetail[0]['contact_no'];
+                $contact_person = $MoreDetail[0]['contact_person'];
+                $user_type = 'Company';
+            } else if(!empty($this->query("SELECT * FROM student WHERE registration_no = ?", [$complaint['student_id']]))){
+                $id =$complaint['student_id'];
+                $email = $MoreDetail['Email'];
+                $contact_no = $MoreDetail['contact_no'];
+                $contact_person = $MoreDetail['f_name'];
+                $user_type = 'Student';
+            }else{
+                
+                $user_type = 'Not available';
+                $contact_no = 'Not available';
+                $contact_person = 'Not available';
+            }
+
             $complaintsArray[] = [
                 'status' => ($complaint['status'] == 0) ? 'un-reviewed' : 'reviewed',
-                'complaint_id' => $complaint['com_id'],
+                'complaint_id' => $complaint['complaint_id'],
                 'title' => $complaint['title'],
-                'id' => $complaint['id'],
+                'id' => $id,
                 'description' => $complaint['description'],
-                'email' => $complaint['email'],
+                'email' => $email,
+                'contact_no' =>  $contact_no ,
+                'contact_person' => $contact_person,
+                'user_type' => $user_type
             ];
         }
+
+        
     
         return $complaintsArray;
     }

@@ -295,10 +295,13 @@ body
 .notification {
     display: flex;
     width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+
     
 }
 
-.notibutton{
+.notibutton{ 
     margin: 1vw;
     padding: 2vw 2vw 2vw 2vw;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -357,9 +360,9 @@ select {
 
 form {
     background-color: white;
-    padding: 20px;
+    padding: 2vw;
     box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
-    border-radius: 6px;
+    border-radius: 0.6vw;
     margin-top: 3vw;
     margin-bottom: 3vw;
 }
@@ -470,5 +473,109 @@ div > span {
     margin-bottom: 1vw;
 
 }
+
+.report {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    
+    border-radius: 6px;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.report_item {
+    background-color: white;
+    font-size: 1.5vw;
+    padding: 3vw;
+    border-radius:5vh;
+    margin-top: 3vw;
+    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
+    margin-bottom: 3vw;
+}
+
+
+.report  h2 {
+    font-size: 1.7vw;
+    width: fit-content;
+    margin-top: 1vw;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 3vw;
+
+}
+
+
+.report_item  table {
+    border-collapse: collapse;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: auto;
+}
+
+
+
+.report  table thead{
+    font-size: 1.5vw;
+    font-weight: bold;
+
+}
+
+
+.report  table tr td {
+    padding: 1.0vw;
+    
+}
+
+.report  table tr {
+    width: fit-content;
+    padding: 1.3vw;
+    
+}
+
+
+.report  table tbody tr:hover {
+    animation-duration: 0.3ms;
+    background-color: #96b8e8;
+    
+}
+
+.desc_detail {
+    width:auto;
+    background-color: #bae6ff;
+    padding: 1vw;
+    border-radius: 2vw;
+    margin:1vh;
+}
+
+.detail_label {
+    margin: 0.4vw;
+}
+
+.detail_label  label{
+    width: 10vw;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0.4vw;
+}
+
+.desc_detail {
+    text-align: left;
+    margin:0.5vw;
+}
+
+.detail_label span {
+    margin-top:0.5vw;
+    text-align: left;
+}
+
+p{
+    padding: 1vw;
+    margin: 0.4vw;
+}
+
+
 
 
