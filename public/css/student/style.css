@@ -19,14 +19,17 @@ body{
 .container{
     position: relative;
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .main{
-    left: 318px;
-    width: 800px;
-    height: 839px;
-    position:relative;
+    left: 300px;
+    width: 100%;
+    position: relative;
 
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
 }
 
 .main .top{

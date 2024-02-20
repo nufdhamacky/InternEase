@@ -1,0 +1,14 @@
+.wrapper{
+    left: 318px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.top-bar{
+    grid-column: 1 / span 12;
+}
+
+.application-status{
+    display: grid;
+
+}

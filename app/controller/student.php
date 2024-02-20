@@ -1,6 +1,11 @@
 <?php
 
 class Student extends Controller{
+
+    public function index(){
+        $this->view('_404');
+    }
+
     public function dashboard(){
         $this->view('student/dashboard');
 
@@ -22,6 +27,11 @@ class Student extends Controller{
         $this->model('User');
         
     }
+
+    public function notification(){
+        $this->view('student/notification');
+    }
+
     
     public function logout(){
         session_destroy();
