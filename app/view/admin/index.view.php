@@ -12,20 +12,23 @@
 <div class="container">
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
         <div class="notification">
-                    <div class="notibutton">
-                        <a href="">
+                <div class="notibutton">
+                <a href="<?php echo ROOT; ?>/admin/ad_report?data=<?php echo urlencode(json_encode($advertisments)); ?>&companies=<?php echo urlencode(json_encode($companies)); ?>" target="_blank">
+
                             <div>
                                 <div>Download</div>
                                 <div>advertisement</div>
                                 <div>report</div>
                             </div>
+
                         </a>
                         <div class="iconBx">
                             <ion-icon name="document-text" size="large"></ion-icon>
                         </div>
-                    </div>
-                    <div class="notibutton">
-                        <a href="">
+                </div>
+
+                <div class="notibutton">
+                    <a href="<?php echo ROOT; ?>/admin/reg_report?data=<?php echo urlencode(json_encode($companies)); ?>" target="_blank">
                             <div>
                                 <div>Download</div>
                                 <div>Registration</div>
@@ -35,8 +38,9 @@
                         <div class="iconBx">
                             <ion-icon name="document-text" size="large"></ion-icon>
                         </div>
-                    </div>  
-                    <div class="notibutton">
+                </div>  
+
+                <div class="notibutton">
                         <a href="">
                             <div>
                                 <div>Most employed Position: </div>
@@ -48,14 +52,14 @@
                                 <ion-icon  name="man-outline" size="large"></ion-icon>
                             </div>
                         </a>
-                    </div>  
+                </div>  
                          
         </div>
     
 
     <div class="report">
             <div class='report_item'>
-            <h2>Advertisment Report</h2>
+            <h2>Advertisment Summary</h2>
 
             <table>
                 <thead>
@@ -63,7 +67,6 @@
                         <td>Company name</td>
                         <td>job position</td>
                         <td>no.of interns</td>
-                        <td>working mode</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,32 +78,31 @@
                         foreach ($companies as $company) {
                             $companyName = 'N/A';
                             if ($company['user_id'] == $ad['company_id']) {
-                                $companyName = $company['company_name'];
+                                $ad['company_id'] = $company['company_name'];
                                 break;
                             }
                         }
                         ?>   
                     <tr>
                         
-                        <td><?php echo htmlspecialchars($companyName);?></td>
+                        <td><?php echo htmlspecialchars($ad['company_id']);?></td>
                         
                         <?php
                             switch ($ad['position']) {
                                 case 'qa':
-                                    $position = 'Quality Assurance';
+                                    $ad['position'] = 'Quality Assurance';
                                     break;
                                 case 'ba':
-                                    $position = 'Business Analyst';
+                                    $ad['position'] = 'Business Analyst';
                                     break;
                             
                                 default:
-                                $position = 'N/a';
+                                $ad['position'] = 'N/a';
                              
                             }
                         ?>
-                        <td><?php echo htmlspecialchars($position); ?></td>
+                        <td><?php echo htmlspecialchars($ad['position']); ?></td>
                         <td><?php echo htmlspecialchars($ad['no_of_intern']); ?></td>
-                        <td><?php echo htmlspecialchars($ad['working_mode']); ?></td>
 
                     </tr>
                     <?php endforeach; ?>
@@ -110,7 +112,7 @@
             </div>
 
             <div class='report_item'>      
-            <h2>Registration report</h2>
+            <h2>Company List</h2>
 
             <table>
                 <thead>
@@ -140,6 +142,5 @@
     </div>
 
 </div>   
-    
 </body>
 </html>

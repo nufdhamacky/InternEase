@@ -31,19 +31,34 @@ public function updateAdmin($data) {
 
 
 
-
 //MANAGE PDC FUNCS
-
+    
     public function insertPDC($confirmPassword,$data = []) {
         if ($data['password'] !== $confirmPassword) {
             return false;
         } else {
             $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
-            if ($this->query("INSERT INTO " . $this->getTable() . " (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", array_values($data))) {
-                return true;
+
+            $this->setTable('pdc_user');   
+            $insertResult = $this->insert($data);
+            $user = [
+                'user_name' => $data['email'],
+                'user_role' => 'pdc',
+                'password' => $data['password'],
+                'user_profile' => 'pdc.jpg',
+                'user_status' => 1,
+
+            ];
+
+            $this->setTable('users');   
+            $insertUser = $this->insert($user);
+            
+            if ($insertResult) {
+                return 1;
             } else {
-                return false;
+               return 0;
             }
+            
         }
     }
     

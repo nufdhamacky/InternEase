@@ -16,11 +16,6 @@
                     <form class="insert-form" method="post" action="managepdc">
 
                         <div class="formgroup">
-                        <label for="pdc_id">PDC ID:</label>
-                        <input class="input-text" type="text" name="pdc_id" id="pdc_id">
-                        </div>
-
-                        <div class="formgroup">
                         <label for="pdc_fname">First name:</label>
                         <input class="input-text" type="text" name="pdc_fname" id="pdc_fname">
                         </div>
@@ -47,7 +42,7 @@
                         </div>   
                     </form>
 
-
+    <!--
                     <form class="update-form"  method="post">
 
                         <div class="formgroup">
@@ -78,7 +73,7 @@
                     </form>
                 </div>
             </div>
-
+     -->
     </div>  
 </body>
 
