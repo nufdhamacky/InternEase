@@ -1,5 +1,7 @@
 :root{
     --blue: #0B5A6F;
+    --primary: #8498a0;
+    --secondary: #284455;
 
 }
 
@@ -13,14 +15,15 @@ body{
     min-height: 100vh;
     overflow-x: hidden;
     background-color: azure;
-    
+    transition: 0.3s ease-out;
+    background: linear-gradient(to right, #125199, #85d8ec, #ffffff, #85d8ec, #125199);
+
 }
 
 .container{
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+
 }
 
 .main{
@@ -30,6 +33,22 @@ body{
 
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    transition: width 0.3s ease-in;
+}
+
+.main.active{
+    left: 0;
+    transition: 0.3s ease-in;
+}
+
+.top-bar.active{
+    width: 100%;
+    transition: 0.3s ease-in;
+}
+
+.navigation.active{
+    display: none;
+    transition: 0.3s ease-in;
 }
 
 .main .top{
