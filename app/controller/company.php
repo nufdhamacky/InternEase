@@ -40,10 +40,9 @@
         }
     
         public function adView(){
-            
-            $this->view('company/adView');
-
-        }
+            $advertisements = $this->advertisementRepository->getAllAdvertisements();
+            $this->view('company/adView', ['advertisements' => $advertisements]);
+        }        
 
         public function addAd(){
             
@@ -129,52 +128,37 @@
             return $adCount;
         }
 
-        public function getTotalStudents(){
+        public function getTotalStudents(){ 
             $CompanyModel = $this->model('CompanyModel');
             $studentCount = $CompanyModel->getTotalStudents($this->conn);
             return $studentCount;
         }
-
-        // public function addNewAd(){
-    
-        //     $position = mysqli_real_escape_string($this->conn, $_POST['position']);
-        //     $req = mysqli_real_escape_string($this->conn, $_POST['req']);
-        //     $interns = mysqli_real_escape_string($this->conn, $_POST['no_of_intern']);
-        //     $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
-        //     $fromDate = mysqli_real_escape_string($this->conn, $_POST['from_date']);
-        //     $toDate = mysqli_real_escape_string($this->conn, $_POST['to_date']);
-        //     $companyId = mysqli_real_escape_string($this->conn, $_POST['company_id']);
-        //     $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
         
-        //    $advertisement = new AdvertisementModel($position,  $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
-        //    $this->advertisementRepository->save($advertisement);
-        //    echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
-
-        // }
-
         public function addNewAd(){
 
-
             $position = mysqli_real_escape_string($this->conn, $_POST['position']);
-             $req = ''; // You need to handle multiple requirements properly
-             // if(isset($_POST['req'])) {
-             //     $req = implode(', ', $_POST['req']);
-             // }
              $interns = mysqli_real_escape_string($this->conn, $_POST['no_of_intern']);
              $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
              $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']); // Correct the input name
              $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']); // Correct the input name
-             //$companyId = mysqli_real_escape_string($this->conn, $_POST['company_id']); 
              $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
              
+            // Handle requirements checkbox
+            $req = '';
+            if (isset($_POST['req']) && is_array($_POST['req'])) {
+                $req = implode(', ', $_POST['req']);
+            }
+
              // Assuming you have a company_id available somewhere
              $companyId = $_SESSION['userId'];
              
              $advertisement = new AdvertisementModel($position,  $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
-             
              $result = $this->advertisementRepository->save($advertisement);
-        
-             echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
+            if($result){
+                echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
+            }  else {
+                echo "Data Inserted Unsuccessful";
+            }
          }
         
 
