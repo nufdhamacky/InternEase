@@ -18,23 +18,19 @@
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
                     <div class = "user">
-                        <span></span>
+                        <span><?php echo $_SESSION['companyName']; ?></span>
                         <ion-icon class="personicon" name="person-circle-outline"></ion-icon>
                     </div>
             </div>
 
             <div class="submit">
-                <a href="scheduleInt">
-                    <button type="submit" class="sbtn">SCHEDULE INTERVIEW</button>
-                </a>
+                
 
                 <a href="tech">
                     <button type="submit" class="sbtn">SCHEDULE TECH-TALK</button>
                 </a>
 
-                <a href="companyVisit">
-                    <button type="submit"class="sbtn">SCHEDULE COMPANY VISIT</button>
-                </a>
+                
             </div>
 
             <div class="details">

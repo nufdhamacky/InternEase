@@ -18,7 +18,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 
@@ -47,7 +47,7 @@
                     </div>
                 </div><br>
 
-                <div class="studentdetails">
+                <!-- <div class="studentdetails">
                 <table>
                     <thead>
                         <tr>
@@ -119,7 +119,7 @@
                     </tbody>
                 </table>
 
-            </div>
+            </div> -->
 
                 <div class="ad-table">
                     <div class="table-heading">
@@ -132,12 +132,11 @@
                     </div>
                     <div class="table-all-data">
                                 <div class="each-data">
-                                    <div class="position-class">
-                                        
-                                    </div>
-                                    <div class="requirement-class"><?php //echo $row['requirements'] ?></div>
-                                    <div class="intake-class"><?php //echo $row['no_of_intern'] ?></div>
-                                    <div class="mode-class"><?php //echo $row['working_mode'] ?></div>
+                                    <div class="position-class"><?php echo $advertisement['position'] ?></div>                                    </div>
+                                    <div class="requirement-class"><?php echo $advertisement['req'] ?></div>
+                                    <div class="qual-class"><?php echo $advertisement['qualification'] ?></div>
+                                    <div class="intake-class"><?php echo $advertisement['interns'] ?></div>
+                                    <div class="mode-class"><?php echo $advertisement['workMode'] ?></div>
                                     <div>
                                         <a href="adView.php?id=<?php //echo $row['ad_id']; ?>">
                                             <button class="data-view-btn" type="submit">View</button></div>

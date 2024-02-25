@@ -18,7 +18,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 
@@ -198,19 +198,7 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Hamsayini Senthilrasa</td>
-                                <td>BSc. in CS</td>
-                                <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
-                                <td><a href="#" span class = "view"></span>View Profile</td>
-                                <td>
-                                    <select>
-                                        <option value="shortlist">Shortlist</option> 
-                                        <option value="reject">Reject</option>
-                                        <option value="pending">Pending</option>  
-                                    </select>
-                                </td>
-                            </tr>
+                            
 
                             <tr>
                                 <td>Nufdha Macky</td>
@@ -256,20 +244,7 @@
                                 
                             </tr>
 
-                            <tr>
-                                <td>Nufdha Macky</td>
-                                <td>BSc. in IS</td>
-                                <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
-                                <td><a href="#" span class = "view"></span>View Profile</td>
-                                <td>
-                                    <select>
-                                        <option value="shortlist">Shortlist</option> 
-                                        <option value="reject">Reject</option>
-                                        <option value="pending">Pending</option>  
-                                    </select>
-                                </td>
-                            </tr>
-
+                            
                             <tr>
                                 <td>Hamsayini Senthilrasa</td>
                                 <td>BSc. in CS</td>

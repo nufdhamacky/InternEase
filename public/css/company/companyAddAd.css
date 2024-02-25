@@ -221,12 +221,12 @@ body
   margin: 0 auto;
 }
 
-.details .compdetails label {
+.details .compdetails check {
     display: inline-block;
     margin-left: 10px;
 }
 
-.details .compdetails label input[type="checkbox"] {
+.details .compdetails input[type="checkbox"] {
     margin-right: 5px;
 }
 

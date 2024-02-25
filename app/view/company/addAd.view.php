@@ -23,7 +23,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
                 
@@ -48,16 +48,18 @@
 
                             <h4>Requirements</h4>
                             <br>
-
-                            <label for="req1"><input type="checkbox" name="req"> React</label><br>
-                            <label for="req2"><input type="checkbox" name="req"> .Net</label><br>
-                            <label for="req3"><input type="checkbox" name="req"> Node</label><br>
-                            <label for="req4"><input type="checkbox" name="req"> Java</label><br>
-                            <label for="req5"><input type="checkbox" name="req"> JavaScript</label><br>
-                            <label for="req6"><input type="checkbox" name="req"> DevOps</label><br>
-                            <label for="req7"><input type="checkbox" name="req"> C++</label><br>
-                            <label for="req8"><input type="checkbox" name="req"> SQL</label><br>
-                            <label for="req9"><input type="checkbox" name="req"> Python</label><br>
+                            <div class="check">
+                                <input type="checkbox" name="req[]"  value="React"> React<br>
+                                <input type="checkbox" name="req[]" value="Net"> .Net<br>
+                                <input type="checkbox" name="req[]" value="Node"> Node<br>
+                                <input type="checkbox" name="req[]" value="Java"> Java<br>
+                                <input type="checkbox" name="req[]" value="JS"> JavaScript<br>
+                                <input type="checkbox" name="req[]" value="DevOps"> DevOps<br>
+                                <input type="checkbox" name="req[]" value="C++"> C++<br>
+                                <input type="checkbox" name="req[]" value="SQL"> SQL<br>
+                                <input type="checkbox" name="req[]" value="Python"> Python<br>
+                            </div>
+                           <br>
                            
                             <h4>Qualifications</h4>
                             <br>
@@ -66,8 +68,6 @@
                                 <option value = "" selected hidden>Select Qualification</option>
                                 <option value = "cs">BSc. in Computer Science</option>
                                 <option value = "is">BSc. in Information systems</option>
-                                <option value = "cs-sp">BSc.(Hons) in Computer Science</option>
-                                <option value = "is-sp">BSc.(Hons) in Information systems</option>
                             </select>
                             <br>
 

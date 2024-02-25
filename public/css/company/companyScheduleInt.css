@@ -139,9 +139,13 @@ body
     cursor:pointer;
 }
 
-.user .personicon{
-    font-size: 30px;
-    margin-left: 10px;
+.user span{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.profile-icon{
+    font-size: 3rem;
 }
 
 .details{

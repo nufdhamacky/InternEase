@@ -193,6 +193,19 @@ body
     height: 30px;
 }
 
+.col input[name="description"] {
+    width: 100%;
+    font-size: 15px;
+    color: black;
+    border: 1px solid rgba(11, 90, 111, 1);
+    background-color: #EAEDF1;
+    border-radius: 10px;
+    margin-top: 5px;
+    padding: 10px 10px;
+    height: 100px;
+    white-space: pre-wrap;
+}
+
 .details .profile-pic{
     text-align: center;
 }

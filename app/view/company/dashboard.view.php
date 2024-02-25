@@ -23,7 +23,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 

@@ -23,7 +23,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
                 
@@ -49,27 +49,27 @@
                             <br>
                         </div>
 
-                        <h4>Email: </h4>
+                        <h4>Description: </h4>
                         <div class="col">
-                            <input type="text" name="companyName" class="box1" value="">
+                            <input type="text" name="description" class="box1" value="">
                             <br>
                         </div>
 
-                        <h4>Company Website: </h4>
+                        <h4>Website: </h4>
                         <div class="col">
-                            <input type="text" name="companyName" class="box1" value="">
+                            <input type="text" name="website" class="box1" value="">
                             <br>
                         </div>
 
-                        <h4>Contact No: </h4>
+                        <h4>Contact Person: </h4>
                         <div class="col">
-                            <input type="text" name="companyName" class="box1" value="">
+                            <input type="text" name="contperson" class="box1" value="">
                             <br>
                         </div>
 
                         <h4>Address: </h4>
                         <div class="col">
-                            <input type="text" name="companyName" class="box1" value="">
+                            <input type="text" name="address" class="box1" value="">
                             <br>
                         </div>
                         

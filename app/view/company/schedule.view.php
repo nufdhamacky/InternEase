@@ -18,7 +18,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 
@@ -27,6 +27,15 @@
         <!--student data list-->
         <div class="details">
             <div class="studentdetails">
+                <div class="submit">
+                    <a href="tech">
+                        <button type="submit" class="sbtn">SCHEDULE TECH-TALK</button>
+                    </a>
+                    <a href="companyVisit">
+                        <button type="submit"class="sbtn">SCHEDULE COMPANY VISIT</button>
+                    </a>
+                </div>
+                
                 <div class = "cardHeader">
                     <h2>Interview Schedules</h2>
                 </div>
@@ -34,8 +43,7 @@
                     <thead>
                         <tr>
                             <td>Student Name</td>
-                            <td>Index No.</td>
-                            <td>Degree</td>
+                            <td>Registration No.</td>
                             <td>Position</td>
                             <td>Date Period</td>
                             <td>Interview Duration</td>
@@ -46,8 +54,7 @@
                     <tbody>
                         <tr>
                             <td>Hamsayini Senthilrasa</td>
-                            <td>21020365</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/CS/065</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -66,8 +73,7 @@
 
                         <tr>
                             <td>Nufdha Macky</td>
-                            <td>210203258</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/CS/058</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -86,8 +92,7 @@
 
                         <tr>
                             <td>Gien Gawesh</td>
-                            <td>21020201</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/IS/024</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -106,8 +111,7 @@
 
                         <tr>
                             <td>Shamah Lafir</td>
-                            <td>21020147</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/IS/031</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -126,8 +130,7 @@
 
                         <tr>
                             <td>Nufdha Macky</td>
-                            <td>21020248</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/CS/014</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -146,8 +149,7 @@
 
                         <tr>
                             <td>Hamsayini Senthilrasa</td>
-                            <td>21020123</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/IS/027</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -166,8 +168,7 @@
 
                         <tr>
                             <td>Gien Gawesh</td>
-                            <td>21020520</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/IS/045</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
@@ -186,8 +187,7 @@
 
                         <tr>
                             <td>Shamah Lafir</td>
-                            <td>21020385</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/CS/085</td>
                             <td>Software Engineer</td>
                             <td>02/07/2024 - 09/07/2024</td>
                             <td>40 mins</td>
