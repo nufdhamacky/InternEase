@@ -14,7 +14,7 @@
 
                 if(password_verify($password, $row['password'])){
                     
-                    $sql = "SELECT * FROM company WHERE user_id = {$row['user_id']}";
+                    $sql = "SELECT company_name FROM company WHERE user_id = {$row['user_id']}";
                     $result1 = $conn->query($sql);  
 
                     $_SESSION['userId']= $row['user_id'];
