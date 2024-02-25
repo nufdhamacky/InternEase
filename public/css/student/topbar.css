@@ -4,11 +4,10 @@
     position: sticky;
     display: flex;
 
-    grid-column: 1 / 7;
     position: absolute;
     width: calc(100% - 300px);
     top: 0;
-    left: 0;
+    left: 300px;
     right: 0;
     justify-content: space-between;
     align-items: center;

@@ -79,7 +79,7 @@
 
                 <div class="details">
                     <div class="compdetails">
-                        <img src="../../../public/images/ucsclogo.png" alt="UCSC Logo" class="ucsclogo">
+                        <img src="<?=ROOT?>/assets/images/ucsclogo.png" alt="UCSC Logo" class="ucsclogo">
                         <h2>University of Colombo <br> School of Computing</h2>
                         <h3>Company Name:</h3><p>WSO2</p>
                         <br>
@@ -104,9 +104,7 @@
                             <li>Experience in Git and Github</li><br>
                         </ul>
                                     
-                            <div class="submit">
-                                <button type="submit">EDIT</button>
-                            </div>
+                            
                     </div>
                 </div>
         </div>

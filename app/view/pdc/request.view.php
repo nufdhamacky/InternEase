@@ -25,10 +25,12 @@
             </div>
             <div class ="cardBox">
                 <div class ="card">
-                    <div>
-                        <div class="number">15</div>
-                        <div class="cardName">Company Request</div>
-                    </div>
+                    <a style="text-decoration: none" href="companyrequest">
+                        <div>
+                            <div class="number">15</div>
+                            <div class="cardName">Company Request</div>
+                        </div>
+                    </a>
                     <div class="iconBx">
                     <ion-icon name="bag-handle-outline"></ion-icon>
 
@@ -37,10 +39,12 @@
                     
                 </div>
                 <div class ="card">
-                    <div>
-                        <div class="number">12</div>
-                        <div class="cardName">Student Request</div>
-                    </div>
+                    <a style="text-decoration: none" href="studentrequest">
+                        <div>
+                            <div class="number">12</div>
+                            <div class="cardName">Student Request</div>
+                        </div>
+                    </a>
                     <div class="iconBx">
                     <ion-icon name="people-outline"></ion-icon>
                     
@@ -55,7 +59,7 @@
             <div class="internshipAds">
                 <div class = "cardHeader">
                     <h2>Applied Advertisements Status</h2>
-                    <a href="advertisement.php" class="btn">View All</a> 
+                    <a href="advertisement" class="btn">View All</a> 
                 </div>
                 <table>
                     <thead>
