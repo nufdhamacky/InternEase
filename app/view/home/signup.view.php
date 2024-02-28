@@ -29,7 +29,9 @@
                 
 
                     <span class="error"><?= isset($data['signupError']['companyName']) ?></span>
-                    <br>
+
+    
+                <br>
             </p>
             <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
             
@@ -51,8 +53,11 @@
             
             <p class="label1">Password:
                 
+                    
                     <span class="error"><?= isset($data['signupError']['password']) ?></span>
-                    <br>
+
+                
+                <br>
             </p>
             <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
             <i class='bx bxs-show eye-icon'></i>

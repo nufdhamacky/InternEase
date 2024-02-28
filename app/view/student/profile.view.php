@@ -1,16 +1,16 @@
-<?php require_once("../app/views/inc/header.php"); ?>
+<?php require_once("../app/view/inc/header.php"); ?>
 
 <div class="container">
-        <?php require_once("../app/views/inc/sidebar.php"); ?>
+        <?php require_once("../app/view/inc/sidebar.php"); ?>
     
         <div class="main">
-            <?php require_once("../app/views/inc/topbar.php"); ?>
+            <?php require_once("../app/view/inc/topbar.php"); ?>
 
             <div class="content">
                 <div class="profile-box">
                     <div class="profile-header">
                         <div class="profile">
-                            <img class="profile-picture" src="<?=ROOT?>/assets/shamah.png" alt="Profile Picture">
+                            <img class="profile-picture" src="<?=ROOT?>/assets/images/Sham.jpg" alt="Profile Picture">
                             <div class="profile-name">Shamah</div>
                         </div>
                         <button class="edit-button">Edit</button>
@@ -37,4 +37,4 @@
         </div>
     </div>
 
-    <?php require_once("../app/views/inc/footer.php"); ?>
+    <?php require_once("../app/view/inc/footer.php"); ?>

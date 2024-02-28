@@ -52,7 +52,7 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td><a href="ad_II.php" span class = "view"></span>View</td>
+                            <td><a href="ads" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
@@ -66,7 +66,7 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="ads" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
@@ -80,7 +80,7 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>                            
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="ads" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>
@@ -94,7 +94,7 @@
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td><a href="ads" span class = "view"></span>View</td>
                         </tr>
 
                         <tr>

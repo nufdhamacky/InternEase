@@ -1,3 +1,7 @@
+<?php
+    include_once('../app/controller/pdc.php');
+    $pdController=new Pdc();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +13,10 @@
 </head>
 <body>
     <div class="container">
-        <?php include_once('../app/view/layout/pdcSidemenu.php') ?>
+        <?php 
+            include_once('../app/view/layout/pdcSidemenu.php');
+            
+        ?>
        
         <div class ="main">
             <div class = "topbar">
@@ -18,16 +25,16 @@
                 </div>
                 <div class = "user">
                     <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span>Hamsayini</span>
+                    <span><?php echo $_SESSION['userStatus']; ?></span>
                     <ion-icon name="person-circle-outline"></ion-icon>
                 </div>
 
             </div>
             <div class ="cardBox">
                 <div class ="card">
-                    <a style="text-decoration: none" href="companylist.html">
+                    <a style="text-decoration: none" href="companylist">
                         <div>
-                            <div class="number">200</div>
+                            <div class="number"><?php echo $pdController->getCompanyCount(); ?></div>
                             <div class="cardName">Registered Companies</div>
                         </div>
                     </a>
@@ -37,9 +44,9 @@
                     
                 </div>
                 <div class ="card">
-                    <a style = "text-decoration: none" href="managestudent.php">
+                    <a style = "text-decoration: none" href="managestudent">
                     <div>
-                        <div class="number"><?php //echo $countResult['count']; ?></div>
+                        <div class="number"><?php echo $pdController->getStudentCount(); ?></div>
                         <div class="cardName">Registered Students</div>
                     </div>
                     </a>
@@ -59,9 +66,9 @@
                     
                 </div> -->
                 <div class ="card">
-                <a style = "text-decoration: none" href="blacklistedcompanies.html">
+                <a style = "text-decoration: none" href="blacklistedcompanies">
                     <div>
-                        <div class="number">5</div>
+                        <div class="number"><?php echo $pdController->getBlackListCompanyCount(); ?></div>
                         <div class="cardName">Black listed Companies</div>
                     </div>
                 </a>
@@ -80,7 +87,7 @@
                 
                     <h2>Internship Advertisements</h2>
                     <a style = "text-decoration: none" href="advertisement.php">
-                    <a href="advertisement.php" class="btn">View All</a>
+                    <a href="advertisement" class="btn">View All</a>
                 </a>
                 </div>
                 <table>
