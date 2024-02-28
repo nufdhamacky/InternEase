@@ -21,9 +21,21 @@ if ($pageTitle === '') {
 ?>
 
 <header class="top-bar">
+    <button id="menu"><i class="fa-solid fa-xmark"></i></button>
     <div class="title"><?= $pageTitle ?></div>
-    <div class="user-profile">
-        <div class="username">Shamah</div>
-        <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/shamah.png" alt="User Avatar"></a>
+    <div class="grid-container">
+        <div class="grid-items">
+            <div class="user-profile">
+                <div class="username">Shamah</div>
+                <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
+            </div>
+            <!-- notification-->
+            <div class="notification">
+                <span class="notify"><i class="fa fa-bell" aria-hidden="true"></i></span>
+            </div>
+            <a href="logout" class="logout">
+                <span class="notify"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+            </a>
+        </div>
     </div>
 </header>

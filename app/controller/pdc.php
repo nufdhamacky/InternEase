@@ -69,6 +69,10 @@
                 //$_SESSION['loginError'] = "Please login first !";
                 //echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
             //}
+<<<<<<< HEAD
+        
+        
+=======
             
         }   
         public function managestudent()
@@ -147,3 +151,4 @@
             echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
         }
     }
+>>>>>>> 5e92d531cec8db30af7c871e804a41825f5d2f64

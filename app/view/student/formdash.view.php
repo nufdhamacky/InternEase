@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("../app/views/inc/header.php"); ?>
+<?php include("../app/view/inc/header.php"); ?>
 
 
 
@@ -29,6 +29,6 @@
     </form>
 </section>
 
-<?php include("../app/views/inc/footer.php"); ?>
+<?php include("../app/view/inc/footer.php"); ?>
 
 </html>
