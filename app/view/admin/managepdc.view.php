@@ -12,7 +12,38 @@
 
     <div class="container">
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
-                <div class="content">        
+            <div class="content">        
+
+                <div class='report'>      
+                    <h2>Active PDC Users</h2>
+                        <div class="report_item">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>User</td>
+                                        <td colspan="2"><center>User Name</center></td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                <?php if ($pdc_users && count($pdc_users)> 0): ?>
+                                    <?php foreach ($pdc_users as $users): ?>
+
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($users['email']);?></td>
+                                            <td><?php echo htmlspecialchars($users['first_name']); ?></td>
+                                            <td><?php echo htmlspecialchars($users['last_name']); ?></td>
+                                        </tr>
+
+                                    <?php endforeach; ?>
+                                <?php endif; ?>   
+                                </table>
+                        </div>
+                </div>
+
+                <div class="toggle-bar" onclick="toggleContent()">Add a PDC User</div>  
+                
+                <div class="toggle" id="toggle">
                     <form class="insert-form" method="post" action="managepdc">
 
                         <div class="formgroup">
@@ -38,11 +69,12 @@
                         <div class="formgroup">
                         <label for="pdc_rpwd">Confirm-password:</label>
                         <input class="input-text" type="password" name="pdc_rpwd" id="pdc_rpwd">
-                        <input type="submit"  class="btn" value="INSERT" name="insertpdc">
                         </div>   
+                        <center><input type="submit"  class="btn" value="Submit" name="insertpdc"></center>
                     </form>
+                </div>
 
-    <!--
+                <!--                       
                     <form class="update-form"  method="post">
 
                         <div class="formgroup">
@@ -66,14 +98,14 @@
                         </div>  
 
                         <div class="formgroup">
-                        <label for="pdcid">PDC ID:</label>
-                        <input class="input-text" type="text" name="pdcid" id="pdcid">
-                        <input type="submit" class="btn" value="Update" name="updatepdc">
+                            <label for="pdcid">PDC ID:</label>
+                            <input class="input-text" type="text" name="pdcid" id="pdcid">
+                            <input type="submit" class="btn" value="Update" name="updatepdc">
                         </div>
                     </form>
-                </div>
+                                    -->
             </div>
-     -->
+
     </div>  
 </body>
 
@@ -89,5 +121,15 @@
                 confirmPasswordField.style.display = "none";
             }
         }
+
+        function toggleContent() {
+            var content = document.getElementById("toggle");
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
     </script>
 </html>

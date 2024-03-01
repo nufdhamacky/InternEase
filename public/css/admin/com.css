@@ -117,7 +117,7 @@ body
     padding: 0 10px;
 }
 
-.toggle{
+.toggle_ {
     position: relative;
     top: 0;
     width: 60px;
@@ -281,13 +281,10 @@ body
 
 /* ADMIN */
 
-
-
 .content {
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5vw;
     grid-template-columns: 3fr 1fr;
     grid-gap: 30px;
 }
@@ -368,6 +365,7 @@ select {
 
 form {
     background-color: white;
+    width:max-content ;
     padding: 2vw;
     box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
     border-radius: 0.6vw;
@@ -396,13 +394,25 @@ form {
 
 
 
-label {
+form label {
     text-align:left;
+    font-size: 1.3vw;
     width: 11vw;
     display: inline-block;
     color: #070707;
     font-weight:bold;
 }
+
+
+.update-form > label {
+    text-align:left;
+    font-size: 1.3vw;
+    width: 30vw;
+    display: inline-block;
+    color: #070707;
+    font-weight:bold;
+}
+
 
 .input-text {
     padding:0.5vw;
@@ -414,8 +424,14 @@ label {
 }
 
 .formgroup {
+    width: max-content;
     margin: 2vw 1vw 2vw 1vw;
     padding: auto;
+}
+
+
+.formgroup label {
+    width: 20vw;
 }
 
 
@@ -483,13 +499,9 @@ div > span {
 
 .report {
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
     padding: 20px;
     border-radius:5vh;
-    margin:1vw;
-    margin-left:auto;
-    margin-right:auto;
+    overflow: auto;
 }
 
 .report_item {
@@ -499,7 +511,7 @@ div > span {
     padding: 3vw;
     border-radius:5vh;
     margin-top: 3vw;
-    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2vw 3vw rgba(0, 0, 0, 0.08);
     margin-bottom: 3vw;
 }
 
@@ -508,19 +520,17 @@ div > span {
     font-size: 1.7vw;
     width: fit-content;
     margin-top: 1vw;
-    margin-right: auto;
-    margin-left: auto;
     margin-bottom: 3vw;
 
 }
 
 
 .report_item  table {
+    overflow: auto;
     border-collapse: collapse;
     width: fit-content;
-    margin-right: auto;
-    margin-left: auto;
-    overflow: auto;
+
+
 }
 
 
@@ -536,7 +546,6 @@ table thead tr {
 }
 
 .report_item  table thead td{
-    width: fit-content;
     font-size: 1.35vw;
     padding: 1.0vw;
     border-color: rgb(2, 2, 2);
@@ -544,8 +553,14 @@ table thead tr {
 
 
 .report_item table tbody td {
-    width: auto;
     font-size: 1.3vw;
+    padding: 1.0vw;
+    
+}
+
+
+.report_item table tbody td:nth-child(7) {
+    font-size: 1.2vw;
     padding: 1.0vw;
     
 }
@@ -586,7 +601,9 @@ table thead tr {
 
 .desc_detail {
     text-align: left;
-    margin:0.5vw;
+    margin-top: 1vw;
+    margin-bottom: 3vw;
+    margin-left: 1vw;
 }
 
 .detail_label span {
@@ -598,6 +615,44 @@ p{
     padding: 1vw;
     margin: 0.4vw;
 }
+
+.details textarea {
+    text-align:left;
+    border-radius: 1vw;
+    font-size: 1.2vw;
+    padding: 1vw;
+    width: 50vw;
+    height: 25vh;
+   
+}
+
+h3 {
+    margin: 1vw;
+}
+
+.toggle-bar {
+    background-color: #087da4;
+    color: #fff;
+    padding:1vw;
+    margin: 2vw;
+    border-radius: 2vw;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+
+  .toggle-bar:hover {
+    background-color: #044865;
+  }
+
+  .toggle {
+    display: none;
+    padding: 1vw;
+    background-color: white;
+    margin-top: 10px;
+    transition: max-height 0.5s ease;
+  }
 
 
 

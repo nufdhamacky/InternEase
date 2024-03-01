@@ -31,10 +31,10 @@
                         return 0;
                     }
 
-                }else if($row['user_role'] == 'admin'){
+                }else if($row['user_role'] == 'pdc'){
                     if(password_verify($password, $row['password'])){
                     
-                        $sql = "SELECT * FROM admin WHERE admin_id = {$row['user_id']}";
+                        $sql = "SELECT * FROM pdc_user WHERE id = {$row['user_id']}";
                         $result1 = $conn->query($sql);  
     
                         $_SESSION['userId']= $row['user_id'];
@@ -44,13 +44,24 @@
                         return 1;
                         
                     }
-                    else {
-                        return 0;
-                    }
+                 }else if($row['user_role'] == 'admin'){
+                        if(password_verify($password, $row['password'])){
+                        
+                            $sql = "SELECT * FROM admin WHERE admin_id = {$row['user_id']}";
+                            $result1 = $conn->query($sql);  
+        
+                            $_SESSION['userId']= $row['user_id'];
+                            $_SESSION['userRole']= $row['user_role'];
+                            $_SESSION['userStatus']= $row['user_status'];
+                            $_SESSION['userName']= $row['user_name'];
+                            return 1;
+                            
+                        }else {
+                            return 0;
+                        }
                 }
         
-            }
-            else{
+            }else{
                 return 2;
             }
             

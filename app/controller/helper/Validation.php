@@ -48,7 +48,7 @@
 
             // Validate Company Name
             if (empty($password || $confirmPassword )) {
-                $errors['companyName'] = "Company name is required.";
+                $errors[''] = "Company name is required.";
             }
 
             // Validate Email

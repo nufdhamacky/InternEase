@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php $id = NULL ; ?>
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -6,7 +7,6 @@
     <title>Manage Admin</title>
      <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 
-    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
 </head>
 <body>
     
@@ -19,7 +19,8 @@
                     <?php foreach ($complaintDetails as $complaint): ?>
                         <div class='desc_detail'>
                            <div class="detail_label">
-                                <label> Complaint ID:</label><span><?php echo htmlspecialchars($complaint['complaint_id']); ?></span>
+                           <?php $id = $complaint['complaint_id']; // Define $id here ?>
+                                <label> Complaint ID:</label><span><?php echo htmlspecialchars($complaint['complaint_id']);?></span>
                             </div>
 
                             <div class="detail_label">
@@ -37,14 +38,40 @@
                             <div class="detail_label">
                                 <label>Contact:<span></label><?php echo htmlspecialchars($complaint['contact_no']); ?></span>
                             </div>
-
                         </div>
-                        <p><?php echo htmlspecialchars($complaint['description']); ?></p>
-                    <?php endforeach; ?>
+    
+                        <h3>Message</h3>
+                        <p><?php  echo htmlspecialchars($complaint['description']) ?></p>
+                    <?php endforeach; ?> 
                 <?php endif; ?>   
             </div>
         </div>
-    </div>
+
+        <div class='details'>
+            <form class="reply-form" method="post" action="../checkcomplaint">
+                <input type="hidden" name="complaint_id" value="<?php echo $id; ?>">
+                    <?php if (!empty($complaint['reply'])): ?>
+                       
+                        <div class="formgroup">
+                            <label for="reply">Admin's Reply:</label>
+                            <p><?php echo htmlspecialchars($complaint['reply']); ?></p>
+                        </div>
+                    <?php else: ?>
+                        <label for="reply">Your Reply:</label>
+                      
+                        <div class="formgroup">
+                            <textarea id="reply" name="reply" placeholder="Enter your reply here..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                        <input class="btn" type="submit" name="send_reply" value="Send Reply">
+                    </div>
+           
+                    <?php endif; ?>
+            </form>
+                   
+</div>
+
+    
 
 </body>
 </html>

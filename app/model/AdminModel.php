@@ -68,6 +68,11 @@ public function updateAdmin($data) {
         return $this->findall();
     }
 
+    public function getPDC() {
+        return $this->findall();
+    }
+
+
     public function getCompanyAD() {
         return $this->findall();
     }
@@ -83,6 +88,7 @@ public function updateAdmin($data) {
                 'status' => $complaint['status'],
                 'complaint_id' => $complaint['complaint_id'],
                 'title' => $complaint['title'],
+                'type' => $complaint['type'],
                 'student_id' => $complaint['student_id'],
                 'user_type' => $complaint['user_type'],
                 'description' => $complaint['description'],
@@ -93,8 +99,9 @@ public function updateAdmin($data) {
         return $complaintsArray;
     }
 
-    public function check_status($id){
-        $query = "UPDATE " . $this->getTable() . " SET status = 1 WHERE complaint_id = $id";
+    public function check_status($data =[]){
+    
+        $query = "UPDATE " . $this->getTable() . " SET status = 1, reply = '{$data['reply']}' WHERE complaint_id = {$data['id']}";
         if($this->query($query)) {
             return true;
         }else{
@@ -143,6 +150,7 @@ public function updateAdmin($data) {
                 'id' => $id,
                 'description' => $complaint['description'],
                 'email' => $email,
+                'reply' => $complaint['reply'],
                 'contact_no' =>  $contact_no ,
                 'contact_person' => $contact_person,
                 'user_type' => $user_type

@@ -38,17 +38,17 @@
 
 <div class ="main">
             <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+                <div class = "toggle_">
+                 
                 </div>
                 <div class = "user">
-                    <ion-icon name="notifications-circle-outline"></ion-icon>
                     <span><?php echo isset($_SESSION['userName']) ? $_SESSION['userName'] : 'Guest'; ?></span>
-                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-icon size="medium" name="person-circle-outline"></ion-icon>
                     
                 </div>
 
             </div>
             
+<script src="https://www.gstatic.com/charts/loader.js"></script>            
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

@@ -207,13 +207,27 @@ class Admin extends Controller {
             $this->view('admin/viewComplaints',array('complaintsArray' => $complaintsArray)); 
     }
 
-    function checkcomplaint($complaintID){
+    public function checkcomplaint(){
+        
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send_reply"])) {
+                
+                $data = [
+                    'id' => $_POST["complaint_id"],
+                    'reply' => $_POST["reply"],
+                ];
 
-        $this->model('AdminModel');
-        $adminModel = new AdminModel;
-        $adminModel->setTable('complaint');
-        $adminModel->check_status($complaintID);
-        $this->redirect('../complaints');
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+            $adminModel->setTable('complaint');
+
+            if($adminModel->check_status($data)){
+                echo "WTF";
+                $this->redirect('../admin/complaints');
+            }else{
+                echo "NO";  
+            
+            }
+        }
     }
 
     function description($complaintId) {
@@ -226,48 +240,48 @@ class Admin extends Controller {
 
 
 //ADD PDC User
-    public function managepdc(){
+    public function managepdc() {
+        $this->model('AdminModel');
+        $adminModel = new AdminModel; 
+        $adminModel->setTable('pdc_user');
 
-        if (!$this->isLoggedIn()){return;}
-            $this->model('AdminModel');
+        // Check if the user is logged in
+        if (!$this->isLoggedIn()) {
+            return; // Remove this return statement
+        }
 
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
-                    
-                    $data =[
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
+            $data = [
+                'first_name' => $_POST["pdc_fname"],
+                'last_name' => $_POST["pdc_lname"],
+                'email' => $_POST["pdc_email"],
+                'password' => $_POST["pdc_pwd"],
+            ];
 
-                    'first_name' => $_POST["pdc_fname"],
-                    'last_name' => $_POST["pdc_lname"],
-                    'email' => $_POST["pdc_email"],
-                    'password' => $_POST["pdc_pwd"],
-                
-                ];
-    
-                $confirmPassword = $_POST["pdc_rpwd"] ;
-                
-                $adminModel = new AdminModel; 
-                $adminModel->setTable('users');
-                
-                    if ($adminModel->insertPDC($confirmPassword,$data)) {
-                        echo '<script type="text/javascript">';
-                        echo 'alert("Inserted PDC User Successfully");';
-                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                        echo '</script>';
-                        exit();
-                    } else {
-                        echo '<script type="text/javascript">';
-                        echo 'alert("Unsucessful PDC user insertion");';
-                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                        echo '</script>';
-                        exit();
-                    }
-           
-                
-            }else{
-                $this->view('admin/managepdc');
+            $confirmPassword = $_POST["pdc_rpwd"];
+            
+            if ($adminModel->insertPDC($confirmPassword, $data)) {
+                echo '<script type="text/javascript">';
+                echo 'alert("Inserted PDC User Successfully");';
+                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                echo '</script>';
+                exit();
+            } else {
+                echo '<script type="text/javascript">';
+                echo 'alert("Unsucessful PDC user insertion");';
+                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
+                echo '</script>';
+                exit();
             }
+        }
 
+        // Fetch PDC users and pass them to the view
+        $pdc_users = $adminModel->getPDC();
+        $data = [
+            'pdc_users' => $pdc_users,
+        ];
+        $this->view('admin/managepdc', $data);
     }
-
  
 
     function company_report(){
