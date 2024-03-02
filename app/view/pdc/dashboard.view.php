@@ -110,7 +110,7 @@ $ads = $companyAdController->getAll();
                             <td><?php echo $a->noOfIntern; ?></td>
                             <td><?php echo $a->position; ?></td>
                             <td style="padding: 10px">
-                                <span style="border-radius: 10px;padding: 2px 10px;color: white;background-color: <?php echo $a->status == 0 ? "blue" : ($a->status == 1 ? "green" : "red"); ?>"><?php echo $a->status == 0 ? "Pending" : ($a->status == 1 ? "Approved" : "Rejected"); ?></span>
+                                <span style="display: inline-block; border-radius: 10px; padding: 2px 10px; color: white; background-color: <?php echo $a->status == 0 ? "rgba(40, 36, 215, 0.84)" : ($a->status == 1 ? "rgba(25, 178, 59, 1)" : "red"); ?>; width: 100px; text-align: center;"><?php echo $a->status == 0 ? "Pending" : ($a->status == 1 ? "Approved" : "Rejected"); ?></span>
                             </td>
 
                         </tr>

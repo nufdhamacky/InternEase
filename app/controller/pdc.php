@@ -49,6 +49,15 @@ class Pdc extends Controller
         return $this->studentRepository->getAll();
     }
 
+    public function filterByCourse($course): array
+    {
+        
+        if ($course == "all") {
+            return $this->studentRepository->getAll();
+        }
+        return $this->studentRepository->filterByCourse($course);
+    }
+
     public function addNewStudent()
     {
 

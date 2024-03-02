@@ -1,8 +1,11 @@
 <?php
 include_once('../app/controller/pdc.php');
 $pdController = new Pdc();
-$students = $pdController->getAllStudent();
-
+if (isset($_GET['course'])) {
+    $students = $pdController->filterByCourse($_GET['course']);
+} else {
+    $students = $pdController->getAllStudent();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,10 +40,27 @@ $students = $pdController->getAllStudent();
                     <h2>Students List</h2>
                     <form action="<?= ROOT ?>/pdc/addBulkStudent" method="post" enctype="multipart/form-data">
                         <input type="file" id="csv" name="csv" accept="text/csv">
-                        <button type="submit">Upload</button>
+                        <label for="csv" class="upload-btn"><span>Select File</span></label>
+                        <button type="submit" class="btn">Upload</button>
                     </form>
                     <a href="addstudent" class="btn">Add</a>
                 </div>
+
+                <form action="" method="GET" class="filter-form">
+                    <div>
+                        <select name="course" id="course">
+                            <option value="all">All</option>
+                            <option value="CS" <?php echo isset($_GET["course"]) ? $_GET["course"] == "CS" ? "selected" : "" : ""; ?>>
+                                CS
+                            </option>
+                            <option value="IS" <?php echo isset($_GET["course"]) ? $_GET["course"] == "IS" ? "selected" : "" : ""; ?>>
+                                IS
+                            </option>
+                        </select>
+                        <button type="submit" class="btn">Filter</button>
+                    </div>
+                </form>
+
                 <table>
                     <thead>
                     <tr>

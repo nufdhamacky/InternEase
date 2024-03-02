@@ -98,7 +98,36 @@ class StudentRepository
                 null,
                 $row['reg_no'],
                 $row['index_no'],
-                
+
+                null
+            );
+
+            // Add the CompanyModel instance to the array
+            $list[] = $value;
+        }
+
+        return $list;
+
+    }
+
+    public function filterByCourse($course): array
+    {
+        $sql = "SELECT * FROM student where reg_no like CONCAT('%/', '{$course}', '/%')";
+
+        $result = $this->conn->query($sql);
+        $list = []; // Initialize an array to store CompanyModel instances
+
+        while ($row = $result->fetch_assoc()) {
+            // Create a new CompanyModel instance for each row
+            $value = new StudentModel(
+                $row['user_id'],
+                $row['email'],
+                $row['first_name'],
+                $row['last_name'],
+                null,
+                $row['reg_no'],
+                $row['index_no'],
+
                 null
             );
 
