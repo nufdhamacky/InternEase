@@ -4,24 +4,20 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage pdc</title>
-     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
-
-    <link rel="stylesheet" type="text/css" href="../../public/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 </head>
 <body>
-
     <div class="container">
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
             <div class="content">        
 
-                <div class='report'>      
-                    <h2>Active PDC Users</h2>
                         <div class="report_item">
+                            <h2>Active PDC Users</h2>
                             <table>
                                 <thead>
                                     <tr>
-                                        <td>User</td>
-                                        <td colspan="2"><center>User Name</center></td>
+                                        <td>User Name</td>
+                                        <td colspan="2"><center>User</center></td>
                                     </tr>
                                 </thead>
 
@@ -39,11 +35,11 @@
                                 <?php endif; ?>   
                                 </table>
                         </div>
-                </div>
 
-                <div class="toggle-bar" onclick="toggleContent()">Add a PDC User</div>  
+
+                <div class="toggle-bar" onclick="toggleContent('insert')" id='toggleI'>Add a PDC User<ion-icon  id="toggleIcon" name="carrot-down-outline" size="small"></div>  
                 
-                <div class="toggle" id="toggle">
+                <div class="toggle" id="insertToggle">
                     <form class="insert-form" method="post" action="managepdc">
 
                         <div class="formgroup">
@@ -110,26 +106,50 @@
 </body>
 
 <script>
-        function togglePasswordFields() {
-            var col = document.getElementById("col");
-            var updatevalue = document.getElementById("updatevalue");
-            var confirmPasswordField = document.getElementById("confirmPassword");
 
-            if (col.value === "password") {
-                confirmPasswordField.style.display = "block";
-            } else {
-                confirmPasswordField.style.display = "none";
-            }
-        }
+toggleicon();
+      
 
-        function toggleContent() {
-            var content = document.getElementById("toggle");
-            if (content.style.display === "none") {
-                content.style.display = "block";
-            } else {
-                content.style.display = "none";
-            }
+function toggleContent(type) {
+        var toggleId = type + "Toggle";
+        var content = document.getElementById(toggleId);
+        if (content.style.display === "none" || content.style.display === "" ) {
+            content.style.display = "block";
+            scrollToBottom();
+            if(type=='reset'){
+                var bar = document.getElementById('toggle')
+                bar.style.display = "none";
+            }else{
+                var bar = document.getElementById('toggleR')
+                bar.style.display = "none";
+             }    
+        }else{
+            scrollToTop();
+            content.style.display = "none";
         }
+    
+    }
+
+    function toggleicon() {
+        var icon = document.getElementById("toggleIcon");
+        var content = document.getElementById("toggle");
+        if (content.style.display === "none") {
+            icon.setAttribute("name", "carrot-up-outline");
+        } else {
+            icon.setAttribute("name", "caret-down-outline");
+        }
+    }
+
+    function scrollToBottom() {
+        var halfPageHeight = document.body.scrollHeight / 2;
+        window.scrollTo(0, halfPageHeight);
+    }
+
+    function scrollToTop() {
+            var halfPageHeight = document.body.scrollHeight;
+            window.scrollTo(0, halfPageHeight);
+    }
+
 
     </script>
 </html>

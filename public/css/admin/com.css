@@ -138,6 +138,7 @@ body
     cursor:pointer;
 }
 
+
 /* Cards */
 
 .cardBox{
@@ -290,35 +291,83 @@ body
 }
 
 .notification {
-
-    display: flex;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    height: fit-content;
+    display:flex;
     
 }
 
+.report {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    height: fit-content;
+    display:flex;
+}
+
+.noticolumn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+    width: auto;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .notibutton{ 
+    display:block;
     position: relative;
-    display: inline-block; 
-    margin: 1vw;
-    padding: 2vw 2vw 2vw 2vw;
+    margin: 1.4vw;
+    height: fit-content;
+    width: fit-content;
+    
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    background-color: white;
+    background-color: rgb(223, 241, 247);
     color: rgba(9, 62, 76, 1);
     transition: background-color 0.4s;
-    font-size:1.5vw;
+    font-size:1.2vw;
     font-weight:600;
-    border-radius: 4vw;
+    border-radius: 1vw;
+}
+
+.report_item .notibutton{ 
+    display:block;
+    position: relative;
+    margin: 1.4vw;
+    height: fit-content;
+    width: 42vw;
+    
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    background-color: rgb(230, 234, 242);
+    color: rgb(14, 33, 37);
+    transition: background-color 0.4s;
+    font-size:1.2vw;
+    font-weight:600;
+    border-radius: 1vw;
 }
 
 .notibutton a{
   
-    padding: 10vw; 
-    width: calc(100% + 4vw); 
-    height: calc(100% + 4vw); 
+    /*padding: 10vw; 
+    width: calc(100% + 1vw); 
+    height: calc(100% + 1vw);
+    */ 
     box-sizing: border-box; 
     text-decoration:none;
     color: rgba(9, 62, 76, 1);
@@ -331,7 +380,7 @@ body
 }
 
 .notibutton:hover{
-    background: #CFE3EA;
+    background: #ffffff;
 }
 
 
@@ -364,6 +413,8 @@ select {
 
 
 form {
+    margin-left: auto;
+    margin-right: auto;
     background-color: white;
     width:max-content ;
     padding: 2vw;
@@ -439,6 +490,19 @@ form label {
     color: #030405;
 }
 
+
+.notibutton:nth-child(3) a > div div:nth-child(2n) {
+    border-radius: 2vw;
+    color: #0b0b5e;
+    background-color: #bcdfdf ;
+
+}
+
+/*.notibutton:nth-child(3):hover a > div div:nth-child(2n){
+    color: #bfdbf8;
+    background-color: #0f061e ;
+
+}
 .notification .notibutton:nth-child(3) {
     background-color: white;
 
@@ -457,19 +521,7 @@ form label {
     color: #010106;
 }
 
-.notibutton:nth-child(3) a > div div:nth-child(2n) {
-    border-radius: 2vw;
-    color: #0b0b5e;
-    background-color: #bcdfdf ;
-
-}
-
-.notibutton:nth-child(3):hover a > div div:nth-child(2n){
-    color: #bfdbf8;
-    background-color: #0f061e ;
-
-}
-
+*/
 div > span {
     font-size: medium;
     align-items: center;
@@ -497,35 +549,37 @@ div > span {
 
 }
 
-.report {
-    width: fit-content;
-    padding: 20px;
-    border-radius:5vh;
-    overflow: auto;
-}
 
 .report_item {
+    width: 70%;
+    height: fit-content;
+    padding: 20px;
     overflow: auto;
     background-color: white;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     padding: 3vw;
     border-radius:5vh;
-    margin-top: 3vw;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
     box-shadow: 0 2vw 3vw rgba(0, 0, 0, 0.08);
-    margin-bottom: 3vw;
 }
 
 
-.report  h2 {
+.report_item  h2 {
+    margin-left: auto;
+    margin-right: auto;
     font-size: 1.7vw;
     width: fit-content;
-    margin-top: 1vw;
+    margin-top: 0.5vw;
     margin-bottom: 3vw;
 
 }
 
 
 .report_item  table {
+    margin-left: auto;
+    margin-right: auto;
     overflow: auto;
     border-collapse: collapse;
     width: fit-content;
@@ -574,7 +628,7 @@ table thead tr {
 
 
 
-.report  table tbody tr:hover {
+.report_item  table tbody tr:hover {
     animation-duration: 0.3ms;
     background-color: #badef3;
     
@@ -632,6 +686,7 @@ h3 {
 
 .toggle-bar {
     background-color: #087da4;
+    position:sticky;
     color: #fff;
     padding:1vw;
     margin: 2vw;
@@ -653,6 +708,19 @@ h3 {
     margin-top: 10px;
     transition: max-height 0.5s ease;
   }
+
+ #chart_bar{
+    position: relative;
+    height: max-content;
+    background-color: white;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2vw 3vw rgba(0, 0, 0, 0.08);
+    
+  }
+
 
 
 

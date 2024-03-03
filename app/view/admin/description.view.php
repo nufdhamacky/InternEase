@@ -31,13 +31,27 @@
                                 <label>User Type:<span></label><?php echo htmlspecialchars($complaint['user_type']); ?></span>
                             </div>
 
+                            <?php if ($complaint['index_no'] != NULL) { ?>
+                                <div class="detail_label">
+                                    <label>index number:</label><span><?php echo htmlspecialchars($complaint['index_no']); ?></span>
+                                </div>
+                            <?php } ?>
+                           
+                                                        
+
                             <div class="detail_label">
                                 <label>Contact Name:</label><span><?php echo htmlspecialchars($complaint['contact_person']); ?></span>
                             </div>
-
+                            <?php if ($complaint['contact_no'] != NULL || !empty($complaint['contact_no'])) { ?>
+                                <div class="detail_label">
+                                    <label>Contact:<span></label><?php echo ($complaint['contact_no']); ?></span>
+                                </div>
+                            <?php } ?>
+                            
                             <div class="detail_label">
-                                <label>Contact:<span></label><?php echo htmlspecialchars($complaint['contact_no']); ?></span>
+                                <label>Subject:<span></label><?php echo htmlspecialchars($complaint['title']); ?></span>
                             </div>
+                        
                         </div>
     
                         <h3>Message</h3>

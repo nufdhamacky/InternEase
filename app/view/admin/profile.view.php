@@ -13,7 +13,7 @@
 <div class="container">
     <?php include('../app/view/layout/Admin_sidemenu.php') ?>
         <div class="content">
-            <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address</div>  
+            <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address <ion-icon  id="toggle_iconE" name="caret-down-outline" ></ion-icon></div>  
                 <div class="toggle" id="editToggle">
 
                     <form class="update-form" method="POST" action='profile'>
@@ -39,7 +39,7 @@
                 </div>
      
 
-            <div class="toggle-bar" onclick="toggleContent('reset')" id="toggleR">Reset Password</div>  
+            <div class="toggle-bar" onclick="toggleContent('reset')" id="toggleR">Reset Password <ion-icon id="toggle_iconR" name="caret-down-outline"  size="small"></ion-icon></div>  
             <div class="toggle" id="resetToggle">
 
             <form class="update-form" method="POST" action='profile'>
@@ -79,31 +79,47 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
+
+
 function toggleContent(type) {
+        
         var toggleId = type + "Toggle";
         var content = document.getElementById(toggleId);
+        
         if (content.style.display === "none" || content.style.display === "" ) {
             content.style.display = "block";
+            toggleicon(toggleId,"toggle_iconR");  
             if(type=='reset'){
+               
                 var bar = document.getElementById('toggleE')
                 bar.style.display = "none";
             }else{
+ 
                 var bar = document.getElementById('toggleR')
                 bar.style.display = "none";
-             }    
+             }               
         } else {
             content.style.display = "none";
             if(type=='reset'){
                 var bar = document.getElementById('toggleE')
                 bar.style.display = "block";
             }else{
+          
                 var bar = document.getElementById('toggleR')
                 bar.style.display = "block";
              }    
         }
 
-      
-      
+}
+
+    function toggleicon(toggle,icon) {
+        var icon = document.getElementById(icon);
+        var content = document.getElementById(toggle);
+        if (content.style.display === "none") {
+            icon.setAttribute("name", "caret-down-outline");
+        } else {
+            icon.setAttribute("name", "caret-up-outline");
+        }
     }
 
  /*   

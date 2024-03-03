@@ -21,8 +21,7 @@
 
 <div class="container">
     <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
-        <div class="report">
-                <div class="report_item">
+                <div class="report_item" style="width:fit-content;">
                     <h2>Complaints</h2>
 
                     <table>
@@ -70,7 +69,6 @@
                         </tbody>
                     </table>
                 </div>
-        </div>
     </div>
 </div>
     

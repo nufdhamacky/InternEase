@@ -74,8 +74,19 @@ class Admin extends Controller {
         
             $adminModel->setTable('company_ad');
             $advertisments = $adminModel->getCompanyAD();
+
+            //$firstround = $adminModel->get_1stround();
+            $total = $adminModel->totalstudents();
+
+            $trend = $adminModel->companyInternTrend();
         
             $data = array(
+               // '1stData'=> $firstround,
+               'companylist'=> $trend['companies'],
+               'years' => $trend['years'],
+               'internsByYear' => $trend['internsByYear'],
+               'total' => $total,
+                'count' => $adminModel->blacklisted_companies(),
                 'companies' => $companies,
                 'advertisments' => $advertisments
             );           
@@ -245,9 +256,8 @@ class Admin extends Controller {
         $adminModel = new AdminModel; 
         $adminModel->setTable('pdc_user');
 
-        // Check if the user is logged in
         if (!$this->isLoggedIn()) {
-            return; // Remove this return statement
+            return; 
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
@@ -275,7 +285,6 @@ class Admin extends Controller {
             }
         }
 
-        // Fetch PDC users and pass them to the view
         $pdc_users = $adminModel->getPDC();
         $data = [
             'pdc_users' => $pdc_users,
@@ -297,6 +306,11 @@ class Admin extends Controller {
         $this->redirect('..');
     }
 
+    function blacklisted(){
+        $this->model('AdminModel');
+        $adminModel = new AdminModel;
+        return $adminModel->blacklisted_companies();
+    }
       /* public function insertAdmin(){
         
         $this->model('AdminModel');
