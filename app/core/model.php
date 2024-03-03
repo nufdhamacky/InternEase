@@ -1,12 +1,40 @@
 <?php
 class Model extends Database {
     protected $table;
+    protected $connection;
 
     public $errors = array();
 
     public function __construct() {
+        // parent::__construct(); 
+
+        $this->connection = $this->connection(); // Initialize the connection
         if (!property_exists($this, 'table')) {
             $this->table = strtolower($this::class);
+        }
+    }
+
+    public function query($query, $bindings) {
+        try {
+            $stmt = $this->connection->prepare($query);
+    
+            // Bind parameters
+            foreach ($bindings as $key => $value) {
+                $stmt->bind_param($key, $value);
+            }
+    
+            $stmt->execute();
+    
+            // Fetch results
+            $result = $stmt->get_result();
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+    
+            $stmt->close();
+    
+            return $data;
+        } catch (Exception $e) {
+            // Handle database error, log, or return an error message as needed
+            die("Database Error: " . $e->getMessage());
         }
     }
     

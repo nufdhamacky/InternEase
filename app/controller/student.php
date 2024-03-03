@@ -11,7 +11,11 @@ class Student extends Controller{
 
     }
     public function advertisement(){
-        $this->view('student/advertisement');
+        $admodel = $this->model('Ads');
+        $ads = $admodel->fetchAds();
+
+        // var_dump($ads);
+        $this->view('student/advertisement', ['data' => $ads]);
 
     }
     public function profile(){
