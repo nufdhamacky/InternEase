@@ -37,7 +37,7 @@ $ads = $companyAdController->getAll();
             <div class="card">
                 <a style="text-decoration: none" href="companylist">
                     <div>
-                        <div class="number"><?php echo $pdController->getCompanyCount(); ?></div>
+                        <div class="number"><?php echo $pdController->getApprovedCompanyCount(); ?></div>
                         <div class="cardName">Registered Companies</div>
                     </div>
                 </a>

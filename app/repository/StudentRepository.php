@@ -2,6 +2,7 @@
 include_once('../app/model/StudentModel.php');
 include_once('../app/model/CompanyModel.php');
 include_once('../app/model/CompanyAdModel.php');
+include_once('../app/model/PageDataModel.php');
 
 class StudentRepository
 {
@@ -81,9 +82,11 @@ class StudentRepository
         return $list;
     }
 
-    public function getAll(): array
+    public function getAll($page): PageDataModel
     {
-        $sql = "SELECT * FROM student";
+        $limit = 10;
+        $start = ($page - 1) * $limit;
+        $sql = "SELECT * FROM student limit $limit offset $start";
 
         $result = $this->conn->query($sql);
         $list = []; // Initialize an array to store CompanyModel instances
@@ -105,14 +108,18 @@ class StudentRepository
             // Add the CompanyModel instance to the array
             $list[] = $value;
         }
-
-        return $list;
-
+        $countQuery = "SELECT count(*) as count FROM student";
+        $countResult = $this->conn->query($countQuery);
+        $count = $countResult->fetch_assoc()["count"];
+        $totalPage = ceil($count / $limit);
+        return new PageDataModel($page, $totalPage, $list);
     }
 
-    public function filterByCourse($course): array
+    public function filterByCourse($course, $page): PageDataModel
     {
-        $sql = "SELECT * FROM student where reg_no like CONCAT('%/', '{$course}', '/%')";
+        $limit = 10;
+        $start = ($page - 1) * $limit;
+        $sql = "SELECT * FROM student where reg_no like CONCAT('%/', '{$course}', '/%') limit $limit offset $start";
 
         $result = $this->conn->query($sql);
         $list = []; // Initialize an array to store CompanyModel instances
@@ -134,9 +141,11 @@ class StudentRepository
             // Add the CompanyModel instance to the array
             $list[] = $value;
         }
-
-        return $list;
-
+        $countQuery = "SELECT count(*) as count FROM student where reg_no like CONCAT('%/', '{$course}', '/%')";
+        $countResult = $this->conn->query($countQuery);
+        $count = $countResult->fetch_assoc()["count"];
+        $totalPage = ceil($count / $limit);
+        return new PageDataModel($page, $totalPage, $list);
     }
 
 

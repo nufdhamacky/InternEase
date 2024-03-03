@@ -1,10 +1,11 @@
 <?php
 include_once('../app/controller/pdc.php');
 $pdController = new Pdc();
+$page = $_GET['page'] ?? 1;
 if (isset($_GET['course'])) {
-    $students = $pdController->filterByCourse($_GET['course']);
+    $pageData = $pdController->filterByCourse($_GET['course'], $page);
 } else {
-    $students = $pdController->getAllStudent();
+    $pageData = $pdController->getAllStudent($page);
 }
 ?>
 <!DOCTYPE html>
@@ -73,7 +74,7 @@ if (isset($_GET['course'])) {
                     </thead>
                     <tbody>
                     <?php
-                    foreach ($students as $student) { ?>
+                    foreach ($pageData->data as $student) { ?>
                         <tr>
                             <td><?php echo $student->firstName . " " . $student->lastName; ?></td>
                             <td><?php echo $student->regNo; ?></td>
@@ -89,10 +90,13 @@ if (isset($_GET['course'])) {
 
             </div>
         </div>
-        <div class="selection">
-            <div class="first">
-
-            </div>
+        <div>
+            <a href="?course=<?php echo $_GET["course"] ?? "all"; ?>&page=<?php echo $pageData->currentPage - 1; ?>"
+               style="display: <?php echo $pageData->currentPage > 1 ? "inline" : "none"; ?>"
+               class="btn">Previous</a>
+            <a href="?course=<?php echo $_GET["course"] ?? "all"; ?>&page=<?php echo $pageData->currentPage + 1; ?>"
+               style="display: <?php echo $pageData->currentPage > 0 && $pageData->currentPage < $pageData->totalPages ? "inline" : "none"; ?>"
+               class="btn">Next</a>
         </div>
 
 

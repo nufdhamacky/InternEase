@@ -18,9 +18,15 @@ class Pdc extends Controller
     }
 
 
-    public function getCompanyCount(): int
+    public function getApprovedCompanyCount(): int
     {
-        $count = $this->companyRepository->getCount();
+        $count = $this->companyRepository->getCountByStatus(1);
+        return $count;
+    }
+
+    public function getPendingCompanyCount(): int
+    {
+        $count = $this->companyRepository->getCountByStatus(0);
         return $count;
     }
 
@@ -39,23 +45,51 @@ class Pdc extends Controller
 
     public function getAllCompany(): array
     {
-
         return $this->companyRepository->getAll();
     }
 
-    public function getAllStudent(): array
+    public function getPendingCompany($page): PageDataModel
     {
-
-        return $this->studentRepository->getAll();
+        return $this->companyRepository->getByStatus($page, 0);
     }
 
-    public function filterByCourse($course): array
+    public function getApprovedCompany($page): PageDataModel
     {
-        
+        return $this->companyRepository->getByStatus($page, 1);
+    }
+
+    public function getRejectCompany($page): PageDataModel
+    {
+        return $this->companyRepository->getByStatus($page, 2);
+    }
+
+    public function rejectCompany()
+    {
+        $id = $_GET["id"];
+        $this->companyRepository->reject($id);
+        echo "<script> window.location.href='http://localhost/internease/public/pdc/companyrequest';</script>";
+    }
+
+    public function acceptCompany()
+    {
+        $id = $_GET["id"];
+        $this->companyRepository->accept($id);
+        echo "<script> window.location.href='http://localhost/internease/public/pdc/companyrequest';</script>";
+    }
+
+
+    public function getAllStudent($page): PageDataModel
+    {
+        return $this->studentRepository->getAll($page);
+    }
+
+    public function filterByCourse($course, $page): PageDataModel
+    {
+
         if ($course == "all") {
-            return $this->studentRepository->getAll();
+            return $this->studentRepository->getAll($page);
         }
-        return $this->studentRepository->filterByCourse($course);
+        return $this->studentRepository->filterByCourse($course, $page);
     }
 
     public function addNewStudent()
