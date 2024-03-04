@@ -6,7 +6,7 @@ class AdvertisementModel{
     public $position;
     public $req;
     public $interns;
-    public $workMode;
+    public $workMode;   
     public $fromDate;
     public $toDate;
     public $companyId;

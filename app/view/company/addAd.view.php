@@ -49,8 +49,8 @@
                             <h4>Requirements</h4>
                             <br>
                             <div class="check">
-                                <input type="checkbox" name="req[]"  value="React"> React<br>
-                                <input type="checkbox" name="req[]" value="Net"> .Net<br>
+                                <input type="checkbox" name="req[]" value="React"> React<br>
+                                <input type="checkbox" name="req[]" value=".Net"> .Net<br>
                                 <input type="checkbox" name="req[]" value="Node"> Node<br>
                                 <input type="checkbox" name="req[]" value="Java"> Java<br>
                                 <input type="checkbox" name="req[]" value="JS"> JavaScript<br>

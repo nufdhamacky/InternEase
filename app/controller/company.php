@@ -137,23 +137,39 @@
         public function addNewAd(){
 
             $position = mysqli_real_escape_string($this->conn, $_POST['position']);
-             $interns = mysqli_real_escape_string($this->conn, $_POST['no_of_intern']);
-             $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
-             $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']); // Correct the input name
-             $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']); // Correct the input name
-             $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
-             
-            // Handle requirements checkbox
-            $req = '';
-            if (isset($_POST['req']) && is_array($_POST['req'])) {
-                $req = implode(', ', $_POST['req']);
+
+            // Initialize an empty array to store selected requirements
+            $requirements = array();
+
+            // Check if any checkboxes are checked
+            if(isset($_POST['req'])) {
+                
+                // Loop through each selected checkbox value and store it in the array
+                foreach($_POST['req'] as $requirement) {
+                    
+                    // Perform any necessary validation and sanitization here
+                    $requirements[] = $requirement;
+
+                }
             }
+
+            // Convert the array of selected requirements into a comma-separated string
+            $requirementsString = implode(", ", $requirements);
+
+            $interns = mysqli_real_escape_string($this->conn, $_POST['no_of_intern']);
+            $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
+            $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']); // Correct the input name
+            $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']); // Correct the input name
+            $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
+            
 
              // Assuming you have a company_id available somewhere
              $companyId = $_SESSION['userId'];
              
-             $advertisement = new AdvertisementModel($position,  $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
+             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
+             
              $result = $this->advertisementRepository->save($advertisement);
+             
             if($result){
                 echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
             }  else {
