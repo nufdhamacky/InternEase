@@ -1,11 +1,12 @@
 <?php
 include_once('../app/model/CompanyModel.php');
+include_once('../app/model/ReportModel.php');
+include_once('../app/model/StudentShortModel.php');
+include_once('../app/model/BlackCompanyModel.php');
 include_once('../app/model/PageDataModel.php');
 
 class CompanyRepository
 {
-
-
     private $conn;
 
     public function __construct($conn)
@@ -18,6 +19,41 @@ class CompanyRepository
         return null;
     }
 
+
+    public function getReportsByCompany($id): array
+    {
+        $reportSql = "SELECT r.*,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$id";
+        $reportResult = $this->conn->query($reportSql);
+        $list = [];
+        while ($r = $reportResult->fetch_assoc()) {
+            $student = new StudentShortModel($r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
+            $report = new ReportModel($r["id"], $student, $r["reason"], $r["date"]);
+            $list[] = $report;
+        }
+        return $list;
+    }
+
+    public function getBlackCompanies(): array
+    {
+        $sql = "SELECT distinct c.* FROM company as c JOIN company_report as r on c.user_id = r.company_id";
+        $result = $this->conn->query($sql);
+        $list = [];
+        while ($row = $result->fetch_assoc()) {
+            $companyId = $row["user_id"];
+            $reportSql = "SELECT r.*,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$companyId";
+            $reportResult = $this->conn->query($reportSql);
+            $reports = [];
+            while ($r = $reportResult->fetch_assoc()) {
+                $student = new StudentShortModel($r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
+                $report = new ReportModel($r["id"], $student, $r["reason"], $r["date"]);
+                $reports[] = $report;
+            }
+
+            $company = new BlackCompanyModel($row["user_id"], $row["company_name"], $reports);
+            $list[] = $company;
+        }
+        return $list;
+    }
 
     public function getAll(): array
     {

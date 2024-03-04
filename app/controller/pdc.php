@@ -225,6 +225,11 @@ class Pdc extends Controller
         $this->view('pdc/secondround');
     }
 
+    public function companyreport()
+    {
+        $this->view('pdc/companyreport');
+    }
+
     public function logout()
     {
         session_destroy();

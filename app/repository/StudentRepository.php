@@ -4,6 +4,7 @@ include_once('../app/model/CompanyModel.php');
 include_once('../app/model/CompanyAdModel.php');
 include_once('../app/model/PageDataModel.php');
 
+
 class StudentRepository
 {
     private $conn;
@@ -76,7 +77,6 @@ class StudentRepository
                 $adList
             );
 
-            // Add the CompanyModel instance to the array
             $list[] = $value;
         }
         return $list;
