@@ -47,6 +47,12 @@
                     </div>
                 </div><br>
 
+                <div class="all-ad-view-table">
+                    <div class="all-ad-view-table-heading">
+                        
+                    </div>
+                </div>
+
                 <!-- <div class="studentdetails">
                 <table>
                     <thead>

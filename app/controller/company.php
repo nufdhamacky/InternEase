@@ -35,7 +35,10 @@
 
         public function ad(){
             
-            $this->view('company/ad');
+            $advertisements = $this->advertisementRepository->getAllAdvertisements();
+            // print_r($advertisements);
+            // die();
+            $this->view('company/ad', ['advertisements' => $advertisements]);
 
         }
     
@@ -169,7 +172,7 @@
              $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
              
              $result = $this->advertisementRepository->save($advertisement);
-             
+
             if($result){
                 echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
             }  else {
