@@ -113,6 +113,7 @@
                 <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
                 <p><strong>Requirements:</strong> ${ad.requirements}</p>
                 <button onclick="applyToJob()">Apply</button>
+                <button id="wishlist" onclick="wishlistJob()"><i class="fa-regular fa-heart"></i></button>
             `;
 
             adDetailsWindow.style.display = 'block';
@@ -125,7 +126,14 @@
         // Function to handle applying to the job
         function applyToJob() {
             // Logic to handle job application goes here
+
             alert('You have applied to this job!');
+        }
+
+        function wishlistJob(){
+
+            document.getElementById('wishlist').innerHTML = `<i style="fill: red;" class="fa-solid fa-heart"></i>`;
+            alert('Job Wishlisted');
         }
 
 
