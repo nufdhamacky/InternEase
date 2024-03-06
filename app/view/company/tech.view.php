@@ -1,3 +1,8 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,49 +38,51 @@
                 
             </div>
 
-            <div class="details">
-                <div class="compdetails"> 
-                    <div class = "cardHeader">
-                        <h2>Schedule Tech-Talks</h2>
-                    </div>   
+            <form action="<?=ROOT?>/company/addTechtalk" method="POST">
+                <div class="details">
+                    <div class="compdetails"> 
+                        <div class = "cardHeader">
+                            <h2>Schedule Tech-Talks</h2>
+                        </div>   
 
-                    <h4>Date:</h4>
-                    <div class = "input-container">
-                        <input type = "date" class = "bx1">
-                    </div>
-
-                    <h4>Duration:</h4>
-                    <div>
-                        <select>
-                            <option value = "1hr">1 hour</option>
-                            <option value = "2hr">2 hours</option>
-                        </select>
-                    </div>
-
-                    <h4>Time Slot:</h4>
-                    <div class = "timeslot">
-                        <div class = "select">
-                            <select>
-                                <option value = "9">09.00 AM</option>
-                                <option value = "10">10.00 AM</option>
-                                <option value = "1030">10.30 AM</option>
-                                <option value = "11">11.00 AM</option>
-                            </select>
+                        <h4>Date:</h4>
+                        <div class = "input-container">
+                            <input type = "date" name="date" class = "bx1" >
                         </div>
+
+                        <h4>Duration:</h4>
                         <div>
-                            <select>
-                                <option value = "10">10.00 AM</option>
-                                <option value = "1030">10.30 AM</option>
-                                <option value = "11">11.00 AM</option>
-                                <option value = "1130">11.30 AM</option>
+                            <select name="duration">
+                                <option value = "1hr">1 hour</option>
+                                <option value = "2hr">2 hours</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="submit">
-                            <button type="submit" class="btn">SAVE</button>
+
+                        <h4>Time Slot:</h4>
+                        <div class = "timeslot">
+                            <div class = "select">
+                                <select name="start_time">
+                                    <option value = "9">09.00 AM</option>
+                                    <option value = "10">10.00 AM</option>
+                                    <option value = "1030">10.30 AM</option>
+                                    <option value = "11">11.00 AM</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="end_time">
+                                    <option value = "10">10.00 AM</option>
+                                    <option value = "1030">10.30 AM</option>
+                                    <option value = "11">11.00 AM</option>
+                                    <option value = "1130">11.30 AM</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="submit">
+                                <button type="submit" class="btn">SAVE</button>
+                            </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

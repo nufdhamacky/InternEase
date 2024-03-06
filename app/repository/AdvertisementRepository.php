@@ -34,7 +34,7 @@ class AdvertisementRepository{
         }
     }
 
-    public function     getAllAdvertisements(): array {
+    public function getAllAdvertisements(): array {
         $sql = "SELECT * FROM company_ad";
         $result = $this->conn->query($sql);
 

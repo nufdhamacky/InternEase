@@ -3,13 +3,18 @@
     include_once('../app/repository/AdvertisementRepository.php');
     include_once('../app/model/AdvertisementModel.php');
 
+    include_once('../app/repository/TechTalkRepository.php');
+    include_once('../app/model/TechTalkModel.php');
+
     class Company extends Controller {
 
         private $advertisementRepository;
+        private $techTalkRepository;
 
         public function __construct(){
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
+            $this->techTalkRepository = new TechTalkRepository($this->conn);
 
         }
         public function isLoggedIn(){
@@ -128,6 +133,35 @@
             $this->view('company/totAd');
 
         }
+
+        public function addTechtalk(){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $userId = $_SESSION['userId']; // Assuming you have userId in session
+        
+                $date = isset($_POST['date']) ? mysqli_real_escape_string($this->conn, $_POST['date']) : '';
+                $duration = isset($_POST['duration']) ? mysqli_real_escape_string($this->conn, $_POST['duration']) : '';
+                $startTime = isset($_POST['start_time']) ? mysqli_real_escape_string($this->conn, $_POST['start_time']) : '';
+                $endTime = isset($_POST['end_time']) ? mysqli_real_escape_string($this->conn, $_POST['end_time']) : '';
+
+                // Create a TechTalkModel object
+                $techTalk = new TechTalkModel($userId, $date, $duration, $startTime, $endTime);
+        
+                // Pass $techTalk to repository method for database insertion
+                $result = $this->techTalkRepository->addTechTalk($techTalk);
+
+                if ($result) {
+                    // Redirect after successful submission
+                    header("Location: /internease/public/company/tech");
+                    exit();
+                } else {
+                    // Handle insertion failure
+                    echo "Data Insertion Failed";
+                }
+            } else {
+                // Handle GET request if needed
+            }
+        }
+        
 
         public function getTotalAd(){
             $CompanyModel = $this->model('CompanyModel');
