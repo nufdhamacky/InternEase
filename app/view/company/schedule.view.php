@@ -31,9 +31,9 @@
                     <a href="tech">
                         <button type="submit" class="sbtn">SCHEDULE TECH-TALK</button>
                     </a>
-                    <a href="companyVisit">
+                    <!-- <a href="companyVisit">
                         <button type="submit"class="sbtn">SCHEDULE COMPANY VISIT</button>
-                    </a>
+                    </a> -->
                 </div>
                 
                 <div class = "cardHeader">
