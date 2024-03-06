@@ -40,9 +40,9 @@
                             <h4>Position</h4>
                             <select name="position">
                                 <option value = "" selected hidden>Select Position</option>
-                                <option value = "se">Sofware Engineer</option>
-                                <option value = "qa">Quality Assuarance</option>
-                                <option value = "ba">Business Analyst</option>
+                                <option value = "Sofware Engineer">Sofware Engineer</option>
+                                <option value = "Quality Assuarance">Quality Assuarance</option>
+                                <option value = "Business Analyst">Business Analyst</option>
                             </select>
                             <br>
 
@@ -66,8 +66,10 @@
 
                             <select name="qualification">
                                 <option value = "" selected hidden>Select Qualification</option>
-                                <option value = "cs">BSc. in Computer Science</option>
-                                <option value = "is">BSc. in Information systems</option>
+                                <option value = "BSc. in Computer Science">BSc. in Computer Science</option>
+                                <option value = "BSc. in Information systems">BSc. in Information systems</option>
+                                <option value = "BSc.(Hons) in Computer Science">BSc.(Hons) in Computer Science</option>
+                                <option value = "BSc.(Hons) in Information systems">BSc.(Hons) in Information systems</option>
                             </select>
                             <br>
 

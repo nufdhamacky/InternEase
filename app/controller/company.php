@@ -41,6 +41,10 @@
             $this->view('company/ad', ['advertisements' => $advertisements]);
 
         }
+
+        public function getAllAds(): array{
+            return $this->advertisementRepository->getAllAdvertisements();
+        }
     
         public function adView(){
             $advertisements = $this->advertisementRepository->getAllAdvertisements();

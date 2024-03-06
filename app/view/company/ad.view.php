@@ -1,3 +1,9 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+    $ads = $companyController->getAllAds();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,120 +53,42 @@
                     </div>
                 </div><br>
 
-                <div class="all-ad-view-table">
-                    <div class="all-ad-view-table-heading">
-                        
-                    </div>
-                </div>
+                
 
-                <!-- <div class="studentdetails">
+                <div class="studentdetails">
                 <table>
                     <thead>
                         <tr>
                             <td>Position</td>
                             <td>Requirements</td>
-                            <td>Qualifications</td>
-                            <td>Internship Period</td>
+                            <td>Qualification</td>
+                            <td colspan="2">Internship Period</td>
                             <td>No. of Interns</td>
                             <td>Working Mode</td>
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        <tr>
-                            <td>Software Engineer</td>
-                            <td>React<br>Node<br>Java<br>DevOps</td>
-                            <td>BSc. in Computer Science</td>
-                            <td>Dec - May</td>
-                            <td>2</td>
-                            <td>Online</td>
-                        </tr>
-
-                        <tr>
-                            <td>Software Engineer</td>
-                            <td>React<br>Node<br>Java</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>Dec - May</td>
-                            <td>2</td>
-                            <td>Online</td>
-                        </tr>
-
-                        <tr>
-                            <td>Quality Assuarance</td>
-                            <td>Java<br>C++<br>Python<br>JavaScript</td>
-                            <td>BSc. in Computer Science</td>
-                            <td>Dec - May</td>
-                            <td>3</td>
-                            <td>Hybrid</td>
-                        </tr>
-
-                        <tr>
-                            <td>Quality Assuarance</td>
-                            <td>Java<br>C++<br>Python<br>JavaScript</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>Dec - May</td>
-                            <td>3</td>
-                            <td>Hybrid</td>
-                        </tr>
-
-                        <tr>
-                            <td>Business Analyst</td>
-                            <td>Java<br>SQL<br>Python<br>JavaScript</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>Dec - May</td>
-                            <td>3</td>
-                            <td>Physical</td>
-                        </tr>
-
-                        <tr>
-                            <td>Business Analyst</td>
-                            <td>Java<br>SQL<br>Python<br>JavaScript</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>Dec - May</td>
-                            <td>4</td>
-                            <td>Physical</td>
-                        </tr>
-
+                        <?php 
+                            foreach($ads as $ad){ ?>
+                                <tr>
+                                    <td><?php echo $ad->position; ?> </td>
+                                    <td><?php echo $ad->req; ?> </td>
+                                    <td><?php echo $ad->qualification; ?> </td>
+                                    <td><?php echo $ad->fromDate; ?> </td>
+                                    <td><?php echo $ad->toDate; ?> </td>
+                                    <td><?php echo $ad->interns; ?> </td>
+                                    <td><?php echo $ad->workMode; ?> </td>
+                                </tr>
+                                <?php } ?>
+                        
+                        
                     </tbody>
                 </table>
 
-            </div> -->
+            </div>
 
-                <div class="ad-table">
-                    <div class="table-heading">
-                        <div class="position-class">Poisition</div>
-                        <div class="requirement-class">Requirements</div>
-                        <div class="qual-class">Qualifications</div>
-                        <div class="inetrnship-class">Internship Period</div>
-                        <div class="interns-class">No. of Interns</div>
-                        <div class="mode-class">Working mode</div>
-                    </div>
-                    <div class="table-all-data">
-                                <div class="each-data">
-                                    <div class="position-class"><?php echo $advertisement['position'] ?></div>                                    </div>
-                                    <div class="requirement-class"><?php echo $advertisement['req'] ?></div>
-                                    <div class="qual-class"><?php echo $advertisement['qualification'] ?></div>
-                                    <div class="intake-class"><?php echo $advertisement['interns'] ?></div>
-                                    <div class="mode-class"><?php echo $advertisement['workMode'] ?></div>
-                                    <div>
-                                        <a href="adView.php?id=<?php //echo $row['ad_id']; ?>">
-                                            <button class="data-view-btn" type="submit">View</button></div>
-                                        </a>
-                                    <div>
-                                        <form method="post">
-                                            <input type="hidden" name="record_id" value="">
-                                                <button class="data-delete-btn" type="submit">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                  
-                                <div class="each-data">
-                                    <div class="position-class">No bokings available</div>
-                                </div>
-
-                    </div>
-                </div>
+                
     
             </div>
         </div>
