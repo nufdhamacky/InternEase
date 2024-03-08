@@ -198,18 +198,16 @@ body
     border-radius: 5px;
 }
 
-
-/* ================== Student Details List ============== */
-.details {
+/* .details {
   position: relative;
   width: 120%;
   padding: 20px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 30px;
-}
+} */
 
-.details .studentdetails{
+/* .details .studentdetails{
   position: relative;
   display: grid;
   min-height: 350px;
@@ -218,6 +216,115 @@ body
   padding: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
+} */
+
+.details .studentdetails{
+    width: 80%;
+    background-color: #FFF;
+    padding: 20px 5px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 125px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.details .studentdetails nav{
+    position: relative;
+    height: 50px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.studentdetails nav::after{
+    content: "";
+    background: silver;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 47px;
+    filter: blur(0.5px);
+}
+
+.studentdetails label{
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    color: #9ccddc;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* #intschedule:checked ~ nav label .intschedule,
+#techschedule:checked ~ nav label .techschedule{
+    color: #8de02c;
+} */
+
+input[type='radio']{
+    display: none;
+}
+
+.studentdetails nav .slider{
+    position: absolute;
+    height: 4.5px;
+    background-color: #0b596f;
+    border-radius: 20px;
+    width: 50%;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    transition: all 0.3s ease;
+    filter: blur(0.4px);
+}
+
+#techschedule:checked ~ nav .slider{
+    left: 50%;
+}
+
+#intschedule:checked ~ nav .intschedule{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+#techschedule:checked ~ nav .techschedule{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+section{
+    filter: blur(0.3px);
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .content{
+    display: none;
+    margin-bottom: 20px;
+}
+
+section .content .title{
+    font-size: 21px;
+    font-weight: 500;
+    margin: 30px 0 10px 0;
+}
+
+#intschedule:checked ~ section .content-1{
+    display: block;
+}
+
+#techschedule:checked ~ section .content-2{
+    display: block;
 }
 
 .details .studentdetails table tr td:nth-child(3) {
@@ -246,11 +353,11 @@ body
 }
 
 
-.details .cardHeader {
+/* .details .cardHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-}
+} */
 
 .cardHeader h2 {
     font-weight: 600;
