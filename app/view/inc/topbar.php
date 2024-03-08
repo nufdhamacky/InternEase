@@ -1,6 +1,6 @@
 <?php
 // Get the current URL
-$currentURL = $_SERVER['REQUEST_URI'];
+$currentURL = strtok($_SERVER['REQUEST_URI'], '?');
 
 // Explode the URL by '/' to get an array of URL segments
 $urlSegments = explode('/', $currentURL);
@@ -39,3 +39,23 @@ if ($pageTitle === '') {
         </div>
     </div>
 </header>
+
+<div class="notifications-container">
+    <?php
+    // Assuming $notifications is an array containing notification data
+    if (isset($notifications) && is_array($notifications)) {
+        foreach ($notifications as $notification) {
+            echo '<div class="notification">';
+            echo '<p class="message">' . $notification['message'] . '</p>';
+            echo '<p class="created-at">' . $notification['created_at'] . '</p>';
+            echo '</div>';
+        }
+    }
+    ?>
+</div>
+
+<script>
+    
+    // Function to display notifications dynamically
+    
+</script>

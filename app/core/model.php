@@ -18,9 +18,14 @@ class Model extends Database {
         try {
             $stmt = $this->connection->prepare($query);
     
+            if ($stmt === false) {
+                throw new Exception("Error preparing statement: " . $this->connection->error);
+            }
+    
             // Bind parameters
-            foreach ($bindings as $key => $value) {
-                $stmt->bind_param($key, $value);
+            if (!empty($bindings)) {
+                $types = str_repeat('s', count($bindings));
+                $stmt->bind_param($types, ...$bindings);
             }
     
             $stmt->execute();
@@ -54,10 +59,40 @@ class Model extends Database {
 
     // insert data
     public function insert($data) {
-        $columns = implode(", ", array_keys($data));
-        $values = ":" . implode(", :", array_keys($data));
-        $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
-        return $this->query($query, $data);
+        try {
+            $columns = implode(", ", array_keys($data));
+            $values = ":" . implode(", :", array_keys($data));
+            $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
+            
+            $stmt = $this->connection->prepare($query);
+    
+            if ($stmt === false) {
+                throw new Exception("Error preparing statement: " . $this->connection->error);
+            }
+    
+            // Bind parameters
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+    
+            $stmt->execute();
+    
+            // Check for errors during execution
+            if ($stmt->errno !== 0) {
+                throw new Exception("Error executing statement: " . $stmt->error);
+            }
+    
+            $stmt->close();
+            return true;
+        } catch (Exception $e) {
+            // Log the detailed error message
+            error_log('Database Error: ' . $e->getMessage());
+    
+            // Set the error property for further analysis
+            $this->errors[] = $e->getMessage();
+            
+            return false;
+        }
     }
 
     // update data

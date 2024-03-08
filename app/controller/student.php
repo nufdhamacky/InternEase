@@ -10,10 +10,28 @@ class Student extends Controller{
         $this->view('student/dashboard');
 
     }
+
+    public function wishlist() {
+        // Handle AJAX request to add/remove from wishlist
+        $userId = $_POST['userId'];
+        $adId = $_POST['adId'];
+    
+        // Instantiate the Wishlist model and perform the required operations
+        $wishlistModel = $this->model('Wishlist');
+        $wishlistModel->addToWishlist($userId, $adId);
+    }
+
+    public function notification(){
+        
+    }
+    
     public function advertisement(){
+        $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $ads = $admodel->fetchAds();
+        // $adsWithStatus = $admodel->fetchAdsWithStatus($userId);
 
+        // var_dump($_SESSION);
         // var_dump($ads);
         $this->view('student/advertisement', ['data' => $ads]);
 
