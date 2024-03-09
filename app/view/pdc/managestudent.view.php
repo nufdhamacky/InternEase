@@ -39,10 +39,11 @@ if (isset($_GET['course'])) {
             <div class="studentList">
                 <div class="cardHeader">
                     <h2>Students List</h2>
-                    <form action="<?= ROOT ?>/pdc/addBulkStudent" method="post" enctype="multipart/form-data">
-                        <input type="file" id="csv" name="csv" accept="text/csv">
+                    <form id="csvForm" action="<?= ROOT ?>/pdc/addBulkStudent" method="post"
+                          enctype="multipart/form-data">
+                        <input type="file" id="csv" name="csv" accept="text/csv" onchange="uploadCsvStudents()">
                         <label for="csv" class="upload-btn"><span>Select File</span></label>
-                        <button type="submit" class="btn">Upload</button>
+                        <span id="csvName"></span>
                     </form>
                     <a href="addstudent" class="btn">Add</a>
                 </div>
@@ -81,7 +82,7 @@ if (isset($_GET['course'])) {
                             <td><?php echo $student->email; ?></td>
                             <td><?php echo $student->indexNo; ?></td>
                             <td>
-
+                                <a href="viewstudent?id=<?php echo $student->userId; ?>">view</a>
                             </td>
                         </tr>
                     <?php } ?>

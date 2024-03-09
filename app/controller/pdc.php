@@ -1,19 +1,22 @@
 <?php
 include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
+include_once('../app/repository/CompanyVisitRepository.php');
 include_once('../app/model/StudentModel.php');
+include_once('../app/model/AddCompanyVisitModel.php');
 
 class Pdc extends Controller
 {
-
-    private $companyRepository;
-    private $studentRepository;
+    private CompanyRepository $companyRepository;
+    private StudentRepository $studentRepository;
+    private CompanyVisitRepository $companyVisitRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->companyRepository = new CompanyRepository($this->conn);
         $this->studentRepository = new StudentRepository($this->conn);
+        $this->companyVisitRepository = new CompanyVisitRepository($this->conn);
 
     }
 
@@ -58,6 +61,12 @@ class Pdc extends Controller
         return $this->companyRepository->getByStatus($page, 1);
     }
 
+
+    public function getFullApprovedCompany(): array
+    {
+        return $this->companyRepository->getFullByStatus(1);
+    }
+
     public function getRejectCompany($page): PageDataModel
     {
         return $this->companyRepository->getByStatus($page, 2);
@@ -67,20 +76,30 @@ class Pdc extends Controller
     {
         $id = $_GET["id"];
         $this->companyRepository->reject($id);
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/companyrequest';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
     }
 
     public function acceptCompany()
     {
         $id = $_GET["id"];
         $this->companyRepository->accept($id);
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/companyrequest';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
     }
 
 
     public function getAllStudent($page): PageDataModel
     {
         return $this->studentRepository->getAll($page);
+    }
+
+    public function findStudentById($id): ?StudentModel
+    {
+        return $this->studentRepository->findById($id);
+    }
+
+    public function deleteStudentById($id): void
+    {
+        $this->studentRepository->delete($id);
     }
 
     public function filterByCourse($course, $page): PageDataModel
@@ -90,6 +109,28 @@ class Pdc extends Controller
             return $this->studentRepository->getAll($page);
         }
         return $this->studentRepository->filterByCourse($course, $page);
+    }
+
+
+    public function getAllCompanyVisits($page): PageDataModel
+    {
+        return $this->companyVisitRepository->getAll($page);
+    }
+
+    public function addVisitRequest()
+    {
+        $companyIds = $_POST['company'];
+        // $userId=$_SESSION["userId"];
+        $reason = mysqli_real_escape_string($this->conn, $_POST['reason']);
+        $requestDate = mysqli_real_escape_string($this->conn, $_POST['request_date']);
+
+        foreach ($companyIds as $companyId) {
+            $companyVisit = new AddCompanyVisitModel($companyId, $requestDate, $reason);
+
+            $this->companyVisitRepository->save($companyVisit);
+        }
+
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
     }
 
     public function addNewStudent()
@@ -106,7 +147,25 @@ class Pdc extends Controller
 
         $student = new StudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array());
         $this->studentRepository->save($student);
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/managestudent';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
+    }
+
+    public function updateStudent()
+    {
+
+        // $userId=$_SESSION["userId"];
+        $id = $_POST['id'];
+        $email = mysqli_real_escape_string($this->conn, $_POST['email']);
+
+        $firstName = mysqli_real_escape_string($this->conn, $_POST['first_name']);
+        $lastName = mysqli_real_escape_string($this->conn, $_POST['last_name']);
+        $regNo = mysqli_real_escape_string($this->conn, $_POST['reg_no']);
+        $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
+
+
+        $student = new StudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array());
+        $this->studentRepository->update($student);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
 
     public function addBulkStudent()
@@ -131,7 +190,7 @@ class Pdc extends Controller
         }
 
 
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/managestudent';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
 
 
@@ -229,6 +288,17 @@ class Pdc extends Controller
     {
         $this->view('pdc/companyreport');
     }
+
+    public function schedule()
+    {
+        $this->view('pdc/schedule');
+    }
+
+    public function addschedule()
+    {
+        $this->view('pdc/addschedule');
+    }
+
 
     public function logout()
     {

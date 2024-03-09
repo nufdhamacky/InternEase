@@ -115,6 +115,33 @@ class CompanyRepository
 
     }
 
+    public function getFullByStatus($status): array
+    {
+
+        $sql = "SELECT c.*,u.user_status FROM company c JOIN users u ON c.user_id=u.user_id where user_status=$status";
+
+        $result = $this->conn->query($sql);
+        $companies = []; // Initialize an array to store CompanyModel instances
+
+        while ($row = $result->fetch_assoc()) {
+            // Create a new CompanyModel instance for each row
+            $company = new CompanyModel(
+                $row['user_id'],
+                $row['company_name'],
+                $row['email'],
+                $row['contact_no'],
+                $row['contact_person'],
+                $row['website'],
+                $row['user_status']
+            );
+
+            // Add the CompanyModel instance to the array
+            $companies[] = $company;
+        }
+
+        return $companies;
+    }
+
     public function getCountByStatus($status): int
     {
         $countQuery = "SELECT count(c.user_id) as count FROM company c JOIN users u ON c.user_id=u.user_id where user_status=$status";

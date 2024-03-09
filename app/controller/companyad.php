@@ -23,13 +23,13 @@ class CompanyAd extends Controller
     {
         $id = $_GET["id"];
         $this->companyAdRepository->reject($id);
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/advertisement';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/advertisement');</script>";
     }
 
     public function accept()
     {
         $id = $_GET["id"];
         $this->companyAdRepository->accept($id);
-        echo "<script> window.location.href='http://localhost/internease/public/pdc/advertisement';</script>";
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/advertisement');</script>";
     }
 }

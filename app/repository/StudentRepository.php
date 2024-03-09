@@ -32,6 +32,12 @@ class StudentRepository
         return null;
     }
 
+    public function update(StudentModel $student): void
+    {
+        $sql = "UPDATE student SET email='{$student->email}',first_name='{$student->firstName}',last_name='{$student->lastName}',index_no={$student->indexNo},reg_no='{$student->regNo}' WHERE user_id={$student->userId}";
+        $result = $this->conn->query($sql);
+    }
+
     public function getCount(): int
     {
         $sql = "SELECT count(*) as count FROM student";
@@ -113,6 +119,42 @@ class StudentRepository
         $count = $countResult->fetch_assoc()["count"];
         $totalPage = ceil($count / $limit);
         return new PageDataModel($page, $totalPage, $list);
+    }
+
+    public function findById($id): ?StudentModel
+    {
+
+        $sql = "SELECT * FROM student where user_id=$id";
+
+        $result = $this->conn->query($sql);
+
+
+        while ($row = $result->fetch_assoc()) {
+            // Create a new CompanyModel instance for each row
+            $value = new StudentModel(
+                $row['user_id'],
+                $row['email'],
+                $row['first_name'],
+                $row['last_name'],
+                null,
+                $row['reg_no'],
+                $row['index_no'],
+
+                null
+            );
+
+            // Add the CompanyModel instance to the array
+            return $value;
+        }
+
+        return null;
+    }
+
+
+    public function delete($id): void
+    {
+        $sql = "DELETE student where user_id=$id";
+        $result = $this->conn->query($sql);
     }
 
     public function filterByCourse($course, $page): PageDataModel
