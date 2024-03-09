@@ -2,7 +2,12 @@
 include_once('../app/controller/pdc.php');
 $pdcController = new Pdc();
 $page = $_GET['page'] ?? 1;
-$pageData = $pdcController->getAllCompanyVisits($page);
+
+if (isset($_GET['query'])) {
+    $pageData = $pdcController->searchAllCompanyVisits($_GET['query'], $page);
+} else {
+    $pageData = $pdcController->getAllCompanyVisits($page);
+}
 
 ?>
 <!DOCTYPE html>
@@ -30,11 +35,16 @@ $pageData = $pdcController->getAllCompanyVisits($page);
         </div>
         <div class="secondbar">
             <div class="search">
-                <ion-icon name="search-outline"></ion-icon>
-                <input type="text" placeholder="Search Company" class="box1">
+                <form action="" id="searchForm" method="get">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <input type="text" name="query" id="searchField" value="<?php echo $_GET["query"] ?? ""; ?>"
+                           placeholder="Search Company" class="box1">
+                    <button type="submit">Search</button>
+                </form>
+
             </div>
         </div>
-        
+
         <div id="seTable" class="details">
             <div class="studentdetails">
                 <div class="cardHeader">
@@ -64,6 +74,14 @@ $pageData = $pdcController->getAllCompanyVisits($page);
                             <td>
                                 <!--                        <a href="viewstudent?id=-->
                                 <?php //echo $v->id; ?><!--">view</a>-->
+                            <td>
+                                <a href="<?= ROOT ?>/pdc/acceptVisit?id=<?php echo $v->id; ?>"
+                                   style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
+                                <a href="<?= ROOT ?>/pdc/rejectVisit?id=<?php echo $v->id; ?>"
+                                   style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+                                <a href="<?= ROOT ?>/pdc/deleteVisit?id=<?php echo $v->id; ?>"
+                                   style="display: <?php echo $v->status == 0 && $v->visitDate == null ? "inline" : "none" ?>;color: red;text-decoration: none">Delete</a>
+                            </td>
                             </td>
                         </tr>
                     <?php } ?>
@@ -73,10 +91,10 @@ $pageData = $pdcController->getAllCompanyVisits($page);
             </div>
         </div>
         <div>
-            <a href="?course=<?php echo $_GET["course"] ?? "all"; ?>&page=<?php echo $pageData->currentPage - 1; ?>"
+            <a href="?page=<?php echo $pageData->currentPage - 1; ?>"
                style="display: <?php echo $pageData->currentPage > 1 ? "inline" : "none"; ?>"
                class="btn">Previous</a>
-            <a href="?course=<?php echo $_GET["course"] ?? "all"; ?>&page=<?php echo $pageData->currentPage + 1; ?>"
+            <a href="?page=<?php echo $pageData->currentPage + 1; ?>"
                style="display: <?php echo $pageData->currentPage > 0 && $pageData->currentPage < $pageData->totalPages ? "inline" : "none"; ?>"
                class="btn">Next</a>
         </div>
@@ -84,5 +102,6 @@ $pageData = $pdcController->getAllCompanyVisits($page);
 </div>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="<?= ROOT ?>/js/schedule.js"></script>
 </body>
 </html>

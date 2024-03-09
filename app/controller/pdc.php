@@ -117,6 +117,32 @@ class Pdc extends Controller
         return $this->companyVisitRepository->getAll($page);
     }
 
+    public function searchAllCompanyVisits($query, $page): PageDataModel
+    {
+        return $this->companyVisitRepository->search($query, $page);
+    }
+
+    public function acceptVisit()
+    {
+        $id = $_GET["id"];
+        $this->companyVisitRepository->accept($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
+    }
+
+    public function rejectVisit()
+    {
+        $id = $_GET["id"];
+        $this->companyVisitRepository->reject($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
+    }
+
+    public function deleteVisit()
+    {
+        $id = $_GET["id"];
+        $this->companyVisitRepository->delete($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
+    }
+
     public function addVisitRequest()
     {
         $companyIds = $_POST['company'];

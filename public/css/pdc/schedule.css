@@ -89,7 +89,7 @@ body {
 
 .main {
     position: absolute;
-    width: calc(100% - 300px);
+    width: calc(100% - 100px);
     left: 300px;
     min-height: 100vh;
     background: white;
@@ -270,7 +270,7 @@ body {
 }
 
 .details .studentdetails table tr {
-    color: var black;
+    color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
