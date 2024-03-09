@@ -17,7 +17,7 @@ body
     width: 100%;
 }
 
-.navigation 
+.navigation
 {
     position: fixed;
     width: 300px;
@@ -49,7 +49,7 @@ body
     width:100%;
     list-style: none;
 }
- 
+
 .navigation ul li:hover
 {
     background-color: #CFE3EA;

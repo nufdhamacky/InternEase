@@ -276,6 +276,8 @@ body {
 
 .details .studentdetails table thead {
     background-color: #D9D9D9;
+    color: rgba(9, 62, 76, 1);
+    font-weight: 600;
 }
 
 .details .studentdetails table tr:last-child {
@@ -288,6 +290,11 @@ body {
 
 .details .studentdetails table tr td:last-child {
     text-align: end;
+}
+
+.details .studentdetails table tbody tr:hover {
+    background: #CFE3EA;
+    color: black;
 }
 
 .details .studentdetails table tr td select {
