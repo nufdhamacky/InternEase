@@ -48,4 +48,9 @@ class Round extends Controller
     {
         return $this->studentRepository->findAllByRoundId(1);
     }
+
+    public function filterFirstRoundStudents($companyId): array
+    {
+        return $this->studentRepository->filter(1, $companyId);
+    }
 }

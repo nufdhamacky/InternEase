@@ -70,13 +70,18 @@ if ($student == null) {
 
             <div class="submit" align="center">
                 <button id="signup_btn" name="submit" type="submit">Save</button>
-                <a href="<?= ROOT ?>/pdc/deleteStudent?id=<?php echo $student->userId; ?>"
-                   style="color: red;margin-left: 20px;">Delete</a>
+                <button id="deleteBtn" type="button" value="<?php echo $student->userId; ?>"
+                        onclick="deleteStudent(this)"
+                        style="color: red;margin-left: 20px;">
+                    Delete
+                </button>
+                
             </div>
 
 
         </form>
     </div>
 </div>
+<script src="<?= ROOT ?>/js/viewstudent.js"></script>
 </body>
 </html>

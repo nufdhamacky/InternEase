@@ -51,6 +51,41 @@ class StudentRepository
         return 0;
     }
 
+    public function filter($roundId, $companyId): array
+    {
+        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by JOIN firstrounddata f ON f.applied_id=a.id JOIN company_ad c ON c.ad_id=f.ad_id WHERE a.round_id = $roundId and c.company_id=$companyId";
+        $result = $this->conn->query($sql);
+        $list = [];
+        while ($row = $result->fetch_assoc()) {
+            $id = $row["id"];
+
+            $companySql = "SELECT c.*,co.* FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companyResult = $this->conn->query($companySql);
+            $adList = [];
+
+            while ($r = $companyResult->fetch_assoc()) {
+                $company = new CompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
+                    1);
+                $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
+                $adList[] = $ad;
+            }
+
+            $value = new StudentModel(
+                $row['user_id'],
+                $row['email'],
+                $row['first_name'],
+                $row['last_name'],
+                null,
+                $row['reg_no'],
+                $row['index_no'],
+
+                $adList
+            );
+
+            $list[] = $value;
+        }
+        return $list;
+    }
 
     public function findAllByRoundId($roundId): array
     {
@@ -66,7 +101,8 @@ class StudentRepository
             $adList = [];
 
             while ($r = $companyResult->fetch_assoc()) {
-                $company = new CompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"]);
+                $company = new CompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
+                    1);
                 $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
                 $adList[] = $ad;
             }
@@ -153,7 +189,7 @@ class StudentRepository
 
     public function delete($id): void
     {
-        $sql = "DELETE student where user_id=$id";
+        $sql = "DELETE FROM users where user_id=$id";
         $result = $this->conn->query($sql);
     }
 

@@ -102,6 +102,13 @@ class Pdc extends Controller
         $this->studentRepository->delete($id);
     }
 
+    public function deleteStudent(): void
+    {
+        $id = $_GET["id"];
+        $this->studentRepository->delete($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
+    }
+
     public function filterByCourse($course, $page): PageDataModel
     {
 
