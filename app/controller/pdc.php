@@ -72,6 +72,28 @@ class Pdc extends Controller
         return $this->companyRepository->getByStatus($page, 2);
     }
 
+    public function sendEmail()
+    {
+        $to = "sayisenthil@gmail.com";
+        $subject = "Test Email";
+        $message = "This is a test email.";
+
+// Additional headers
+        $headers = "From: kopipakee@gmail.com\r\n";
+        $headers .= "Reply-To: kopipakee@gmail.com\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+// Send email
+        $mail_sent = mail($to, $subject, $message, $headers);
+
+        if ($mail_sent) {
+            echo "Email sent successfully.";
+        } else {
+            echo "Email sending failed.";
+        }
+    }
+
+
     public function rejectCompany()
     {
         $id = $_GET["id"];

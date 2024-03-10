@@ -44,7 +44,7 @@ if (isset($_GET['query'])) {
 
             </div>
         </div>
-
+        <a href="<?= ROOT ?>/pdc/sendEmail">Send</a>
         <div id="seTable" class="details">
             <div class="studentdetails">
                 <div class="cardHeader">
