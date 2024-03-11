@@ -56,35 +56,33 @@
                 
 
                 <div class="studentdetails">
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Position</td>
-                            <td>Requirements</td>
-                            <td>Qualification</td>
-                            <td colspan="2">Internship Period</td>
-                            <td>No. of Interns</td>
-                            <td>Working Mode</td>
-                        </tr>
-                    </thead>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Position</td>
+                                <td>Requirements</td>
+                                <td>Qualification</td>
+                                <td colspan="2">Internship Period</td>
+                                <td>No. of Interns</td>
+                                <td>Working Mode</td>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <?php 
-                            foreach($ads as $ad){ ?>
-                                <tr>
-                                    <td><?php echo $ad->position; ?> </td>
-                                    <td><?php echo $ad->req; ?> </td>
-                                    <td><?php echo $ad->qualification; ?> </td>
-                                    <td><?php echo $ad->fromDate; ?> </td>
-                                    <td><?php echo $ad->toDate; ?> </td>
-                                    <td><?php echo $ad->interns; ?> </td>
-                                    <td><?php echo $ad->workMode; ?> </td>
-                                </tr>
-                                <?php } ?>
-                        
-                        
-                    </tbody>
-                </table>
+                        <tbody>
+                            <?php 
+                                foreach($ads as $ad){ ?>
+                                    <tr>
+                                        <td><?php echo $ad->position; ?> </td>
+                                        <td><?php echo $ad->req; ?> </td>
+                                        <td><?php echo $ad->qualification; ?> </td>
+                                        <td><?php echo $ad->fromDate; ?> </td>
+                                        <td><?php echo $ad->toDate; ?> </td>
+                                        <td><?php echo $ad->interns; ?> </td>
+                                        <td><?php echo $ad->workMode; ?> </td>
+                                    </tr>
+                                    <?php } ?>
+                        </tbody>
+                    </table>
 
             </div>
 
