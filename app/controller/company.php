@@ -6,15 +6,20 @@
     include_once('../app/repository/TechTalkRepository.php');
     include_once('../app/model/TechTalkModel.php');
 
+    include_once('../app/repository/StudentReqRepository.php');
+    include_once('../app/model/StudentReqModel.php');
+
     class Company extends Controller {
 
         private $advertisementRepository;
         private $techTalkRepository;
+        private $studentReqRepository;
 
         public function __construct(){
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
             $this->techTalkRepository = new TechTalkRepository($this->conn);
+            $this->studentReqRepository = new StudentReqRepository($this->conn);
 
         }
         public function isLoggedIn(){
@@ -41,8 +46,6 @@
         public function ad(){
             
             $advertisements = $this->advertisementRepository->getAllAdvertisements();
-            // print_r($advertisements);
-            // die();
             $this->view('company/ad', ['advertisements' => $advertisements]);
 
         }
@@ -74,10 +77,22 @@
 
         }
 
+        public function recruitedStu(){
+
+            $this->view('company/recruitedStu');
+            
+        }
+        
+        
+
         public function studentReq(){
             
             $this->view('company/studentReq');
 
+        }
+
+        public function getAllReqs(): array{
+            return $this->studentReqRepository->getAllRequests();
         }
 
         public function tech(){
