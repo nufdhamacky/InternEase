@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companyShortlistedStu.css">
 </head>
 <body>
-    
+
     <div class="container">
         <?php require_once('../app/view/layout/companyMenubar.php') ?>
         <div class ="main">
