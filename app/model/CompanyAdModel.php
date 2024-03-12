@@ -1,4 +1,5 @@
 <?php
+include_once("FirstRoundDataModel.php");
 
 class CompanyAdModel
 {
@@ -13,6 +14,7 @@ class CompanyAdModel
     public string $qualification;
     public CompanyModel $company;
     public int $status;
+    public FirstRoundDataModel $firstRoundData;
 
     public function __construct($adId, $position, $requirements, $noOfIntern, $workingMode, $fromDate, $toDate, $companyId, $qualification, CompanyModel $company, $status)
     {

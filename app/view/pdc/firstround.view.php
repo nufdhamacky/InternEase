@@ -128,8 +128,14 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <td><?php echo $student->firstName . " " . $student->lastName; ?></td>
                             <td><?php echo $student->indexNo; ?></td>
                             <td><?php echo $student->email; ?></td>
-                            <td><?php foreach ($student->ads as $r) {
-                                    echo $r->company->name; ?> <br> <?php } ?></td>
+                            <td><?php foreach ($student->ads as $r) { ?>
+                                    <div>
+                                        <span><?php echo $r->company->name; ?>  </span>
+                                        <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
+                                    </div>
+
+                                <?php } ?>
+                            </td>
                             <td>
                                 <?php foreach ($student->ads as $r) {
                                     echo $r->position; ?> <br> <?php } ?>

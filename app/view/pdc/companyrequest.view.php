@@ -27,7 +27,7 @@ $pageData = $pdController->getPendingCompany($page);
                 <td>Contact Person</td>
                 <td>Contact No</td>
                 <td>Status</td>
-                <td>View</td>
+                <td>Action</td>
             </tr>
             </thead>
 

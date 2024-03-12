@@ -59,7 +59,7 @@ class StudentRepository
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.* FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -67,6 +67,7 @@ class StudentRepository
                 $company = new CompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
                     1);
                 $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
+                $ad->firstRoundData = new FirstRoundDataModel($r["apply_status"]);
                 $adList[] = $ad;
             }
 
@@ -96,7 +97,7 @@ class StudentRepository
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.* FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -104,6 +105,7 @@ class StudentRepository
                 $company = new CompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
                     1);
                 $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
+                $ad->firstRoundData = new FirstRoundDataModel($r["apply_status"]);
                 $adList[] = $ad;
             }
 
