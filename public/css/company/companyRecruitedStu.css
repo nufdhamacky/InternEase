@@ -162,7 +162,7 @@ body
 }
 
 .details .studentdetails{
-    width: 150%;
+    width: 120%;
     background-color: #FFF;
     padding: 20px 5px;
     border-radius: 20px;
@@ -264,13 +264,13 @@ section{
 
 section .content{
     display: none;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 section .content .title{
     font-size: 21px;
     font-weight: 500;
-    margin: 30px 0 10px 0;
+    margin: 40px 0 10px 0;
 }
 
 #qa:checked ~ section .content-1{
@@ -317,4 +317,34 @@ section .content .title{
 
 .details .studentdetails table tr td select {
     cursor: pointer;
+}
+
+.download-btn, .send-btn {
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 20px;
+    /* background-color: red; */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn{
+    background-color: red;
+}
+
+.send-btn{
+    background-color: #007bff;
+}
+
+.download-btn:hover {
+    background-color: rgb(225, 103, 103);
+}
+
+.send-btn:hover{
+    background-color: #0056b3;
 }

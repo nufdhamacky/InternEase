@@ -69,9 +69,17 @@
                                     <tr>
                                         <td><?php echo $req->firstname . ' ' . $req->lastname; ?></td>
                                         <td><?php echo $req->regno; ?> </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <!-- <td><?php echo $req->cv; ?></td> -->
+                                        <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
+                                        <td><a href="#" span class = "view"></span>View Profile</td>
+                                        <td>
+                                            <select>
+                                                <option value = "" selected hidden>--Select Action--</option>
+                                                <option value="shortlist">Shortlist</option> ...
+                                                <option value="reject">Reject</option>
+                                                <option value="pending">Pending</option>  
+                                            </select>
+                                        </td>
                                     </tr>
                             <?php } ?>
                         </tbody>

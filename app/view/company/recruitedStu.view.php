@@ -55,10 +55,7 @@
                                 <tr>
                                     <td>Student Name</td>
                                     <td>Registration No.</td>
-                                    <td>Position</td>
-                                    <td>Date Period</td>
-                                    <td>Interview Duration</td>
-                                    <td>Day</td>
+                                    
                                 </tr>
                             </thead>
 
@@ -66,10 +63,7 @@
                                 <tr>
                                     <td>Hamsayini Senthilrasa</td>
                                     <td>2021/CS/065</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
                                     <td>
                                         <a href="scheduleInt"><!--link should direct to the student's profile-->
                                         <ion-icon name="person-outline"></ion-icon> 
@@ -85,10 +79,23 @@
                                 <tr>
                                     <td>Nufdha Macky</td>
                                     <td>2021/CS/058</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
+                                    <td>
+                                        <a href="scheduleInt">
+                                            <ion-icon name="person-outline"></ion-icon>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="delete">
+                                            <ion-icon name="trash-outline" class="del"></ion-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Binali Ukwatte</td>
+                                    <td>2021/IS/097</td>
+                                    
                                     <td>
                                         <a href="scheduleInt">
                                             <ion-icon name="person-outline"></ion-icon>
@@ -104,10 +111,7 @@
                                 <tr>
                                     <td>Gien Gawesh</td>
                                     <td>2021/IS/024</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
                                     <td>
                                         <a href="scheduleInt"> 
                                             
@@ -123,6 +127,10 @@
                             </tbody>
                         </table>
 
+                        <a href="path_to_cv_file" class="download-btn">Download List</a>
+
+                        <a href="path_to_cv_file" class="send-btn">Send List</a>
+
                     </div>
 
                     <div class="content content-2">
@@ -134,10 +142,7 @@
                                 <tr>
                                     <td>Student Name</td>
                                     <td>Registration No.</td>
-                                    <td>Position</td>
-                                    <td>Date Period</td>
-                                    <td>Interview Duration</td>
-                                    <td>Day</td>
+                                    
                                 </tr>
                             </thead>
 
@@ -145,10 +150,7 @@
                                 <tr>
                                     <td>Hamsayini Senthilrasa</td>
                                     <td>2021/CS/065</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
                                     <td>
                                         <a href="scheduleInt">
                                         <ion-icon name="person-outline"></ion-icon>
@@ -164,10 +166,7 @@
                                 <tr>
                                     <td>Gien Gawesh</td>
                                     <td>2021/IS/024</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
                                     <td>
                                         <a href="scheduleInt">
                                         <ion-icon name="person-outline"></ion-icon>
@@ -179,8 +178,30 @@
                                         </a>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td>Binali Ukwatte</td>
+                                    <td>2021/IS/097</td>
+                                    
+                                    <td>
+                                        <a href="scheduleInt">
+                                        <ion-icon name="person-outline"></ion-icon>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="delete">
+                                            <ion-icon name="trash-outline" class="del"></ion-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
+
+                        <a href="path_to_cv_file" class="download-btn">Download List</a>
+
+                        <a href="path_to_cv_file" class="send-btn">Send List</a>
+
                     </div>
 
                     <div class="content content-3">
@@ -193,10 +214,7 @@
                                 <tr>
                                     <td>Student Name</td>
                                     <td>Registration No.</td>
-                                    <td>Position</td>
-                                    <td>Date Period</td>
-                                    <td>Interview Duration</td>
-                                    <td>Day</td>
+                                    
                                 </tr>
                             </thead>
 
@@ -205,10 +223,7 @@
                                 <tr>
                                     <td>Nufdha Macky</td>
                                     <td>2021/CS/058</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                    
                                     <td>
                                         <a href="scheduleInt">
                                         <ion-icon name="person-outline"></ion-icon>
@@ -224,10 +239,7 @@
                                 <tr>
                                     <td>Gien Gawesh</td>
                                     <td>2021/IS/024</td>
-                                    <td>Software Engineer</td>
-                                    <td>02/07/2024 - 09/07/2024</td>
-                                    <td>40 mins</td>
-                                    <td>Monday</td>
+                                   
                                     <td>
                                         <a href="scheduleInt">
                                         <ion-icon name="person-outline"></ion-icon>
@@ -241,6 +253,10 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <a href="path_to_cv_file" class="download-btn">Download List</a>
+
+                        <a href="path_to_cv_file" class="send-btn">Send List</a>
 
                     </div>
                 </section>

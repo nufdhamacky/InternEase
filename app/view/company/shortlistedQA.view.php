@@ -30,6 +30,7 @@
                 <div class = "cardHeader">
                     <h2>Shortlisted Students for Quality Assurance</h2>
                 </div>
+                
                 <table>
                     <thead>
                         <tr>
@@ -52,9 +53,9 @@
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
                             <td>
                                 <select>
-                                    <option value="shortlist">Shortlist</option> 
-                                    <option value="reject">Reject</option>
-                                    <option value="pending">Pending</option>  
+                                    <option value = "" selected hidden>--Select Action--</option>
+                                    <option value="recruited">Recruited</option> 
+                                    <option value="rejected">Rejected</option>
                                 </select>
                             </td>
                         </tr>
@@ -65,6 +66,13 @@
                             <td>21020574</td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
+                            <td>
+                                <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
+                                    <option value="recruited">Recruited</option> 
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </td>
                         </tr>
 
                         <tr>
@@ -73,6 +81,13 @@
                             <td>21020364</td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
+                            <td>
+                                <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
+                                    <option value="recruited">Recruited</option> 
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </td>
                         </tr>
 
                     </tbody>
