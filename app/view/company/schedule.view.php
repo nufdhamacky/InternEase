@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Requests</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companySchedule.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
 </head>
 <body>
     
@@ -42,8 +47,7 @@
                         <p>Interview schedule table included</p>
                     </div>
                     <div class="content content-2">
-                        <div class="title">Tech-Talk Schedule</div>
-                        <p>Tech-Talk schedule table included</p>
+                        <div id="calendar"></div>
                     </div>
                 </section>
             </div>
@@ -54,5 +58,10 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+   $(document).ready(function() {
+   $('#calendar').fullCalendar();
+});
+</script>
 </body>
 </html>

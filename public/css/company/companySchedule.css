@@ -13,7 +13,9 @@ body
 
 .container
 {
-    position: relative;
+    /* =====================Have to cahnge to relative */
+    position: fixed; 
+    /* ===================== */ 
     width: 100%;
 }
 
@@ -303,6 +305,7 @@ input[type='radio']{
 section{
     filter: blur(0.3px);
     width: 80%;
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
