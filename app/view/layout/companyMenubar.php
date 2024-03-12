@@ -1,7 +1,7 @@
 <div class = "navigation">
     <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
-    <li>
+        <li>
             <a href="dashboard">
                 <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
@@ -31,12 +31,12 @@
                 <span class="title">Schedule</span>
             </a>
         </li>
-        <!-- <li>
-            <a href="request">
-                <span class="icon"><ion-icon name="swap-horizontal-outline"></ion-icon></span>
-                <span class="title">Request</span>
+        <li>
+            <a href="recruitedStu">
+                <span class="icon"><ion-icon name="search-circle-outline"></ion-icon></span>
+                <span class="title">Recruited Students</span>
             </a>
-        </li> -->
+        </li>
         <li>
             <a href="profile">
                 <span class="icon"><ion-icon name="person-outline"></ion-icon></span>

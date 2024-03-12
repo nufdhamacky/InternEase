@@ -1,3 +1,9 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+    $requests = $companyController->getAllReqs();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,11 +51,37 @@
                 <div class = "cardHeader">
                     <h2>Student Requests for Software Engineer</h2>
                 </div>
+
                 <table>
+                        <thead>
+                        <tr>
+                            <td>Student Name</td>
+                            <td>Registration No.</td>
+                            <td>CV</td>
+                            <td>Profile</td>
+                            <td>Action</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php 
+                                foreach($requests as $req){ ?>
+                                    <tr>
+                                        <td><?php echo $req->firstname . ' ' . $req->lastname; ?></td>
+                                        <td><?php echo $req->regno; ?> </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+
+                <!-- <table>
                     <thead>
                         <tr>
                             <td>Student Name</td>
-                            <td>Student Degree</td>
+                            <td>Registration No.</td>
                             <td>CV</td>
                             <td>Profile</td>
                             <td>Action</td>
@@ -59,11 +91,12 @@
                     <tbody>
                         <tr>
                             <td>Hamsayini Senthilrasa</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/CS/035</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option>
                                     <option value="pending">Pending</option>  
@@ -73,11 +106,12 @@
 
                         <tr>
                             <td>Nufdha Macky</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/IS/062</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> ...
                                     <option value="reject">Reject</option>
                                     <option value="pending">Pending</option>  
@@ -87,11 +121,12 @@
 
                         <tr>
                             <td>Gien Gawesh</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/IS/058</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option>
                                     <option value="pending">Pending</option>  
@@ -102,11 +137,12 @@
 
                         <tr>
                             <td>Shamah Lafir</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/CS/072</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option>
                                     <option value="pending">Pending</option>  
@@ -117,11 +153,12 @@
 
                         <tr>
                             <td>Nufdha Macky</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/IS/056</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option>
                                     <option value="pending">Pending</option>  
@@ -132,11 +169,12 @@
 
                         <tr>
                             <td>Hamsayini Senthilrasa</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/CS/025</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option> 
                                     <option value="pending">Pending</option> 
@@ -147,11 +185,12 @@
 
                         <tr>
                             <td>Gien Gawesh</td>
-                            <td>BSc. in CS</td>
+                            <td>2021/IS/036</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option> 
                                     <option value="pending">Pending</option> 
@@ -162,11 +201,12 @@
 
                         <tr>
                             <td>Shamah Lafir</td>
-                            <td>BSc. in IS</td>
+                            <td>2021/CS/025</td>
                             <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td>
                                 <select>
+                                    <option value = "" selected hidden>--Select Action--</option>
                                     <option value="shortlist">Shortlist</option> 
                                     <option value="reject">Reject</option> 
                                     <option value="pending">Pending</option> 
@@ -175,7 +215,7 @@
                             
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
 
             </div>
         </div>
@@ -190,7 +230,7 @@
                         <thead>
                             <tr>
                                 <td>Student Name</td>
-                                <td>Student Degree</td>
+                                <td>Registration No.</td>
                                 <td>CV</td>
                                 <td>Profile</td>
                                 <td>Action</td>
@@ -202,11 +242,12 @@
 
                             <tr>
                                 <td>Nufdha Macky</td>
-                                <td>BSc. in IS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> ...
                                         <option value="reject">Reject</option>
                                         <option value="pending">Pending</option>  
@@ -216,11 +257,12 @@
 
                             <tr>
                                 <td>Gien Gawesh</td>
-                                <td>BSc. in CS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option>
                                         <option value="pending">Pending</option>  
@@ -231,11 +273,12 @@
 
                             <tr>
                                 <td>Shamah Lafir</td>
-                                <td>BSc. in IS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option>
                                         <option value="pending">Pending</option>  
@@ -247,11 +290,12 @@
                             
                             <tr>
                                 <td>Hamsayini Senthilrasa</td>
-                                <td>BSc. in CS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 
@@ -262,11 +306,12 @@
 
                             <tr>
                                 <td>Gien Gawesh</td>
-                                <td>BSc. in CS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 
@@ -277,11 +322,12 @@
 
                             <tr>
                                 <td>Shamah Lafir</td>
-                                <td>BSc. in IS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 
@@ -305,7 +351,7 @@
                         <thead>
                             <tr>
                                 <td>Student Name</td>
-                                <td>Student Degree</td>
+                                <td>Registration No.</td>
                                 <td>CV</td>
                                 <td>Profile</td>
                                 <td>Action</td>
@@ -315,11 +361,12 @@
                         <tbody>
                             <tr>
                                 <td>Hamsayini Senthilrasa</td>
-                                <td>BSc. in CS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 
@@ -330,11 +377,12 @@
 
                             <tr>
                                 <td>Gien Gawesh</td>
-                                <td>BSc. in CS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 
@@ -345,11 +393,12 @@
 
                             <tr>
                                 <td>Shamah Lafir</td>
-                                <td>BSc. in IS</td>
+                                <td>2021/CS/025</td>
                                 <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
                                 <td><a href="#" span class = "view"></span>View Profile</td>
                                 <td>
                                     <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
                                         <option value="shortlist">Shortlist</option> 
                                         <option value="reject">Reject</option> 
                                         <option value="pending">Pending</option> 

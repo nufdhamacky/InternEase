@@ -260,7 +260,7 @@ body
     text-align: center;
     line-height: 50px;
     cursor: pointer;
-    color: #9ccddc;
+    color: #3e82977a;
     font-size: 18px;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -363,6 +363,7 @@ section .content .title{
 } */
 
 .cardHeader h2 {
+    margin-top: 20px;
     font-weight: 600;
     color: rgba(9, 62, 76, 1);
 }
@@ -377,7 +378,7 @@ section .content .title{
 }
 
 .details table {
-    width: 100%;
+    width: 110%;
     border-collapse: collapse;
     margin-top: 10px;
 }

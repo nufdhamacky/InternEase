@@ -36,8 +36,9 @@
                             <td>Student Name</td>
                             <td>Degree</td>
                             <td>Index No.</td>
-                            <td></td>
-                            <td></td>
+                            <td>Profile</td>
+                            <td>Schedule Interview</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
 
@@ -49,6 +50,13 @@
                             <td>21020369</td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
+                            <td>
+                                <select>
+                                    <option value="shortlist">Shortlist</option> 
+                                    <option value="reject">Reject</option>
+                                    <option value="pending">Pending</option>  
+                                </select>
+                            </td>
                         </tr>
 
                         <tr>
