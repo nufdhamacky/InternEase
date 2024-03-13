@@ -46,20 +46,28 @@ class Model extends Database {
     // find value by where condition
     // public function where($column, $value) {
     //     $query = "SELECT * FROM $this->table WHERE $column = :value";
-    //     return $this->query($query, [
-    //         'value' => $value
-    //     ]);
+    //     $statement = $this->connection->prepare($query);
+    //     $statement->bindParam(':value', $value);
+    //     $statement->execute();
+    //     return $statement->fetchAll(PDO::FETCH_ASSOC);
     // }
+    
     public function where($column, $value, $result = null) {
         $query = "SELECT * FROM $this->table WHERE $column = ?";
         if ($result !== null) {
-            $query = $result->prepare() . " AND $column = ?";
+            $query .= " AND $column = ?";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bind_param("ss", $value, $value); // Assuming $value is used twice
+        } else {
+            $stmt = $this->connection->prepare($query);
+            $stmt->bind_param("s", $value);
         }
-        $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("s", $value);
         $stmt->execute();
         return $stmt->get_result();
     }
+    
+    
+    
 
     // get all data
     public function findall() {
