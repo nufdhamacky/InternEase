@@ -42,6 +42,9 @@ class CompanyRepository
             $companyId = $row["user_id"];
             $reportSql = "SELECT r.*,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$companyId";
             $reportResult = $this->conn->query($reportSql);
+            $totalRecruitmentsSql = "SELECT count(ca.ad_id) as count FROM firstrounddata f JOIN company_ad ca ON f.ad_id = ca.ad_id WHERE f.status =1  AND ca.company_id=$companyId";
+            $totalRecruitmentsResult = $this->conn->query($totalRecruitmentsSql);
+            $totalRecruitments = $totalRecruitmentsResult->fetch_assoc()["count"];
             $reports = [];
             while ($r = $reportResult->fetch_assoc()) {
                 $student = new StudentShortModel($r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
@@ -49,7 +52,7 @@ class CompanyRepository
                 $reports[] = $report;
             }
 
-            $company = new BlackCompanyModel($row["user_id"], $row["company_name"], $reports);
+            $company = new BlackCompanyModel($row["user_id"], $row["company_name"], $reports, $totalRecruitments);
             $list[] = $company;
         }
         return $list;
@@ -148,6 +151,14 @@ class CompanyRepository
         $countResult = $this->conn->query($countQuery);
         $count = $countResult->fetch_assoc()["count"];
         return $count;
+    }
+
+    public function blockCompany(int $id)
+    {
+        $sql = "UPDATE users SET user_status=2 WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $delSql = "DELETE FROM company_report WHERE company_id={$id}";
+        $delResult = $this->conn->query($delSql);
     }
 
     public function getBlackListCount(): int

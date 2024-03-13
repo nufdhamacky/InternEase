@@ -23,4 +23,12 @@ class CompanyReport extends Controller
         return $this->companyRepository->getReportsByCompany($id);
     }
 
+    public function blockCompany()
+    {
+        $id = $_GET["id"];
+        $this->companyRepository->blockCompany($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/index');</script>";
+
+    }
+
 }

@@ -20,6 +20,13 @@ $reports = $reportController->getReportsByCompany($id);
 <body>
 <div class="details">
     <div class="companyList">
+        <div class="cardHeader">
+            <h2>Students Reports</h2>
+            <div class="headerButtons">
+                <a href="<?= ROOT ?>/companyreport/blockCompany?id=<?php echo $id; ?>" class="btn delete">Block</a>
+            </div>
+        </div>
+
 
         <table>
             <thead>
