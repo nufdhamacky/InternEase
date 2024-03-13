@@ -44,11 +44,21 @@ class Model extends Database {
     }
     
     // find value by where condition
-    public function where($column, $value) {
-        $query = "SELECT * FROM $this->table WHERE $column = :value";
-        return $this->query($query, [
-            'value' => $value
-        ]);
+    // public function where($column, $value) {
+    //     $query = "SELECT * FROM $this->table WHERE $column = :value";
+    //     return $this->query($query, [
+    //         'value' => $value
+    //     ]);
+    // }
+    public function where($column, $value, $result = null) {
+        $query = "SELECT * FROM $this->table WHERE $column = ?";
+        if ($result !== null) {
+            $query = $result->prepare() . " AND $column = ?";
+        }
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("s", $value);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     // get all data

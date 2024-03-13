@@ -21,10 +21,6 @@ class Student extends Controller{
         $wishlistModel->addToWishlist($userId, $adId);
     }
 
-    public function notification(){
-        
-    }
-    
     public function advertisement(){
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');

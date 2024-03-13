@@ -10,10 +10,12 @@ class Wishlist extends Model {
 
     public function addToWishlist($userId, $adId) {
         // Check if the entry already exists
-        $existingEntry = $this->where('user_id', $userId)->where('ad_id', $adId);
+        $existingEntry = $this->where('user_id', $userId);
+        $existingEntry = $this->where('ad_id', $adId, $existingEntry);
     
-        if (!empty($existingEntry)) {
+        if ($existingEntry->num_rows > 0) {
             // Entry already exists, no need to insert again
+            $existingEntry->free_result();
             return;
         }
     
@@ -25,5 +27,7 @@ class Wishlist extends Model {
             // Log an error if the insertion fails
             error_log('Error inserting into wishlist: ' . print_r($this->errors, true));
         }
+    
+        $existingEntry->free_result();
     }
 }
