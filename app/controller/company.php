@@ -82,8 +82,6 @@
             $this->view('company/recruitedStu');
             
         }
-        
-        
 
         public function studentReq(){
             
