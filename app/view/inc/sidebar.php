@@ -31,6 +31,12 @@
                         <span class="title">Selection List</span>
                     </a>
                 </li>
+                <li>
+                    <a href="logout" class="logout">
+                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                        <span class="title">Sign-out</span>
+                    </a>
+                </li>
                 
             </ul>
         </div>

@@ -17,7 +17,7 @@ body{
     overflow-x: hidden;
     background-color: azure;
     transition: 0.3s ease-out;
-    background: linear-gradient(to right, #125199, #85d8ec, #ffffff, #85d8ec, #125199);
+    /* background: linear-gradient(to right, #125199, #85d8ec, #ffffff, #85d8ec, #125199); */
 
 }
 

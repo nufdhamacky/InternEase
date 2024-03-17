@@ -27,15 +27,12 @@ if ($pageTitle === '') {
         <div class="grid-items">
             <div class="user-profile">
                 <div class="username">Shamah</div>
-                <a href="profile.html"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
+                <a href="<?=ROOT?>/student/profile"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
             </div>
             <!-- notification-->
             <div class="notification">
                 <span class="notify"><i class="fa fa-bell" aria-hidden="true"></i></span>
             </div>
-            <a href="logout" class="logout">
-                <span class="notify"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-            </a>
         </div>
     </div>
 </header>
