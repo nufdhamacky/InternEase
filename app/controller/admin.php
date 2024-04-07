@@ -29,29 +29,38 @@ class Admin extends Controller {
                         'confirmPassword' => $_POST["confirmPassword"]
                     ];
 
+                    if($_POST["confirmPassword"] != $_POST["updatevalue"] && isset($_POST["confirmPassword"]) && $data['column']=='password'){
+                        $pwd = 0;
+                        $data =['pwd'=>   $pwd];
+                        $this->view('admin/profile',$data);
+                        exit();
+                    }
+
                     $adminModel = new AdminModel; 
                     $adminModel->setTable('users');
 
                     if ($adminModel->updateAdmin($data)) {
-                        if($_POST["col"] !='password'){
+                        if($_POST["col"] !=='password'){
                             $_SESSION["userName"] =$data['value'];
-                            echo '<script type="text/javascript">';
-                            echo 'alert("Updated Successfully");';
-                            echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
-                            echo '</script>';
+                            $email = 1;
+                            $data =['email'=>  $email];
                         }else{ 
-                            echo '<script type="text/javascript">';
-                            echo 'alert("Updated Successfully");';
-                            echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/logout";';
-                            echo '</script>';
+                            $pwd = 1;
+                            $data =['pwd'=>   $pwd];
+                            
                         }
-
+                        $this->view('admin/profile',$data);
                         exit();
                     } else {
-                        echo '<script type="text/javascript">';
-                        echo 'alert("Unsuccessful Update");';
-                        echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/profile";';
-                        echo '</script>';
+                        if($_POST["col"] !='password'){
+                            $email = 0;
+                            $data =['email'=>  $email];
+                        }else{ 
+                            $pwd = 0;
+                            $data =['pwd'=>   $pwd];
+                            
+                        }
+                        $this->view('admin/profile',$data);
                         exit();
                     }
                 } else {
@@ -79,16 +88,20 @@ class Admin extends Controller {
             $total = $adminModel->totalstudents();
 
             $trend = $adminModel->companyInternTrend();
-        
+         
             $data = array(
                // '1stData'=> $firstround,
                'companylist'=> $trend['companies'],
                'years' => $trend['years'],
                'internsByYear' => $trend['internsByYear'],
                'total' => $total,
-                'count' => $adminModel->blacklisted_companies(),
+                'BL' => $adminModel->blacklisted_companies(),
                 'companies' => $companies,
-                'advertisments' => $advertisments
+                'advertisments' => $advertisments,
+                'students' =>  $adminModel->getStudentCounts(),
+                'first_round_data' => $adminModel->get_1stround(),
+                'second_round_data' => $adminModel->get_2ndround(),
+               
             );           
             
             $this->view('admin/index', $data);
@@ -260,6 +273,11 @@ class Admin extends Controller {
             return; 
         }
 
+        $pdc_users = $adminModel->getPDC();
+        $data = [
+            'pdc_users' => $pdc_users,
+        ];
+
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
             $data = [
                 'first_name' => $_POST["pdc_fname"],
@@ -271,24 +289,27 @@ class Admin extends Controller {
             $confirmPassword = $_POST["pdc_rpwd"];
             
             if ($adminModel->insertPDC($confirmPassword, $data)) {
-                echo '<script type="text/javascript">';
-                echo 'alert("Inserted PDC User Successfully");';
-                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                echo '</script>';
-                exit();
+
+              
+                $add = 1;
+
+             
             } else {
-                echo '<script type="text/javascript">';
-                echo 'alert("Unsucessful PDC user insertion");';
-                echo 'window.location.href = "'.dirname($_SERVER['PHP_SELF']).'/admin/managepdc";';
-                echo '</script>';
-                exit();
+                $add = 0;
+              
             }
+            $adminModel = new AdminModel; 
+            $adminModel->setTable('pdc_user');
+            $pdc_users = $adminModel->getPDC();
+            $data = [
+                'pdc_users' => $pdc_users,
+                'add'=>  $add
+            ];
+            $this->view('admin/managepdc', $data);
+            exit();
         }
 
-        $pdc_users = $adminModel->getPDC();
-        $data = [
-            'pdc_users' => $pdc_users,
-        ];
+       
         $this->view('admin/managepdc', $data);
     }
  

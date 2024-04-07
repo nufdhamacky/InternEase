@@ -11,23 +11,23 @@ class AdminModel extends model {
     }
 
 //PROFILE
-public function updateAdmin($data) {
+    public function updateAdmin($data) {
 
-    if ($data['column'] === 'password') {
-        $data['value'] = password_hash($data['confirmPassword'], PASSWORD_DEFAULT);
+        if ($data['column'] === 'password') {
+            $data['value'] = password_hash($data['confirmPassword'], PASSWORD_DEFAULT);
+        }
+
+        $query = "UPDATE users SET {$data['column']} = ? WHERE user_id = ?";
+        $params = array($data['value'], $data['id']);
+
+        $update = $this->query($query, $params);
+
+        if ($update) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    $query = "UPDATE users SET {$data['column']} = ? WHERE user_id = ?";
-    $params = array($data['value'], $data['id']);
-
-    $update = $this->query($query, $params);
-
-    if ($update) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
 
@@ -64,15 +64,183 @@ public function updateAdmin($data) {
     
 //REPORT/DASHBOARD FUNCTIONS
 
+    public function companyInternTrend() {
+        $query = "SELECT company.user_id, company.company_name, company_ad.from_date, company_ad.to_date, company_ad.no_of_intern
+                FROM company
+                JOIN company_ad ON company.user_id = company_ad.company_id";
+
+        $results = $this->query($query);
+
+        // Initialize arrays to store data for each year
+        $companies = []; // Array to store company names
+        $years = []; // Array to store distinct years
+        $internsByYear = []; // Array to store number of interns by year for each company
+
+        // Process the fetched data
+        foreach ($results as $row) {
+            $companyName = $row['company_name'];
+            $fromDate = $row['from_date'];
+            $toDate = $row['to_date'];
+            $noOfInterns = $row['no_of_intern'];
+
+            // Extract the year from from_date and to_date
+            $fromYear = date('Y', strtotime($fromDate));
+            $toYear = date('Y', strtotime($toDate));
+
+            // Add the years to the years array
+            if (!in_array($fromYear, $years)) {
+                $years[] = $fromYear;
+            }
+            if (!in_array($toYear, $years)) {
+                $years[] = $toYear;
+            }
+
+            // Add company name to the list
+            if (!in_array($companyName, $companies)) {
+                $companies[] = $companyName;
+            }
+
+            // Store interns count by year for each company
+            for ($year = $fromYear; $year <= $toYear; $year++) {
+                if (!isset($internsByYear[$companyName][$year])) {
+                    $internsByYear[$companyName][$year] = 0;
+                }
+                $internsByYear[$companyName][$year] += $noOfInterns;
+            }
+        }
+
+        return [
+            'companies' => $companies,
+            'years' => $years,
+            'internsByYear' => $internsByYear
+        ];
+    }
+
+    public function blacklisted_companies() {
+        $query = "SELECT DISTINCT c.company_name 
+                FROM users u
+                INNER JOIN company c ON u.user_name = c.Email
+                WHERE u.user_status = 2 AND u.user_role = 'company'";
+        
+        $results = $this->query($query);
+
+        if (is_array($results)) {
+            // Check if the array is not empty
+            if (!empty($results)) {
+                $count = count($results); // Count the number of rows in the array
+                // Extract company names from the results
+                $blacklistedCompanies = [];
+                foreach ($results as $row) {
+                    $blacklistedCompanies[] = $row['company_name'];
+                }
+
+                $data =[
+                    'blacklistedCompanies'=> $blacklistedCompanies,
+                    'count' => $count,
+                ];
+                return $data;
+            } else {
+                return []; // No blacklisted companies found
+            }
+        } else {
+            return []; // Query execution failed
+        }
+    }
+
+
     public function getCompany() {
         return $this->findall();
     }
 
-    public function get_1stround() {
-        $this->setTable('1stro');
-        return $this->findall();
-    }
+    public function get_2ndround() {
+        $this->setTable('second_round_data');
+        $query = "SELECT COUNT(*) AS selected_cs
+                  FROM second_round_data AS frd 
+                  JOIN student AS s ON frd.applied_id = s.id 
+                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
 
+        $query1 = "SELECT COUNT(*) AS selected_is 
+            FROM second_round_data AS frd 
+            JOIN student AS s ON frd.applied_id = s.id 
+            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
+        
+        $query2 = "SELECT COUNT(*) AS notselected 
+                   FROM second_round_data";
+    
+        $result_cs = $this->connection->query($query);
+        
+        $result_is = $this->connection->query($query1);
+        $result3 = $this->connection->query($query2);
+    
+        $total_2nd_cs = $result_cs->fetch_assoc()['selected_cs'];
+        $total_2nd_is = $result_is->fetch_assoc()['selected_is'];
+        $not_selected_2nd = $result3->fetch_assoc()['notselected'];
+    
+        return [
+            'total_2nd_cs' => $total_2nd_cs,
+            'total_2nd_is' => $total_2nd_is,
+            'applied_2nd' => $not_selected_2nd,
+        ];
+    }
+    
+    public function getStudentCounts() {
+        $query1 = "SELECT COUNT(*) AS countCS FROM student WHERE reg_no LIKE '%CS%'";
+        $query2 = "SELECT COUNT(*) AS countIS FROM student WHERE reg_no LIKE '%IS%'";
+    
+        // Execute the queries
+        $result1 = $this->connection->query($query1);
+        $result2 = $this->connection->query($query2);
+    
+        // Check for errors
+        if (!$result1 || !$result2) {
+            // Handle query execution errors
+            return false;
+        }
+    
+        // Fetch counts directly
+        $countCS = $result1->fetch_assoc()['countCS'];
+        $countIS = $result2->fetch_assoc()['countIS'];
+    
+        // Return the counts
+        return $students = [
+            'CS' => $countCS,
+            'IS' => $countIS
+        ];
+    }
+    
+    
+    
+    public function get_1stround() {
+        $this->setTable('first_round_data');
+        $query = "SELECT COUNT(*) AS selected_cs
+                  FROM first_round_data AS frd 
+                  JOIN student AS s ON frd.applied_id = s.id 
+                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
+
+        $query1 = "SELECT COUNT(*) AS selected_is 
+            FROM first_round_data AS frd 
+            JOIN student AS s ON frd.applied_id = s.id 
+            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
+        
+        $query2 = "SELECT COUNT(*) AS notselected 
+                   FROM first_round_data";
+    
+        $result_cs = $this->connection->query($query);
+        
+        $result_is = $this->connection->query($query1);
+        $result3 = $this->connection->query($query2);
+    
+        $total_1st_cs = $result_cs->fetch_assoc()['selected_cs'];
+        $total_1st_is = $result_is->fetch_assoc()['selected_is'];
+        $not_selected = $result3->fetch_assoc()['notselected'];
+    
+        return [
+            'total_1st_cs' => $total_1st_cs,
+            'total_1st_is' => $total_1st_is,
+            'applied' => $not_selected,
+        ];
+    }
+    
     public function getPDC() {
         return $this->findall();
     }
@@ -150,57 +318,7 @@ public function updateAdmin($data) {
     }
 */
 
-public function companyInternTrend() {
-    $query = "SELECT company.user_id, company.company_name, company_ad.from_date, company_ad.to_date, company_ad.no_of_intern
-              FROM company
-              JOIN company_ad ON company.user_id = company_ad.company_id";
 
-    $results = $this->query($query);
-
-    // Initialize arrays to store data for each year
-    $companies = []; // Array to store company names
-    $years = []; // Array to store distinct years
-    $internsByYear = []; // Array to store number of interns by year for each company
-
-    // Process the fetched data
-    foreach ($results as $row) {
-        $companyName = $row['company_name'];
-        $fromDate = $row['from_date'];
-        $toDate = $row['to_date'];
-        $noOfInterns = $row['no_of_intern'];
-
-        // Extract the year from from_date and to_date
-        $fromYear = date('Y', strtotime($fromDate));
-        $toYear = date('Y', strtotime($toDate));
-
-        // Add the years to the years array
-        if (!in_array($fromYear, $years)) {
-            $years[] = $fromYear;
-        }
-        if (!in_array($toYear, $years)) {
-            $years[] = $toYear;
-        }
-
-        // Add company name to the list
-        if (!in_array($companyName, $companies)) {
-            $companies[] = $companyName;
-        }
-
-        // Store interns count by year for each company
-        for ($year = $fromYear; $year <= $toYear; $year++) {
-            if (!isset($internsByYear[$companyName][$year])) {
-                $internsByYear[$companyName][$year] = 0;
-            }
-            $internsByYear[$companyName][$year] += $noOfInterns;
-        }
-    }
-
-    return [
-        'companies' => $companies,
-        'years' => $years,
-        'internsByYear' => $internsByYear
-    ];
-}
 
     
 
@@ -303,24 +421,6 @@ public function companyInternTrend() {
         $this->update($complaintID, $status, 'complaint_id');
     }
 
-    public function blacklisted_companies() {
-
-        $query = "SELECT * FROM users WHERE user_status  = 2 AND user_role = 'company'";
-        $results = $this->query($query);
-
-        
-        if (is_array($results)) {
-            // Check if the array is not empty
-            if (!empty($results)) {
-                $count = count($results); // Count the number of rows in the array
-                return $count;
-            } else {
-                return 0; // No rows found
-            }
-        } else {
-            return 0; // Query execution failed
-        }
-    }
 
 
 //INSERT ADMIN on configuration

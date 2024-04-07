@@ -9,29 +9,42 @@
     </head>
 <body>
 
+
 <div class="container">
-        <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
+        <?php include_once('../app/view/layout/Admin_sidemenu.php') ;$s =3;?>
 
     <div class="notification" >
         
-        <div class="notibutton">
-                    <div>Students selected for 1st Round</div>
-                    <div><?php  $s =78; echo htmlspecialchars($s); ?>
-                    <ion-icon  name="briefcase" size="medium"></ion-icon>
-                    </div>
+            <div class="notibutton">
+                    <div> 1st Round Selections (total applied:<?php   echo htmlspecialchars($first_round_data['applied']);?>) </div>
+                    <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> , CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?>  
+                    <ion-icon  name="briefcase" size="medium"></ion-icon></div>
+            </div>
+
+            
+            <div class="notibutton">
+                    <div> 2nd Round Selections (total applied:<?php   echo htmlspecialchars($second_round_data['applied_2nd']);?>) </div>
+                    <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> , CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?>  
+                    <ion-icon  name="briefcase" size="medium"></ion-icon></div>
             </div>
 
             <div class="notibutton">
-                    <div>Total Students </div>
-                    <div><?php echo htmlspecialchars($total); ?>
-                    <ion-icon  name="people-circle-outline" size="medium"></ion-icon>
-                    </div>
+                    <div>Total Students:<?php echo htmlspecialchars($students['IS']+$students['CS']); ?></div>
+                    <div>IS: <?php echo htmlspecialchars($students['IS']); ?> CS: <?php echo htmlspecialchars($students['CS']); ?></div>
             </div>
 
-            <div class="notibutton">
+            <div class="notibutton tooltip">
                         <div>Black Listed Companies</div>
-                        <div><?php echo htmlspecialchars($count); ?>
-                        <ion-icon  name="ban-outline" size="medium"></ion-icon>
+                        <div><?php echo htmlspecialchars($BL['count']); ?>
+                        <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
+                            <span class="tooltiptext">
+                            <?php
+                            foreach ($BL['blacklistedCompanies'] as $bcompany) {
+                                echo htmlspecialchars($bcompany);
+                                echo "<br>";
+                            }
+                            ?> 
+                             </span>
                         </div>
 
                 </div>  

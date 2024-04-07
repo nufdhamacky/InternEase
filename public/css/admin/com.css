@@ -30,6 +30,8 @@ body
 
 .navigation img
 {
+    margin-top: 1.5vw;
+    margin-bottom: 1.5vw;
     width: 150px;
     margin-left: 60px;
 
@@ -292,8 +294,8 @@ body
 
 .notification {
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left:2vw;
+    margin-right:2vw;
     margin-top: 2vw;
     margin-bottom: 1vw;
     height: fit-content;
@@ -323,18 +325,19 @@ body
 .notibutton{ 
     display:block;
     position: relative;
-    margin: 1.4vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
     height: fit-content;
     width: fit-content;
     
-    padding-top: 0.5vw;
-    padding-bottom: 0.5vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-top: 0.7vw;
+    padding-bottom: 0.7vw;
+    padding-left: 0.9vw;
+    padding-right: 0.9vw;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     background-color: rgb(223, 241, 247);
-    color: rgba(9, 62, 76, 1);
+    color: rgb(24, 29, 30);
     transition: background-color 0.4s;
     font-size:1.2vw;
     font-weight:600;
@@ -344,7 +347,8 @@ body
 .report_item .notibutton{ 
     display:block;
     position: relative;
-    margin: 1.4vw;
+    margin-left: auto;
+    margin-right: auto;
     height: fit-content;
     width: 42vw;
     
@@ -370,17 +374,20 @@ body
     */ 
     box-sizing: border-box; 
     text-decoration:none;
-    color: rgba(9, 62, 76, 1);
+    color: rgb(8, 12, 13);
 }
 
 .notibutton div{
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     padding-top: 0.5vw;
     padding-bottom: 0.5vw;
 }
 
 .notibutton:hover{
-    background: #ffffff;
+    color: #f5f5f5;
+    background: #07587b;
 }
 
 
@@ -432,11 +439,34 @@ form {
     border-color:  white;
     border-radius: 0.5vw;
     padding:0.7vw;
-    margin: 0.5vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.3vw;
     font-weight: 300px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
+.search-btn
+{   
+    text-align: center;
+    color: #010101;
+    background-color: #f8fcfd;
+    border-color:  rgb(0, 0, 0);
+    border-radius: 0.5vw;
+    padding:0.3vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.3vw;
+    font-size: 1.1vw;;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+
+.search-btn:hover {
+    color: #dfdbdb;
+    background-color: #0d0d12; 
+}
+
 
 .btn:hover {
     color: #080606;
@@ -487,7 +517,7 @@ form label {
 
 
 .notibutton:hover a{
-    color: #030405;
+    color: #edeff0;
 }
 
 
@@ -685,11 +715,14 @@ h3 {
 }
 
 .toggle-bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
     background-color: #087da4;
-    position:sticky;
+    position:relative;
     color: #fff;
     padding:1vw;
-    margin: 2vw;
+    margin-top: 2vw;
     border-radius: 2vw;
     text-align: center;
     cursor: pointer;
@@ -721,7 +754,40 @@ h3 {
     
   }
 
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
 
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+   
+    margin-left: auto;
+    margin-right: auto ; /* Use half of the width (120px) to center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when hovering over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.filter-menu {
+    font-size: 1.1vw;
+
+}
 
 
 

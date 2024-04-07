@@ -13,7 +13,7 @@
 <div class="container">
     <?php include('../app/view/layout/Admin_sidemenu.php') ?>
         <div class="content">
-            <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address <ion-icon  id="toggle_iconE" name="caret-down-outline" ></ion-icon></div>  
+            <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address <ion-icon  id="editI" name="caret-down-outline" size="small" ></ion-icon></div>  
                 <div class="toggle" id="editToggle">
 
                     <form class="update-form" method="POST" action='profile'>
@@ -39,7 +39,7 @@
                 </div>
      
 
-            <div class="toggle-bar" onclick="toggleContent('reset')" id="toggleR">Reset Password <ion-icon id="toggle_iconR" name="caret-down-outline"  size="small"></ion-icon></div>  
+            <div class="toggle-bar" onclick="toggleContent('reset')" id="toggleR">Reset Password <ion-icon id="resetI" name="caret-down-outline"  size="small"></ion-icon></div>  
             <div class="toggle" id="resetToggle">
 
             <form class="update-form" method="POST" action='profile'>
@@ -86,9 +86,9 @@ function toggleContent(type) {
         var toggleId = type + "Toggle";
         var content = document.getElementById(toggleId);
         
-        if (content.style.display === "none" || content.style.display === "" ) {
+        if (content.style.display == "none" || content.style.display == "" ) {
             content.style.display = "block";
-            toggleicon(toggleId,"toggle_iconR");  
+            toggleicon(toggleId,type+"I");  
             if(type=='reset'){
                
                 var bar = document.getElementById('toggleE')
@@ -100,6 +100,7 @@ function toggleContent(type) {
              }               
         } else {
             content.style.display = "none";
+            toggleicon(toggleId,type+"I");  
             if(type=='reset'){
                 var bar = document.getElementById('toggleE')
                 bar.style.display = "block";
@@ -115,51 +116,76 @@ function toggleContent(type) {
     function toggleicon(toggle,icon) {
         var icon = document.getElementById(icon);
         var content = document.getElementById(toggle);
-        if (content.style.display === "none") {
+        if (content.style.display == "none") {
             icon.setAttribute("name", "caret-down-outline");
         } else {
             icon.setAttribute("name", "caret-up-outline");
         }
     }
 
- /*   
-    function togglePasswordFields() {
-        var col = document.getElementById("col");
-        var updatevalueLabel = document.querySelector('label[for="updatevalue"]');
-        var confirmPasswordField = document.getElementById("confirmPassword");
-        var value = document.getElementById("update");
-        if (col.value === "password") {
-            updatevalueLabel.textContent = 'Enter Password';
-            confirmPasswordField.style.display = "block";
-        } else {
-            confirmPasswordField.style.display = "none";
-            updatevalueLabel.textContent = 'Enter Email';
-        }
+</script>
+<?php 
+
+    if(isset($pwd) && $pwd == 1) {
+        echo "
+        
+        <script>
+            
+                Swal.fire({
+                    title: 'Updated Sucessful',
+                    text: 'Your Password has been updated sucessfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+          
+        </script>";
+    }
+    
+    if(isset($pwd) && $pwd == 0){
+        echo "
+        
+        <script>
+            
+                Swal.fire({
+                    title: 'Updated Unsucessful',
+                    text: 'Please try again!',
+                    icon: 'error',
+                    confirmButtonText: 'return'
+                });
+          
+        </script>";
     }
 
-
-    $(document).ready(function () {
-        $("form").submit(function (event) {
-            var formData = {
-            col: $("#col").val(),
-            updatevalue: $("#updatevalue").val(),
-            password: $("#confirmPassword").val(),
-            };
-
-            $.ajax({
-            type: "POST",
-            url: "process.php",
-            data: formData,
-            dataType: "json",
-            encode: true,
-            }).done(function (data) {
-            console.log(data);
-            });
-
-            event.preventDefault();
-        });
+    if(isset($email) && $email == 1) {
+        echo "
+        
+        <script>
+            
+                Swal.fire({
+                    title: 'Updated Sucessful',
+                    text: 'Your Email has been updated sucessfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+          
+        </script>";
+    } 
     
-});*/
-</script>
+    if(isset($email) && $email == 0){
+        echo "
+        
+        <script>
+            
+                Swal.fire({
+                    title: 'Updated Unsucessful',
+                    text: 'Please try again!',
+                    icon: 'error',
+                    confirmButtonText: 'return'
+                });
+          
+        </script>";
+    }
+?>
+
 </body>
 </html>

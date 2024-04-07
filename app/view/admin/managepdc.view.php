@@ -26,9 +26,9 @@
                                     <?php foreach ($pdc_users as $users): ?>
 
                                         <tr>
-                                            <td><?php echo htmlspecialchars($users['email']);?></td>
-                                            <td><?php echo htmlspecialchars($users['first_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($users['last_name']); ?></td>
+                                        <td><?php echo isset($users['email']) ? htmlspecialchars($users['email']) : ''; ?></td>
+                                        <td><?php echo isset($users['first_name']) ? htmlspecialchars($users['first_name']) : ''; ?></td>
+                                        <td><?php echo isset($users['last_name']) ? htmlspecialchars($users['last_name']) : ''; ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>
@@ -37,7 +37,7 @@
                         </div>
 
 
-                <div class="toggle-bar" onclick="toggleContent('insert')" id='toggleI'>Add a PDC User<ion-icon  id="toggleIcon" name="carrot-down-outline" size="small"></div>  
+                <div class="toggle-bar" onclick="toggleContent('insert')" id='toggleI'>Add a PDC User <ion-icon  id="insertI" name="caret-down-outline" size="small"></ion-icon></div>  
                 
                 <div class="toggle" id="insertToggle">
                     <form class="insert-form" method="post" action="managepdc">
@@ -105,38 +105,33 @@
     </div>  
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-toggleicon();
       
 
 function toggleContent(type) {
         var toggleId = type + "Toggle";
         var content = document.getElementById(toggleId);
-        if (content.style.display === "none" || content.style.display === "" ) {
+        if (content.style.display == "none" || content.style.display == "" ) {
             content.style.display = "block";
             scrollToBottom();
-            if(type=='reset'){
-                var bar = document.getElementById('toggle')
-                bar.style.display = "none";
-            }else{
-                var bar = document.getElementById('toggleR')
-                bar.style.display = "none";
-             }    
+            toggleicon(toggleId,type+"I");
         }else{
-            scrollToTop();
             content.style.display = "none";
+            scrollToTop();
+            toggleicon(toggleId,type+"I");
         }
     
     }
 
-    function toggleicon() {
-        var icon = document.getElementById("toggleIcon");
-        var content = document.getElementById("toggle");
-        if (content.style.display === "none") {
-            icon.setAttribute("name", "carrot-up-outline");
+    function toggleicon(toggle,icon) {
+        var icon = document.getElementById(icon);
+        var content = document.getElementById(toggle);
+        if (content.style.display == "none") {
+            icon.setAttribute("name","caret-down-outline");
         } else {
-            icon.setAttribute("name", "caret-down-outline");
+            icon.setAttribute("name","caret-up-outline");
         }
     }
 
@@ -152,4 +147,39 @@ function toggleContent(type) {
 
 
     </script>
+<?php 
+
+
+
+if(isset($add) && $add == 0){
+    echo "
+    
+    <script>
+        
+            Swal.fire({
+                title: 'PDC user insertion failed!',
+                text: 'Please try again!',
+                icon: 'error',
+                confirmButtonText: 'return'
+            });
+      
+    </script>";
+}
+
+if(isset($add) && $add == 1) {
+    echo "
+    
+    <script>
+        
+            Swal.fire({
+                title: 'PDC user Added Sucessful',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+      
+    </script>";
+} 
+
+?>
+
 </html>
