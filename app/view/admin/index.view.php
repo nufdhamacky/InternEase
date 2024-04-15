@@ -227,54 +227,63 @@
     }
 
     function drawChart_positions() {
-        var companiesP = <?php echo json_encode($companiesP); ?>;
-        var yearsP = <?php echo json_encode($yearsP); ?>;
-        var positions = <?php echo json_encode($Positions); ?>;
-        var internsByYearP = <?php echo json_encode($Pyear); ?>;
+    var companiesP = <?php echo json_encode($companiesP); ?>;
+    var yearsP = <?php echo json_encode($yearsP); ?>;
+    var positions = <?php echo json_encode($Positions); ?>;
+    var internsByYearP = <?php echo json_encode($Pyear); ?>;
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Company');
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Company');
 
-        // Add columns for each position per year
-        positions.forEach(function(position) {
-            yearsP.forEach(function(year) {
-                data.addColumn('number', position + ' ' + year);
-                data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-            });
-        });
-
-        // Create rows for each company
-        companiesP.forEach(function(company) {
-            var row = [company];
-
+    // Dynamically add columns only for position-year combinations that exist in the data
+    var positionYearCombos = new Set();
+    companiesP.forEach(function(company) {
+        yearsP.forEach(function(year) {
             positions.forEach(function(position) {
-                yearsP.forEach(function(year) {
-                    var count = (internsByYearP[company] && internsByYearP[company][year] && internsByYearP[company][year][position])
-                        ? internsByYearP[company][year][position] : 0;
-                    var tooltip = '<div style="padding:5px;"><strong>' + position + '</strong><br/>' +
-                                'Year: ' + year + '<br/>' +
-                                'Company: ' + company + '<br/>' +
-                                'Interns: ' + count + '</div>';
-                    row.push(count, tooltip);
-                });
+                if (internsByYearP[company] && internsByYearP[company][year] && internsByYearP[company][year][position]) {
+                    var combo = position + ',' + year;
+                    positionYearCombos.add(combo);
+                }
             });
-
-            data.addRow(row);
         });
+    });
 
-        var options = {
-            title: 'Number of Interns per Position by Company and Year',
-            chartArea: { width: '60%' },
-            hAxis: { title: 'Company' },
-            vAxis: { title: 'Number of Interns' },
-            legend: { position: 'top', maxLines: 3 },
-            tooltip: { isHtml: true },
-            bar: { groupWidth: '75%' },
-            isStacked: true,
-        };
+    // Add columns for valid position-year combinations
+    positionYearCombos.forEach(function(combo) {
+        data.addColumn('number', combo);
+        data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+    });
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_bar2'));
-        chart.draw(data, options);
+    console.log(positionYearCombos);
+
+    // Create rows for each company
+    companiesP.forEach(function(company) {
+        var row = [company];
+        positionYearCombos.forEach(function(combo) {
+            var [position, year] = combo.split(','); // Assuming combo is like 'HR 2022'
+            var count = (internsByYearP[company] && internsByYearP[company][year] && internsByYearP[company][year][position])
+                ? internsByYearP[company][year][position] : 0;
+            var tooltip = '<div style="padding:5px;"><strong>' + position + '</strong><br/>' +
+                        'Year: ' + year + '<br/>' +
+                        'Company: ' + company + '<br/>' +
+                        'Interns: ' + count + '</div>';
+            row.push(count, tooltip);
+        });
+        data.addRow(row);
+    });
+
+    var options = {
+        title: 'Number of Interns per Position by Company and Year',
+        chartArea: { width: '60%' },
+        hAxis: { title: 'Company' },
+        vAxis: { title: 'Number of Interns' },
+        tooltip: { isHtml: true },
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_bar2'));
+    chart.draw(data, options);
 }
 
 
