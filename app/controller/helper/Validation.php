@@ -74,5 +74,59 @@
         }
 
         
+        public function validate_pwd($password, $confirmPassword) {
+            $errors = [];
 
+            // Validate Company Name
+            if (empty($password || $confirmPassword )) {
+                $errors[''] = "Company name is required.";
+            }
+
+
+            // Validate Password
+            if (strlen($password) < 8 ) {
+                $errors['password_length'] = "Password must be at least 8 characters.";
+            }
+
+            if(!preg_match("/[0-9]/", $password)){
+                $errors['password_numerical'] = "Password must be at least contain a Number";
+            }
+
+            if(!preg_match("/[A-Z]/", $password)){
+                $errors['password_uppercase'] = "Passwords must contain a upper-case letter.";
+            }
+
+            if(!preg_match("/[a-z]/", $password)){
+                $errors['password_lowercase'] = "Passwords must contain a lower-case letter.";
+            }
+
+
+            // Validate Confirm Password
+            if ($password !== $confirmPassword) {
+                $errors['confirmPassword'] = "Passwords do not match.";
+            }
+
+            return $errors;
+        }
+
+        public function validate_email($email) {
+            $errors = [];
+
+                if (empty($email)) {
+                    $errors['emptyemail'] = "Email address is required.";
+                    return $errors;
+                }
+              
+          
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $errors['invalidemail'] = "Invalid email format.";
+                }
+            
+
+            return $errors;
+        }
+
+        
     }
+
+        

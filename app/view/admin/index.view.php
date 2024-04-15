@@ -150,13 +150,16 @@
                                 <ion-icon name="document-text" size="large"></ion-icon>
                                 <div>Download company list</div>
                             </div>
+                        </a>
                 </div>  
             </div>
             </div>
         </div>
        
-    <div  id="chart_bar" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
+        <div  id="chart_bar" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
+        <div  id="chart_bar2" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
     </div>
+    
 
 
 </div>
@@ -167,7 +170,11 @@
     
 
     google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart_interns);
+    google.charts.setOnLoadCallback(drawChart_positions);
+
+ 
+
 
     function generateRandomColor() {
         var letters = '0123456789ABCDEF';
@@ -181,7 +188,7 @@
         return color;
     }
 
-    function drawChart() {
+    function drawChart_interns() {
         var companies = <?php echo json_encode($companylist); ?>;
         var years = <?php echo json_encode($years); ?>;
         var internsByYear = <?php echo json_encode($internsByYear); ?>;
@@ -218,6 +225,65 @@
         var chart = new google.visualization.BarChart(document.getElementById('chart_bar'));
         chart.draw(data, options);
     }
+
+    function drawChart_positions() {
+        var companiesP = <?php echo json_encode($companiesP); ?>;
+        var yearsP = <?php echo json_encode($yearsP); ?>;
+        var positions = <?php echo json_encode($Positions); ?>;
+        var internsByYearP = <?php echo json_encode($Pyear); ?>;
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Company');
+
+        // Add columns for each position per year
+        positions.forEach(function(position) {
+            yearsP.forEach(function(year) {
+                data.addColumn('number', position + ' ' + year);
+                data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+            });
+        });
+
+        // Create rows for each company
+        companiesP.forEach(function(company) {
+            var row = [company];
+
+            positions.forEach(function(position) {
+                yearsP.forEach(function(year) {
+                    var count = (internsByYearP[company] && internsByYearP[company][year] && internsByYearP[company][year][position])
+                        ? internsByYearP[company][year][position] : 0;
+                    var tooltip = '<div style="padding:5px;"><strong>' + position + '</strong><br/>' +
+                                'Year: ' + year + '<br/>' +
+                                'Company: ' + company + '<br/>' +
+                                'Interns: ' + count + '</div>';
+                    row.push(count, tooltip);
+                });
+            });
+
+            data.addRow(row);
+        });
+
+        var options = {
+            title: 'Number of Interns per Position by Company and Year',
+            chartArea: { width: '60%' },
+            hAxis: { title: 'Company' },
+            vAxis: { title: 'Number of Interns' },
+            legend: { position: 'top', maxLines: 3 },
+            tooltip: { isHtml: true },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_bar2'));
+        chart.draw(data, options);
+}
+
+
+
+
+
+    
+
+
 </script>
 
 

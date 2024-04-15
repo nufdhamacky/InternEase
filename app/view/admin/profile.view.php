@@ -16,9 +16,9 @@
             <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address <ion-icon  id="editI" name="caret-down-outline" size="small" ></ion-icon></div>  
                 <div class="toggle" id="editToggle">
 
-                    <form class="update-form" method="POST" action='profile'>
+                    <form class="update-form" method="POST" action='profile' id="form1">
+                        <label>Please Enter your New Email Below</label>
                         <div class="formgroup">
-                            <label>Please Enter your New Email Below</label>
                             <input type="hidden" name="col" value="user_name">
                             <div id="updatevalue">
                                 <label for="updatevalue">Enter Email</label>
@@ -30,6 +30,16 @@
                                 <input class="input-text" type="password" name="confirmPassword">
                             </div>
                         </div>
+                        <p >
+                            <?php       
+                                if (isset($data['email_error']) && is_array($data['email_error'])) {
+                                    foreach ($data['email_error'] as $err) {
+                                        echo htmlspecialchars($err) . '<br>';
+                                    }
+                                }
+                            ?>      
+                        </p>
+
 
                         <div class="formgroup">
                             <input type="submit" class="btn" value="Update" name="updateadmin">
@@ -37,20 +47,19 @@
                     </form>
 
                 </div>
-     
 
             <div class="toggle-bar" onclick="toggleContent('reset')" id="toggleR">Reset Password <ion-icon id="resetI" name="caret-down-outline"  size="small"></ion-icon></div>  
             <div class="toggle" id="resetToggle">
 
             <form class="update-form" method="POST" action='profile'>
-                <div class="formgroup">
                 <label>Please Enter your Password Below</label>
+                <div class="formgroup">
                 <input type="hidden" name="col" value="password">
                 <!--<select name="col" id="col" onchange="togglePasswordFields()">
                     <option value="user_name" selected>Email</option>
                     <option value="password">password</option>
                 </select>
--->
+-->          
 
                 <div id="updatevalue">
                     <label for="updatevalue">Enter Password</label>
@@ -62,11 +71,21 @@
                     <input class="input-text" type="password" name="confirmPassword">
                 </div>
                 </div>
+                    <p >
+                        <?php       
+                            if (isset($data['pwd_error']) && is_array($data['pwd_error'])) {
+                                foreach ($data['pwd_error'] as $err) {
+                                    echo htmlspecialchars($err) . '<br>';
+                                }
+                            }
+                        ?>      
+                    </p>
 
                 <div class="formgroup">
                 <input type="submit" class="btn" value="Update" name="updateadmin">
                 </div>
                 </form>
+
 
             </div>
 
@@ -82,46 +101,55 @@
 
 
 function toggleContent(type) {
-        
         var toggleId = type + "Toggle";
         var content = document.getElementById(toggleId);
-        
-        if (content.style.display == "none" || content.style.display == "" ) {
-            content.style.display = "block";
-            toggleicon(toggleId,type+"I");  
-            if(type=='reset'){
-               
-                var bar = document.getElementById('toggleE')
-                bar.style.display = "none";
-            }else{
- 
-                var bar = document.getElementById('toggleR')
-                bar.style.display = "none";
-             }               
+        var icon = document.getElementById(type + "I");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display ="block";
+            icon.setAttribute("name", "caret-up-outline");
+            fadeInElement(toggleId);
+            if(type === 'reset') {
+                document.getElementById('toggleE').style.display = "none";
+            } else {
+                document.getElementById('toggleR').style.display = "none";
+            }
         } else {
             content.style.display = "none";
-            toggleicon(toggleId,type+"I");  
-            if(type=='reset'){
-                var bar = document.getElementById('toggleE')
-                bar.style.display = "block";
-            }else{
-          
-                var bar = document.getElementById('toggleR')
-                bar.style.display = "block";
-             }    
-        }
-
-}
-
-    function toggleicon(toggle,icon) {
-        var icon = document.getElementById(icon);
-        var content = document.getElementById(toggle);
-        if (content.style.display == "none") {
-            icon.setAttribute("name", "caret-down-outline");
-        } else {
-            icon.setAttribute("name", "caret-up-outline");
+            icon.setAttribute("name", "caret-down-outline");  
+ 
+            if(type === 'reset') {
+                document.getElementById('toggleE').style.display = "block";
+            } else {
+                document.getElementById('toggleR').style.display = "block";
+            }
         }
     }
+    
+    // When the document is ready, check for errors and open the relevant toggle.
+    $(document).ready(function() {
+        <?php if (isset($data['pwd_error']) && $data['pwd_error']) { ?>
+            toggleContent('reset');
+        <?php } elseif (isset($data['email_error']) && $data['email_error']) { ?>
+            toggleContent('edit');
+        <?php } ?>
+    });
+
+   function fadeInElement(element) {
+        const targetElement = typeof element === 'string' ? document.getElementById(element) : element;
+        targetElement.style.opacity = 0;  
+        let opacity = 0.0;
+        const timer = setInterval(() => {
+            opacity += 0.05; //5%
+            targetElement.style.opacity = opacity;
+
+            if (opacity >= 1) {
+            clearInterval(timer); // Stop timer when opacity reaches 1
+            }
+        }, 10); // Update opacity every 10 milliseconds
+    }
+
+
 
 </script>
 <?php 

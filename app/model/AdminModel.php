@@ -71,12 +71,12 @@ class AdminModel extends model {
 
         $results = $this->query($query);
 
-        // Initialize arrays to store data for each year
-        $companies = []; // Array to store company names
-        $years = []; // Array to store distinct years
-        $internsByYear = []; // Array to store number of interns by year for each company
+    
+        $companies = [];
+        $years = [];
+        $internsByYear = []; 
 
-        // Process the fetched data
+
         foreach ($results as $row) {
             $companyName = $row['company_name'];
             $fromDate = $row['from_date'];
@@ -100,7 +100,6 @@ class AdminModel extends model {
                 $companies[] = $companyName;
             }
 
-            // Store interns count by year for each company
             for ($year = $fromYear; $year <= $toYear; $year++) {
                 if (!isset($internsByYear[$companyName][$year])) {
                     $internsByYear[$companyName][$year] = 0;
@@ -140,12 +139,66 @@ class AdminModel extends model {
                 ];
                 return $data;
             } else {
-                return []; // No blacklisted companies found
+                return []; 
             }
         } else {
-            return []; // Query execution failed
+            return []; 
         }
     }
+
+    public function PositionTrend() {
+        $query = "SELECT company.company_name, company_ad.no_of_intern, company_ad.position, company_ad.from_date, company_ad.to_date
+                  FROM company
+                  JOIN company_ad ON company.user_id = company_ad.company_id";
+    
+        $results = $this->query($query);
+    
+        $YearP = [];
+        $Positions = [];
+        $CompaniesP = [];
+        $internsByYear = [];
+    
+        foreach ($results as $row) {
+            $companyName = $row['company_name'];
+            $position = $row['position'];
+            $noOfInterns = (int) $row['no_of_intern'];
+            $fromYear = substr($row['from_date'], 0, 4);
+            $toYear = substr($row['to_date'], 0, 4);
+    
+            // Ensure years are stored efficiently
+            $YearP[$fromYear] = true;
+            $YearP[$toYear] = true;
+    
+            // Store companies and positions
+            $CompaniesP[$companyName] = true;
+            $Positions[$position] = true;
+    
+            // Accumulate intern counts
+            for ($year = $fromYear; $year <= $toYear; $year++) {
+                if (!isset($internsByYear[$companyName][$year][$position])) {
+                    $internsByYear[$companyName][$year][$position] = 0;
+                }
+                $internsByYear[$companyName][$year][$position] += $noOfInterns;
+            }
+        }
+    
+        // Convert keys to arrays for years, companies, and positions
+        $YearP = array_keys($YearP);
+        sort($YearP); // Sort years
+        $CompaniesP = array_keys($CompaniesP);
+        $Positions = array_keys($Positions);
+    
+        return [
+            'companies' => $CompaniesP,
+            'positions' => $Positions,
+            'years' => $YearP,
+            'internsByYearP' => $internsByYear
+        ];
+    }
+    
+        
+    
+
 
 
     public function getCompany() {

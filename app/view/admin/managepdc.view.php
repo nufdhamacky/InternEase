@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage pdc</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/admin/com.css?v=<?php echo time(); ?>">
 </head>
 <body>
+
     <div class="container">
-        <?php include_once('../app/view/layout/Admin_sidemenu.php') ?>
+        <?php include_once('../app/view/layout/Admin_sidemenu.php')  ?>
             <div class="content">        
 
                         <div class="report_item">
@@ -66,6 +68,24 @@
                         <label for="pdc_rpwd">Confirm-password:</label>
                         <input class="input-text" type="password" name="pdc_rpwd" id="pdc_rpwd">
                         </div>   
+                        <p >
+                            <?php       
+                              if (isset($data['errors']) && is_array($data['errors'])) {
+                                foreach ($data['errors'] as $errorKey => $errorMessages) {
+                                    if (is_array($errorMessages)) {
+                                        // Loop through each error message if it's an array
+                                        foreach ($errorMessages as $errorMessage) {
+                                            echo htmlspecialchars($errorMessage) . '<br>';
+                                        }
+                                    } else {
+                                        // It's a string, so just echo it out
+                                        echo htmlspecialchars($errorMessages) . '<br>';
+                                    }
+                                }
+                            }
+                            
+                            ?>      
+                        </p>
                         <center><input type="submit"  class="btn" value="Submit" name="insertpdc"></center>
                     </form>
                 </div>
@@ -103,36 +123,26 @@
             </div>
 
     </div>  
-</body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 
-      
+    function toggleContent(type) {
+            var toggleId = type + "Toggle";
+            var iconId = type + "I";
+            var content = document.getElementById(toggleId);
+            var icon = document.getElementById(iconId);
 
-function toggleContent(type) {
-        var toggleId = type + "Toggle";
-        var content = document.getElementById(toggleId);
-        if (content.style.display == "none" || content.style.display == "" ) {
-            content.style.display = "block";
-            scrollToBottom();
-            toggleicon(toggleId,type+"I");
-        }else{
-            content.style.display = "none";
-            scrollToTop();
-            toggleicon(toggleId,type+"I");
-        }
-    
-    }
-
-    function toggleicon(toggle,icon) {
-        var icon = document.getElementById(icon);
-        var content = document.getElementById(toggle);
-        if (content.style.display == "none") {
-            icon.setAttribute("name","caret-down-outline");
-        } else {
-            icon.setAttribute("name","caret-up-outline");
-        }
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                fadeInElement(toggleId);
+                icon.setAttribute("name", "caret-up-outline");
+                scrollToBottom();
+            } else {
+                content.style.display = "none";
+                icon.setAttribute("name", "caret-down-outline");
+                scrollToTop();
+            }
     }
 
     function scrollToBottom() {
@@ -145,8 +155,30 @@ function toggleContent(type) {
             window.scrollTo(0, halfPageHeight);
     }
 
+    $(document).ready(function() {
+        <?php if (isset($data['errors'])) { ?>
+            toggleContent('insert');
+        <?php } ?>
+    });
 
-    </script>
+    function fadeInElement(element) {
+        const targetElement = typeof element === 'string' ? document.getElementById(element) : element;
+        targetElement.style.opacity = 0;  
+        let opacity = 0.0;
+        const timer = setInterval(() => {
+            opacity += 0.05; //5%
+            targetElement.style.opacity = opacity;
+
+            if (opacity >= 1) {
+            clearInterval(timer); // Stop timer when opacity reaches 1
+            }
+        }, 10); // Update opacity every 10 milliseconds
+    }
+
+</script>
+
+
+
 <?php 
 
 
@@ -181,5 +213,5 @@ if(isset($add) && $add == 1) {
 } 
 
 ?>
-
+</body>
 </html>

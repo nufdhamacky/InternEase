@@ -474,8 +474,30 @@ form {
 }
 
 
+form > label {
+    text-align:left;
+    font-size: 1.4vw;
+    width: auto;
+    margin-left:1vw;
+    margin-top:1.5vw;
+    margin-bottom:1vw;
+    margin-right:1vw;
+    display: inline-block;
+    color: #070707;
+    font-weight:bold;
+}
 
-form label {
+form p {
+    text-align: left;
+    margin-top:0.5vw;
+    margin-bottom:1.5vw;
+    margin-right:1vw;
+    color: red;
+    font-weight: bold;
+}
+
+
+.formgroup label {
     text-align:left;
     font-size: 1.3vw;
     width: 11vw;
@@ -788,6 +810,21 @@ h3 {
     font-size: 1.1vw;
 
 }
+
+.fade-out {
+    animation: fade-out 0.5s ease-in-out;
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      display: block;
+    }
+    to {
+      opacity: 0;
+      display: none;
+    }
+  }
 
 
 

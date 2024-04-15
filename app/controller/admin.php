@@ -14,7 +14,7 @@ class Admin extends Controller {
     }
 
 
-//PROFILE UPDATE ADMIN
+//PROFILE - ADMIN
 
     public function profile() {
         if (!$this->isLoggedIn()){return;}
@@ -29,12 +29,27 @@ class Admin extends Controller {
                         'confirmPassword' => $_POST["confirmPassword"]
                     ];
 
-                    if($_POST["confirmPassword"] != $_POST["updatevalue"] && isset($_POST["confirmPassword"]) && $data['column']=='password'){
-                        $pwd = 0;
-                        $data =['pwd'=>   $pwd];
-                        $this->view('admin/profile',$data);
-                        exit();
+                    
+                    require_once '../app/controller/helper/validation.php';
+                    $validate = new Validation;
+
+                    if($_POST["col"] != 'user_name'){
+                        $error = $validate->validate_pwd($data['value'],$data['confirmPassword']);
+                        if($error){
+                            $data['pwd_error']=$error;
+                            $this->view('admin/profile',$data);
+                            return 0;
+                        }
                     }
+
+
+                    $error = $validate->validate_email($data['value']);
+                    if($error){
+                        $data['email_error']=$error;
+                        $this->view('admin/profile',$data);
+                        return 0;
+                    }
+    
 
                     $adminModel = new AdminModel; 
                     $adminModel->setTable('users');
@@ -88,12 +103,17 @@ class Admin extends Controller {
             $total = $adminModel->totalstudents();
 
             $trend = $adminModel->companyInternTrend();
+            $trend2 = $adminModel->PositionTrend();
          
             $data = array(
                // '1stData'=> $firstround,
                'companylist'=> $trend['companies'],
                'years' => $trend['years'],
                'internsByYear' => $trend['internsByYear'],
+               'Positions'=>$trend2['positions'],
+               'companiesP'=>$trend2['companies'],
+               'yearsP' =>$trend2['years'],
+               'Pyear'=>$trend2['internsByYearP'],
                'total' => $total,
                 'BL' => $adminModel->blacklisted_companies(),
                 'companies' => $companies,
@@ -274,6 +294,7 @@ class Admin extends Controller {
         }
 
         $pdc_users = $adminModel->getPDC();
+        $data =[];
         $data = [
             'pdc_users' => $pdc_users,
         ];
@@ -286,31 +307,56 @@ class Admin extends Controller {
                 'password' => $_POST["pdc_pwd"],
             ];
 
+
             $confirmPassword = $_POST["pdc_rpwd"];
+
+            require_once '../app/controller/helper/validation.php';
+            $validate = new Validation;
+
+            $error_pwd = $validate->validate_pwd($data['password'],$confirmPassword);
+            $error_email = $validate->validate_email($data['email']);
+ 
+            $errors=[];
+            if($error_pwd || $error_email){
             
-            if ($adminModel->insertPDC($confirmPassword, $data)) {
+                if($error_pwd){
+                    $errors['pwd_error']=$error_pwd;
+                }
 
-              
-                $add = 1;
-
-             
-            } else {
-                $add = 0;
-              
+                if($error_email){
+                    $errors['email_error']=$error_email;
+                }
+               
             }
+            
+            if(empty($errors)){
+                if ($adminModel->insertPDC($confirmPassword, $data)) {
+
+              
+                    $add = 1;
+    
+                 
+                } else {
+                    $add = 0;
+                  
+                }
+
+                $data = ['add' => $add];
+
+            }
+          
             $adminModel = new AdminModel; 
             $adminModel->setTable('pdc_user');
             $pdc_users = $adminModel->getPDC();
-            $data = [
-                'pdc_users' => $pdc_users,
-                'add'=>  $add
-            ];
-            $this->view('admin/managepdc', $data);
-            exit();
+            $data=[];
+            $data =['pdc_users'=> $pdc_users,
+                'errors'=> $errors];
+
         }
 
        
         $this->view('admin/managepdc', $data);
+
     }
  
 
