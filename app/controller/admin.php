@@ -40,16 +40,16 @@ class Admin extends Controller {
                             $this->view('admin/profile',$data);
                             return 0;
                         }
+                    }else{
+                        $error = $validate->validate_email($data['value']);
+                        if($error){
+                            $data['email_error']=$error;
+                            $this->view('admin/profile',$data);
+                            return 0;
+                         }
+
                     }
 
-
-                    $error = $validate->validate_email($data['value']);
-                    if($error){
-                        $data['email_error']=$error;
-                        $this->view('admin/profile',$data);
-                        return 0;
-                    }
-    
 
                     $adminModel = new AdminModel; 
                     $adminModel->setTable('users');
@@ -294,7 +294,6 @@ class Admin extends Controller {
         }
 
         $pdc_users = $adminModel->getPDC();
-        $data =[];
         $data = [
             'pdc_users' => $pdc_users,
         ];
@@ -326,31 +325,24 @@ class Admin extends Controller {
                 if($error_email){
                     $errors['email_error']=$error_email;
                 }
-               
             }
-            
+            $add = NULL;
             if(empty($errors)){
                 if ($adminModel->insertPDC($confirmPassword, $data)) {
-
-              
                     $add = 1;
     
-                 
                 } else {
                     $add = 0;
-                  
                 }
-
-                $data = ['add' => $add];
-
             }
-          
+           
             $adminModel = new AdminModel; 
             $adminModel->setTable('pdc_user');
             $pdc_users = $adminModel->getPDC();
-            $data=[];
             $data =['pdc_users'=> $pdc_users,
-                'errors'=> $errors];
+                        'add' => $add,
+                        'errors' => $errors
+                    ];
 
         }
 
