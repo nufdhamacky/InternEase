@@ -23,7 +23,11 @@ $reports = $reportController->getAll();
         <!--        <div class="cardHeader">-->
         <!--            <h2>Company List</h2>-->
         <!--            <a href="addblacklist" class="btn">Add</a>-->
+
         <!--        </div>-->
+        <div class="cardHeader">
+            <h2>Re</h2>
+        </div>
         <table>
             <thead>
             <tr>
