@@ -35,6 +35,7 @@ $reports = $reportController->getReportsByCompany($id);
                 <td>Reported By</td>
                 <td>Reason</td>
                 <td>Date</td>
+                <td>Action</td>
             </tr>
             </thead>
 
@@ -45,6 +46,7 @@ $reports = $reportController->getReportsByCompany($id);
                     <td><?php echo $report->student->firstName . " " . $report->student->lastName; ?></td>
                     <td><?php echo $report->reason; ?></td>
                     <td><?php echo $report->date; ?></td>
+                    <td></td>
                 </tr>
             <?php } ?>
             </tbody>
