@@ -141,7 +141,7 @@ body {
 .details .studentList {
     position: relative;
     display: grid;
-    min-height: 550px;
+    grid-template-rows:1fr 1fr 4fr;
     background: white;
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -191,6 +191,10 @@ body {
 
 .details .studentList table tr:last-child {
     border-bottom: none;
+}
+
+.details .studentList table tbody {
+
 }
 
 .details .studentList table tbody tr:hover {
