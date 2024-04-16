@@ -42,7 +42,7 @@
                 <div class="toggle-bar" onclick="toggleContent('insert')" id='toggleI'>Add a PDC User <ion-icon  id="insertI" name="caret-down-outline" size="small"></ion-icon></div>  
                 
                 <div class="toggle" id="insertToggle">
-                    <form class="insert-form" method="post" action="managepdc">
+                    <form class="insert-form" id="insertform" method="post" action="managepdc">
 
                         <div class="formgroup">
                         <label for="pdc_fname">First name:</label>
@@ -174,6 +174,7 @@
             }
         }, 10); // Update opacity every 10 milliseconds
     }
+
 
 </script>
 

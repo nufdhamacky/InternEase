@@ -77,12 +77,6 @@
         public function validate_pwd($password, $confirmPassword) {
             $errors = [];
 
-            // Validate Company Name
-            if (empty($password || $confirmPassword )) {
-                $errors[''] = "Company name is required.";
-            }
-
-
             // Validate Password
             if (strlen($password) < 8 ) {
                 $errors['password_length'] = "Password must be at least 8 characters.";

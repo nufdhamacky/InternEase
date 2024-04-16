@@ -21,7 +21,7 @@
                         <div class="formgroup">
                             <input type="hidden" name="col" value="user_name">
                             <div id="updatevalue">
-                                <label for="updatevalue">Enter Email</label>
+                                <label for="updatevalue">Enter your new Email</label>
                                 <input class="input-text" type="text" name="updatevalue" id="updatevalue">
                             </div>
 
@@ -52,7 +52,7 @@
             <div class="toggle" id="resetToggle">
 
             <form class="update-form" method="POST" action='profile'>
-                <label>Please Enter your Password Below</label>
+                <label>Please Enter your Password Below: A password must contain a lower-case,upper-case letter,a numerical character and have at least 8 characters.</label>
                 <div class="formgroup">
                 <input type="hidden" name="col" value="password">
                 <!--<select name="col" id="col" onchange="togglePasswordFields()">
@@ -62,12 +62,12 @@
 -->          
 
                 <div id="updatevalue">
-                    <label for="updatevalue">Enter Password</label>
+                    <label for="updatevalue">New Password</label>
                     <input class="input-text" type="text" name="updatevalue" id="updatevalue">
                 </div>
 
                 <div id="confirmPassword">
-                    <label for="confirmPassword">Retype Password:</label>
+                    <label for="confirmPassword">Re-type Password:</label>
                     <input class="input-text" type="password" name="confirmPassword">
                 </div>
                 </div>
