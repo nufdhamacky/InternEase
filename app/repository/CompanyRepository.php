@@ -58,6 +58,13 @@ class CompanyRepository
         return $list;
     }
 
+
+    public function deleteReport($id)
+    {
+        $sql = "DELETE FROM company_report WHERE id=$id";
+        $result = $this->conn->query($sql);
+    }
+
     public function getAll(): array
     {
         $sql = "SELECT c.*,u.user_status FROM company c JOIN users u ON c.user_id=u.user_id";

@@ -187,7 +187,9 @@ body {
 .details .studentList table tr {
     color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Add margin between each row */
 }
+
 
 .details .studentList table tr:last-child {
     border-bottom: none;
@@ -196,6 +198,7 @@ body {
 .details .studentList table tbody {
 
 }
+
 
 .details .studentList table tbody tr:hover {
     background: #CFE3EA;

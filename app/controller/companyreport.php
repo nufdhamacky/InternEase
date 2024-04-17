@@ -31,4 +31,13 @@ class CompanyReport extends Controller
 
     }
 
+
+    public function delete()
+    {
+        $id = $_GET["id"];
+        $this->companyRepository->deleteReport($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/blacklistedcompanies');</script>";
+    }
+
+
 }
