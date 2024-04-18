@@ -5,6 +5,7 @@ $roundController = new Round();
 $pdcController = new Pdc();
 
 $companies = $pdcController->getFullApprovedCompany();
+$firstRound = $roundController->getFirstRound();
 if (isset($_GET["company"]) && $_GET["company"] != "all") {
     $students = $roundController->filterFirstRoundStudents($_GET["company"]);
 } else {
@@ -43,10 +44,11 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                 </div>
 
                 <div id="viewSection">
-                    <h4> Start Date : <span id="startDate">2024.01.03</span></h4>
-                    <h4> End Date : <span id="endDate">2024.01.31</span></h4>
+                    <h4> Start Date : <span id="startDate"><?php echo $firstRound->startDate; ?></span></h4>
+                    <h4> End Date : <span id="endDate"><?php echo $firstRound->endDate; ?></span></h4>
                     <br/>
-                    <h4>No of advertisements students can apply: <span id="advertisementCount">4</span></h4>
+                    <h4>No of advertisements students can apply: <span
+                                id="advertisementCount"><?php echo $firstRound->count; ?></span></h4>
                 </div>
 
                 <div class="submit">
@@ -55,36 +57,42 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
 
                 <div id="editSection" style="display: none;">
                     <h4>Date Period:</h4>
-                    <div class="card">
-                        <label for="editStartDate">Start Date:</label>
-                        <div class="input-container">
-                            <input type="date" id="editStartDate" name="start_date" class="bx1">
+                    <form action="<?= ROOT ?>/round/addOrUpdate" method="POST">
+
+                        <div class="card">
+                            <input type="hidden" name="id" value="1">
+                            <label for="editStartDate">Start Date:</label>
+                            <div class="input-container">
+                                <input type="date" id="editStartDate" value="<?php echo $firstRound->startDate; ?>"
+                                       name="start_date" class="bx1">
+                            </div>
+                            <h4 class="h4">to</h4>
+                            <label for="editEndDate">End Date:</label>
+                            <div class="input-container">
+                                <input type="date" id="editEndDate" name="end_date"
+                                       value="<?php echo $firstRound->endDate; ?>" class="bx1">
+                            </div>
                         </div>
-                        <h4 class="h4">to</h4>
-                        <label for="editEndDate">End Date:</label>
-                        <div class="input-container">
-                            <input type="date" id="editEndDate" name="end_date" class="bx1">
+                        <h4>No of advertisements students can apply:</h4>
+                        <div class="card">
+                            <label for="editAdvertisementCount">Select Count:</label>
+                            <div class="input-container">
+                                <select id="editAdvertisementCount"
+                                        name="advertisement_count">
+                                    <?php
+                                    for ($i = 1; $i <= 10; $i++) { ?>
+                                        <option <?php echo $firstRound->count == $i ? "selected" : ""; ?>
+                                                value='<?php echo $i; ?>'><?php echo $i; ?></option>
+                                    <?php } ?>
+
+                                </select>
+                            </div>
+                            <div class="submit">
+                                <button onclick="saveChanges()">SAVE</button>
+                            </div>
                         </div>
-                    </div>
-                    <h4>No of advertisements students can apply:</h4>
-                    <div class="card">
-                        <label for="editAdvertisementCount">Select Count:</label>
-                        <div class="input-container">
-                            <select id="editAdvertisementCount" name="advertisement_count">
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                        <div class="submit">
-                            <button onclick="saveChanges()">SAVE</button>
-                        </div>
-                    </div>
+
+                    </form>
                 </div>
             </div>
         </div>

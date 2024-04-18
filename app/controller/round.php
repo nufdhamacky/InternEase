@@ -16,24 +16,33 @@ class Round extends Controller
         $this->studentRepository = new StudentRepository($this->conn);
     }
 
+    public function addOrUpdate()
+    {
+        $round = $this->roundRepository->findById(1);
+        if ($round) {
+            $this->update();
+        } else {
+            $this->add();
+        }
+    }
 
-    public function add()
+    public function update()
     {
         $id = mysqli_real_escape_string($this->conn, $_POST['id']);
-        $jobRoleCount = 1;
+        $count = 1;
         if ($id == 1) {
-            $jobRoleCount = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
+            $count = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
         } else {
-            $jobRoleCount = mysqli_real_escape_string($this->conn, $_POST['job_role_count']);
+            $count = mysqli_real_escape_string($this->conn, $_POST['job_role_count']);
         }
-        $advertisementCount = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
+        //$advertisementCount = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
         $startTime = strtotime($_POST['start_date']);
         if ($startTime) {
             $startDate = date('Y-m-d', $startTime);
             $endTime = strtotime($_POST['end_date']);
             if ($endTime) {
                 $endDate = date('Y-m-d', $endTime);
-                $this->roundRepository->save(new RoundModel($id, $advertisementCount, $jobRoleCount, $startDate, $endDate));
+                $this->roundRepository->update(new RoundModel($id, $count, $startDate, $endDate));
 
                 if ($id == 1) {
                     echo "<script> window.location.replace('http://localhost/internease/public/pdc/firstround');</script>";
@@ -42,6 +51,38 @@ class Round extends Controller
                 }
             }
         }
+    }
+
+    public function add()
+    {
+        $id = mysqli_real_escape_string($this->conn, $_POST['id']);
+        $count = 1;
+        if ($id == 1) {
+            $count = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
+        } else {
+            $count = mysqli_real_escape_string($this->conn, $_POST['job_role_count']);
+        }
+        //$advertisementCount = mysqli_real_escape_string($this->conn, $_POST['advertisement_count']);
+        $startTime = strtotime($_POST['start_date']);
+        if ($startTime) {
+            $startDate = date('Y-m-d', $startTime);
+            $endTime = strtotime($_POST['end_date']);
+            if ($endTime) {
+                $endDate = date('Y-m-d', $endTime);
+                $this->roundRepository->save(new RoundModel($id, $count, $startDate, $endDate));
+
+                if ($id == 1) {
+                    echo "<script> window.location.replace('http://localhost/internease/public/pdc/firstround');</script>";
+                } else {
+                    echo "<script> window.location.replace('http://localhost/internease/public/pdc/secondround');</script>";
+                }
+            }
+        }
+    }
+
+    public function getFirstRound(): ?RoundModel
+    {
+        return $this->roundRepository->findById(1);
     }
 
     public function getFirstRoundStudents(): array
