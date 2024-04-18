@@ -41,7 +41,7 @@
                             <select name="position">
                                 <option value = "" selected hidden>Select Position</option>
                                 <option value = "Sofware Engineer">Sofware Engineer</option>
-                                <option value = "Quality Assuarance">Quality Assuarance</option>
+                                <option value = "Quality Assuarance">Quality Assurance</option>
                                 <option value = "Business Analyst">Business Analyst</option>
                             </select>
                             <br>

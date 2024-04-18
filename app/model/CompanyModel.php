@@ -30,7 +30,7 @@ class CompanyModel {
         $qualifications = implode(", ", $qualifications);
 
         $sql = "INSERT INTO company_ad (position, qualifications, start_date, end_date, no_of_intern, working_mode) 
-                VALUES ('$position', '$qualifications', '$start_date', '$end_date', $no_of_intern, '$working_mode')";
+                VALUES ($position', '$qualifications', '$start_date', '$end_date', $no_of_intern, '$working_mode')";
         
         if ($conn->query($sql) === TRUE) {
             return true;

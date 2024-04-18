@@ -55,7 +55,7 @@ html, body {
 }
 
 .rightpart h4{
-    font-size: 24px;
+    font-size: 22px;
     color: #0B5A6F;
     text-align: center;
 }
@@ -76,7 +76,7 @@ html, body {
     border: 1px solid #B5B4B0;
     margin-top: 10px;
     padding: 5px 10px;
-    height: 25px;
+    height: 20px;
 }
 /* .box1, .box2{
     font-size: 15px;
@@ -97,7 +97,7 @@ html, body {
 .eye-icon{
     position: absolute;
     font-size: 25px;
-    top: 66%;
+    top: 72%;
     right: 245px;
     transform: translateY(0%);
     cursor: pointer;
@@ -120,14 +120,14 @@ html, body {
     background-color: #AAD4E1; 
     font-size: 20px;
     color: black; 
-    width: 120px;
+    width: 115px;
     font-weight: bold;
     border-color: #c7c5bbb1; 
-    padding: 10px 10px; 
+    padding: 5px 5px; 
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .submit button :hover {

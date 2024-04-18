@@ -38,7 +38,7 @@
             </a>
         </li>
         <li>
-            <a href="profile">
+            <a href="profileview">
                 <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
                 <span class="title">Profile</span>
             </a>

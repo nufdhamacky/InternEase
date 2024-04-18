@@ -9,24 +9,29 @@
     include_once('../app/repository/StudentReqRepository.php');
     include_once('../app/model/StudentReqModel.php');
 
+    // include_once('../app/repository/CompanyDetailsRepository.php');
+    // include_once('../app/model/CompanyDetailsModel.php');
+
     class Company extends Controller {
 
         private $advertisementRepository;
         private $techTalkRepository;
         private $studentReqRepository;
+        // private $companyDetailsRepository;
 
         public function __construct(){
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
             $this->techTalkRepository = new TechTalkRepository($this->conn);
             $this->studentReqRepository = new StudentReqRepository($this->conn);
+            // $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
 
         }
-        public function isLoggedIn(){
-            if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="company"){
-                return 1;
-            } else{
-                return 0;
+        public function isLoggedIn() {
+            if(isset($_SESSION['userId']) && $_SESSION['userRole'] == "company") {
+                return true;
+            } else {
+                return false;
             }
         }
 
@@ -111,6 +116,10 @@
 
         }
 
+        public function profileview(){
+            $this->view('company/profileview');
+        }
+        
         public function totStudents(){
             
             $this->view('company/totStudents');
@@ -137,7 +146,7 @@
 
         public function shortlistedBA(){
             
-            $this->view('company/shortlistedBA',);
+            $this->view('company/shortlistedBA');
 
         }
 

@@ -44,12 +44,6 @@
                             <ion-icon name="search-outline"></ion-icon>
                             <input type = "text" placeholder = "Search Position" class = "box1">
                         </div>
-
-                        <div class = "allstudents">
-                            <select>
-                                <option value = "all">All</option>
-                            </select>
-                        </div>
                     </div>
                 </div><br>
 

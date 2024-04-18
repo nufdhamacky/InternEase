@@ -65,7 +65,7 @@
                                     <td>2021/CS/065</td>
                                     
                                     <td>
-                                        <a href="scheduleInt"><!--link should direct to the student's profile-->
+                                        <a href="scheduleInt"><!--link should redirect to the student's profile-->
                                         <ion-icon name="person-outline"></ion-icon> 
                                         </a>
                                     </td>

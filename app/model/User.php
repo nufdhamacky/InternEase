@@ -59,7 +59,7 @@
 
                     $lastId = $conn->insert_id;
 
-                    $sql = "INSERT INTO company (company_name, user_id)
+                    $sql = "INSERT INTO company (company_name, user_id,)
                             VALUES ('$company', '$lastId')";
                     
                     $result2 = $conn->query($sql);

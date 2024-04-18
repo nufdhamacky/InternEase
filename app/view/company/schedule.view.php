@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
+
 </head>
 <body>
     
@@ -50,7 +51,7 @@
                         <p>Interview schedule table included</p> -->
 
                         <div class = "cardHeader">
-                            <h2>Interview Schedules</h2>
+                            <h2>Interview Schedule</h2>
                         </div>
                         <table>
                             <thead>
@@ -233,7 +234,6 @@
         </div>
     </div>
 
-    <script src="<?=ROOT?>/js/profile.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
