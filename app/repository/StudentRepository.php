@@ -79,8 +79,8 @@ class StudentRepository
                 null,
                 $row['reg_no'],
                 $row['index_no'],
-
-                $adList
+                $adList,
+                array()
             );
 
             $list[] = $value;
@@ -88,16 +88,16 @@ class StudentRepository
         return $list;
     }
 
-    public function findAllByRoundId($roundId): array
+    public function findAllByFirstRound(): array
     {
         $sql = "SELECT distinct s.* FROM student s 
-                JOIN applyadvertisement a ON s.id = a.applied_by WHERE a.round_id = $roundId";
+                JOIN applyadvertisement a ON s.id = a.applied_by WHERE a.round_id = 1";
         $result = $this->conn->query($sql);
         $list = [];
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=1";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -117,13 +117,47 @@ class StudentRepository
                 null,
                 $row['reg_no'],
                 $row['index_no'],
-
-                $adList
+                $adList,
+                null
             );
 
             $list[] = $value;
         }
         return $list;
+    }
+
+    public function findAllBySecondRound(): array
+    {
+        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by WHERE a.round_id = 2";
+        $result = $this->conn->query($sql);
+        $list = [];
+        while ($row = $result->fetch_assoc()) {
+            $id = $row["id"];
+
+            $jobSql = "SELECT s.job_role FROM second_round_data s join applyadvertisement a on a.id=s.applied_id WHERE a.applied_by=$id and a.round_id=2";
+            $jobResult = $this->conn->query($jobSql);
+            $jobList = [];
+
+            while ($r = $jobResult->fetch_assoc()) {
+                $jobList[] = $r["job_role"];
+            }
+
+            $value = new StudentModel(
+                $row['user_id'],
+                $row['email'],
+                $row['first_name'],
+                $row['last_name'],
+                null,
+                $row['reg_no'],
+                $row['index_no'],
+                null,
+                $jobList
+            );
+
+            $list[] = $value;
+        }
+        return $list;
+
     }
 
     public function getAll($page): PageDataModel
@@ -145,7 +179,7 @@ class StudentRepository
                 null,
                 $row['reg_no'],
                 $row['index_no'],
-
+                null,
                 null
             );
 
@@ -177,7 +211,7 @@ class StudentRepository
                 null,
                 $row['reg_no'],
                 $row['index_no'],
-
+                null,
                 null
             );
 
@@ -215,6 +249,7 @@ class StudentRepository
                 $row['reg_no'],
                 $row['index_no'],
 
+                null,
                 null
             );
 

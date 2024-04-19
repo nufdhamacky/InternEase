@@ -10,8 +10,9 @@ class StudentModel
     public string $regNo;
     public int $indexNo;
     public ?array $ads;
+    public ?array $jobRoles;
 
-    public function __construct($userId, $email, $firstName, $lastName, $password, $regNo, $indexNo, $ads)
+    public function __construct($userId, $email, $firstName, $lastName, $password, $regNo, $indexNo, $ads, $jobRoles)
     {
         $this->userId = $userId;
         $this->email = $email;
@@ -21,5 +22,6 @@ class StudentModel
         $this->regNo = $regNo;
         $this->indexNo = $indexNo;
         $this->ads = $ads;
+        $this->jobRoles = $jobRoles;
     }
 }

@@ -87,7 +87,7 @@ class Round extends Controller
 
     public function getFirstRoundStudents(): array
     {
-        return $this->studentRepository->findAllByRoundId(1);
+        return $this->studentRepository->findAllByFirstRound();
     }
 
     public function filterFirstRoundStudents($companyId): array
@@ -102,7 +102,7 @@ class Round extends Controller
 
     public function getSecondRoundStudents(): array
     {
-        return $this->studentRepository->findAllByRoundId(2);
+        return $this->studentRepository->findAllBySecondRound();
     }
 
 

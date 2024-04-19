@@ -5,6 +5,7 @@ $pdcController = new Pdc();
 $roundController = new Round();
 
 $secondRound = $roundController->getSecondRound();
+$students = $roundController->getSecondRoundStudents();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,38 +92,31 @@ $secondRound = $roundController->getSecondRound();
                     <h2>Applied Students</h2>
                 </div>
                 <table>
-                    <table>
-                        <thead>
-                        <tr>
-                            <td>Student Name</td>
-                            <td>Index No</td>
-                            <td>Email</td>
-                            <td>Job Roles</td>
+                    <thead>
+                    <tr>
+                        <td>Student Name</td>
+                        <td>Index No</td>
+                        <td>Email</td>
+                        <td>Job Roles</td>
 
-                        </tr>
-                        </thead>
-
-                        <tbody>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($students as $student) { ?>
                         <tr>
-                            <td>Hamsayini</td>
-                            <td>21020337</td>
-                            <td>sayisenthil@gmail.com</td>
-                            <td><br> BA<br> SE <br> QA <br></td>
-                        </tr>
+                            <td><?php echo $student->firstName . " " . $student->lastName; ?></td>
+                            <td><?php echo $student->indexNo; ?></td>
+                            <td><?php echo $student->email; ?></td>
 
-                        <tr>
-                            <td>Nufdha</td>
-                            <td>21020698</td>
-                            <td>nufdha@gmail.com</td>
-                            <td><br>Web Dev<br> BA <br> QA <br></td>
+                            <td>
+                                <?php foreach ($student->jobRoles as $r) {
+                                    echo $r; ?> <br> <?php } ?>
+                            </td>
                         </tr>
-
-                        <tr>
-                            <td>Sharmi</td>
-                            <td>21020431</td>
-                            <td>minisen@gmail.com</td>
-                            <td><br>UI/UX <br> BA <br> SE <br></td>
-                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
