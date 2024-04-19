@@ -9,6 +9,7 @@ body
 {
     min-height: 100vh;
     overflow-x: hidden;
+    /* background-color: #EAEDF1; */
     background-image: url('../../assets/images/inter.jpg');
     background-size: cover;
 }
@@ -165,10 +166,13 @@ body
 .details .compdetails{
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center; /* Center horizontally */
-  width: 80%; /*Adjust width as needed*/
+  width: 60%; /*Adjust width as needed*/
+  border-radius: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   margin-top: 100px;
+  margin-left: 100px;
 }
 
 .compdetails .name{
@@ -177,39 +181,49 @@ body
     justify-content: center;
     text-align: center;
     width: 60%;
-    min-height: 450px;
+    min-height: 500px;
     min-width: 400px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 15px;
-    background-color: rgb(217, 217, 217); 
+    background-color: #D9D9D9; 
 }
 
 .compdetails .description{
     width: 20%;
-    min-height: 450px;
-    min-width: 400px;
+    min-height: 500px;
+    min-width: 300px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     padding: 15px;
-    background-color: beige;
+    background-color: #edcab1;
+    font-weight: bold;
 }
 
 .name img{
     margin-top: 100px;
 }
 
-.name h2{
-    margin-top: 50px;
+.name h1{
+    margin-top: 70px;
+    font-size: 50px;
+    font-family: 'inika';
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .name .icon{
     margin-top: auto;
+    margin-bottom: 30px;
+    font-size: 22px;
 }
 
 .description p{
+    font-size: 18px;
     display: flex;
     justify-content: center;
+    padding: 10px;
+    font-family: "JetBrains Mono";
 }
 
 .submit, .link {
@@ -227,10 +241,10 @@ body
 }
 
 .submit button{
-    font-size: 10px;
-    padding: 5px 10px;
+    font-size: 15px;
+    padding: 8px 10px;
     background-color: #0B5A6F;
-    width: 60px;
+    width: 70px;
 }
 
 .link button{

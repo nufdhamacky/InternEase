@@ -58,23 +58,13 @@
                         <h4>Interview Duration:</h4>
                         <div class = "card">
                             <select>
-                                <option value = "20">20 min</option>
-                                <option value = "30">30 min</option>
+                                
                                 <option value = "30">40 min</option>
-                                <option value = "30">60 min</option>
+                                
                             </select>
                         </div>
         
-                        <h4>Select the Day:</h4>
-                        <div class = "grid">
-                            <div class = "card1">Mon</div>
-                            <div class = "card1">Tue</div>
-                            <div class = "card1">Wed</div>
-                            <div class = "card1">Thu</div>
-                            <div class = "card1">Fri</div>
-                            <div class = "card1">Sat</div>
-                            <div class = "card1">Sun</div>
-                        </div>
+                        
 
                         <div class="submit">
                             <a href="schedule"><button type="submit" class="btn">SAVE</button></a>

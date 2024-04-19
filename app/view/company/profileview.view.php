@@ -41,7 +41,7 @@
 
                         <div class="name">
                             <img src="--company logo--" alt="Company Logo"><br>
-                            <h2>Welcome to <?php echo $_SESSION['companyName']; ?></h2><br>
+                            <h1>Welcome to <?php echo $_SESSION['companyName']; ?></h1><br>
                             <span class="icon"><ion-icon name="location-outline"></ion-icon>--company address--</span>
                         </div>
 
@@ -53,13 +53,11 @@
                                 </a>
                             </div>
                             
-                            
-
-                            <div class="submit">
-                                <a href="profile">
-                                    <button type="submit" name="submit">EDIT</button>
-                                </a>
-                            </div>
+                            <a href="profile">
+                                <div class="submit">
+                                        <button type="submit" name="submit">EDIT</button>
+                                </div>
+                            </a>
 
                         </div>
                     </div>

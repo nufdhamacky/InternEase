@@ -160,7 +160,7 @@ body
 .details .compdetails{
   position: relative;
   display: grid;
-  min-height: 500px;
+  min-height: 400px;
   min-width: 400px;
   background: white;
   padding: 20px;
