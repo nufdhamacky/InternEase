@@ -94,4 +94,16 @@ class Round extends Controller
     {
         return $this->studentRepository->filter(1, $companyId);
     }
+
+    public function getSecondRound(): ?RoundModel
+    {
+        return $this->roundRepository->findById(2);
+    }
+
+    public function getSecondRoundStudents(): array
+    {
+        return $this->studentRepository->findAllByRoundId(2);
+    }
+
+
 }

@@ -36,7 +36,6 @@ $reports = $reportController->getReportsByCompany($id);
                 <td>Reason</td>
                 <td>Date</td>
                 <td>Action</td>
-                <td>Status</td>
             </tr>
             </thead>
 
@@ -50,7 +49,7 @@ $reports = $reportController->getReportsByCompany($id);
                     <td><a href="<?= ROOT ?>/companyreport/delete?id=<?php echo $report->id; ?>"
                            style="color: red;text-decoration: none">Delete</a>
                     </td>
-                    
+
 
                 </tr>
             <?php } ?>

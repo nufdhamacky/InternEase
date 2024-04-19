@@ -44,11 +44,15 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                 </div>
 
                 <div id="viewSection">
-                    <h4> Start Date : <span id="startDate"><?php echo $firstRound->startDate; ?></span></h4>
-                    <h4> End Date : <span id="endDate"><?php echo $firstRound->endDate; ?></span></h4>
+                    <h4> Start Date : <span
+                                id="startDate"><?php echo $firstRound == null ? "" : $firstRound->startDate; ?></span>
+                    </h4>
+                    <h4> End Date : <span
+                                id="endDate"><?php echo $firstRound == null ? "" : $firstRound->endDate; ?></span></h4>
                     <br/>
                     <h4>No of advertisements students can apply: <span
-                                id="advertisementCount"><?php echo $firstRound->count; ?></span></h4>
+                                id="advertisementCount"><?php echo $firstRound == null ? "" : $firstRound->count; ?></span>
+                    </h4>
                 </div>
 
                 <div class="submit">
@@ -63,14 +67,16 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <input type="hidden" name="id" value="1">
                             <label for="editStartDate">Start Date:</label>
                             <div class="input-container">
-                                <input type="date" id="editStartDate" value="<?php echo $firstRound->startDate; ?>"
+                                <input type="date" id="editStartDate"
+                                       value="<?php echo $firstRound == null ? "" : $firstRound->startDate; ?>"
                                        name="start_date" class="bx1">
                             </div>
                             <h4 class="h4">to</h4>
                             <label for="editEndDate">End Date:</label>
                             <div class="input-container">
                                 <input type="date" id="editEndDate" name="end_date"
-                                       value="<?php echo $firstRound->endDate; ?>" class="bx1">
+                                       value="<?php echo $firstRound == null ? "" : $firstRound->endDate; ?>"
+                                       class="bx1">
                             </div>
                         </div>
                         <h4>No of advertisements students can apply:</h4>
@@ -81,7 +87,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                                         name="advertisement_count">
                                     <?php
                                     for ($i = 1; $i <= 10; $i++) { ?>
-                                        <option <?php echo $firstRound->count == $i ? "selected" : ""; ?>
+                                        <option <?php echo $firstRound == null ? "" : ($firstRound->count == $i ? "selected" : ""); ?>
                                                 value='<?php echo $i; ?>'><?php echo $i; ?></option>
                                     <?php } ?>
 

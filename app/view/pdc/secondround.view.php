@@ -1,3 +1,11 @@
+<?php
+include_once('../app/controller/round.php');
+include_once('../app/controller/pdc.php');
+$pdcController = new Pdc();
+$roundController = new Round();
+
+$secondRound = $roundController->getSecondRound();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,90 +13,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First Round</title>
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/pdc/firstround.css">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/firstround.css">
 </head>
 <body>
-    <div class="container">
-        <?php include_once('../app/view/layout/pdcSidemenu.php') ?>          
-        <div class ="main">
-            <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+<div class="container">
+    <?php include_once('../app/view/layout/pdcSidemenu.php') ?>
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            <div class="user">
+                <span></span>
+                <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="compdetails">
+                <div class="cardHeader">
+                    <h2>Second Round</h2>
                 </div>
-                <div class = "user">
-                    <span></span>
-                    <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+
+
+                <div id="viewSection">
+                    <h4> Start Date : <span
+                                id="startDate"><?php echo $secondRound == null ? "" : $secondRound->startDate; ?></span>
+                    </h4>
+                    <br/>
+                    <h4> End Date : <span
+                                id="endDate"><?php echo $secondRound == null ? "" : $secondRound->endDate; ?></span>
+                    </h4>
+                    <br/>
+                    <h4>No of jobroles students can
+                        apply: <?php echo $secondRound == null ? "" : $secondRound->count; ?>4</span></h4>
+
+                    <div class="submit">
+                        <button onclick="editSection()">EDIT</button>
+                    </div>
+                </div>
+
+                <div id="editSection" style="display: none;">
+                    <h4>Date Period:</h4>
+                    <div class="card">
+                        <div class="input-container">
+                            <input type="date" id="editStartDate"
+                                   value="<?php echo $secondRound == null ? "" : $secondRound->startDate; ?>"
+                                   class="bx1">
+                        </div>
+                        <h4 class="h4">to</h4>
+                        <div class="input-container">
+                            <input type="date" id="editEndDate"
+                                   value="<?php echo $secondRound == null ? "" : $secondRound->endDate; ?>"
+                                   class="bx1">
+                        </div>
+                    </div>
+                    <h4>No of job roles students can apply:</h4>
+                    <div class="card">
+                        <select id="editAdvertisementCount">
+                            <?php
+                            for ($i = 1; $i <= 10; $i++) { ?>
+                                <option <?php echo $secondRound == null ? "" : ($secondRound->count == $i ? "selected" : ""); ?>
+                                        value='<?php echo $i; ?>'><?php echo $i; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="submit">
+                        <button onclick="saveChanges()">SAVE</button>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="details">
-                <div class="compdetails"> 
-                    <div class = "cardHeader">
-                        <h2>Second   Round</h2>
-                    </div>   
-                    
-
-                    <div id="viewSection">
-                        <h4> Start Date : <span id="startDate">2024.01.03</span> </h4>
-                        <br />
-                        <h4> End Date : <span id="endDate">2024.01.31</span> </h4>
-                        <br/>
-                        <h4>No of jobroles students can apply: <span id="advertisementCount">4</span></h4>
-
-                        <div class="submit">
-                            <button onclick="editSection()">EDIT</button>
-                        </div>
-                    </div>
-
-                    <div id="editSection" style="display: none;">
-                        <h4>Date Period:</h4>
-                        <div class="card">
-                            <div class="input-container">
-                                <input type="date" id="editStartDate" class="bx1">
-                            </div>
-                            <h4 class="h4">to</h4>
-                            <div class="input-container">
-                                <input type="date" id="editEndDate" class="bx1">
-                            </div>
-                        </div>
-                        <h4>No of job roles students can apply:</h4>
-                        <div class="card">
-                            <select id="editAdvertisementCount">
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                        <div class="submit">
-                            <button onclick="saveChanges()">SAVE</button>
-                        </div>
-                    </div>
+        <div class="details">
+            <div class="internshipAds">
+                <div class="cardHeader">
+                    <h2>Applied Students</h2>
                 </div>
-            </div>
-
-            <div class="details">
-                <div class="internshipAds">
-                    <div class = "cardHeader">
-                        <h2>Applied Students</h2>
-                    </div>
-                    <table>
                 <table>
-                    <thead>
+                    <table>
+                        <thead>
                         <tr>
                             <td>Student Name</td>
                             <td>Index No</td>
                             <td>Email</td>
                             <td>Job Roles</td>
-                            
-                        </tr>
-                    </thead>
 
-                    <tbody>
+                        </tr>
+                        </thead>
+
+                        <tbody>
                         <tr>
                             <td>Hamsayini</td>
                             <td>21020337</td>
@@ -107,7 +121,7 @@
                             <td>Sharmi</td>
                             <td>21020431</td>
                             <td>minisen@gmail.com</td>
-                            <td><br>UI/UX <br> BA <br> SE <br> </td>
+                            <td><br>UI/UX <br> BA <br> SE <br></td>
                         </tr>
             </div>
         </div>
