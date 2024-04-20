@@ -13,7 +13,7 @@ $students = $roundController->getSecondRoundStudents();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Round</title>
+    <title>Second Round</title>
     <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/firstround.css">
 </head>
 <body>
@@ -47,7 +47,7 @@ $students = $roundController->getSecondRoundStudents();
                     </h4>
                     <br/>
                     <h4>No of jobroles students can
-                        apply: <?php echo $secondRound == null ? "" : $secondRound->count; ?>4</span></h4>
+                        apply: <?php echo $secondRound == null ? "" : $secondRound->count; ?></span></h4>
 
                     <div class="submit">
                         <button onclick="editSection()">EDIT</button>
@@ -56,32 +56,40 @@ $students = $roundController->getSecondRoundStudents();
 
                 <div id="editSection" style="display: none;">
                     <h4>Date Period:</h4>
-                    <div class="card">
-                        <div class="input-container">
-                            <input type="date" id="editStartDate"
-                                   value="<?php echo $secondRound == null ? "" : $secondRound->startDate; ?>"
-                                   class="bx1">
+                    <form action="<?= ROOT ?>/round/secondAddOrUpdate" method="POST">
+
+                        <div class="card">
+                            <input type="hidden" name="id" value="2">
+                            <label for="editStartDate">Start Date:</label>
+                            <div class="input-container">
+                                <input type="date" id="editStartDate"
+                                       name="start_date"
+                                       value="<?php echo $secondRound == null ? "" : $secondRound->startDate; ?>"
+                                       class="bx1">
+                            </div>
+                            <h4 class="h4">to</h4>
+                            <label for="editEndDate">End Date:</label>
+                            <div class="input-container">
+                                <input type="date" id="editEndDate"
+                                       name="end_date"
+                                       value="<?php echo $secondRound == null ? "" : $secondRound->endDate; ?>"
+                                       class="bx1">
+                            </div>
                         </div>
-                        <h4 class="h4">to</h4>
-                        <div class="input-container">
-                            <input type="date" id="editEndDate"
-                                   value="<?php echo $secondRound == null ? "" : $secondRound->endDate; ?>"
-                                   class="bx1">
+                        <h4>No of job roles students can apply:</h4>
+                        <div class="card">
+                            <select id="editAdvertisementCount" name="job_role_count">
+                                <?php
+                                for ($i = 1; $i <= 10; $i++) { ?>
+                                    <option <?php echo $secondRound == null ? "" : ($secondRound->count == $i ? "selected" : ""); ?>
+                                            value='<?php echo $i; ?>'><?php echo $i; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
-                    </div>
-                    <h4>No of job roles students can apply:</h4>
-                    <div class="card">
-                        <select id="editAdvertisementCount">
-                            <?php
-                            for ($i = 1; $i <= 10; $i++) { ?>
-                                <option <?php echo $secondRound == null ? "" : ($secondRound->count == $i ? "selected" : ""); ?>
-                                        value='<?php echo $i; ?>'><?php echo $i; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="submit">
-                        <button onclick="saveChanges()">SAVE</button>
-                    </div>
+                        <div class="submit">
+                            <button onclick="saveChanges()">SAVE</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

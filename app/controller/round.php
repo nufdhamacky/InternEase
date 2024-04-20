@@ -80,6 +80,16 @@ class Round extends Controller
         }
     }
 
+    public function secondAddOrUpdate()
+    {
+        $round = $this->roundRepository->findById(2);
+        if ($round) {
+            $this->update();
+        } else {
+            $this->add();
+        }
+    }
+
     public function getFirstRound(): ?RoundModel
     {
         return $this->roundRepository->findById(1);
