@@ -1,176 +1,66 @@
+<?php
+include_once('../app/controller/pdc.php');
+$pdController = new Pdc();
+$page = $_GET['page'] ?? 1;
+$pageData = $pdController->getPendingCompany($page);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Request</title>
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/pdc/ad.css">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/ad.css">
 </head>
 <body>
-    <div class="details">
-            <div class="internshipAds">
-                <div class = "cardHeader">
-                    <h2>Company Requests</h2>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Company Name</td>
-                            <td>Email</td>
-                            <td>Website</td>
-                            <td>Contact Person </td>
-                            <td>Contact No</td>
-                            <td>Status</td>
-                            <td>View</td>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>WSO2</td>
-                            <td>wso2@gmail.com</td>
-                            <td>
-                                <a href="https://wso2.com/" target="_blank">https://wso2.com/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>99X</td>
-                            <td>99X@gmail.com</td>
-                            <td>
-                                <a href="https://99x.io/" target="_blank">https://99x.io/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Virtusa</td>
-                            <td>virtusa@gmail.com</td>
-                            <td>
-                                <a href="https://www.virtusa.com/" target="_blank">https://www.virtusa.com/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>                            
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>CodeGen</td>
-                            <td>codegen@gmail.com</td>
-                            <td>
-                                <a href="https://codegen.co.uk/" target="_blank">https://codegen.co.uk/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>IFS</td>
-                            <td>ifs@gmail.com</td>
-                            <td>
-                                <a href="https://www.ifs.com/" target="_blank">https://www.ifs.com/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-                        <tr>
-                            <td>Microsoft</td>
-                            <td>microsoft@gmail.com</td>
-                            <td>
-                                <a href="https://www.microsoft.com/en-lk" target="_blank">https://www.microsoft.com/en-lk</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-                        <tr>
-                            <td>applexus</td>
-                            <td>applexus@gmail.com</td>
-                            <td>
-                                <a href="https://www.applexus.com/" target="_blank">https://www.applexus.com/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-                        <tr>
-                            <td>Sysco Labs</td>
-                            <td>sysco@gmail.com</td>
-                            <td>
-                                <a href="https://syscolabs.lk/" target="_blank">https://syscolabs.lk/</a>
-                            </td>
-                            <td>Sayi </td>
-                            <td>0776453123</td>
-                            <td>
-                                <select class="status-select">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
+<div class="details">
+    <div class="internshipAds">
+        <div class="cardHeader">
+            <h2>Company Requests</h2>
         </div>
-        
+        <table>
+            <thead>
+            <tr>
+                <td>Company Name</td>
+                <td>Email</td>
+                <td>Website</td>
+                <td>Contact Person</td>
+                <td>Contact No</td>
+                <td>Status</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <?php
+            foreach ($pageData->data as $company) { ?>
+                <tr>
+                    <td><?php echo $company->name; ?></td>
+                    <td><?php echo $company->email; ?></td>
+                    <td><?php echo $company->website; ?></td>
+                    <td><?php echo $company->contactPerson; ?></td>
+                    <td><?php echo $company->contact; ?></td>
+                    <td style="color: <?php echo $company->status == 0 ? "blue" : ($company->status == 1 ? "green" : "red"); ?>"><?php echo $company->status == 0 ? "Pending" : ($company->status == 1 ? "Approved" : "Rejected"); ?></td>
+                    <td>
+                        <a href="<?= ROOT ?>/pdc/acceptCompany?id=<?php echo $company->userId; ?>"
+                           style="display: <?php echo $company->status == 0 || $company->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
+                        <a href="<?= ROOT ?>/pdc/rejectCompany?id=<?php echo $company->userId; ?>"
+                           style="display: <?php echo $company->status == 0 || $company->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+        <div align="center">
+            <a href="?page=<?php echo $pageData->currentPage - 1; ?>"
+               style="display: <?php echo $pageData->currentPage > 1 ? "inline" : "none"; ?>"
+               class="btn">Previous</a>
+            <a href="?page=<?php echo $pageData->currentPage + 1; ?>"
+               style="display: <?php echo $pageData->currentPage > 0 && $pageData->currentPage < $pageData->totalPages ? "inline" : "none"; ?>"
+               class="btn">Next</a>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

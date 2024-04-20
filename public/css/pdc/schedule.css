@@ -28,7 +28,8 @@ body {
 .navigation img {
     width: 150px;
     margin-left: 60px;
-
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
 .navigation img ul {
@@ -48,7 +49,7 @@ body {
     background-color: #CFE3EA;
 }
 
-.navigation ul li:nth-child(8) {
+.navigation ul li:nth-child(7) {
     margin-bottom: 50px;
 }
 
@@ -88,7 +89,7 @@ body {
 
 .main {
     position: absolute;
-    width: calc(100% - 300px);
+    width: calc(100% - 100px);
     left: 300px;
     min-height: 100vh;
     background: white;
@@ -98,55 +99,135 @@ body {
 
 .topbar {
     width: 100%;
-    height: 60px;
+    height: 80px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
 }
 
 .toggle {
-    position: relative;
-    top: 0;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 2rem;
     cursor: pointer;
-
 }
 
 .user {
-    position: relative;
-    min-width: 40px;
-    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     overflow: hidden;
-    cursor: pointer;
+    margin-right: 30px;
+}
+
+.user span {
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.bell-icon {
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.profile-icon {
+    font-size: 3rem;
+}
+
+.secondbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: 40px;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px;
+    border-radius: 5px;
+}
+
+.search input {
+    border: none;
+    font-size: 15px;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.search input::placeholder {
+    font-size: 15px;
+}
+
+.allstudents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.allstudents select {
+    border: 1px solid rgba(11, 90, 111, 1);
+    padding: 5px 5px 5px 10px;
+    border-radius: 5px;
 }
 
 
-/* ================== Order Details List ============== */
+/* ================== Student Details List ============== */
 .details {
     position: relative;
-    width: 100%;
+    width: 90%;
     padding: 20px;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 30px;
-    /* margin-top: 10px; */
 }
 
-.details .internshipAds {
+.details .studentdetails {
     position: relative;
     display: grid;
-    min-height: 550px;
+    min-height: 350px;
     background: white;
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
 }
+
+.details .studentdetails table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.download-cv-btn {
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-cv-btn:hover {
+    background-color: #0056b3;
+}
+
 
 .details .cardHeader {
     display: flex;
@@ -161,11 +242,21 @@ body {
 
 .cardHeader .btn {
     position: relative;
-    padding: 5px 10px;
+    padding: 5px 15px;
     background: rgba(170, 212, 225, 1);
     text-decoration: none;
-    color: white;
+    color: black;
     border-radius: 6px;
+}
+
+.btn {
+    position: relative;
+    padding: 5px 15px;
+    background: rgba(170, 212, 225, 1);
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+    margin-left: 50px;
 }
 
 .details table {
@@ -178,107 +269,68 @@ body {
     font-weight: 600;
 }
 
-.details .internshipAds table tr {
+.details .studentdetails table tr {
     color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.details .internshipAds table thead {
+.details .studentdetails table thead {
     background-color: #D9D9D9;
     color: rgba(9, 62, 76, 1);
     font-weight: 600;
 }
 
-.details .internshipAds table tr:last-child {
+.details .studentdetails table tr:last-child {
     border-bottom: none;
 }
 
-.details .internshipAds table tr td {
+.details .studentdetails table tr td {
     padding: 7.25px;
 }
 
-.details .internshipAds table tr td:last-child {
+.details .studentdetails table tr td:last-child {
     text-align: end;
 }
 
-.details .internshipAds table tbody tr:hover {
+.details .studentdetails table tbody tr:hover {
     background: #CFE3EA;
     color: black;
 }
 
-.details .internshipAds table tr td select {
+.details .studentdetails table tr td select {
     cursor: pointer;
 }
 
-/*.details .internshipAds table tr td:nth-child(2) {
-    text-align: end;
-}
-.details .internshipAds table tr td:nth-child(3) {
-    text-align: center;
-}*/
-
-.details .internshipAds table tr td select.status-select {
-    width: 100%;
-    padding: 7.25px;
-    background: white;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    appearance: none;
-}
-
-
-.details .internshipAds table tr td select.status-select [value="pending"] {
-    background: rgb(194, 43, 43);
-    color: black;
-}
-
-.details .internshipAds table tr td select.status-select option {
-    background: white;
-    color: black;
-}
-
-.details .internshipAds table tr td select.status-select option[value="pending"] {
-    background: #1795ce;
+.details select option[value="shortlist"] {
+    background-color: #8de02c;
     color: white;
 }
 
-.details .internshipAds table tr td select.status-select option[value="approved"] {
-    background: #8de02c;
+.details select option[value="reject"] {
+    background-color: #f00;
     color: white;
 }
 
-.details .internshipAds table tr td select.status-select option[value="rejected"] {
-    background: #f00;
+.details select option[value="pending"] {
+    background-color: #5BC4CB;
     color: white;
 }
 
-
-.status-select.approved {
-    padding: 2px 4px;
-    /* background: #8de02c; */
-    /* color: white; */
+.details select {
+    padding: 2px 10px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    color: rgba(11, 90, 111, 1);
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
+    background-color: white;
+    cursor: pointer;
 }
 
-.status-select.pending {
-    padding: 2px 4px;
-    /* background: #1795ce;
-    color: white; */
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.status-select.rejected {
-    padding: 2px 4px;
-    /* background: #f00; */
-    /* color:white; */
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
+/* Add a class for styling the selected option */
+.details select.selected-shortlist {
+    background-color: #8de02c;
+    color: white;
 }
 
 .details .view {
@@ -288,7 +340,15 @@ body {
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
+    text-decoration: none;
 }
 
+.details select.selected-reject {
+    background-color: #f00;
+    color: white;
+}
 
-
+.details select.selected-pending {
+    background-color: #5BC4CB;
+    color: white;
+}
