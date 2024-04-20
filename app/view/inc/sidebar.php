@@ -31,6 +31,13 @@
                         <span class="title">Selection List</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="complaint">
+                        <span class="icon"><i class="fa-solid fa-rectangle-list"></i></ion-icon></span>
+                        <span class="title">complaint</span>
+                    </a>
+                </li>
                 
             </ul>
         </div>

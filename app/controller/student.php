@@ -32,6 +32,10 @@ class Student extends Controller{
         $this->view('student/notification');
     }
 
+    public function complaint(){
+
+        $this->view('student/complaint');
+    }
     
     public function logout(){
         session_destroy();
