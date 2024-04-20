@@ -15,6 +15,11 @@
 
                         <div class="report_item">
                             <h2>Active PDC Users</h2>
+                            <center><h3 style="color:red;"><?php
+                                if($limit == 1 && isset($limit)){
+                                   echo "PDC User limit Reached! (Max 10)";
+                                }
+                            ?></h3></center>
                             <table>
                                 <thead>
                                     <tr>
@@ -127,6 +132,14 @@
 
 
 <script>
+    
+    var limit = <?php echo json_encode($limit); ?>;
+    console.log("limit=",limit);
+    if (limit == 1){
+        var bar = document.getElementById("toggleI");
+        bar.style.opacity = 0;  
+        bar.style.display = "none";
+    }
 
     function toggleContent(type) {
             var toggleId = type + "Toggle";

@@ -120,6 +120,23 @@
             return $errors;
         }
 
+        public function validate_name($name,$string){
+            $errors =[];
+
+            if(empty($string)){
+                $errors['empty_letters']= $name." is required.";
+                return $errors;
+            }
+
+            if (!ctype_alpha($string)) {
+                $errors['non_letters']= $name." must contain only letters.";
+            }
+
+            
+
+            return $errors;
+        }
+
         
     }
 

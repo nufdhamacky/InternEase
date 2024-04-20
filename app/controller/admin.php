@@ -237,7 +237,6 @@ class Admin extends Controller {
         $pdf->Output();
     }
 
-    
 
     //COMPLAINT FUNCTIONS
 
@@ -251,7 +250,7 @@ class Admin extends Controller {
             $this->view('admin/viewComplaints',array('complaintsArray' => $complaintsArray)); 
     }
 
-    public function checkcomplaint(){
+    function checkcomplaint(){
         
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send_reply"])) {
                 
@@ -294,9 +293,23 @@ class Admin extends Controller {
         }
 
         $pdc_users = $adminModel->getPDC();
+        $data=[];
+
+        $count =0;
+        foreach ($pdc_users as $user) {
+            $count+=1;
+        }
+
+        $limit=0;
+        if($count>10){
+            $limit = 1;
+        }
+
         $data = [
             'pdc_users' => $pdc_users,
+            'limit' =>$limit
         ];
+        
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
             $data = [
@@ -311,12 +324,22 @@ class Admin extends Controller {
 
             require_once '../app/controller/helper/validation.php';
             $validate = new Validation;
+            $errorlist = [
 
-            $error_pwd = $validate->validate_pwd($data['password'],$confirmPassword);
-            $error_email = $validate->validate_email($data['email']);
+            $error_pwd = $validate->validate_pwd($data['password'],$confirmPassword),
+            $error_email = $validate->validate_email($data['email']),
+            $error_firstname = $validate->validate_name("First Name",$data['first_name']),
+            $error_lastname = $validate->validate_name("Last Name", $data['last_name']) ];
+
  
             $errors=[];
-            if($error_pwd || $error_email){
+            foreach ($errorlist as $err){
+                if(!empty($err)){
+                    $errors[]=$err;
+                }
+            }
+            /*
+            if($error_pwd || $error_email || $error_firstname || $error_lastname){
             
                 if($error_pwd){
                     $errors['pwd_error']=$error_pwd;
@@ -326,6 +349,7 @@ class Admin extends Controller {
                     $errors['email_error']=$error_email;
                 }
             }
+            */
             $add = NULL;
             if(empty($errors)){
                 if ($adminModel->insertPDC($confirmPassword, $data)) {
@@ -341,7 +365,8 @@ class Admin extends Controller {
             $pdc_users = $adminModel->getPDC();
             $data =['pdc_users'=> $pdc_users,
                         'add' => $add,
-                        'errors' => $errors
+                        'errors' => $errors,
+                        'limit' =>$limit
                     ];
 
         }
