@@ -18,8 +18,8 @@
     <div class = "nav">
       <div class="topbar">
         <a href="../home"><div class="card">Home</div></a>
-        <a href="about"><div class="card active">About Us</div></a>
-        <a href="service"><div class="card">Services</div></a>
+        <a href="about"><div class="card">About Us</div></a>
+        <a href="service"><div class="card active">Services</div></a>
         <a href="login"><div class="card">Contact Us</div></a>
     </div>
     </div>

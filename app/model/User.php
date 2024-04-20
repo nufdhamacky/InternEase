@@ -88,4 +88,28 @@
             
         }
 
+        public function signupStudent($username, $email, $password, $conn){
+
+            $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "SELECT * FROM users WHERE user_name = '$email'";
+
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+            
+                return 0;
+
+            }else{
+
+                $sql = "INSERT INTO users (user_name, user_role, password)
+                        VALUES ('$email', 'student', '$hasedPassword')";
+
+                $result1 = $conn->query($sql);
+
+                
+            }
+            
+        }
+
 }

@@ -64,13 +64,61 @@
             </form>
 
             <div class="dontacc">
-                Don't have an acoount? <a href="./signup" class="">Sign Up</a>
+                Don't have an acoount? <button id="signupBtn" class="">Sign Up</button>
             </div>
-            </div>
-        </div>  
+
+            
+        </div>
+            
+      
+        <div class="modal" id="myModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <a href="./signup" class="myBtn"><span>Sign Up as</span><br>Company</a>
+        <a href="./signupStudent" class="myBtn"><span>Sign Up as</span><br>Student</a>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("signupBtn");
+    var close = document.querySelector(".close");
+
+    btn.onclick = function(){
+        modal.style.display = "block";
+    }
+
+    close.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+</script>
     </div>
 
     <script src="<?=ROOT?>/js/login.js"></script>
+    <!-- <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("signupBtn");
+        var close = document.getElementByClassName("close")[0];
+
+        btn.onclick = function(){
+            modal.style.display = "block";
+        }
+
+        close.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal){
+                modal.style.displayj = "none";
+            }
+        }
+    </script> -->
 
 </body>
 </html>

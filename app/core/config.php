@@ -6,7 +6,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBNAME', 'intern_ease');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
-	define('DBPASS', 'password');
+	define('DBPASS', '');
 	
 	define('ROOT', 'http://localhost/internease/public');
 

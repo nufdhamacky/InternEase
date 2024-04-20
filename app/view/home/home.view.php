@@ -31,7 +31,7 @@
                 <a href="home"><div class="card active">Home</div></a>
                 <a href="home/about"><div class="card">About Us</div></a>
                 <a href="home/service"><div class="card">Services</div></a>
-                <a href="home/login"><div class="card">Contact Us</div></a>
+                <a href="home/contact"><div class="card">Contact Us</div></a>
             </div>
             <img src="<?=ROOT?>/assets/images/landing-img.PNG" alt="">
         </div>
