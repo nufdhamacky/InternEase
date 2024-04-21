@@ -47,7 +47,7 @@
                     <span class="error"><?= isset($data['signupError']['website']) ?></span>
                     <br>
             </p>
-            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['compsite']) ? $_POST['email'] : '' ?>">
 
             <p class="label1">Contact Person: 
                 
@@ -102,12 +102,12 @@
 
     <script src="<?=ROOT?>/js/login.js"></script>
     <?php
-        // Check if the form is submitted and there are no signup errors
-        if (isset($_POST['signup']) && empty($data['signupError'])) {
-            // Redirect to the home page
-            header("Location: " . ROOT . "../login");
-            exit();
-        }
+        // // Check if the form is submitted and there are no signup errors
+        // if (isset($_POST['signup']) && empty($data['signupError'])) {
+        //     // Redirect to the home page
+        //     header("Location: " . ROOT . "../login");
+        //     exit();
+        // }
     ?>
 
 </body>

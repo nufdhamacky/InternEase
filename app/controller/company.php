@@ -9,7 +9,7 @@
     include_once('../app/repository/StudentReqRepository.php');
     include_once('../app/model/StudentReqModel.php');
 
-    // include_once('../app/repository/CompanyDetailsRepository.php');
+    include_once('../app/repository/CompanyDetailsRepository.php');
     // include_once('../app/model/CompanyDetailsModel.php');
 
     class Company extends Controller {
@@ -17,14 +17,15 @@
         private $advertisementRepository;
         private $techTalkRepository;
         private $studentReqRepository;
-        // private $companyDetailsRepository;
+        private $companyDetailsRepository;
 
         public function __construct(){
+
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
             $this->techTalkRepository = new TechTalkRepository($this->conn);
             $this->studentReqRepository = new StudentReqRepository($this->conn);
-            // $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
+            $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
 
         }
         public function isLoggedIn() {
@@ -53,10 +54,6 @@
             $advertisements = $this->advertisementRepository->getAllAdvertisements();
             $this->view('company/ad', ['advertisements' => $advertisements]);
 
-        }
-
-        public function getAllAds(): array{
-            return $this->advertisementRepository->getAllAdvertisements();
         }
     
         public function adView(){
@@ -111,13 +108,45 @@
         }
 
         public function profile(){
-            
-            $this->view('company/profile');
+            $userDetails = $this->companyDetailsRepository->getCompanyDetails($_SESSION['userId']);
+            $this->view('company/profile', ["userDetails" => $userDetails]);
+        }
 
+        public function editProfile(){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $userId = $_SESSION['userId']; // Assuming you have userId in session
+        
+                $ProfilePic = isset($_FILES['profilePic']) ? $_FILES['profilePic'] : $_SESSION['userProfile'];
+                
+                $companyName = $_POST['companyName'];
+                $description = $_POST['description'];
+                $website = $_POST['website'];
+                $contactPerson =$_POST['contactPerson'];
+                $contactNo = $_POST['contactNo'];
+                $address = $_POST['address'];
+        
+                // Create a CompanyDetailsModel object
+                $companyDetails = new CompanyDetailsModel($userId, $companyName, $contactPerson,$_SESSION['userEmail'], $website, $contactNo, $address, $description);
+
+                // Pass $companyDetails to repository method for database insertion
+                $result = $this->companyDetailsRepository->editCompanyDetails($companyDetails, $ProfilePic);
+        
+                if ($result) {
+                    // Redirect after successful submission
+                    header("Location: /internease/public/company/profileview");
+                    exit();
+                } else {
+                    // Handle insertion failure
+                    echo "Data Insertion Failed";
+                }
+            } else {
+                // Handle GET request if needed
+            }
         }
 
         public function profileview(){
-            $this->view('company/profileview');
+            $userDetails = $this->companyDetailsRepository->getCompanyDetails($_SESSION['userId']);
+            $this->view('company/profileview', ["userDetails" => $userDetails]);
         }
         
         public function totStudents(){

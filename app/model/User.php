@@ -22,6 +22,7 @@
                     $_SESSION['userRole']= $row['user_role'];
                     $_SESSION['userProfile']= $row['user_profile'];
                     $_SESSION['userStatus']= $row['user_status'];
+                    $_SESSION['userEmail']= $row['user_name'];
                     return 1;
                     
                 }
@@ -36,7 +37,7 @@
             
         }
 
-        public function signup($company, $email, $password, $conn){
+        public function signup($company, $email, $password, $companySite, $address, $contactPerson, $contactNo ,$conn){
 
             $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -58,19 +59,20 @@
                 if($result1){
 
                     $lastId = $conn->insert_id;
-
-                    $sql = "INSERT INTO company (company_name, user_id,)
-                            VALUES ('$company', '$lastId')";
+                
+                    $sql = "INSERT INTO company (company_name, user_id, contact_person, email, contact_no, company_site, address)
+                            VALUES ('$company', '$lastId','$contactPerson','$email','$contactNo','$companySite','$address')";
                     
                     $result2 = $conn->query($sql);
-
+                
                     if($result2){
 
                         $_SESSION['userId']= $lastId;
                         $_SESSION['companyName']= $company;
                         $_SESSION['userRole']= 'company';
-                        $_SESSION['userProfile']= "default.png";
+                        $_SESSION['userProfile']= "profile.png";
                         $_SESSION['userStatus']= "0";
+                        $_SESSION['userEmail']= $email;
                         return 1;
                     }
                     else{
