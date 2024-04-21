@@ -30,6 +30,8 @@ body
 
 .navigation img
 {
+    margin-top: 1.5vw;
+    margin-bottom: 1.5vw;
     width: 150px;
     margin-left: 60px;
 
@@ -117,7 +119,7 @@ body
     padding: 0 10px;
 }
 
-.toggle{
+.toggle_ {
     position: relative;
     top: 0;
     width: 60px;
@@ -137,6 +139,7 @@ body
     overflow: hidden;
     cursor:pointer;
 }
+
 
 /* Cards */
 
@@ -230,6 +233,7 @@ body
 }
 
 .details table thead td {
+    width: fit-content;
     color: rgba(9, 62, 76, 1);
     font-weight: 600;
 }
@@ -238,6 +242,7 @@ body
 
 .details .companyList table tr {
     color: black;
+    margin: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .details .companyList table tr:last-child {
@@ -250,7 +255,7 @@ body
 }
 
 .details .companyList table tr td {
-    padding: 7.25px;
+    padding: 1.7vw;
 }
 
 .details .companyList table tr td:last-child {
@@ -277,74 +282,124 @@ body
 
 
 
-
-
-
-
-
-
-
-
-
-
 /* ADMIN */
 
-
-
 .content {
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5vw;
     grid-template-columns: 3fr 1fr;
     grid-gap: 30px;
 }
 
 .notification {
-    display: flex;
     width: fit-content;
+    margin-left:2vw;
+    margin-right:2vw;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    height: fit-content;
+    display:flex;
     
 }
 
-.notibutton{
-    margin: 1vw;
-    padding: 2vw 2vw 2vw 2vw;
+.report {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    height: fit-content;
+    display:flex;
+}
+
+.noticolumn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+    width: auto;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.notibutton{ 
+    display:block;
+    position: relative;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
+    height: fit-content;
+    width: fit-content;
+    
+    padding-top: 0.7vw;
+    padding-bottom: 0.7vw;
+    padding-left: 0.9vw;
+    padding-right: 0.9vw;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    background-color: white;
-    color: rgba(9, 62, 76, 1);
+    background-color: rgb(223, 241, 247);
+    color: rgb(24, 29, 30);
     transition: background-color 0.4s;
-    font-size:1.5vw;
+    font-size:1.2vw;
     font-weight:600;
-    border-radius: 4vw;
+    border-radius: 1vw;
+}
+
+.report_item .notibutton{ 
+    display:block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    width: 42vw;
+    
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    background-color: rgb(230, 234, 242);
+    color: rgb(14, 33, 37);
+    transition: background-color 0.4s;
+    font-size:1.2vw;
+    font-weight:600;
+    border-radius: 1vw;
 }
 
 .notibutton a{
+  
+    /*padding: 10vw; 
+    width: calc(100% + 1vw); 
+    height: calc(100% + 1vw);
+    */ 
+    box-sizing: border-box; 
     text-decoration:none;
-    color: rgba(9, 62, 76, 1);
+    color: rgb(8, 12, 13);
 }
 
 .notibutton div{
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     padding-top: 0.5vw;
     padding-bottom: 0.5vw;
 }
 
 .notibutton:hover{
-    background: #CFE3EA;
+    color: #f5f5f5;
+    background: #07587b;
 }
 
 
 
 select {
-    border: 2px solid #2f89fd;
+    border: 2px solid #f5f5f5;
     padding: 0.5vw 1.5vw 0.5vw 1.5vw;
     margin-right: 1vw;
     margin-top: 1vw;
     margin-bottom: 1vw;
     text-align: left;
 }
-
 
 
 .userhover {
@@ -364,75 +419,150 @@ select {
 }
 
 
-
-
-
-
-
 form {
-    border:2px solid #5768e4;
-    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    width:max-content ;
+    padding: 2vw;
+    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
+    border-radius: 0.6vw;
     margin-top: 3vw;
     margin-bottom: 3vw;
 }
 
 .btn
 {   
-    display:inline-block;
     text-align: center;
-    color: #fbfbfb;
-    background-color: #0a6485;
-    border-radius: 10px;
-    padding:0.5vw;
-    margin-top: 1vw;
-    margin-bottom:1vw;
-    margin-left: 2vw ;
-    margin-left: 2vw ;
+    color: #ffffff;
+    background-color: #095570;
+    border-color:  white;
+    border-radius: 0.5vw;
+    padding:0.7vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.3vw;
     font-weight: 300px;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: background-color 0.2s;
 }
+
+.search-btn
+{   
+    text-align: center;
+    color: #010101;
+    background-color: #f8fcfd;
+    border-color:  rgb(0, 0, 0);
+    border-radius: 0.5vw;
+    padding:0.3vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.3vw;
+    font-size: 1.1vw;;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+
+.search-btn:hover {
+    color: #dfdbdb;
+    background-color: #0d0d12; 
+}
+
 
 .btn:hover {
-    background-color: #5768e4; /* Change the background color on hover */
+    color: #080606;
+    background-color: #d2d2f7; 
 }
 
 
-
-label {
+form > label {
     text-align:left;
+    font-size: 1.4vw;
+    width: auto;
+    margin-left:1vw;
+    margin-top:1.5vw;
+    margin-bottom:1vw;
+    margin-right:1vw;
+    display: inline-block;
+    color: #070707;
+    font-weight:bold;
+}
+
+form p {
+    text-align: left;
+    margin-top:0.5vw;
+    margin-bottom:1.5vw;
+    margin-right:1vw;
+    color: red;
+    font-weight: bold;
+}
+
+
+.formgroup label {
+    text-align:left;
+    font-size: 1.3vw;
     width: 11vw;
     display: inline-block;
     color: #070707;
-    font-weight:500;
+    font-weight:bold;
 }
 
+
+.update-form > label {
+    text-align:left;
+    font-size: 1.3vw;
+    width: 30vw;
+    display: inline-block;
+    color: #070707;
+    font-weight:bold;
+}
+
+
 .input-text {
-    padding:0.4vw 1vw 0.4vw 1vw;
-    background-color: #bfdbf8;
+    padding:0.5vw;
+    background-color: #e4ecf4;
+    border-radius: 0.3vw;
+    border-color: #ffffff;
     color: #1a0b0b;
     width: auto;
 }
 
 .formgroup {
+    width: max-content;
     margin: 2vw 1vw 2vw 1vw;
     padding: auto;
 }
 
 
-.notibutton:hover a{
-    color: #030405;
+.formgroup label {
+    width: 20vw;
 }
 
+
+.notibutton:hover a{
+    color: #edeff0;
+}
+
+
+.notibutton:nth-child(3) a > div div:nth-child(2n) {
+    border-radius: 2vw;
+    color: #0b0b5e;
+    background-color: #bcdfdf ;
+
+}
+
+/*.notibutton:nth-child(3):hover a > div div:nth-child(2n){
+    color: #bfdbf8;
+    background-color: #0f061e ;
+
+}
 .notification .notibutton:nth-child(3) {
     background-color: white;
-    /* Add any other styles you want to apply */
+
 }
 
 .notification .notibutton:nth-child(3){
     background-color: white;
     color: #000000;
-    /* Add any other styles you want to apply */
 }
 
 .notification .notibutton:nth-child(3n):hover{
@@ -443,23 +573,264 @@ label {
     color: #010106;
 }
 
-.notibutton:nth-child(3) a > div div:nth-child(2n) {
-    border-radius: 2vw;
-    color: #0b0b5e;
-    background-color: #bcdfdf ;
-
-}
-
-.notibutton:nth-child(3):hover a > div div:nth-child(2n){
-    color: #bfdbf8;
-    background-color: #0f061e ;
-
-}
-
+*/
 div > span {
     font-size: medium;
     align-items: center;
     margin-left: auto;
     margin-left: auto;
 }
+
+.description {
+    border-radius: 0.7vw;
+    padding: 1vw;
+    box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
+    background-color: rgb(252, 251, 251);
+    
+}
+
+.description > h3 {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+
+}
+
+.description > p {
+    margin-top: 3vw;
+    margin-bottom: 1vw;
+
+}
+
+
+.report_item {
+    width: 70%;
+    height: fit-content;
+    padding: 20px;
+    overflow: auto;
+    background-color: white;
+    font-size: 1.3vw;
+    padding: 3vw;
+    border-radius:5vh;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2vw 3vw rgba(0, 0, 0, 0.08);
+}
+
+
+.report_item  h2 {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.7vw;
+    width: fit-content;
+    margin-top: 0.5vw;
+    margin-bottom: 3vw;
+
+}
+
+
+.report_item  table {
+    margin-left: auto;
+    margin-right: auto;
+    overflow: auto;
+    border-collapse: collapse;
+    width: fit-content;
+
+
+}
+
+
+
+table thead tr {
+    background-color: #dbe9f3;
+    border: solid ;
+    border-radius:4vw;
+    border-color: #000000;
+    font-size: 2vw;
+    font-weight: bold;
+
+}
+
+.report_item  table thead td{
+    font-size: 1.35vw;
+    padding: 1.0vw;
+    border-color: rgb(2, 2, 2);
+}
+
+
+.report_item table tbody td {
+    font-size: 1.3vw;
+    padding: 1.0vw;
+    
+}
+
+
+.report_item table tbody td:nth-child(7) {
+    font-size: 1.2vw;
+    padding: 1.0vw;
+    
+}
+
+.report_item table tr {
+    border: solid ;
+    border-color:white;
+    padding: 1.3vw;
+    
+}
+
+
+
+.report_item  table tbody tr:hover {
+    animation-duration: 0.3ms;
+    background-color: #badef3;
+    
+}
+
+.desc_detail {
+    width:auto;
+    background-color: #bae6ff;
+    padding: 1vw;
+    border-radius: 2vw;
+    margin:1vh;
+}
+
+.detail_label {
+    margin: 0.4vw;
+}
+
+.detail_label  label{
+    width: 10vw;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0.4vw;
+}
+
+.desc_detail {
+    text-align: left;
+    margin-top: 1vw;
+    margin-bottom: 3vw;
+    margin-left: 1vw;
+}
+
+.detail_label span {
+    margin-top:0.5vw;
+    text-align: left;
+}
+
+p{
+    padding: 1vw;
+    margin: 0.4vw;
+}
+
+.details textarea {
+    text-align:left;
+    border-radius: 1vw;
+    font-size: 1.2vw;
+    padding: 1vw;
+    width: 50vw;
+    height: 25vh;
+   
+}
+
+h3 {
+    margin: 1vw;
+}
+
+.toggle-bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    background-color: #087da4;
+    position:relative;
+    color: #fff;
+    padding:1vw;
+    margin-top: 2vw;
+    border-radius: 2vw;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+
+  .toggle-bar:hover {
+    background-color: #044865;
+  }
+
+  .toggle {
+    display: none;
+    position: relative;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1vw;
+    background-color: white;
+    margin-top: 10px;
+    transition: max-height 0.5s ease;
+  }
+
+ #chart_bar{
+    position: relative;
+    height: max-content;
+    background-color: white;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2vw 3vw rgba(0, 0, 0, 0.08);
+    
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+   
+    margin-left: auto;
+    margin-right: auto ; /* Use half of the width (120px) to center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when hovering over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.filter-menu {
+    font-size: 1.1vw;
+
+}
+
+.fade-out {
+    animation: fade-out 0.5s ease-in-out;
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      display: block;
+    }
+    to {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+
+
+
 
