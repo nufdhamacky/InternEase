@@ -1,5 +1,5 @@
 <?php
-include_once('../app/model/CompanyModel.php');
+include_once('../app/model/MyCompanyModel.php');
 include_once('../app/model/ReportModel.php');
 include_once('../app/model/StudentShortModel.php');
 include_once('../app/model/BlackCompanyModel.php');
@@ -14,7 +14,7 @@ class CompanyRepository
         $this->conn = $conn;
     }
 
-    public function getByUserId($userId): ?CompanyModel
+    public function getByUserId($userId): ?MyCompanyModel
     {
         return null;
     }
@@ -74,7 +74,7 @@ class CompanyRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $company = new CompanyModel(
+            $company = new MyCompanyModel(
                 $row['user_id'],
                 $row['company_name'],
                 $row['email'],
@@ -103,7 +103,7 @@ class CompanyRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $company = new CompanyModel(
+            $company = new MyCompanyModel(
                 $row['user_id'],
                 $row['company_name'],
                 $row['email'],
@@ -135,7 +135,7 @@ class CompanyRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $company = new CompanyModel(
+            $company = new MyCompanyModel(
                 $row['user_id'],
                 $row['company_name'],
                 $row['email'],

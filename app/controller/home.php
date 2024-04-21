@@ -19,6 +19,12 @@
 
         }
 
+        public function contactus(){
+            
+            $this->view('home/contactus');
+
+        }
+
         public function login(){
             
             $this->view('home/login');

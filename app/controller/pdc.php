@@ -61,25 +61,6 @@ class Pdc extends Controller
         return $this->companyRepository->getByStatus($page, 1);
     }
 
-        public function index(){
-
-            //$isLoggedIn = $this->isLoggedIn();
-            
-           //if($isLoggedIn == 1){
-            
-            $this->view('pdc/dashboard');
-           // } else{
-                //$_SESSION['loginError'] = "Please login first !";
-                //echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
-            //}
-
-            
-        }   
-        public function managestudent()
-        {
-            $this->view('pdc/managestudent');
-        }
-
 
     public function getFullApprovedCompany(): array
     {

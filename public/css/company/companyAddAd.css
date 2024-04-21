@@ -32,6 +32,8 @@ body
 {
     width: 150px;
     margin-left: 60px;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
 .navigation img ul
@@ -219,6 +221,15 @@ body
   margin: 0 auto;
 }
 
+.details .compdetails check {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.details .compdetails input[type="checkbox"] {
+    margin-right: 5px;
+}
+
 .heading-advertisement{
     display: flex;  
     flex-direction: row;
@@ -227,7 +238,6 @@ body
     margin: 10px 0px 25px 50px;
     color: #0b596f;
 }
-
 
 .card{
     display: flex;
