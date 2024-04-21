@@ -12,25 +12,40 @@
 
             if($result->num_rows > 0){
 
-                if(password_verify($password, $row['password'])){
-                    
-                    $sql = "SELECT company_name FROM company WHERE user_id = {$row['user_id']}";
-                    $result1 = $conn->query($sql);  
+                if($row['user_role'] == 'company'){
 
-                    $_SESSION['userId']= $row['user_id'];
-                    $_SESSION['companyName']= $result1->fetch_assoc()['company_name'];
-                    $_SESSION['userRole']= $row['user_role'];
-                    $_SESSION['userProfile']= $row['user_profile'];
-                    $_SESSION['userStatus']= $row['user_status'];
-                    return 1;
+                    if(password_verify($password, $row['password'])){
                     
-                }
-                else{
-                    return 0;
-                }
 
-            }
-            else{
+                    
+                        $sql = "SELECT * FROM pdc_user WHERE id = {$row['user_id']}";
+                        $result1 = $conn->query($sql);  
+    
+                        $_SESSION['userId']= $row['user_id'];
+                        $_SESSION['userRole']= $row['user_role'];
+                        $_SESSION['userStatus']= $row['user_status'];
+                        $_SESSION['userName']= $row['user_name'];
+                        return 1;
+                        
+                    }
+                 }else if($row['user_role'] == 'admin'){
+                        if(password_verify($password, $row['password'])){
+                        
+                            $sql = "SELECT * FROM admin WHERE admin_id = {$row['user_id']}";
+                            $result1 = $conn->query($sql);  
+        
+                            $_SESSION['userId']= $row['user_id'];
+                            $_SESSION['userRole']= $row['user_role'];
+                            $_SESSION['userStatus']= $row['user_status'];
+                            $_SESSION['userName']= $row['user_name'];
+                            return 1;
+                            
+                        }else {
+                            return 0;
+                        }
+                }
+        
+            }else{
                 return 2;
             }
             
@@ -84,6 +99,30 @@
                 else{
                     return 2;
                 }
+            }
+            
+        }
+
+        public function signupStudent($username, $email, $password, $conn){
+
+            $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "SELECT * FROM users WHERE user_name = '$email'";
+
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+            
+                return 0;
+
+            }else{
+
+                $sql = "INSERT INTO users (user_name, user_role, password)
+                        VALUES ('$email', 'student', '$hasedPassword')";
+
+                $result1 = $conn->query($sql);
+
+                
             }
             
         }

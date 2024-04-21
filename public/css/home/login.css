@@ -195,3 +195,58 @@
     position: absolute;
     top: 18%;
 }
+
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content{
+    display: flex;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 70%;
+}
+
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus{
+    color: rgba(255, 0, 0, 0.712);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content a{
+    border-radius: 5px;
+    background-color: rgba(84, 119, 216, 0.466);
+    color: #222d30;
+    font-size: 28px;
+    padding: 10px;
+}
+
+.myBtn:hover{
+    background-color: #222d30;
+    color: #fefefe;
+}
+
+.myBtn span{
+    font-size: 10px;
+}
