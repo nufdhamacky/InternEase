@@ -36,6 +36,12 @@
             $this->view('home/signup');
 
         }
+
+        public function signupStudent(){
+            
+            $this->view('home/signupStd');
+
+        }
         
         public function logincheck(){
             
@@ -50,7 +56,7 @@
             $validation = new Validation();
 
             $errors = $validation->validateLogin($username, $password);
-
+            
             if(!$errors){
 
                 //creating user model object
@@ -60,16 +66,16 @@
                 $loginAccess = $user->login($username, $password, $this->conn);
 
                 if($loginAccess == 1){
-                    
+                   
                     if($_SESSION['userStatus']== 1){    
                         if($_SESSION['userRole'] == 'company' )
                             echo "<script> window.location.href='http://localhost/internease/public/company/dashboard';</script>";
                         else if($_SESSION['userRole'] == 'student')
-                            echo "<script> window.location.href='http://localhost/internease/public/student/index';</script>";
+                            echo "<script> window.location.href='http://localhost/internease/public/student/dashboard';</script>";
                         else if($_SESSION['userRole'] == 'admin')
                             echo "<script> window.location.href='http://localhost/internease/public/admin/index';</script>";
                         else
-                            echo "<script> window.location.href='http://localhost/internease/public/pdc/index';</script>";
+                            echo "<script> window.location.href='http://localhost/internease/public/pdc/dashboard';</script>";
                     }
                     else{
                         $data['loginError'] = 'Your account is not activated yet !';
@@ -138,6 +144,51 @@
             }
 
         }
+
+        public function signupcheck_student(){
+            
+            //store psot varialble in local variable
+            $username = $_POST['userName'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+
+            //including validation file
+            require_once '../app/controller/helper/validation.php';
+
+            //creating validation object
+            $validation = new Validation();
+
+            $errors = $validation->validateSignup($username, $email, $password, $confirmPassword);
+
+            if(!$errors){
+
+                //creating user model object
+                $user = $this->model('User');
+
+                //calling signup function from user model to check signup
+                $signupAccess = $user->signupStudent($username, $email, $password, $this->conn);
+
+                if($signupAccess == 0){
+                    $data['signupError'] = 'Email already registered !';
+                    $this->view('home/signupStd', $data);
+                }
+                else if($signupAccess == 2){
+                    $data['signupError'] = 'Something went wrong. Try again later !';
+                    $this->view('home/signupStd', $data);
+                    
+                } else {
+                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                }
+
+            } else {
+                $data['signupError'] = $errors;
+                $this->view('home/signupStd', $data);
+            }
+
+        }
+
 
     }
 

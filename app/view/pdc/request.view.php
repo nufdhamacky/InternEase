@@ -1,3 +1,8 @@
+<?php
+include_once('../app/controller/pdc.php');
+$pdcController = new Pdc();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,126 +10,130 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDC Request</title>
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/pdc/req.css">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/req.css">
 </head>
 <body>
-    <div class="container">
+<div class="container">
     <?php include_once('../app/view/layout/pdcSidemenu.php') ?>
-        <div class ="main">
-            <div class = "topbar">
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-                <div class = "user">
-                    <ion-icon name="notifications-circle-outline"></ion-icon>
-                    <span>Hamsayini</span>
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            <div class="user">
+                <ion-icon name="notifications-circle-outline"></ion-icon>
+                <span>Hamsayini</span>
+                <ion-icon name="person-circle-outline"></ion-icon>
+
+            </div>
+
+        </div>
+        <div class="cardBox">
+            <div class="card">
+                <a style="text-decoration: none"
+                   href="<?php echo $pdcController->getPendingCompanyCount() > 0 ? "companyrequest" : "#"; ?>">
+                    <div>
+                        <div class="number"><?php echo $pdcController->getPendingCompanyCount(); ?></div>
+                        <div class="cardName">Company Request</div>
+                    </div>
+                </a>
+                <div class="iconBx">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+
+
                 </div>
 
             </div>
-            <div class ="cardBox">
-                <div class ="card">
-                    <div>
-                        <div class="number">15</div>
-                        <div class="cardName">Company Request</div>
-                    </div>
-                    <div class="iconBx">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-
-                                     
-                </div>
-                    
-                </div>
-                <div class ="card">
+            <div class="card">
+                <a style="text-decoration: none" href="studentrequest">
                     <div>
                         <div class="number">12</div>
                         <div class="cardName">Student Request</div>
                     </div>
-                    <div class="iconBx">
+                </a>
+                <div class="iconBx">
                     <ion-icon name="people-outline"></ion-icon>
-                    
-                    </div>
-                    
+
                 </div>
-               
+
             </div>
+
+        </div>
 
         <!--order data list-->
         <div class="details">
             <div class="internshipAds">
-                <div class = "cardHeader">
+                <div class="cardHeader">
                     <h2>Applied Advertisements Status</h2>
-                    <a href="advertisement.php" class="btn">View All</a> 
+                    <a href="advertisement" class="btn">View All</a>
                 </div>
                 <table>
                     <thead>
-                        <tr>
-                            <td>Company Name</td>
-                            <td>Job</td>
-                            <td>Status</td>
-                        </tr>
+                    <tr>
+                        <td>Company Name</td>
+                        <td>Job</td>
+                        <td>Status</td>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>WSO2</td>
-                            <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                    <tr>
+                        <td>WSO2</td>
+                        <td>Software Engineering</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>99X</td>
-                            <td>QA</td>
-                            <td><span class="status approved">Approved</span></td>
-                        </tr>
+                    <tr>
+                        <td>99X</td>
+                        <td>QA</td>
+                        <td><span class="status approved">Approved</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>Virtusa</td>
-                            <td>Web Development</td>
-                            <td><span class="status rejected">Rejected</span></td>
-                        </tr>
+                    <tr>
+                        <td>Virtusa</td>
+                        <td>Web Development</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>CodeGen</td>
-                            <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                    <tr>
+                        <td>CodeGen</td>
+                        <td>Software Engineering</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>IFS</td>
-                            <td>QA</td>
-                            <td><span class="status approved">Approved</span></td>
-                        </tr>
+                    <tr>
+                        <td>IFS</td>
+                        <td>QA</td>
+                        <td><span class="status approved">Approved</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>99X</td>
-                            <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                    <tr>
+                        <td>99X</td>
+                        <td>Software Engineering</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>Virtusa</td>
-                            <td>Web Development</td>
-                            <td><span class="status rejected">Rejected</span></td>
-                        </tr>
+                    <tr>
+                        <td>Virtusa</td>
+                        <td>Web Development</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                    </tr>
 
-                        <tr>
-                            <td>CodeGen</td>
-                            <td>QA</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                    <tr>
+                        <td>CodeGen</td>
+                        <td>QA</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
                     </tbody>
                 </table>
 
             </div>
         </div>
-        
-        
-            
-        </div>
+
+
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
