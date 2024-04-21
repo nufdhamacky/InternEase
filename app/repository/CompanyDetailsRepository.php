@@ -28,7 +28,8 @@ class CompanyDetailsRepository{
                     $row['company_site'],
                     $row['contact_no'],
                     $row['address'],
-                    $row['description']
+                    $row['description'],
+                    $row['company_site']
                 );
             }
         }

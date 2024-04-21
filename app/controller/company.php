@@ -122,9 +122,10 @@
                 $contactPerson =$_POST['contactPerson'];
                 $contactNo = $_POST['contactNo'];
                 $address = $_POST['address'];
+                $company_site = $_POST['company_site'];
         
                 // Create a CompanyDetailsModel object
-                $companyDetails = new CompanyDetailsModel($userId, $companyName, $contactPerson,$_SESSION['userEmail'], $website, $contactNo, $address, $description);
+                $companyDetails = new CompanyDetailsModel($userId, $companyName, $contactPerson,$_SESSION['userEmail'], $website, $contactNo, $address, $description, $company_site);
 
                 // Pass $companyDetails to repository method for database insertion
                 $result = $this->companyDetailsRepository->editCompanyDetails($companyDetails);
