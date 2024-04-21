@@ -1,6 +1,6 @@
 <?php
 
-class CompanyModel
+class MyCompanyModel
 {
 
     public $userId;
