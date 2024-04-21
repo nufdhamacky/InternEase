@@ -7,7 +7,11 @@ class Student extends Controller{
     }
 
     public function dashboard(){
-        $this->view('student/dashboard');
+        
+        $userId = $_SESSION['userId'];
+        $admodel = $this->model('Ads');
+        $ads = $admodel->fetchAds();
+        $this->view('student/dashboard', ['data' => $ads]);
 
     }
 

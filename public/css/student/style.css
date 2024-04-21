@@ -38,7 +38,7 @@ body{
 
 .main.active {
     left: 0;
-    max-width: 100%; /* Set the max-width when active */
+    min-width: 100%; /* Set the max-width when active */
     transition: left 0.3s ease-in, max-width 0.3s ease-in; /* Include max-width in the transition */
 }
 

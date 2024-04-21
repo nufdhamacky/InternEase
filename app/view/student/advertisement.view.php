@@ -46,30 +46,30 @@
 
 
     <div id="preferencesModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Job Role Preferences</h2>
-        <form id="preferencesForm">
-            <?php
-                // Assume $jobRoles is an array of available IT internship roles
-                $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
-                
-                for ($i = 1; $i <= 7; $i++) {
-                    echo "<label for='preference$i'>Preference $i:</label>";
-                    echo "<select name='preference$i' id='preference$i'>";
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Job Role Preferences</h2>
+            <form id="preferencesForm">
+                <?php
+                    // Assume $jobRoles is an array of available IT internship roles
+                    $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
                     
-                    // Add options for each job role
-                    foreach ($jobRoles as $role) {
-                        echo "<option value='$role'>$role</option>";
-                    }
+                    for ($i = 1; $i <= 7; $i++) {
+                        echo "<label for='preference$i'>Preference $i:</label>";
+                        echo "<select name='preference$i' id='preference$i'>";
+                        
+                        // Add options for each job role
+                        foreach ($jobRoles as $role) {
+                            echo "<option value='$role'>$role</option>";
+                        }
 
-                    echo "</select><br>";
-                }
-            ?>
-            <input type="submit" value="Save Preferences">
-        </form>
+                        echo "</select><br>";
+                    }
+                ?>
+                <input type="submit" value="Save Preferences">
+            </form>
+        </div>
     </div>
-</div>
 
 <?php
 // Start the session if not already started
@@ -84,7 +84,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
     <script>
         console.log('Script loaded successfully');
 
-document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
         // Open the modal when the button is clicked
         document.getElementById("secondround").addEventListener("click", function () {
             document.getElementById("preferencesModal").style.display = "block";
@@ -99,9 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prevent modal from closing when the form is clicked
         document.getElementById("preferencesForm").addEventListener("click", function (e) {
-            e.stopPropagation();
+                e.stopPropagation();
+            });
         });
-    });
     
 
         function displayAdDetails(index) {

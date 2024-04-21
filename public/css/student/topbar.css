@@ -19,7 +19,8 @@
     backdrop-filter: blur(5.2px);
     -webkit-backdrop-filter: blur(5.2px);
     border: 1px solid rgba(190, 102, 102, 0.29);
-
+    max-height: 100px;
+    
 }
 .grid-container {
     display: inline-grid;
