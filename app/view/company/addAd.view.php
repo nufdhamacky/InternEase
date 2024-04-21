@@ -1,3 +1,8 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,57 +23,86 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
                 
             </div>
 
-        <form method="POST">    
-            <div class="details">
-                <div class="heading-advertisement">
-                        <h2>Add Advertisements</h2>
-                </div>
-                <div class="compdetails">
-                        <h4>Positions</h4>
-                        <select name="position">
-                            <option value = "se">Sofware Engineer</option>
-                            <option value = "qa">Quality Assuarance</option>
-                            <option value = "ba">Business Analyst</option>
-                        </select>
-                        
-                        <h4>Requirements</h4>
-                        <input name="requirement" type = "text" class = "bx1">
-                    
-                        <h4>Qualifications</h4>
-                        <input name="qualifications" type = "text" class = "bx1">
-                        
-                        <h4>Internship Period</h4>
-                        <div class = "card">
-                            <input name="start_date" class="ad-date" type = "month" class = "bx1">
-                            <h4 class = "h4">to</h4>
-                            <input name="end_date" class="ad-date" type = "month" class = "bx1">
-                        </div>
+            <form action="<?=ROOT?>/company/addNewAd" method="POST">    
+                <div class="details">
+                    <div class="heading-advertisement">
+                            <h2>Add Advertisements</h2>
+                    </div>
 
-                        <div class = "card">
-                            <h4>No. of Interns</h4>
-                            <h4 class = "spaceleft" style="margin-left:150px">Working Mode</h4>
-                        </div>
-                        <div class = "card">
-                            <input name="no_of_intern" type = "number" class = "bx1">
-                            <select name="working_mode">
-                                <option value = "Online">Online</option>
-                                <option value = "Physical">Physical</option>
-                                <option value = "Hybrid">Hybrid</option>
-                            </select>
-                        </div>
+                    <div class="compdetails">
                         
-                        <div class="submit">
-                            <button type="submit">SAVE</button>
-                        </div>
+                            <h4>Position</h4>
+                            <select name="position">
+                                <option value = "" selected hidden>Select Position</option>
+                                <option value = "Sofware Engineer">Sofware Engineer</option>
+                                <option value = "Quality Assuarance">Quality Assurance</option>
+                                <option value = "Business Analyst">Business Analyst</option>
+                            </select>
+                            <br>
+
+                            <h4>Requirements</h4>
+                            <br>
+                            <div class="check">
+                                <input type="checkbox" name="req[]" value="React"> React<br>
+                                <input type="checkbox" name="req[]" value=".Net"> .Net<br>
+                                <input type="checkbox" name="req[]" value="Node"> Node<br>
+                                <input type="checkbox" name="req[]" value="Java"> Java<br>
+                                <input type="checkbox" name="req[]" value="JS"> JavaScript<br>
+                                <input type="checkbox" name="req[]" value="DevOps"> DevOps<br>
+                                <input type="checkbox" name="req[]" value="C++"> C++<br>
+                                <input type="checkbox" name="req[]" value="SQL"> SQL<br>
+                                <input type="checkbox" name="req[]" value="Python"> Python<br>
+                            </div>
+                           <br>
+                           
+                            <h4>Qualifications</h4>
+                            <br>
+
+                            <select name="qualification">
+                                <option value = "" selected hidden>Select Qualification</option>
+                                <option value = "BSc. in Computer Science">BSc. in Computer Science</option>
+                                <option value = "BSc. in Information systems">BSc. in Information systems</option>
+                                <option value = "BSc.(Hons) in Computer Science">BSc.(Hons) in Computer Science</option>
+                                <option value = "BSc.(Hons) in Information systems">BSc.(Hons) in Information systems</option>
+                            </select>
+                            <br>
+
+                            <br>
+                            
+                            <h4>Internship Period</h4>
+                            <div class = "card">
+                                <input name="start_date" class="ad-date" type = "month" class = "bx1">
+                                <h4 class = "h4">to</h4>
+                                <input name="end_date" class="ad-date" type = "month" class = "bx1">
+                            </div>
+                            <br>
+
+                            <div class = "card">
+                                <h4>No. of Interns</h4>
+                                <h4 class = "spaceleft" style="margin-left:150px">Working Mode</h4>
+                            </div>
+                            <div class = "card">
+                                <input name="no_of_intern" type = "number" class = "bx1">
+                                <select name="working_mode">
+                                    <option value = "Online">Online</option>
+                                    <option value = "Physical">Physical</option>
+                                    <option value = "Hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                            
+                            <div class="submit">
+                                <button type="submit" name="submit" value="saveAd">SAVE</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         
         </div>
     </div>

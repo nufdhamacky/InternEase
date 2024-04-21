@@ -16,23 +16,7 @@
 
                     if(password_verify($password, $row['password'])){
                     
-                        $sql = "SELECT * FROM company WHERE user_id = {$row['user_id']}";
-                        $result1 = $conn->query($sql);  
-    
-                        $_SESSION['userId']= $row['user_id'];
-                        $_SESSION['companyName']= $result1->fetch_assoc()['company_name'];
-                        $_SESSION['userRole']= $row['user_role'];
-                        $_SESSION['userProfile']= $row['user_profile'];
-                        
-                        return 1;
-                        
-                    }
-                    else{
-                        return 0;
-                    }
 
-                }else if($row['user_role'] == 'pdc'){
-                    if(password_verify($password, $row['password'])){
                     
                         $sql = "SELECT * FROM pdc_user WHERE id = {$row['user_id']}";
                         $result1 = $conn->query($sql);  
@@ -90,7 +74,7 @@
 
                     $lastId = $conn->insert_id;
 
-                    $sql = "INSERT INTO company (company_name, user_id)
+                    $sql = "INSERT INTO company (company_name, user_id,)
                             VALUES ('$company', '$lastId')";
                     
                     $result2 = $conn->query($sql);

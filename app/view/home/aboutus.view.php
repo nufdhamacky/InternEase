@@ -39,5 +39,6 @@
     </div>
   </div>
 
+  <script src="<?=ROOT?>/js/topbar.js"></script>
 </body>
 </html>

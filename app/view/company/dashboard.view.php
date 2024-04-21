@@ -1,3 +1,8 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +23,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 
@@ -27,23 +32,28 @@
                 <div class ="card">
                     <div>
                         <div class="number">23-Nov 2023</div>
-                        <div class="cardName">Ending Date of Recruitment Period </div>
+                        <div class="cardName">Final Date for Applications</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="calendar-outline"></ion-icon>
                     </div>
                 </div>
+                
                 <div class ="card">
+                <a href="studentReq">
                     <div>
-                        <div class="number">126</div>
+                        <div class="number"><?php echo $companyController->getTotalStudents(); ?></div>
                         <div class="cardName">Total Students Applied</div>
+                        
                     </div>
                     <div class="iconBx">
                         <ion-icon name="people-outline"></ion-icon>
                     </div>
-                    
+                </a>
                 </div>
+           
                 <div class ="card">
+                <a href="shortlistedStu">
                     <div>
                         <div class="number">35</div>
                         <div class="cardName">Total Students Shortlisted</div>
@@ -51,17 +61,19 @@
                     <div class="iconBx">
                         <ion-icon name="person-remove-outline"></ion-icon>
                     </div>
-                    
+                    </a>    
                 </div>
+
                 <div class ="card">
+                <a href="ad">
                     <div>
-                        <div class="number">35</div>
+                        <div class="number"><?php echo $companyController->getTotalAd(); ?></div>
                         <div class="cardName">Total Advertisements</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="document-text-outline"></ion-icon>
                     </div>
-                    
+                </a>   
                 </div>
                 
             </div>
@@ -71,7 +83,7 @@
             <div class="studentdetails">
                 <div class = "cardHeader">
                     <h2>Student Requests</h2>
-                    <a href="#" class="btn">View All</a> 
+                    <a href="studentReq" class="btn">View All</a> 
                 </div>
                 <table>
                     <thead>

@@ -1,0 +1,261 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu' , sans-serif;
+}
+
+body
+{
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url('../../assets/images/inter.jpg');
+    background-size: cover;
+}
+
+.container
+{
+    position: relative;
+    width: 100%;
+}
+
+.navigation 
+{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0b596f;
+    border-left: 10px solid #0B5A6F;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation img
+{
+    width: 150px;
+    margin-left: 60px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.navigation img ul
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li
+{
+    position: relative;
+    width:100%;
+    list-style: none;
+}
+ 
+.navigation ul li:hover
+{
+    background-color: #CFE3EA;
+}
+
+.navigation ul li:nth-child(7)
+{
+    margin-bottom: 50px;
+}
+
+.navigation ul li a
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+}
+
+.navigation ul li a .icon
+{
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon
+{
+    font-size: 0.75cm;
+}
+
+.navigation ul li a .title
+{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    transition: 0.5s;
+}
+
+.topbar{
+    width : 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle{
+    width: 60px;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.user span{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.bell-icon{
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.profile-icon{
+    font-size: 3rem;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.details .compdetails{
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+  min-width: 450px;
+  background: white;
+  padding: 30px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-left: 60px;
+}
+
+.col{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 5px 5px 5px; 
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.col input{
+    border: none;
+    width: 100%;
+    font-size: 15px;
+    color: black;
+    border: 1px solid rgba(11, 90, 111, 1);
+    background-color: #EAEDF1;
+    border-radius: 10px;
+    margin-top: 5px;
+    padding: 10px 10px;
+    height: 30px;
+}
+
+.col input[name="description"] {
+    width: 100%;
+    font-size: 15px;
+    color: black;
+    border: 1px solid rgba(11, 90, 111, 1);
+    background-color: #EAEDF1;
+    border-radius: 10px;
+    margin-top: 5px;
+    padding: 10px 10px;
+    height: 100px;
+    white-space: pre-wrap;
+}
+
+.details .profile-pic{
+    text-align: center;
+}
+
+.details .profile-pic img{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%; /* Make the image round */
+    margin-top: 80px;
+}
+
+.profile-pic label{
+    display: block;
+    width: 150px;
+    background: #0B5A6F;
+    color: #fff;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.profile-pic input{
+    display: none;
+}
+
+.heading-advertisement{
+    display: flex;  
+    flex-direction: row;
+    gap: 25px;
+    font-size: 20px;
+    margin: 10px 0px 25px 50px;
+    color: #0b596f;
+}
+
+.submit {
+    display: flex;
+    justify-content: center; /* Center the button horizontally within the submit div */
+    margin-top: 25px; /* Add margin for spacing */
+}
+
+.submit button {
+    background-color: #0B5A6F; 
+    font-size: 15px;
+    color: white; 
+    width: 80px;
+    border: none;
+    font-weight: bold;
+    padding: 10px 10px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    align-items: center;
+}
