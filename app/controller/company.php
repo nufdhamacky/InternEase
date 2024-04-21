@@ -115,9 +115,7 @@
         public function editProfile(){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $userId = $_SESSION['userId']; // Assuming you have userId in session
-        
-                $ProfilePic = isset($_FILES['profilePic']) ? $_FILES['profilePic'] : $_SESSION['userProfile'];
-                
+
                 $companyName = $_POST['companyName'];
                 $description = $_POST['description'];
                 $website = $_POST['website'];
@@ -129,7 +127,7 @@
                 $companyDetails = new CompanyDetailsModel($userId, $companyName, $contactPerson,$_SESSION['userEmail'], $website, $contactNo, $address, $description);
 
                 // Pass $companyDetails to repository method for database insertion
-                $result = $this->companyDetailsRepository->editCompanyDetails($companyDetails, $ProfilePic);
+                $result = $this->companyDetailsRepository->editCompanyDetails($companyDetails);
         
                 if ($result) {
                     // Redirect after successful submission

@@ -29,7 +29,7 @@
                 
             </div>
 
-            <form action="<?=ROOT?>/company/editProfile" method="POST">    
+            <form action="<?=ROOT?>/company/editProfile" method="POST" enctype="multipart/form-data">    
             <div class="details">
                 <div class="heading-advertisement">
                         <h2>My Profile</h2>

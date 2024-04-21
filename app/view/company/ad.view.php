@@ -1,7 +1,5 @@
 <?php
     include_once('../app/controller/Company.php');
-    $companyController = new Company();
-    $ads = $companyController->getAllAds();
 ?>
 
 <!DOCTYPE html>
