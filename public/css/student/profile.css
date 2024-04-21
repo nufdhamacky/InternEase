@@ -1,0 +1,118 @@
+.content{
+    padding-top: 100px;
+    padding: 20px, 20px;
+    /* justify-content:space-around; */
+    align-items: center;
+    width: 77vw;
+}
+
+.profile-box {
+    
+    width: 90%; /* Set the width of the profile box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #e9d9d9; /* Background color for the profile box */
+    border-radius: 10px; /* Rounded corners for the profile box */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Separator line */
+}
+
+.profile{
+    display: flex;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-name {
+    font-size: 24px;
+}
+
+.edit-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 0px;
+    cursor: pointer;
+    float: right;
+    margin-left: 60%;
+}
+
+.settings-icon {
+    font-size: 24px;
+    color: #3498db;
+    cursor: pointer;
+}
+
+.profile-content {
+    padding: 20px 0;
+    margin-bottom: 20px;
+    
+}
+.input1{
+    display: contents;
+    width: 100%;
+}
+.area2{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    margin: 10px;
+}
+.text-area {
+    margin-bottom: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Full width text areas */
+    padding: 10px;
+    border: 1px solid #0c0808; /* Border for text areas */
+    border-radius: 5px; /* Rounded corners for text areas */
+    background-color:  #CADEE4;; /* Background color for text areas */
+    list-style-type: disc; /* Use disc style for list items */
+    margin-left: 20px;
+}
+
+.text1-area {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.cv-label {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.cv-input {
+    display: none; /* Hide the file input */
+}
+
+.cv-button {
+    background-color: #7ba6be;
+    color: #fff;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+.cv-button:hover {
+    background-color: #1e87d4;
+}
