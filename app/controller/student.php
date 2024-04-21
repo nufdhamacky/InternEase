@@ -17,10 +17,10 @@ class Student extends Controller{
 
     public function wishlist() {
         // Handle AJAX request to add/remove from wishlist
-        // $userId = $_POST['userId'];
-        // $adId = $_POST['adId'];
-        $userId = 11;
-        $adId = 4;
+        $userId = $_POST['userId'];
+        $adId = $_POST['adId'];
+        // $userId = 11;
+        // $adId = 4;
     
         // Instantiate the Wishlist model and perform the required operations
         $wishlistModel = $this->model('Wishlist');

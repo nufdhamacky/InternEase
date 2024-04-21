@@ -113,6 +113,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
 
             // Assuming your data structure includes additional details like 'position', 'modeOfWork', 'internshipPeriod', 'requirements'
             var ad = adData[index];
+            console.log(ad);
 
             adContent.innerHTML = `
                 <span class="close" onclick="closeAdDetails()">&times;</span>
@@ -122,7 +123,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                 <p></strong>Location:</strong> ${ad.location}</p>
                 <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
                 <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                <button onclick="applyToJob(${ad.id})">Apply</button>
+                <button onclick="applyToJob(${ad.id}, ${userId})">Apply</button>
                 <button id="wishlist" onclick="wishlistJob(${ad.id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
             `;
 
@@ -134,7 +135,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
         }
 
         // Function to handle applying to the job
-        function applyToJob() {
+        function applyToJob(adId, userId) {
 
             console.log('Ad ID:', adId);
             console.log('User ID:', userId);
@@ -160,31 +161,65 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
             alert('You have applied to this job!');
         }
 
+        // function wishlistJob(adId, userId) {
+        //     // AJAX request for wishlisting the job
+        //     console.log('Wishlist button clicked');
+
+
+        //     console.log('Ad ID:', adId);
+        //     console.log('User ID:', userId);
+
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open('POST', 'http://localhost/internease/public/student/wishlist', true);
+        //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState === 4) {
+        //             if (xhr.status === 200) {
+        //                 // Handle success
+        //                 document.getElementById('wishlist').innerHTML = `<i style="fill: red;" class="fa-solid fa-heart"></i>`;
+        //                 alert('Job Wishlisted');
+        //             } else {
+        //                 // Handle error
+        //                 console.error('Error wishlisting the job:', xhr.status, xhr.statusText);
+        //             }
+        //         }
+        //     };
+        //     xhr.send('adId=' + adId + '&userId=' + userId);
+        // }
+
         function wishlistJob(adId, userId) {
-            // AJAX request for wishlisting the job
             console.log('Wishlist button clicked');
+            console.log(adId);
+            console.log(userId);
 
+            // Create a form element
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '<?=ROOT?>/student/wishlist'; // Change the action to your wishlist.php script
 
-            console.log('Ad ID:', adId);
-            console.log('User ID:', userId);
+            // Create hidden input fields for adId and userId
+            var adIdInput = document.createElement('input');
+            adIdInput.type = 'hidden';
+            adIdInput.name = 'adId';
+            adIdInput.value = adId;
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '<?=ROOT?>/student/wishlist', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Handle success
-                        document.getElementById('wishlist').innerHTML = `<i style="fill: red;" class="fa-solid fa-heart"></i>`;
-                        alert('Job Wishlisted');
-                    } else {
-                        // Handle error
-                        console.error('Error wishlisting the job:', xhr.status, xhr.statusText);
-                    }
-                }
-            };
-            xhr.send('adId=' + adId + '&userId=' + userId);
+            var userIdInput = document.createElement('input');
+            userIdInput.type = 'hidden';
+            userIdInput.name = 'userId';
+            userIdInput.value = userId;
+
+            // Append the input fields to the form
+            form.appendChild(adIdInput);
+            form.appendChild(userIdInput);
+
+            // Append the form to the document body and submit it
+            document.body.appendChild(form);
+            form.submit();
+
+            // Remove the form from the document body
+            document.body.removeChild(form);
         }
+
 
 
     </script>

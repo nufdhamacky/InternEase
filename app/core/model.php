@@ -52,19 +52,22 @@ class Model extends Database {
     //     return $statement->fetchAll(PDO::FETCH_ASSOC);
     // }
     
-    public function where($column, $value, $result = null) {
+    public function where($column, $value) {
         $query = "SELECT * FROM $this->table WHERE $column = ?";
-        if ($result !== null) {
-            $query .= " AND $column = ?";
-            $stmt = $this->connection->prepare($query);
-            $stmt->bind_param("ss", $value, $value); // Assuming $value is used twice
-        } else {
-            $stmt = $this->connection->prepare($query);
-            $stmt->bind_param("s", $value);
+        $stmt = $this->connection->prepare($query);
+        
+        if ($stmt === false) {
+            throw new Exception("Error preparing statement: " . $this->connection->error);
         }
+        
+        $stmt->bind_param("s", $value);
         $stmt->execute();
-        return $stmt->get_result();
+        
+        $result = $stmt->get_result();
+        return $result;
     }
+    
+    
     
     
     
@@ -89,9 +92,9 @@ class Model extends Database {
             }
     
             // Bind parameters
-            foreach ($data as $key => $value) {
-                $stmt->bindValue(":$key", $value);
-            }
+            $types = str_repeat('s', count($data));
+            $values = array_values($data);
+            $stmt->bind_param($types, ...$values);
     
             $stmt->execute();
     
@@ -103,15 +106,13 @@ class Model extends Database {
             $stmt->close();
             return true;
         } catch (Exception $e) {
-            // Log the detailed error message
             error_log('Database Error: ' . $e->getMessage());
-    
-            // Set the error property for further analysis
             $this->errors[] = $e->getMessage();
             
             return false;
         }
     }
+    
 
     // update data
     public function update($id, $idcolumn, $data) {
