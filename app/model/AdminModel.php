@@ -265,34 +265,47 @@ class AdminModel extends model {
     
     public function get_1stround() {
         $this->setTable('first_round_data');
-        $query = "SELECT COUNT(*) AS selected_cs
-                  FROM first_round_data AS frd 
-                  JOIN student AS s ON frd.applied_id = s.id 
-                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
-
-        $query1 = "SELECT COUNT(*) AS selected_is 
-            FROM first_round_data AS frd 
-            JOIN student AS s ON frd.applied_id = s.id 
-            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
-        
-        $query2 = "SELECT COUNT(*) AS notselected 
-                   FROM first_round_data";
-    
-        $result_cs = $this->connection->query($query);
-        
-        $result_is = $this->connection->query($query1);
-        $result3 = $this->connection->query($query2);
-    
-        $total_1st_cs = $result_cs->fetch_assoc()['selected_cs'];
-        $total_1st_is = $result_is->fetch_assoc()['selected_is'];
-        $not_selected = $result3->fetch_assoc()['notselected'];
-    
+      
+        $query_cs = "SELECT COUNT(*) AS selected_cs
+                      FROM first_round_data AS frd 
+                      JOIN student AS s ON frd.applied_id = s.id 
+                      WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
+      
+        $query_is = "SELECT COUNT(*) AS selected_is 
+                    FROM first_round_data AS frd 
+                    JOIN student AS s ON frd.applied_id = s.id 
+                    WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
+      
+        $query_not_selected = "SELECT COUNT(*) AS notselected 
+                               FROM first_round_data";
+      
+        $result_cs = $this->connection->query($query_cs);
+        $result_is = $this->connection->query($query_is);
+        $result3 = $this->connection->query($query_not_selected);
+      
+        // Check if any errors occurred during queries
+        if (!$result_cs || !$result_is || !$result3) {
+          // Handle the error here, potentially throw an exception or log the error
+          return null;
+        }
+      
+        // Use fetch_object to get results as objects
+        $data_cs = $result_cs->fetch_object();
+        $data_is = $result_is->fetch_object();
+        $data_not_selected = $result3->fetch_object();
+      
+        // Access data using object properties
+        $total_1st_cs = $data_cs->selected_cs;
+        $total_1st_is = $data_is->selected_is;
+        $not_selected = $data_not_selected->notselected;
+      
         return [
-            'total_1st_cs' => $total_1st_cs,
-            'total_1st_is' => $total_1st_is,
-            'applied' => $not_selected,
+          'total_1st_cs' => $total_1st_cs,
+          'total_1st_is' => $total_1st_is,
+          'applied' => $not_selected,
         ];
-    }
+      }
+      
     
     public function getPDC() {
         return $this->findall();
