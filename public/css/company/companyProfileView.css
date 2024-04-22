@@ -201,6 +201,19 @@ body
     font-weight: bold;
 }
 
+.description .image-container {
+    display: flex;  /* Center the image */
+    justify-content: center;
+    margin-top: 20px;  /* Add margin to separate from other elements */
+}
+
+.description .image-container img {
+    max-width: 80%;  /* Limit the width to prevent overflow */
+    height: auto;    /* Maintain aspect ratio */
+    border-radius: 10px;  /* Optional: add border radius for aesthetics */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional: add a subtle shadow */
+}
+
 .name h1{
     margin-bottom: 70px;
     font-size: 50px;

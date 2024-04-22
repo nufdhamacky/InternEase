@@ -64,6 +64,9 @@
                                         EDIT
                                 </div>
                             </a>
+                            <div class="image-container">
+                                <img src="<?=ROOT?>/assets/images/pro1.png">
+                            </div>
 
                         </div>
                     </div>
