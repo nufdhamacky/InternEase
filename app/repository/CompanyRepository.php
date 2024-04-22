@@ -80,7 +80,7 @@ class CompanyRepository
                 $row['email'],
                 $row['contact_no'],
                 $row['contact_person'],
-                $row['website'],
+                $row['company_site'],
                 $row['user_status']
             );
 
@@ -109,7 +109,7 @@ class CompanyRepository
                 $row['email'],
                 $row['contact_no'],
                 $row['contact_person'],
-                $row['website'],
+                $row['company_site'],
                 $row['user_status']
             );
 
@@ -141,7 +141,7 @@ class CompanyRepository
                 $row['email'],
                 $row['contact_no'],
                 $row['contact_person'],
-                $row['website'],
+                $row['company_site'],
                 $row['user_status']
             );
 

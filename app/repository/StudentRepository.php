@@ -64,7 +64,7 @@ class StudentRepository
             $adList = [];
 
             while ($r = $companyResult->fetch_assoc()) {
-                $company = new MyCompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
+                $company = new MyCompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['company_site'],
                     1);
                 $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
                 $ad->firstRoundData = new FirstRoundDataModel($r["apply_status"]);
@@ -102,7 +102,7 @@ class StudentRepository
             $adList = [];
 
             while ($r = $companyResult->fetch_assoc()) {
-                $company = new MyCompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['website'],
+                $company = new MyCompanyModel($r["user_id"], $r["company_name"], $r["email"], $r["contact_no"], $r["contact_person"], $r['company_site'],
                     1);
                 $ad = new CompanyAdModel($r["ad_id"], $r["position"], $r["requirements"], $r["no_of_intern"], $r["working_mode"], $r["from_date"], $r["to_date"], $r["company_id"], $r["qualification"], $company, $r["status"]);
                 $ad->firstRoundData = new FirstRoundDataModel($r["apply_status"]);

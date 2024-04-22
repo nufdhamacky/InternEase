@@ -20,14 +20,16 @@ class User
 
                     $sql = "SELECT * FROM company WHERE user_id = {$row['user_id']}";
                     $result1 = $conn->query($sql);
-
-                    $_SESSION['userId'] = $row['user_id'];
-                    $_SESSION['companyName'] = $result1->fetch_assoc()['company_name'];
-                    $_SESSION['userRole'] = $row['user_role'];
-                    $_SESSION['userProfile'] = $row['user_profile'];
-
-                    return 1;
-
+                    if ($result1->num_rows > 0) {
+                        $_SESSION['userId'] = $row['user_id'];
+                        $_SESSION['companyName'] = $result1->fetch_assoc()['company_name'];
+                        $_SESSION['userRole'] = $row['user_role'];
+                        $_SESSION['userProfile'] = $row['user_profile'];
+                        $_SESSION['userStatus'] = $row['user_status'];
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 } else {
                     return 0;
                 }
