@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="description">
-                            <p><?php echo $companyDetails->description ?></p><br>
+                            <p><?php echo isset($companyDetails->description) ? $companyDetails->description : " "; ?></p><br>
                             
                             <a href="https://<?php echo $companyDetails->company_site ?>">
                                 <div class="link">                              
