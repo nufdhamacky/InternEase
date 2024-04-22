@@ -36,6 +36,7 @@
             <div class="notibutton tooltip">
                         <div>Black Listed Companies</div>
                         <div><?php echo htmlspecialchars($BL['count']); ?>
+                        <?php if(!empty($BL['blacklistedCompanies'])):?>
                         <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
                             <span class="tooltiptext">
                             <?php
@@ -46,6 +47,7 @@
                                 }
                             }
                             ?> 
+                            <?php endif ?>
                              </span>
                         </div>
 
