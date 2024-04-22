@@ -23,60 +23,66 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
+                    <?php $companyDetails = $data['userDetails'] ?>
                     <span><?php echo $_SESSION['companyName']; ?></span>
-                    <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
                 
             </div>
 
-            <form method="POST">    
+            <form action="<?=ROOT?>/company/editProfile" method="POST" enctype="multipart/form-data">    
             <div class="details">
                 <div class="heading-advertisement">
                         <h2>My Profile</h2>
                 </div>
                 
                 <div class="profile-pic">
-                    <img src="<?=ROOT?>/assets/images/profile.png" alt="Profile Picture" class="pro-img">
+                    <img src="<?=ROOT?>/assets/profile/<?= $_SESSION['userProfile'] ?>" alt="Profile Picture" class="pro-img">
                     <label for="input-file">Upload Logo</label>
-                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+                    <input name="profilePic" type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" value="<?= $_SESSION['userProfile'] ?>">
                 </div>
 
                 <div class="compdetails">
-                    <form action="" method="POST">
+                    
                         <h4>Company Name: </h4>
                         <div class="col">
-                            <input type="text" name="companyName" class="box1" value="">
+                            <input type="text" name="companyName" class="box1" value="<?= $companyDetails->companyname ?>">
                             <br>
                         </div>
 
                         <h4>Description: </h4>
                         <div class="col">
-                            <input type="text" name="description" class="box1" value="">
+                            <input type="text" name="description" class="box1" value="<?= $companyDetails->description ?>">
                             <br>
                         </div>
 
                         <h4>Website: </h4>
                         <div class="col">
-                            <input type="text" name="website" class="box1" value="">
+                            <input type="text" name="website" class="box1" value="<?= $companyDetails->website ?>">
                             <br>
                         </div>
 
                         <h4>Contact Person: </h4>
                         <div class="col">
-                            <input type="text" name="contperson" class="box1" value="">
+                            <input type="text" name="contactPerson" class="box1" value="<?= $companyDetails->contactperson ?>">
+                            <br>
+                        </div>
+
+                        <h4>Contact Number: </h4>
+                        <div class="col">
+                            <input type="text" name="contactNo" class="box1" value="<?= $companyDetails->contactno ?>">
                             <br>
                         </div>
 
                         <h4>Address: </h4>
                         <div class="col">
-                            <input type="text" name="address" class="box1" value="">
+                            <input type="text" name="address" class="box1" value="<?= $companyDetails->address ?>">
                             <br>
                         </div>
                         
                         <div class="submit">
                             <button type="submit">SAVE</button>
                         </div>
-                    </form>
+
                 </div>
             </div>
             </form>

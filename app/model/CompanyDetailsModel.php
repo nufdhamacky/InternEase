@@ -7,11 +7,11 @@ class CompanyDetailsModel{
     public $email;
     public $website;
     public $contactno;
-    public $logo;
     public $address;
     public $description;
+    public $company_site;
 
-    public function __construct($userId, $companyname, $contactperson, $email, $website, $contactno, $logo, $address, $description){
+    public function __construct($userId, $companyname, $contactperson, $email, $website, $contactno, $address, $description, $company_site){
 
         $this->userId = $userId;
         $this->companyname = $companyname;
@@ -19,8 +19,8 @@ class CompanyDetailsModel{
         $this->email = $email;
         $this->website = $website;
         $this->contactno = $contactno;
-        $this->logo = $logo;
         $this->address = $address;
         $this->description = $description;
+        $this->company_site = $company_site;
     }
 }

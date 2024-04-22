@@ -162,7 +162,8 @@ body
   flex-direction: column;
   min-height: 450px;
   min-width: 450px;
-  background: white;
+  background-image: url('../../assets/images/profilebg.jpg');
+  /* background: white; */
   padding: 30px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -258,4 +259,10 @@ body
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
+}
+
+.profilePic{
+    width: 150px;
+    height: 150px;
+    background-color: #0B5A6F;
 }

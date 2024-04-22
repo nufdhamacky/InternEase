@@ -101,7 +101,11 @@
             
             //store psot varialble in local variable
             $company = $_POST['companyName'];
+            $contactPerson = $_POST['contactPerson'];
+            $contactNo = $_POST['contactNo'];    
+            $compsite = $_POST['compsite'];
             $email = $_POST['email'];
+            $address = $_POST['address'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirmPassword'];
 
@@ -120,7 +124,7 @@
                 $user = $this->model('User');
 
                 //calling signup function from user model to check signup
-                $signupAccess = $user->signup($company, $email, $password, $this->conn);
+                $signupAccess = $user->signup($company, $email, $password, $compsite, $address, $contactPerson, $contactNo, $this->conn);
 
                 if($signupAccess == 0){
                     $data['signupError'] = 'Email already registered !';
@@ -131,7 +135,7 @@
                     $this->view('home/signup', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/company/index';</script>";
+                    echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
                 }
 
             } else {

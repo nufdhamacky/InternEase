@@ -26,35 +26,7 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td>Hamsayini</td>
-                <td>21020337</td>
-                <td>sayisenthil@gmail.com</td>
-                <td>1</td>
-                <td>IBM<br> Virtusa <br> 99X <br> CodeGen <br>Sysco Labs <br></td>
-                <td colspan="5"></td>
-                <td colspan="5"><a href="#" class="view">View</td>
-            </tr>
-
-            <tr>
-                <td>Nufdha</td>
-                <td>21020698</td>
-                <td>nufdha@gmail.com</td>
-                <td>1</td>
-                <td>WSO2 <br> Applexus <br> CodeGen <br> IFS <br>Sysco Labs <br></td>
-                <td colspan="5"></td>
-                <td colspan="5"><a href="#" class="view">View</td>
-            </tr>
-
-            <tr>
-                <td>Achchu</td>
-                <td>21020045</td>
-                <td>achcu@gmail.com</td>
-                <td>2</td>
-                <td colspan="3"></td>
-                <td colspan="6"> Business Analyst <br> Quality Assurance <br> Software Engineer <br></td>
-                <td colspan="6"><a href="#" span class="view"></span>View</td>
-            </tr>
+           
 
             <!-- <tr>
                 <td>Sharmi</td>
