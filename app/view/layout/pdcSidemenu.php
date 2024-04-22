@@ -44,10 +44,10 @@
             </a>
         </li>
         <li>
-            <a href="#" id="profile">
-                <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
-                <span class="title">Profile</span>
-            </a>
+            <!--            <a href="#" id="profile">-->
+            <!--                <span class="icon"><ion-icon name="person-outline"></ion-icon></span>-->
+            <!--                <span class="title">Profile</span>-->
+            <!--            </a>-->
         </li>
         <li>
             <a href="logout">

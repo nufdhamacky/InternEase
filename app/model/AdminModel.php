@@ -122,27 +122,27 @@ class AdminModel extends model {
                 WHERE u.user_status = 2 AND u.user_role = 'company'";
         
         $results = $this->query($query);
+        $blacklistedCompanies = [];
+        $count = 0;
 
         if (is_array($results)) {
             // Check if the array is not empty
             if (!empty($results)) {
                 $count = count($results); // Count the number of rows in the array
                 // Extract company names from the results
-                $blacklistedCompanies = [];
+               
                 foreach ($results as $row) {
                     $blacklistedCompanies[] = $row['company_name'];
                 }
-
-                $data =[
-                    'blacklistedCompanies'=> $blacklistedCompanies,
-                    'count' => $count,
-                ];
-                return $data;
-            } else {
-                return []; 
             }
+
+            $data =[
+                'blacklistedCompanies'=> $blacklistedCompanies,
+                'count' => $count,
+            ];
+            return $data; 
         } else {
-            return []; 
+            return false;
         }
     }
 
@@ -207,18 +207,19 @@ class AdminModel extends model {
 
     public function get_2ndround() {
         $this->setTable('second_round_data');
-        $query = "SELECT COUNT(*) AS selected_cs
-                  FROM second_round_data AS frd 
-                  JOIN student AS s ON frd.applied_id = s.id 
-                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
 
-        $query1 = "SELECT COUNT(*) AS selected_is 
-            FROM second_round_data AS frd 
-            JOIN student AS s ON frd.applied_id = s.id 
-            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
-        
+        $query = "SELECT COUNT(*) AS selected_cs
+        FROM second_round_data AS frd 
+        JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
+
+        $query1 = "SELECT COUNT(*) AS selected_is
+        FROM second_round_data AS frd 
+        JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
+
         $query2 = "SELECT COUNT(*) AS notselected 
-                   FROM second_round_data";
+                   FROM applyadvertisement where round_id=2";
     
         $result_cs = $this->connection->query($query);
         
@@ -268,16 +269,16 @@ class AdminModel extends model {
       
         $query_cs = "SELECT COUNT(*) AS selected_cs
                       FROM first_round_data AS frd 
-                      JOIN student AS s ON frd.applied_id = s.id 
-                      WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
+                      JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+                      WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
       
-        $query_is = "SELECT COUNT(*) AS selected_is 
-                    FROM first_round_data AS frd 
-                    JOIN student AS s ON frd.applied_id = s.id 
-                    WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
-      
+        $query_is = "SELECT COUNT(*) AS selected_is
+                FROM first_round_data AS frd 
+                JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+                WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
+
         $query_not_selected = "SELECT COUNT(*) AS notselected 
-                               FROM first_round_data";
+                               FROM applyadvertisement where round_id=1";
       
         $result_cs = $this->connection->query($query_cs);
         $result_is = $this->connection->query($query_is);

@@ -39,9 +39,11 @@
                         <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
                             <span class="tooltiptext">
                             <?php
-                            foreach ($BL['blacklistedCompanies'] as $bcompany) {
-                                echo htmlspecialchars($bcompany);
-                                echo "<br>";
+                            if(!empty($BL['blacklistedCompanies'] && isset($BL['blacklistedCompanies']) )){
+                                foreach ($BL['blacklistedCompanies'] as $bcompany) {
+                                    echo htmlspecialchars($bcompany);
+                                    echo "<br>";
+                                }
                             }
                             ?> 
                              </span>
@@ -137,7 +139,7 @@
                                 <td><?php echo htmlspecialchars($company['company_name']);?></td>
                                 <td><?php echo htmlspecialchars($company['contact_person']); ?></td>
                                 <td><?php echo htmlspecialchars($company['contact_no']); ?></td>
-                                <td><?php echo htmlspecialchars($company['Email']); ?></td>
+                                <td><?php echo htmlspecialchars($company['email']); ?></td>
                             </tr>
 
                         <?php endforeach; ?>
