@@ -25,4 +25,9 @@
             require_once '../app/view/' . $view . '.view.php';
         }
 
+        protected function redirect($url) {
+            header("Location: " . ROOT . "/" . $url);
+            exit;
+        }
+
     }  

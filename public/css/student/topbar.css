@@ -14,10 +14,11 @@
     background-color: var(--primary);
     color: #000;
     padding: 7px; 
-    z-index: 1000;
+    z-index: 100;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.2px);
+    
     -webkit-backdrop-filter: blur(5.2px);
+    backdrop-filter: blur(5.2px);
     border: 1px solid rgba(190, 102, 102, 0.29);
     max-height: 100px;
     
@@ -87,16 +88,18 @@ div.title{
 .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%; /* For a circular avatar */
+    border-radius: 50%; 
 }
 
-/* Add this to your CSS or style tag */
+
 .notifications-container {
+    display: none;
     position: fixed;
-    top: 20px;
+    top: 100px;
     right: 20px;
     max-width: 300px;
     z-index: 1000;
+    border: #000;
 }
 
 .notification {

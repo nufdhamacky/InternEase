@@ -18,6 +18,9 @@ $pageTitle = ucwords(str_replace("_", " ", $page));
 if ($pageTitle === '') {
     $pageTitle = 'Home';
 }
+
+$notifmodel = $this->model('Notification');
+$notifications = $notifmodel->fetchNotifs($_SESSION['userId']);
 ?>
 
 <header class="top-bar">
@@ -26,7 +29,7 @@ if ($pageTitle === '') {
     <div class="grid-container">
         <div class="grid-items">
             <div class="user-profile">
-                <div class="username">Shamah</div>
+                <div class="username"><?= $_SESSION["companyName"]; ?></div>
                 <a href="<?=ROOT?>/student/profile"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
             </div>
             <!-- notification-->
@@ -52,7 +55,47 @@ if ($pageTitle === '') {
 </div>
 
 <script>
-    
-    // Function to display notifications dynamically
-    
+    // Function to display notifications when the bell icon is clicked
+    document.addEventListener("DOMContentLoaded", function () {
+        var notificationIcon = document.querySelector('.notify');
+        var notificationsContainer = document.querySelector('.notifications-container');
+
+        // Toggle the visibility of the notifications container when the notification icon is clicked
+        notificationIcon.addEventListener('click', () => {
+            notificationsContainer.style.display = notificationsContainer.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+
+    // Function to fetch notifications from the server
+    function displayNotifications() {
+        // Make an AJAX request to fetch notifications from the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?= ROOT ?>/student/notification', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Parse the JSON response
+                var notifications = JSON.parse(xhr.responseText);
+
+                // Clear existing notifications
+                var notificationsContainer = document.querySelector('.notifications-container');
+                notificationsContainer.innerHTML = '';
+
+                // Display new notifications
+                notifications.forEach(function(notification) {
+                    var notificationElement = document.createElement('div');
+                    notificationElement.classList.add('notification');
+                    notificationElement.innerHTML = '<p class="message">' + notification.message + '</p>' +
+                        '<p class="created-at">' + notification.created_at + '</p>';
+                    notificationsContainer.appendChild(notificationElement);
+                });
+            }
+        };
+        xhr.send();
+    }
+
+    // Call the function initially to display notifications on page load
+    displayNotifications();
+
+    // Optionally, you can refresh notifications at a specific interval
+    setInterval(displayNotifications, 60000); 
 </script>

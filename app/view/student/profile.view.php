@@ -70,10 +70,8 @@
     // Handle form submission
     document.getElementById("editForm").addEventListener("submit", function(event) {
         event.preventDefault();
-
         var formData = new FormData(event.target);
         formData.append("userId", <?= $studentData['user_id'] ?>);
-
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "<?= ROOT ?>/student/updateProfile", true);
         xhr.onreadystatechange = function() {

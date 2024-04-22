@@ -26,12 +26,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="selectionlist">
-                        <span class="icon"><i class="fa-solid fa-rectangle-list"></i></ion-icon></span>
-                        <span class="title">Selection List</span>
-                    </a>
-                </li>
-                <li>
                     <a href="logout" class="logout">
                         <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
                         <span class="title">Sign-out</span>

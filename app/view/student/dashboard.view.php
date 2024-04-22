@@ -8,7 +8,7 @@
 
             <div class="cards">
                 <div class="card">
-                    <div class="info">6</div>
+                    <div class="info"><?php echo isset($data['appliedAdsCount']) ? $data['appliedAdsCount'] : '0'; ?></div>
                     <div class="descr">
                         Jobs Applied
                     </div>
@@ -110,7 +110,7 @@
 
                     <h2>Internship Applications</h2>
                     <a style="text-decoration: none" href="advertisement.php">
-                        <a href="advertisement" class="btn">View All</a>
+                        <a href="applied" class="btn">View All</a>
                     </a>
                 </div>
                 <table>
@@ -125,8 +125,8 @@
                     <tbody>
                    
                     <?php
-                    if (isset($data['data']) && is_array($data['data'])) {
-                        foreach ($data['data'] as $index => $ad) {
+                    if (isset($data['appliedAds']) && is_array($data['appliedAds'])) {
+                        foreach ($data['appliedAds'] as $ad) {
                             echo '<tr>';
                             echo '<td>' . $ad['company_name'] . '</td>';
                             echo '<td>' . $ad['position'] . '</td>';

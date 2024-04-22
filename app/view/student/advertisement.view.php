@@ -51,20 +51,20 @@
             <h2>Job Role Preferences</h2>
             <form id="preferencesForm">
                 <?php
-                    // Assume $jobRoles is an array of available IT internship roles
-                    $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
-                    
-                    for ($i = 1; $i <= 7; $i++) {
-                        echo "<label for='preference$i'>Preference $i:</label>";
-                        echo "<select name='preference$i' id='preference$i'>";
-                        
-                        // Add options for each job role
-                        foreach ($jobRoles as $role) {
-                            echo "<option value='$role'>$role</option>";
-                        }
+                // Assume $jobRoles is an array of available IT internship roles
+                $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
 
-                        echo "</select><br>";
+                for ($i = 1; $i <= 3; $i++) {
+                    echo "<label for='preference$i'>Preference $i:</label>";
+                    echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
+                    echo "<option value=''>None</option>"; // Add None option as the default
+                    // Add options for each job role
+                    foreach ($jobRoles as $role) {
+                        echo "<option value='$role'>$role</option>";
                     }
+
+                    echo "</select><br>";
+                }
                 ?>
                 <input type="submit" value="Save Preferences">
             </form>
@@ -123,7 +123,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                 <p></strong>Location:</strong> ${ad.location}</p>
                 <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
                 <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                <button onclick="applyToJob(${ad.id}, ${userId})">Apply</button>
+                <button id="apply" onclick="applyToJob(${ad.id}, ${userId})">Apply</button>
                 <button id="wishlist" onclick="wishlistJob(${ad.id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
             `;
 
@@ -134,32 +134,6 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
             document.getElementById('adDetailsWindow').style.display = 'none';
         }
 
-        // Function to handle applying to the job
-        function applyToJob(adId, userId) {
-
-            console.log('Ad ID:', adId);
-            console.log('User ID:', userId);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '<?=ROOT?>/student/apply', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Handle success
-                        document.getElementById('wishlist').innerHTML = `<i style="fill: red;" class="fa-solid fa-heart"></i>`;
-                        alert('Job Wishlisted');
-                    } else {
-                        // Handle error
-                        console.error('Error wishlisting the job:', xhr.status, xhr.statusText);
-                    }
-                }
-            };
-            xhr.send('adId=' + adId + '&userId=' + userId);
-            
-
-            alert('You have applied to this job!');
-        }
 
         // function wishlistJob(adId, userId) {
         //     // AJAX request for wishlisting the job
@@ -187,39 +161,98 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
         //     xhr.send('adId=' + adId + '&userId=' + userId);
         // }
 
-        function wishlistJob(adId, userId) {
-            console.log('Wishlist button clicked');
-            console.log(adId);
-            console.log(userId);
+        function applyToJob(adId, userId) {
+            console.log('Apply button clicked');
+            console.log('Ad ID:', adId);
+            console.log('User ID:', userId);
 
-            // Create a form element
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '<?=ROOT?>/student/wishlist'; // Change the action to your wishlist.php script
-
-            // Create hidden input fields for adId and userId
-            var adIdInput = document.createElement('input');
-            adIdInput.type = 'hidden';
-            adIdInput.name = 'adId';
-            adIdInput.value = adId;
-
-            var userIdInput = document.createElement('input');
-            userIdInput.type = 'hidden';
-            userIdInput.name = 'userId';
-            userIdInput.value = userId;
-
-            // Append the input fields to the form
-            form.appendChild(adIdInput);
-            form.appendChild(userIdInput);
-
-            // Append the form to the document body and submit it
-            document.body.appendChild(form);
-            form.submit();
-
-            // Remove the form from the document body
-            document.body.removeChild(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '<?= ROOT ?>/student/apply', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Handle success
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            // Update the UI to reflect the apply status
+                            var applyButton = document.getElementById('apply');
+                            applyButton.style.background = 'violet';
+                            applyButton.innerHTML = `Applied`;
+                            alert('Applied to Job');
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    } else {
+                        // Handle error
+                        console.error('Error wishlisting the job:', xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            xhr.send('adId=' + adId + '&userId=' + userId);
         }
 
+        function wishlistJob(adId, userId) {
+            console.log('Wishlist button clicked');
+            console.log('Ad ID:', adId);
+            console.log('User ID:', userId);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '<?= ROOT ?>/student/wishlist', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Handle success
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            // Update the UI to reflect the wishlist status
+                            var wishlistButton = document.getElementById('wishlist');
+                            wishlistButton.innerHTML = `<i style="fill: red;" class="fa-solid fa-heart"></i>`;
+                            alert('Job Wishlisted');
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    } else {
+                        // Handle error
+                        console.error('Error wishlisting the job:', xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            xhr.send('adId=' + adId + '&userId=' + userId);
+        }
+
+
+        function updateOptions(select) {
+            var preferenceSelects = document.getElementsByClassName('preference');
+            var selectedOptions = [];
+
+            // Collect all selected options
+            for (var i = 0; i < preferenceSelects.length; i++) {
+                if (preferenceSelects[i].value !== '') {
+                    selectedOptions.push(preferenceSelects[i].value);
+                }
+            }
+
+            // Iterate through all select boxes
+            for (var i = 0; i < preferenceSelects.length; i++) {
+                var options = preferenceSelects[i].getElementsByTagName('option');
+                // Reset all options to enabled
+                for (var j = 0; j < options.length; j++) {
+                    options[j].disabled = false;
+                }
+                // Disable selected options in other select boxes
+                if (preferenceSelects[i] !== select) {
+                    for (var j = 0; j < options.length; j++) {
+                        if (selectedOptions.includes(options[j].value)) {
+                            options[j].disabled = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        
 
 
     </script>
