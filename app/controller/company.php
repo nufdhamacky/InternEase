@@ -257,8 +257,8 @@
              // Assuming you have a company_id available somewhere
              $companyId = $_SESSION['userId'];
              
-             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification);
-             
+             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification); 
+
              $result = $this->advertisementRepository->save($advertisement);
 
             if($result){

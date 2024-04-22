@@ -10,7 +10,7 @@ class AdvertisementRepository{
     } 
 
 
-    public function save(AdvertisementModel $advertisement): ?AdvertisementModel {
+    public function save(AdvertisementModel $advertisement) {
 
         $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     
@@ -27,7 +27,7 @@ class AdvertisementRepository{
         $result = $stmt->execute();
     
         if ($result) {
-            return $advertisement;
+            return true;
         } else {
             // Handle the error, return null or throw an exception
             return null;
@@ -35,7 +35,8 @@ class AdvertisementRepository{
     }
 
     public function getAllAdvertisements(): array {
-        $sql = "SELECT * FROM company_ad";
+        $companyId = $_SESSION['userId']; 
+        $sql = "SELECT * FROM company_ad WHERE company_id='$companyId'";
         $result = $this->conn->query($sql);
 
         $advertisements = [];

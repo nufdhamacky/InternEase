@@ -1,8 +1,7 @@
 <?php
 
 class AdvertisementModel{
-    public $id;   
-    public $adId;
+    
     public $position;
     public $req;
     public $interns;

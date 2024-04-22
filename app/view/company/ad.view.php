@@ -1,10 +1,7 @@
 <?php
     include_once('../app/controller/Company.php');
-    $companyController = new Company();
-    $ads = $companyController->getTotalAd();
-    if (!is_array($ads)) {
-        $ads = []; // Default to an empty array if it's not valid
-    }
+
+    $allAdvertisements = $data['advertisements'];
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +64,7 @@
 
                         <tbody>
                             <?php 
-                                foreach($ads as $ad){ ?>
+                                foreach($allAdvertisements as $ad){ ?>
                                     <tr>
                                         <td><?php echo $ad->position; ?> </td>
                                         <td><?php echo $ad->req; ?> </td>
