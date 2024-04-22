@@ -17,24 +17,30 @@
         
             <div class="notibutton">
                     <div> 1st Round Selections (total applied:<?php   echo htmlspecialchars($first_round_data['applied']);?>) </div>
-                    <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> , CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?>  
-                    <ion-icon  name="briefcase" size="medium"></ion-icon></div>
+                    <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div><div> CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
+                    <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
+
             </div>
 
             
             <div class="notibutton">
                     <div> 2nd Round Selections (total applied:<?php   echo htmlspecialchars($second_round_data['applied_2nd']);?>) </div>
-                    <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> , CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?>  
-                    <ion-icon  name="briefcase" size="medium"></ion-icon></div>
+                    <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div><div> CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
+                    <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
             </div>
 
             <div class="notibutton">
                     <div>Total Students:<?php echo htmlspecialchars($students['IS']+$students['CS']); ?></div>
-                    <div>IS: <?php echo htmlspecialchars($students['IS']); ?> CS: <?php echo htmlspecialchars($students['CS']); ?></div>
+                    <div></div>
+                    <div></div>
+                    <div>IS: <?php echo htmlspecialchars($students['IS']); ?> </div><div> CS: <?php echo htmlspecialchars($students['CS']); ?></div>
             </div>
 
             <div class="notibutton tooltip">
                         <div>Black Listed Companies</div>
+                        
+                        <div></div>
+                        <div></div>
                         <div><?php echo htmlspecialchars($BL['count']); ?>
                         <?php if(!empty($BL['blacklistedCompanies'])):?>
                         <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
@@ -50,6 +56,8 @@
                             <?php endif ?>
                              </span>
                         </div>
+                        <div></div>
+                        <div></div>
 
                 </div>  
 
