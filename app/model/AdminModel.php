@@ -122,27 +122,27 @@ class AdminModel extends model {
                 WHERE u.user_status = 2 AND u.user_role = 'company'";
         
         $results = $this->query($query);
+        $blacklistedCompanies = [];
+        $count = 0;
 
         if (is_array($results)) {
             // Check if the array is not empty
             if (!empty($results)) {
                 $count = count($results); // Count the number of rows in the array
                 // Extract company names from the results
-                $blacklistedCompanies = [];
+               
                 foreach ($results as $row) {
                     $blacklistedCompanies[] = $row['company_name'];
                 }
-
-                $data =[
-                    'blacklistedCompanies'=> $blacklistedCompanies,
-                    'count' => $count,
-                ];
-                return $data;
-            } else {
-                return []; 
             }
+
+            $data =[
+                'blacklistedCompanies'=> $blacklistedCompanies,
+                'count' => $count,
+            ];
+            return $data; 
         } else {
-            return []; 
+            return false;
         }
     }
 

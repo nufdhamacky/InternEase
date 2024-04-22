@@ -105,7 +105,7 @@ class Admin extends Controller {
             $trend = $adminModel->companyInternTrend();
             $trend2 = $adminModel->PositionTrend();
          
-            $data = array(
+            $data = [
                // '1stData'=> $firstround,
                'companylist'=> $trend['companies'],
                'years' => $trend['years'],
@@ -122,7 +122,7 @@ class Admin extends Controller {
                 'first_round_data' => $adminModel->get_1stround(),
                 'second_round_data' => $adminModel->get_2ndround(),
                
-            );           
+            ];           
             
             $this->view('admin/index', $data);
 
