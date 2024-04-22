@@ -32,7 +32,7 @@ class CompanyAdRepository
         $result = $this->conn->query($sql);
         $list = [];
         while ($row = $result->fetch_assoc()) {
-            $company = new MyCompanyModel($row["user_id"], $row["company_name"], $row["email"], $row["contact_no"], $row["contact_person"], $row["website"], $row["user_status"]);
+            $company = new MyCompanyModel($row["user_id"], $row["company_name"], $row["email"], $row["contact_no"], $row["contact_person"], $row["company_site"], $row["user_status"]);
             $ad = new CompanyAdModel($row["ad_id"], $row["position"], $row["requirements"], $row["no_of_intern"], $row["working_mode"], $row["from_date"], $row["to_date"], $row["company_id"], $row["qualification"], $company, $row["status"]);
 
             $value = $ad;

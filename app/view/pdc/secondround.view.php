@@ -65,6 +65,7 @@ $students = $roundController->getSecondRoundStudents();
                                 <input type="date" id="editStartDate"
                                        name="start_date"
                                        value="<?php echo $secondRound == null ? "" : $secondRound->startDate; ?>"
+                                       onchange="validateSaveBtn()"
                                        class="bx1">
                             </div>
                             <h4 class="h4">to</h4>
@@ -73,6 +74,7 @@ $students = $roundController->getSecondRoundStudents();
                                 <input type="date" id="editEndDate"
                                        name="end_date"
                                        value="<?php echo $secondRound == null ? "" : $secondRound->endDate; ?>"
+                                       onchange="validateSaveBtn()"
                                        class="bx1">
                             </div>
                         </div>
@@ -86,7 +88,7 @@ $students = $roundController->getSecondRoundStudents();
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="submit">
+                        <div class="submit" id="saveBtn">
                             <button onclick="saveChanges()">SAVE</button>
                         </div>
                     </form>
@@ -134,8 +136,26 @@ $students = $roundController->getSecondRoundStudents();
 
     <script>
         function editSection() {
+            document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('viewSection').style.display = 'none';
             document.getElementById('editSection').style.display = 'block';
+        }
+
+        function validateSaveBtn() {
+            const startDate = document.getElementById('editStartDate').value;
+            const endDate = document.getElementById('editEndDate').value;
+            const advertisementCount = document.getElementById('editAdvertisementCount').value;
+
+            if (startDate === "" || endDate === "" || advertisementCount === "") {
+                document.getElementById('saveBtn').style.display = 'none';
+            } else {
+                if (new Date(startDate) > new Date(endDate)) {
+                    alert("Start date should be less than end date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    return;
+                }
+                document.getElementById('saveBtn').style.display = 'block';
+            }
         }
 
         function saveChanges() {

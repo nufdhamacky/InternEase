@@ -55,7 +55,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                     </h4>
                 </div>
 
-                <div class="submit">
+                <div class="submit" id="editBtn">
                     <button onclick="editSection()">EDIT</button>
                 </div>
 
@@ -169,6 +169,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
         function editSection() {
             document.getElementById('viewSection').style.display = 'none';
             document.getElementById('editSection').style.display = 'block';
+            document.getElementById('editBtn').style.display = 'none';
         }
 
         function saveChanges() {
@@ -181,6 +182,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
             // Show the original values and hide the edit section
             document.getElementById('viewSection').style.display = 'block';
             document.getElementById('editSection').style.display = 'none';
+            document.getElementById('editBtn').style.display = 'block';
         }
     </script>
 </body>
