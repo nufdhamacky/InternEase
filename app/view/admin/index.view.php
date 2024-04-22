@@ -139,7 +139,7 @@
                                 <td><?php echo htmlspecialchars($company['company_name']);?></td>
                                 <td><?php echo htmlspecialchars($company['contact_person']); ?></td>
                                 <td><?php echo htmlspecialchars($company['contact_no']); ?></td>
-                                <td><?php echo htmlspecialchars($company['Email']); ?></td>
+                                <td><?php echo htmlspecialchars($company['email']); ?></td>
                             </tr>
 
                         <?php endforeach; ?>
