@@ -53,13 +53,13 @@ class StudentRepository
 
     public function filter($roundId, $companyId): array
     {
-        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by JOIN firstrounddata f ON f.applied_id=a.id JOIN company_ad c ON c.ad_id=f.ad_id WHERE a.round_id = $roundId and c.company_id=$companyId";
+        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by JOIN first_round_data f ON f.applied_id=a.id JOIN company_ad c ON c.ad_id=f.ad_id WHERE a.round_id = $roundId and c.company_id=$companyId";
         $result = $this->conn->query($sql);
         $list = [];
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM first_round_data f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -97,7 +97,7 @@ class StudentRepository
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=1";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM first_round_data f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=1";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
