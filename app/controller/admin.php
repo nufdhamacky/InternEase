@@ -204,7 +204,7 @@ class Admin extends Controller {
 
     function reg_report(){
         $companies = isset($_GET['data']) ? json_decode(urldecode($_GET['data']), true) : [];
-        $headers = array('company_name', 'Email', 'contact_person', 'contact_no');
+        $headers = array('company_name', 'email', 'contact_person', 'contact_no');
         $numColumns = count($headers);
         $pdf =  new FPDF('P','mm',array(297,50 * $numColumns));
         $pdf->AddPage();
