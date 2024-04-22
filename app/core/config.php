@@ -2,8 +2,10 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
     /** database config **/
-    define('DBNAME', 'ie9');
-    define('DBHOST', 'localhost');
+
+    define('DBNAME', 'intern_ease');
+    define('DBHOST', 'localhost:3307');
+
     define('DBUSER', 'root');
     define('DBPASS', '');
 
