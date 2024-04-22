@@ -65,7 +65,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-top: 25px;
+    margin-top: 50px;
 }
 
 .box1, .box2{
@@ -97,8 +97,8 @@ html, body {
 .eye-icon{
     position: absolute;
     font-size: 25px;
-    top: 72%;
-    right: 245px;
+    top: 68.5%;
+    right: 265px;
     transform: translateY(0%);
     cursor: pointer;
 }
