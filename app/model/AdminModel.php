@@ -39,8 +39,7 @@ class AdminModel extends model {
         } else {
             $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
 
-            $this->setTable('pdc_user');   
-            $insertResult = $this->insert($data);
+            
             $user = [
                 'user_name' => $data['email'],
                 'user_role' => 'pdc',
@@ -52,6 +51,9 @@ class AdminModel extends model {
 
             $this->setTable('users');   
             $insertUser = $this->insert($user);
+
+            $this->setTable('pdc_user');   
+            $insertResult = $this->insert($data);
             
             if ($insertResult) {
                 return 1;
@@ -435,7 +437,7 @@ class AdminModel extends model {
             if (!empty($MoreDetail)) {
                 
                 $id =$complaint['company_id'];
-                $email = $MoreDetail[0]['Email'];
+                $email = $MoreDetail[0]['email'];
                 $index = NULL;
                 $contact_no = $MoreDetail[0]['contact_no'];
                 $contact_person = $MoreDetail[0]['contact_person'];
