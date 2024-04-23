@@ -4,7 +4,7 @@
 class Ads extends Model{
 
 
-    protected $table = 'ads';
+    protected $table = 'company_ad';
 
     public function fetchAds(){
         return $this->findall();
