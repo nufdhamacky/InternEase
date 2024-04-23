@@ -123,8 +123,8 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                 <p></strong>Location:</strong> ${ad.location}</p>
                 <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
                 <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                <button id="apply" onclick="applyToJob(${ad.id}, ${userId})">Apply</button>
-                <button id="wishlist" onclick="wishlistJob(${ad.id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
+                <button id="apply" onclick="applyToJob(${ad.ad_id}, ${userId})">Apply</button>
+                <button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
             `;
 
             adDetailsWindow.style.display = 'block';

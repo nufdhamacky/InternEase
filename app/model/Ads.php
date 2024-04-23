@@ -20,7 +20,7 @@ class Ads extends Model{
         $placeholders = implode(',', array_fill(0, count($ad_ids), '?'));
     
         // Construct the SQL query
-        $query = "SELECT * FROM $this->table WHERE id IN ($placeholders)";
+        $query = "SELECT * FROM $this->table WHERE ad_id IN ($placeholders)";
     
         // Prepare the statement
         $stmt = $this->connection->prepare($query);

@@ -12,7 +12,7 @@ class Student extends Controller{
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
         
-        // $appliedAdids = $appliedModel->fetchAppliedAdIds($userId);
+        $appliedAdids = $appliedModel->fetchAppliedAdIds($userId);
 
         $appliedAds = $admodel->fetchAdsWithId($appliedAdids);
         $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($userId);
@@ -28,29 +28,21 @@ class Student extends Controller{
 
     public function apply()
     {
-        
+        // Handle AJAX request to add/remove from wishlist
+        $userId = $_POST['userId'];
+        $adId = $_POST['adId'];
+
+        // Instantiate the Wishlist model and perform the required operations
+        $appliedModel = $this->model('Applied');
+        $success = $appliedModel->apply($userId, $adId);
 
         // Return a JSON response
-        // if ($success) {
-        //     echo json_encode(['success' => true]);
-        // } else {
-        //     echo json_encode(['success' => false, 'message' => 'Error adding job to wishlist']);
-        // }
-
-        try {
-            // Handle AJAX request to add/remove from wishlist
-            $userId = $_POST['userId'];
-            $adId = $_POST['adId'];
-
-            // Instantiate the Wishlist model and perform the required operations
-            $appliedModel = $this->model('Applied');
-            $success = $appliedModel->apply($userId, $adId);
-
+        if ($success) {
             echo json_encode(['success' => true]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error adding job to wishlist']);
         }
+        
     }
 
     public function wishlist() {
