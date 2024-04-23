@@ -1,6 +1,6 @@
 <?php
 
-class StudentModel
+class PdcStudentModel
 {
     public ?int $userId;
     public string $email;

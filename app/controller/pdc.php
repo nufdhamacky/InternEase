@@ -2,7 +2,7 @@
 include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
-include_once('../app/model/StudentModel.php');
+include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
 
 class Pdc extends Controller
