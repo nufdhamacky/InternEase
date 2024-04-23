@@ -65,7 +65,6 @@ class Admin extends Controller {
                             
                         }
                         $this->view('admin/profile',$data);
-                        exit();
                     } else {
                         if($_POST["col"] !='password'){
                             $email = 0;
@@ -76,7 +75,6 @@ class Admin extends Controller {
                             
                         }
                         $this->view('admin/profile',$data);
-                        exit();
                     }
                 } else {
                     $this->view('admin/profile');
@@ -237,6 +235,31 @@ class Admin extends Controller {
         $pdf->Output();
     }
 
+    //Report functions
+
+    public function reports(){
+        if (!$this->isLoggedIn()){return;}
+      
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+        
+            $adminModel->setTable('company');
+            $companies = $adminModel->getCompany();
+        
+            $adminModel->setTable('company_ad');
+            $advertisments = $adminModel->getCompanyAD();
+            $data = [
+            
+                 'companies' => $companies,
+                 'advertisments' => $advertisments,
+  
+             ];           
+             
+
+
+
+        $this->view('admin/reports',$data); 
+    }
 
     //COMPLAINT FUNCTIONS
 

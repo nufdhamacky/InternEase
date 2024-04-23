@@ -4,11 +4,19 @@
     <ul>
     <li>
         <li>
-            <a href="<?=ROOT?>/admin/report">
+            <a href="<?=ROOT?>/admin/dashboard">
                 <span class="icon"><ion-icon name="bag-remove-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
             </a>
         </li>
+
+        <li>
+            <a href="<?=ROOT?>/admin/reports">
+                <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>
+                <span class="title">Reports</span>
+            </a>
+        </li>
+
         <li> 
             <a href="<?=ROOT?>/admin/managepdc">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
