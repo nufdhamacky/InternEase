@@ -4,13 +4,56 @@ class Admin extends Controller {
 
 
     public function isLoggedIn(){
-        if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="admin"){
+        if(isset($_SESSION['userId']) && isset($_SESSION['userRole']) && $_SESSION['userRole'] == "admin"){
             return true;
         } else{
-            $_SESSION['loginError'] = "Please login first!";
-            echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
-            return 0;
+            return false; // It's better to return false instead of 0 for a boolean function.
         }
+    }
+    
+
+    
+    //DASHBOARD / INDEX
+    public function index(){
+        if (!$this->isLoggedIn()){return;}
+      
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+        
+            $adminModel->setTable('company');
+            $companies = $adminModel->getCompany();
+        
+            $adminModel->setTable('company_ad');
+            $advertisments = $adminModel->getCompanyAD();
+
+            //$firstround = $adminModel->get_1stround();
+            $total = $adminModel->totalstudents();
+
+            $trend = $adminModel->companyInternTrend();
+            $trend2 = $adminModel->PositionTrend();
+         
+            $data = [
+               // '1stData'=> $firstround,
+               'companylist'=> $trend['companies'],
+               'years' => $trend['years'],
+               'internsByYear' => $trend['internsByYear'],
+               'Positions'=>$trend2['positions'],
+               'companiesP'=>$trend2['companies'],
+               'yearsP' =>$trend2['years'],
+               'Pyear'=>$trend2['internsByYearP'],
+               'total' => $total,
+               'companies' => $companies,
+               'advertisments' => $advertisments,
+                'BL' => $adminModel->blacklisted_companies(),
+                'com_count' =>$this->count_complaints(),
+                'students' =>  $adminModel->getStudentCounts(),
+                'first_round_data' => $adminModel->get_1stround(),
+                'second_round_data' => $adminModel->get_2ndround(),
+               
+            ];           
+            
+            $this->view('admin/index', $data);
+
     }
 
 
@@ -84,47 +127,6 @@ class Admin extends Controller {
         
   
 
-    //DASHBOARD / INDEX
-    public function index(){
-        if (!$this->isLoggedIn()){return;}
-      
-            $this->model('AdminModel');
-            $adminModel = new AdminModel;
-        
-            $adminModel->setTable('company');
-            $companies = $adminModel->getCompany();
-        
-            $adminModel->setTable('company_ad');
-            $advertisments = $adminModel->getCompanyAD();
-
-            //$firstround = $adminModel->get_1stround();
-            $total = $adminModel->totalstudents();
-
-            $trend = $adminModel->companyInternTrend();
-            $trend2 = $adminModel->PositionTrend();
-         
-            $data = [
-               // '1stData'=> $firstround,
-               'companylist'=> $trend['companies'],
-               'years' => $trend['years'],
-               'internsByYear' => $trend['internsByYear'],
-               'Positions'=>$trend2['positions'],
-               'companiesP'=>$trend2['companies'],
-               'yearsP' =>$trend2['years'],
-               'Pyear'=>$trend2['internsByYearP'],
-               'total' => $total,
-                'BL' => $adminModel->blacklisted_companies(),
-                'companies' => $companies,
-                'advertisments' => $advertisments,
-                'students' =>  $adminModel->getStudentCounts(),
-                'first_round_data' => $adminModel->get_1stround(),
-                'second_round_data' => $adminModel->get_2ndround(),
-               
-            ];           
-            
-            $this->view('admin/index', $data);
-
-    }
 
     function max_width($pdf,$headers,$data =[]){
         $max_column = 0;
@@ -262,6 +264,14 @@ class Admin extends Controller {
     }
 
     //COMPLAINT FUNCTIONS
+
+    function count_complaints(){
+        $this->model('AdminModel');
+        $adminModel = new AdminModel;
+        $adminModel->setTable('complaint');
+        $com_count = $adminModel->getComplaintsCount();
+        return $com_count;
+    }
 
     public function complaints(){
         if (!$this->isLoggedIn()){return;}
@@ -431,7 +441,7 @@ class Admin extends Controller {
     }
     */
 
-    /*
+    
     public function add_admin(){
         $this->model('AdminModel');
         $admin = new adminmodel;
@@ -448,7 +458,7 @@ class Admin extends Controller {
 
        $admin->insertadmin($data);
     }
-*/
+
 }
 
 

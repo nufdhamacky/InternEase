@@ -38,10 +38,19 @@
                 <option value="company">Company</option>
             </select>
 
-            <label for="complaint-id-search">Search by Complaint ID:</label>
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="resolved">Resolved</option>
+                <option value="unresolved">Un-resolved</option>
+            </select>
+        </div>          
+
+        <div class="filter-menu">
+        <label for="complaint-id-search">Search by Complaint ID:</label>
             <input type="text" id="complaint-id-search">
             <button class="search-btn" id="search-button">Search</button>
-        </div>          
+        </div>
 
         <table id="complaints-table">
             <thead>
@@ -74,7 +83,7 @@
                                 <?php if ($complaint['status'] == 0): ?>
                                     <span style="color:red;font-weight: bold;">Un-resolved</span>
                                 <?php else: ?>
-                                    Resolved
+                                    <span style="color:light blue;font-weight: bold;">Resolved</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -89,50 +98,62 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the filter dropdown
+    // Get the filter dropdowns
     var dateFilter = document.getElementById('date-filter');
     var userTypeFilter = document.getElementById('user-type-filter');
+    var statusFilter = document.getElementById('status-filter'); // Get the status filter dropdown
     var complaintsTable = document.getElementById('complaints-table');
     
-    // Add event listener to sort complaints on date change
+    // Add event listener to sort and filter complaints on change
     dateFilter.addEventListener('change', sortAndFilterComplaints);
     userTypeFilter.addEventListener('change', sortAndFilterComplaints);
+    statusFilter.addEventListener('change', sortAndFilterComplaints); // Listen for changes on the new status filter
 
     function sortAndFilterComplaints() {
         var sortOrder = dateFilter.value;
         var selectedUserType = userTypeFilter.value;
+        var selectedStatus = statusFilter.value; // Get the selected status
 
         // Get the rows of the table
         var rows = Array.from(complaintsTable.querySelectorAll('tbody tr'));
 
-        // Filter rows based on user type
+        // Filter rows based on user type and status
         rows.forEach(function(row) {
             var userType = row.getAttribute('data-user-type');
+            var status = row.cells[5].textContent.trim(); // No need to convert to lower case
+            
+            // Determine if the row should be displayed
+            var display = true;
             if (selectedUserType !== 'all' && userType !== selectedUserType) {
-                row.style.display = 'none';
-            } else {
-                row.style.display = '';
+                display = false;
             }
+            // Update the status check to match the hyphenated 'Un-resolved' text
+            if (selectedStatus !== 'all') {
+                if (selectedStatus === 'resolved' && status !== 'Resolved') {
+                    display = false;
+                } else if (selectedStatus === 'unresolved' && status !== 'Un-resolved') {
+                    display = false;
+                }
+            }
+            row.style.display = display ? '' : 'none';
         });
+
 
         // Sort rows based on date
         rows.sort(function(a, b) {
             var dateA = new Date(a.cells[3].textContent);
             var dateB = new Date(b.cells[3].textContent);
 
-            if (sortOrder === 'oldest') {
-                return dateA - dateB;
-            } else {
-                return dateB - dateA;
-            }
+            return sortOrder === 'oldest' ? dateA - dateB : dateB - dateA;
         });
 
-        // Remove existing rows from the table
-        rows.forEach(function(row) {
-            complaintsTable.querySelector('tbody').appendChild(row);
-        });
+        // Append rows back to the table in the new order
+        var tbody = complaintsTable.querySelector('tbody');
+        tbody.innerHTML = ''; // Clear existing rows
+        rows.forEach(row => tbody.appendChild(row));
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
         // Get the filter dropdowns

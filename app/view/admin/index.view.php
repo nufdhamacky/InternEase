@@ -13,58 +13,66 @@
 <div class="container">
         <?php include_once('../app/view/layout/Admin_sidemenu.php') ;$s =3;?>
 
-    <div class="notification" >
+            <div class="notification" >
         
-            <div class="notibutton">
-                    <div> 1st Round Selections (total applied:<?php   echo htmlspecialchars($first_round_data['applied']);?>) </div>
-                    <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div><div> CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
-                    <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
+                <div class="notibutton">
+                        <div> 1st Round Selections </div>
+                        <div> Total Applied :<?php   echo htmlspecialchars($first_round_data['applied']);?> </div>
+                        <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div>
+                        <div> CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
+                        <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
 
-            </div>
+                </div>
 
-            
-            <div class="notibutton">
-                    <div> 2nd Round Selections (total applied:<?php   echo htmlspecialchars($second_round_data['applied_2nd']);?>) </div>
-                    <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div><div> CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
-                    <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
-            </div>
+                
+                <div class="notibutton">
+                        <div> 2nd Round Selections </div>
+                        <div> Total Applied : <?php   echo htmlspecialchars($second_round_data['applied_2nd']);?> </div>
+                        <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div>
+                        <div> CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
+                        <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
+                </div>
 
-            <div class="notibutton">
-                    <div>Total Students:<?php echo htmlspecialchars($students['IS']+$students['CS']); ?></div>
-                    <div></div>
-                    <div></div>
-                    <div>IS: <?php echo htmlspecialchars($students['IS']); ?> </div><div> CS: <?php echo htmlspecialchars($students['CS']); ?></div>
-            </div>
-
-            <div class="notibutton tooltip">
-                        <div>Black Listed Companies</div>
-                        
+                <div class="notibutton">
+                        <div>Total Students:<?php echo htmlspecialchars($students['IS']+$students['CS']); ?></div>
                         <div></div>
                         <div></div>
-                        <div><?php echo htmlspecialchars($BL['count']); ?>
-                        <?php if(!empty($BL['blacklistedCompanies'])):?>
-                        <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
-                            <span class="tooltiptext">
-                            <?php
-                            if(!empty($BL['blacklistedCompanies'] && isset($BL['blacklistedCompanies']) )){
-                                foreach ($BL['blacklistedCompanies'] as $bcompany) {
-                                    echo htmlspecialchars($bcompany);
-                                    echo "<br>";
-                                }
+                        <div>IS: <?php echo htmlspecialchars($students['IS']); ?> </div><div> CS: <?php echo htmlspecialchars($students['CS']); ?></div>
+                        <div></div>
+                        <div></div>
+                </div>
+
+                <div class="notibutton tooltip">
+                    <div>Black Listed Companies</div>
+                    
+                    <div><?php echo htmlspecialchars($BL['count']); ?>
+                    <?php if(!empty($BL['blacklistedCompanies'])):?>
+                    <ion-icon  name="ban-outline" size="medium"></ion-icon>                          
+                        <span class="tooltiptext">
+                        <?php
+                        if(!empty($BL['blacklistedCompanies'] && isset($BL['blacklistedCompanies']) )){
+                            foreach ($BL['blacklistedCompanies'] as $bcompany) {
+                                echo htmlspecialchars($bcompany);
+                                echo "<br>";
                             }
-                            ?> 
-                            <?php endif ?>
-                             </span>
-                        </div>
-                        <div></div>
-                        <div></div>
+                        }
+                        ?> 
+                        <?php endif ?>
+                            </span>
+                    </div>
+                    <div>Complaints Received</div>
+                    <div><?php echo htmlspecialchars($com_count); ?></div>
+                    <div></div>
 
-                </div>  
+
+            </div>  
 
 
     </div>
-        <div  id="chart_bar2" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
-        <div  id="chart_bar" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
+    <div class="chart_container">
+        <div class="chart"  id="chart_bar2" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
+        <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
+    </div>
     </div>
     
 
@@ -123,7 +131,7 @@
 
         var options = {
             title: 'Intern Recruitment Comparison',
-            chartArea: { width: '60%' },
+            chartArea: { width: '50%' },
             hAxis: { title: 'Number of Interns' },
             vAxis: { title: 'Company' },
             colors: Array.from({ length: years.length }, generateRandomColor) // Generate random colors
@@ -181,17 +189,19 @@
 
     var options = {
         title: 'Number of Interns per Position by Company and Year',
-        chartArea: { width: '60%' },
-        hAxis: { title: 'Company' },
-        vAxis: { title: 'Number of Interns' },
+        chartArea: { width: '50%' },
+        hAxis: { title: 'Number of Interns', minValue: 0 }, // Horizontal axis is now the value axis
+        vAxis: { title: 'Company' }, // Vertical axis is now the category axis
         tooltip: { isHtml: true },
         bar: { groupWidth: '75%' },
         isStacked: true,
     };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_bar2'));
+    // Change to BarChart
+    var chart = new google.visualization.BarChart(document.getElementById('chart_bar2'));
     chart.draw(data, options);
 }
+
 
 
 
