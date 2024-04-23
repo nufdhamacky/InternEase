@@ -26,6 +26,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="FAQ">
+                        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <span class="title">Complaints & FAQ</span>
+                    </a>
+                </li>
+                <li>
                     <a href="logout" class="logout">
                         <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
                         <span class="title">Sign-out</span>

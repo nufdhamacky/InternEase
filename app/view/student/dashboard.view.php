@@ -32,7 +32,7 @@
 
             <div class="container-calendar">
                 <div id="left">
-                    <h1>Dynamic Calendar</h1>
+                    <h1>Undergraduate Calendar</h1>
                     <div id="event-section">
                         <h3>Add Event</h3>
                         <input type="date" id="eventDate">
