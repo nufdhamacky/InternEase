@@ -21,13 +21,14 @@
 
         //function to load view
         public function view($view, $data = []) {
-            
+            extract($data);
             require_once '../app/view/' . $view . '.view.php';
         }
 
-        protected function redirect($url) {
-            header("Location: " . ROOT . "/" . $url);
-            exit;
+        protected function redirect($link,$data = []) {
+            extract($data);
+            header("Location: ".trim($link,"/"));
+            exit();
         }
 
     }  
