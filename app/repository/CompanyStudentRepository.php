@@ -1,13 +1,7 @@
 <?php
 
-class CompanyStudentRepository {
-    private $conn;
-
-
-    public function __construct($conn) {
-        $this->conn = $conn;
-        
-    } 
+class CompanyStudentRepository extends model {
+   
 
     // public function getAllRequests(): array {
     //     // Corrected the SQL query with proper INNER JOIN clauses
@@ -62,12 +56,9 @@ class CompanyStudentRepository {
         JOIN company_ad AS ca ON frt.ad_id = ca.ad_id 
         WHERE ca.company_id = {$userId};
         ";
+        $result=$this->query($sql);
 
-        $result =$this->conn->query($sql);
-
-        $requests = [];        
-
-        return $requests;
+        return $result;
         
   
     }

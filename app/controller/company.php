@@ -86,14 +86,14 @@
         }
 
         public function studentReq(){
+            $std = new CompanyStudentRepository;
+            $data=['stdrequests'=>$std->getStudentRequests()];
             
-            $this->view('company/studentReq');
+            $this->view('company/studentReq',$data);
 
         }
 
-        public function getAllReqs(): array{
-            return $this->companyStudentRepository->getStudentRequests();
-        }
+
 
         public function tech(){
             
@@ -110,7 +110,8 @@
         public function profile(){
             $userDetails = $this->companyDetailsRepository->getCompanyDetails($_SESSION['userId']);
             $this->view('company/profile', ["userDetails" => $userDetails]);
-        }
+
+       }
 
         public function editProfile(){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
