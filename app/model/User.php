@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User extends Model
 {
 
     public function login($username, $password, $conn)
@@ -147,6 +147,16 @@ class User
 
         }
 
+    }
+
+    function validate_email($email){
+        $query = "SELECT email from users where user_name = '{$email}'";
+        $result = $this->query($query);
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 }

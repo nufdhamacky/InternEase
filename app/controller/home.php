@@ -189,6 +189,47 @@
 
         }
 
+        public function resetPassword(){
+
+            $this->view('home/resetPassword');
+
+        }
+
+
+        public function password_reset_request(){
+            $email = $_POST['email'];
+            $_SESSION['resetEmail'] = $email;
+            $validate = new User;
+            if($validate->validate_email($email)){
+                $smtp = new Mailer;
+                if(!$smtp->sendOTPEmail($email,"Password Reset OTP")){
+                    $errors['OTP_failed'] = "OTP failure, try again";
+                    $data = ['errors'=>$errors];
+                    $this->view('home/resetPassword',$data);
+                    return 0;
+                }
+            }else{
+                $errors['Email_notfound'] = "No user registered for the email entered.";
+                $data = ['errors'=>$errors];
+                $this->view('home/resetPassword',$data);
+                return 0;
+            }
+
+        }
+
+        public function validate_otp($otp,$email){
+            $smtp = new Mailer;
+            if($smtp->validateOTP($email,$otp)){
+                $data=['email'=> $email];
+                $this->view('home/resetpage',$data);
+            }else{
+                return false;
+            }
+
+        }
+
+
+
 
     }
 
