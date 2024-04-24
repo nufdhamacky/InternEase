@@ -32,6 +32,18 @@
             
             <div class = "secondbar">
 
+            <form action="" method="GET" class="filter-ads">
+                <div>
+                    <select name="company_ad" id="company_ad">
+                        <option value="all">All</option>
+                        <?php
+                            foreach ($requests as $req) { ?>
+                                <option <?php  ?></option>
+                            <?php } ?>
+                    </select>
+                </div>
+            </form>
+
                 <div class = "allstudents" id="studentCategory">
                     <select>
                         <option value = "all">All</option>
@@ -44,6 +56,77 @@
             </div>
             
         <!--student data list-->
+
+        <div id="all" class="details">
+            <div class="studentdetails">
+                <div class="cardHeader">
+                    <h2>Student Requests</h2>
+                </div>
+
+                <table>
+                        <thead>
+                            <tr>
+                                <td>Student Name</td>
+                                <td>Registration No.</td>
+                                <td>CV</td>
+                                <td>Profile</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Hamsayini Senthilrasa</td>
+                                <td>2021/CS/025</td>
+                                <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
+                                <td><a href="#" span class = "view"></span>View Profile</td>
+                                <td>
+                                    <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
+                                        <option value="shortlist">Shortlist</option> 
+                                        <option value="reject">Reject</option> 
+                                        <option value="pending">Pending</option> 
+                                    </select>
+                                </td>
+                                
+                            </tr>
+
+                            <tr>
+                                <td>Gien Gawesh</td>
+                                <td>2021/CS/025</td>
+                                <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
+                                <td><a href="#" span class = "view"></span>View Profile</td>
+                                <td>
+                                    <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
+                                        <option value="shortlist">Shortlist</option> 
+                                        <option value="reject">Reject</option> 
+                                        <option value="pending">Pending</option> 
+                                    </select>
+                                </td>
+                                
+                            </tr>
+
+                            <tr>
+                                <td>Shamah Lafir</td>
+                                <td>2021/CS/025</td>
+                                <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
+                                <td><a href="#" span class = "view"></span>View Profile</td>
+                                <td>
+                                    <select>
+                                        <option value = "" selected hidden>--Select Action--</option>
+                                        <option value="shortlist">Shortlist</option> 
+                                        <option value="reject">Reject</option> 
+                                        <option value="pending">Pending</option> 
+                                    </select>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
         <div id="seTable" class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">

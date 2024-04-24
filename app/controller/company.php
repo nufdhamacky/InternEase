@@ -6,8 +6,8 @@
     include_once('../app/repository/TechTalkRepository.php');
     include_once('../app/model/TechTalkModel.php');
 
-    include_once('../app/repository/StudentReqRepository.php');
-    include_once('../app/model/StudentReqModel.php');
+    include_once('../app/repository/CompanyStudentRepository.php');
+    // include_once('../app/model/StudentReqModel.php');
 
     include_once('../app/repository/CompanyDetailsRepository.php');
     // include_once('../app/model/CompanyDetailsModel.php');
@@ -16,7 +16,7 @@
 
         private $advertisementRepository;
         private $techTalkRepository;
-        private $studentReqRepository;
+        private $companyStudentRepository;
         private $companyDetailsRepository;
 
         public function __construct(){
@@ -24,7 +24,7 @@
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
             $this->techTalkRepository = new TechTalkRepository($this->conn);
-            $this->studentReqRepository = new StudentReqRepository($this->conn);
+            $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
             $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
 
         }
@@ -92,7 +92,7 @@
         }
 
         public function getAllReqs(): array{
-            return $this->studentReqRepository->getAllRequests();
+            return $this->companyStudentRepository->getStudentRequests();
         }
 
         public function tech(){
