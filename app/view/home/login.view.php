@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <P class="fp"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/home/resetPassword">Forgot Password?</a></P>
+                        <P class="fp"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/home/sendEmailOTP">Forgot Password?</a></P>
 
                     </div>
                     <div class="submit">

@@ -58,7 +58,11 @@ class Admin extends Controller {
 
 
 //PROFILE - ADMIN
-
+    public function testmail(){
+        $smtp = new Mailer;
+        $smtp->sendMail("ggogamer60@gmail.com","PWD", "AAAA");
+        
+    }
 
     public function profile() {
         if (!$this->isLoggedIn()){return;}

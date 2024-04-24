@@ -190,46 +190,82 @@
         }
 
         public function resetPassword(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pwd_reset"])){
+                $data = [ 'password' => $_POST['password'],'confirmPassword' => $_POST['confirmPassword']];
+                require_once "helper/Validation.php";
+                $validatePWD = new Validation;
+                $errors = $validatePWD->validate_pwd($data['password'],$data['confirmPassword']);
+                if(!empty($errors)){
+                    $data = ['errors' => $errors];
+                    $this->view('home/resetpage',$data);
+                    return 0;
+                }
 
-            $this->view('home/resetPassword');
-
-        }
-
-
-        public function password_reset_request(){
-            $email = $_POST['email'];
-            $_SESSION['resetEmail'] = $email;
-            $validate = new User;
-            if($validate->validate_email($email)){
-                $smtp = new Mailer;
-                if(!$smtp->sendOTPEmail($email,"Password Reset OTP")){
-                    $errors['OTP_failed'] = "OTP failure, try again";
+                $this->model('User');
+                $reset = new User;
+                if($reset->resetPassword($data)){
+                    $data = ['pwd'=>1];
+                    $this->view('home/resetpage',$data);
+                }else{
+                    $errors['Email_notfound'] = "No user registered for the email entered.";
                     $data = ['errors'=>$errors];
                     $this->view('home/resetPassword',$data);
                     return 0;
                 }
             }else{
-                $errors['Email_notfound'] = "No user registered for the email entered.";
-                $data = ['errors'=>$errors];
-                $this->view('home/resetPassword',$data);
-                return 0;
+                echo "ERR";  
             }
-
         }
 
-        public function validate_otp($otp,$email){
-            $smtp = new Mailer;
-            if($smtp->validateOTP($email,$otp)){
-                $data=['email'=> $email];
-                $this->view('home/resetpage',$data);
+        public function sendEmailOTP(){
+            $this->view('home/resetPassword');
+        }
+
+
+        public function password_reset_request(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["otp_req"])){
+                $email = $_POST['email'];
+                $_SESSION['resetEmail'] = $email;
+                $this->model('User');
+                $validate = new User;
+                if($validate->validate_email($email)){
+                    $smtp = new Mailer;
+                    $data = ['otp'=>1];
+                    if(!$smtp->sendOTPEmail($email,"Password Reset OTP")){
+                        $errors['OTP_failed'] = "OTP failure, try again";
+                        $data = ['errors'=>$errors];
+                        $this->view('home/resetPassword',$data);
+                        return 0;
+                    }
+                    $this->view('home/resetPassword',$data);
+
+                }else{
+                    $errors['Email_notfound'] = "No user registered for the email entered.";
+                    $data = ['errors'=>$errors];
+                    $this->view('home/resetPassword',$data);
+                    return 0;
+                }
             }else{
-                return false;
+                echo "ERR";  
             }
 
         }
 
+        public function validate_otp(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_otp"])){
+                $smtp = new Mailer;
+                $email = $_SESSION['resetEmail'];
+                $otp = $_POST['otp'];
+                if($smtp->validateOTP($email,$otp)){
+                    $data=['email'=> $email];
+                    $this->view('home/resetpage',$data);
+                }else{
+                    echo "otp  nooo";
+                    return false;
+                }
 
-
+            }
+        }
 
     }
 

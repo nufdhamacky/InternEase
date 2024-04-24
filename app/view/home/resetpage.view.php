@@ -19,22 +19,31 @@
         </div>
 
         <div class="rightpart">
-            <form action="<?=ROOT?>/home/updatePassword" method="POST" id="newPasswordForm">
+            <form action="<?=ROOT?>/home/resetPassword" method="POST" id="newPasswordForm">
                 <h2>Set New Password</h2>
                 <div class="box">
                     <p>Please enter your new password.</p>
                     <div class="login-each-field">      
                         <p class="label1">New Password:<br></p>
-                        <input id="newPassword" name="newPassword" type="password" placeholder="Enter new password" class="box1" required>
+                        <input id="password" name="password" type="password" placeholder="Enter new password" class="box1" required>
                     </div>
                     <div class="login-each-field">
                         <p class="label1">Confirm Password:<br></p>
                         <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm new password" class="box1" required>
                     </div>
                     <div class="submit">
-                        <button type="submit" id="updatePasswordBtn">Update Password</button>
+                    <input type="submit" class="btn" value="Reset" name="pwd_reset">
                     </div>
                 </div>
+                    <p >
+                        <?php       
+                            if (isset($errors)) {
+                                foreach ($errors as $err) {
+                                    echo htmlspecialchars($err) . '<br>';
+                                }
+                            }
+                        ?>      
+                    </p>
             </form>
         </div>
     </div>
@@ -52,5 +61,23 @@
             // Optionally add more validation for password strength
         }
     </script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+<?php
+if (isset($pwd) && $pwd == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Updated Successful',
+            text: 'Your Password has been updated successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/home'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+?>
 </html>

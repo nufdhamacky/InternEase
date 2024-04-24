@@ -19,7 +19,7 @@ class Mailer extends Database{
         $this->mail->Host = 'smtp.gmail.com';  // Set the SMTP server to send through
         $this->mail->SMTPAuth = true;           // Enable SMTP authentication
         $this->mail->Username = 'intern.easeucsc@gmail.com'; // SMTP username
-        $this->mail->Password = ''; // SMTP password
+        $this->mail->Password = 'afjcgcwfdcfuumir'; // SMTP password
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $this->mail->Port = 465;                 // TCP port to connect to, use 465 for `SMTPS`
 
@@ -64,8 +64,11 @@ class Mailer extends Database{
     }
 
     function validateOTP($email, $otp) {
-        $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}'";
+        $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}' AND otp = {$otp}";
         $ValidateOTP = $this->query($sql);
+        if(empty($ValidateOTP)){
+            return false;
+        }
         foreach ($ValidateOTP AS $v){
             if ($v) {
                 if ($v['otp'] == $otp && time() < $v['expiry']) {

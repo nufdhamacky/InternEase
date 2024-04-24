@@ -7,7 +7,6 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>Password Reset</title>
 </head> 
-
 <body>
     <div class="main-div">
         <div class="leftpart">
@@ -19,7 +18,7 @@
         </div>
 
         <div class="rightpart">
-            <form action="<?=ROOT?>/home/passwordResetRequest" method="POST" id="resetForm">
+            <form action="<?=ROOT?>/home/password_reset_request" method="POST" id="resetForm">
                 <h2>Reset Your Password</h2>
                 <div class="box">
                     <p>Please enter your email address to receive a link to reset your password.</p>
@@ -28,8 +27,13 @@
                         <input id="emailInput" name="email" type="email" placeholder="Enter your email" class="box1" required>
                     </div>
                     <div class="submit">
-                        <button type="button" id="sendLinkBtn">Send Reset Link</button>
+                        <input type="submit" class="btn" value="Reset" name="otp_req">
                     </div>
+                    <?php if(isset($errors) && !empty($errors)){ ?>
+                        <?php foreach ($errors as $err): ?>
+                        <p><?php echo $err; ?></p>
+                        <?php endforeach; ?>
+                    <?php } ?>
                 </div>
             </form>
         </div>
@@ -39,49 +43,47 @@
     <div class="modal" id="otpModal" style="display:none;">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form  action="<?=ROOT?>/home/validate_otp" method="POST" id="otpForm">
+            <form action="<?=ROOT?>/home/validate_otp" method="POST" id="otpForm">
                 <h3>Enter OTP</h3>
                 <input type="text" name="otp" placeholder="Enter OTP" required>
-                <button type="submit">Verify OTP</button>
+                <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
             </form>
         </div>
     </div>
 
     <script src="<?=ROOT?>/js/login.js"></script>
     <script>
+    otp();  // Make sure this function is needed and $otp is correctly defined in PHP above
+
+    function otp() {
         var modal = document.getElementById('otpModal');
-        var btn = document.getElementById('sendLinkBtn');
-        var emailInput = document.getElementById('emailInput');
-        var close = document.querySelector('.close');
-
-        btn.onclick = function() {
-            if (emailInput.value === '' || !validateEmail(emailInput.value)) {
-                alert('Please enter a valid email address.');
-                emailInput.focus();
-            } else {
-                modal.style.display = 'block';
-            }
+        var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
+        console.log("OTP:", otp);
+        if (otp === 1) {
+            modal.style.display = 'block';
         }
+    }
 
-        close.onclick = function() {
+    var modal = document.getElementById('otpModal');
+    var emailInput = document.getElementById('emailInput');
+    var close = document.querySelector('.close');
+
+
+    close.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
             modal.style.display = 'none';
         }
+    };
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
+    function validateEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email.toLowerCase());
+    }
 
-        function validateEmail(email) {
-            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email.toLowerCase());
-        }
-
-        document.getElementById('otpForm').onsubmit = function(event) {
-            event.preventDefault();
-            // Add AJAX call here to verify the OTP
-        }
     </script>
 </body>
 </html>
