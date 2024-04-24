@@ -30,6 +30,7 @@
                         echo '<img src="' . ROOT . $ad['image_url'] . '" alt="Advertisement ' . ($index + 1) . '">';
                         echo '<h3>' . $ad['company_id'] . '</h3>';
                         echo '<p>' . $ad['requirements'] . '</p>';
+                        // echo '<p>' . $ad['ad_id'] . '</p>';
                         echo '</div>';
                     }
                 }
@@ -106,7 +107,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
 
         function displayAdDetails(index) {
            
-            var adData = <?php echo json_encode($data['data']); ?>;
+            var adData = <?php echo json_encode($ads); ?>;
 
             var adDetailsWindow = document.getElementById('adDetailsWindow');
             var adContent = document.querySelector('.ad-details .ad-content');
