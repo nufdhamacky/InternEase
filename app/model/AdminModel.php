@@ -33,11 +33,9 @@ class AdminModel extends model {
 
 //MANAGE PDC FUNCS
     
-    public function insertPDC($confirmPassword,$data = []) {
-        if ($data['password'] !== $confirmPassword) {
-            return false;
-        } else {
-            $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
+    public function insertPDC($data = []) {
+      
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
             
             $user = [
@@ -61,7 +59,7 @@ class AdminModel extends model {
                return 0;
             }
             
-        }
+        
     }
     
 //REPORT/DASHBOARD FUNCTIONS

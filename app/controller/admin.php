@@ -246,6 +246,11 @@ class Admin extends Controller {
 
     //Report functions
 
+    public function hash(){
+        $pwd = password_hash('12345', PASSWORD_DEFAULT);
+        echo $pwd;
+    }
+
     public function reports(){
         if (!$this->isLoggedIn()){return;}
       
@@ -353,20 +358,19 @@ class Admin extends Controller {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
             $data = [
+                'password' =>$this->generateStrongString(10),
                 'first_name' => $_POST["pdc_fname"],
                 'last_name' => $_POST["pdc_lname"],
                 'email' => $_POST["pdc_email"],
-                'password' => $_POST["pdc_pwd"],
             ];
 
 
-            $confirmPassword = $_POST["pdc_rpwd"];
+           
 
             require_once '../app/controller/helper/validation.php';
             $validate = new Validation;
             $errorlist = [
 
-            $error_pwd = $validate->validate_pwd($data['password'],$confirmPassword),
             $error_email = $validate->validate_email($data['email']),
             $error_firstname = $validate->validate_name("First Name",$data['first_name']),
             $error_lastname = $validate->validate_name("Last Name", $data['last_name']) ];
@@ -390,10 +394,20 @@ class Admin extends Controller {
                 }
             }
             */
+            $email = $_POST["pdc_email"];
+            $pwd =$data['password'];
             $add = NULL;
             if(empty($errors)){
-                if ($adminModel->insertPDC($confirmPassword, $data)) {
+                if ($adminModel->insertPDC($data)) {
                     $add = 1;
+                    $smtp = new Mailer;
+                    $body = 
+                    "<h2> PDC user created Sucessfully</h2>
+                    <p>Your user name for InternEase is $email <b></b></p>
+                    <p>Your Password:$pwd</p>
+                    <p style='color:red;'>Please change your password after logging in</p>
+                    ";
+                    $smtp->sendMail($email,"PDC Account info",$body);
     
                 } else {
                     $add = 0;
@@ -413,8 +427,43 @@ class Admin extends Controller {
 
        
         $this->view('admin/managepdc', $data);
+        return 0;
 
     }
+
+    public function generateStrongString($length = 8) {
+        $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = "";
+        $characterSets = [
+          'lowercase' => str_split(str_split($characters)[array_rand(range(0, 25))]),
+          'uppercase' => str_split(str_split($characters)[array_rand(range(26, 51))]),
+          'numeric' => str_split(str_split($characters)[array_rand(range(52, 61))]),
+        ];
+      
+        // Ensure at least one character from each set
+        foreach ($characterSets as $type => $charSet) {
+          $password .= $charSet[0];
+        }
+      
+        // Fill remaining characters randomly
+        $remainingLength = $length - strlen($password);
+        $password .= substr(str_shuffle($characters), 0, $remainingLength);
+      
+        // Validate and regenerate if necessary
+        if (!preg_match("/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/", $password)) {
+          return generateStrongString($length);
+        }
+      
+        return $password;
+      }
+     
+    public function pwd(){
+      // Example usage
+      $strongString = $this->generateStrongString(10);
+      echo $strongString; // Output: aB2dEf3Gh1jK
+    
+    }
+      
  
 
     function company_report(){
