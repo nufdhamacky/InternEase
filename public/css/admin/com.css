@@ -294,8 +294,8 @@ body
 
 .notification {
     width: fit-content;
-    margin-left:2vw;
-    margin-right:2vw;
+    margin-left:auto;
+    margin-right:auto;
     margin-top: 2vw;
     margin-bottom: 1vw;
     height: fit-content;
@@ -327,16 +327,17 @@ body
     position: relative;
     margin-left:0.5vw;
     margin-right:0.5vw;
-    height: fit-content;
-    width: fit-content;
+    height: 15vw;
+    width: 15vw;
     
-    padding-top: 0.7vw;
-    padding-bottom: 0.7vw;
-    padding-left: 0.9vw;
-    padding-right: 0.9vw;
+    padding: 1vw;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    background-color: rgb(223, 241, 247);
+    background-color: rgb(223, 242, 248);
+    border-style: solid;
+    border-width: 0.1vw;
+
+    border-color: #004d56;
     color: rgb(24, 29, 30);
     transition: background-color 0.4s;
     font-size:1.2vw;
@@ -423,7 +424,7 @@ form {
     margin-left: auto;
     margin-right: auto;
     background-color: white;
-    width:max-content ;
+    width: 50vw;
     padding: 2vw;
     box-shadow: 0 2vw 5vw rgba(0, 0, 0, 0.08);
     border-radius: 0.6vw;
@@ -510,7 +511,8 @@ form p {
 .update-form > label {
     text-align:left;
     font-size: 1.3vw;
-    width: 30vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
     display: inline-block;
     color: #070707;
     font-weight:bold;
@@ -783,7 +785,6 @@ h3 {
   .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
@@ -797,7 +798,7 @@ h3 {
     padding: 5px;
     position: absolute;
     z-index: 1;
-   
+   overflow: auto;
     margin-left: auto;
     margin-right: auto ; /* Use half of the width (120px) to center the tooltip */
     opacity: 0;
@@ -829,6 +830,16 @@ h3 {
       display: none;
     }
   }
+
+.chart_container {
+    margin-left: 3vw;
+    margin-right: 3vw;
+    padding: 1vw;
+}
+
+.chart{
+    overflow: auto;
+}
 
 
 

@@ -39,8 +39,7 @@ class AdminModel extends model {
         } else {
             $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
 
-            $this->setTable('pdc_user');   
-            $insertResult = $this->insert($data);
+            
             $user = [
                 'user_name' => $data['email'],
                 'user_role' => 'pdc',
@@ -52,6 +51,9 @@ class AdminModel extends model {
 
             $this->setTable('users');   
             $insertUser = $this->insert($user);
+
+            $this->setTable('pdc_user');   
+            $insertResult = $this->insert($data);
             
             if ($insertResult) {
                 return 1;
@@ -122,27 +124,27 @@ class AdminModel extends model {
                 WHERE u.user_status = 2 AND u.user_role = 'company'";
         
         $results = $this->query($query);
+        $blacklistedCompanies = [];
+        $count = 0;
 
         if (is_array($results)) {
             // Check if the array is not empty
             if (!empty($results)) {
                 $count = count($results); // Count the number of rows in the array
                 // Extract company names from the results
-                $blacklistedCompanies = [];
+               
                 foreach ($results as $row) {
                     $blacklistedCompanies[] = $row['company_name'];
                 }
-
-                $data =[
-                    'blacklistedCompanies'=> $blacklistedCompanies,
-                    'count' => $count,
-                ];
-                return $data;
-            } else {
-                return []; 
             }
+
+            $data =[
+                'blacklistedCompanies'=> $blacklistedCompanies,
+                'count' => $count,
+            ];
+            return $data; 
         } else {
-            return []; 
+            return false;
         }
     }
 
@@ -207,18 +209,19 @@ class AdminModel extends model {
 
     public function get_2ndround() {
         $this->setTable('second_round_data');
-        $query = "SELECT COUNT(*) AS selected_cs
-                  FROM second_round_data AS frd 
-                  JOIN student AS s ON frd.applied_id = s.id 
-                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
 
-        $query1 = "SELECT COUNT(*) AS selected_is 
-            FROM second_round_data AS frd 
-            JOIN student AS s ON frd.applied_id = s.id 
-            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
-        
+        $query = "SELECT COUNT(*) AS selected_cs
+        FROM second_round_data AS frd 
+        JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
+
+        $query1 = "SELECT COUNT(*) AS selected_is
+        FROM second_round_data AS frd 
+        JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
+
         $query2 = "SELECT COUNT(*) AS notselected 
-                   FROM second_round_data";
+                   FROM applyadvertisement where round_id=2";
     
         $result_cs = $this->connection->query($query);
         
@@ -265,34 +268,47 @@ class AdminModel extends model {
     
     public function get_1stround() {
         $this->setTable('first_round_data');
-        $query = "SELECT COUNT(*) AS selected_cs
-                  FROM first_round_data AS frd 
-                  JOIN student AS s ON frd.applied_id = s.id 
-                  WHERE frd.status = 1 AND s.reg_no LIKE '%CS%'";
+      
+        $query_cs = "SELECT COUNT(*) AS selected_cs
+                      FROM first_round_data AS frd 
+                      JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+                      WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
+      
+        $query_is = "SELECT COUNT(*) AS selected_is
+                FROM first_round_data AS frd 
+                JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
+                WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
 
-        $query1 = "SELECT COUNT(*) AS selected_is 
-            FROM first_round_data AS frd 
-            JOIN student AS s ON frd.applied_id = s.id 
-            WHERE frd.status = 1 AND s.reg_no LIKE '%IS%'";
-        
-        $query2 = "SELECT COUNT(*) AS notselected 
-                   FROM first_round_data";
-    
-        $result_cs = $this->connection->query($query);
-        
-        $result_is = $this->connection->query($query1);
-        $result3 = $this->connection->query($query2);
-    
-        $total_1st_cs = $result_cs->fetch_assoc()['selected_cs'];
-        $total_1st_is = $result_is->fetch_assoc()['selected_is'];
-        $not_selected = $result3->fetch_assoc()['notselected'];
-    
+        $query_not_selected = "SELECT COUNT(*) AS notselected 
+                               FROM applyadvertisement where round_id=1";
+      
+        $result_cs = $this->connection->query($query_cs);
+        $result_is = $this->connection->query($query_is);
+        $result3 = $this->connection->query($query_not_selected);
+      
+        // Check if any errors occurred during queries
+        if (!$result_cs || !$result_is || !$result3) {
+          // Handle the error here, potentially throw an exception or log the error
+          return null;
+        }
+      
+        // Use fetch_object to get results as objects
+        $data_cs = $result_cs->fetch_object();
+        $data_is = $result_is->fetch_object();
+        $data_not_selected = $result3->fetch_object();
+      
+        // Access data using object properties
+        $total_1st_cs = $data_cs->selected_cs;
+        $total_1st_is = $data_is->selected_is;
+        $not_selected = $data_not_selected->notselected;
+      
         return [
-            'total_1st_cs' => $total_1st_cs,
-            'total_1st_is' => $total_1st_is,
-            'applied' => $not_selected,
+          'total_1st_cs' => $total_1st_cs,
+          'total_1st_is' => $total_1st_is,
+          'applied' => $not_selected,
         ];
-    }
+      }
+      
     
     public function getPDC() {
         return $this->findall();
@@ -397,6 +413,17 @@ class AdminModel extends model {
         return $complaintsArray;
     }
 
+    public function getComplaintsCount() {
+        $query = "SELECT * FROM " . $this->getTable();
+        $complaints = $this->query($query);
+        $count = 0;
+        foreach ($complaints as $complaint) {
+            $count+=1;
+
+        }
+        return $count;
+    }
+
     public function check_status($data =[]){
     
         $query = "UPDATE " . $this->getTable() . " SET status = 1, reply = '{$data['reply']}' WHERE complaint_id = {$data['id']}";
@@ -421,7 +448,7 @@ class AdminModel extends model {
             if (!empty($MoreDetail)) {
                 
                 $id =$complaint['company_id'];
-                $email = $MoreDetail[0]['Email'];
+                $email = $MoreDetail[0]['email'];
                 $index = NULL;
                 $contact_no = $MoreDetail[0]['contact_no'];
                 $contact_person = $MoreDetail[0]['contact_person'];
@@ -482,8 +509,22 @@ class AdminModel extends model {
 
         $hasedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['password'] = $hasedPassword;
+
         if($this->query("INSERT INTO " . $this->getTable() . "(user_name,user_role,user_profile,user_status,password) VALUES (?,?,?,?,?)", array_values($data))){
-            echo "1";
+            $select = "SELECT user_id FROM users Where user_name = '{$data['user_name']}' ";
+            $result = $this->query($select);
+            if($result){
+                $adminId = $result[0]['user_id'];
+                echo "id ";
+            }
+            $data = [ 'admin_id' => $adminId, 'Email' => $data['user_name'], 'Password' =>$hasedPassword , 
+            'FirstName'=> 'Root','LastName' => 'Root' ];
+            $this->setTable('admin');
+            if($this->insert($data)){
+                echo "1";
+            }else{
+                echo "0";
+            }
         }else{
 
             echo "0";

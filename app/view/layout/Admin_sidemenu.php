@@ -3,18 +3,27 @@
     <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
     <li>
+        <li>
+            <a href="<?=ROOT?>/admin/dashboard">
+                <span class="icon"><ion-icon name="bag-remove-outline"></ion-icon></span>
+                <span class="title">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="<?=ROOT?>/admin/reports">
+                <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>
+                <span class="title">Reports</span>
+            </a>
+        </li>
+
         <li> 
             <a href="<?=ROOT?>/admin/managepdc">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">Manage PDC</span>
             </a>
         </li>
-        <li>
-            <a href="<?=ROOT?>/admin/report">
-                <span class="icon"><ion-icon name="bag-remove-outline"></ion-icon></span>
-                <span class="title">Reports</span>
-            </a>
-        </li>
+       
         <li>
             <a href="<?=ROOT?>/admin/Complaints">
                 <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>

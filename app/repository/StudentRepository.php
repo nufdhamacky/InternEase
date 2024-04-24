@@ -1,5 +1,5 @@
 <?php
-include_once('../app/model/StudentModel.php');
+include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/MyCompanyModel.php');
 include_once('../app/model/CompanyAdModel.php');
 include_once('../app/model/PageDataModel.php');
@@ -14,7 +14,7 @@ class StudentRepository
         $this->conn = $conn;
     }
 
-    public function save(StudentModel $student): ?StudentModel
+    public function save(PdcStudentModel $student): ?PdcStudentModel
     {
         $password = password_hash($student->password, PASSWORD_DEFAULT);
         $userSql = "INSERT INTO users(user_name,user_role,user_status,password) VALUES('{$student->email}','student',1,'{$password}')";
@@ -32,7 +32,7 @@ class StudentRepository
         return null;
     }
 
-    public function update(StudentModel $student): void
+    public function update(PdcStudentModel $student): void
     {
         $sql = "UPDATE student SET email='{$student->email}',first_name='{$student->firstName}',last_name='{$student->lastName}',index_no={$student->indexNo},reg_no='{$student->regNo}' WHERE user_id={$student->userId}";
         $result = $this->conn->query($sql);
@@ -53,13 +53,13 @@ class StudentRepository
 
     public function filter($roundId, $companyId): array
     {
-        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by JOIN firstrounddata f ON f.applied_id=a.id JOIN company_ad c ON c.ad_id=f.ad_id WHERE a.round_id = $roundId and c.company_id=$companyId";
+        $sql = "SELECT distinct s.* FROM student s JOIN applyadvertisement a ON s.id = a.applied_by JOIN first_round_data f ON f.applied_id=a.id JOIN company_ad c ON c.ad_id=f.ad_id WHERE a.round_id = $roundId and c.company_id=$companyId";
         $result = $this->conn->query($sql);
         $list = [];
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM first_round_data f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=$roundId";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -71,7 +71,7 @@ class StudentRepository
                 $adList[] = $ad;
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -97,7 +97,7 @@ class StudentRepository
         while ($row = $result->fetch_assoc()) {
             $id = $row["id"];
 
-            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM firstrounddata f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=1";
+            $companySql = "SELECT c.*,co.*,f.status as apply_status FROM first_round_data f join applyadvertisement a on a.id=f.applied_id JOIN company_ad c on c.ad_id=f.ad_id JOIN company co on co.user_id=c.company_id WHERE a.applied_by=$id and a.round_id=1";
             $companyResult = $this->conn->query($companySql);
             $adList = [];
 
@@ -109,7 +109,7 @@ class StudentRepository
                 $adList[] = $ad;
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -142,7 +142,7 @@ class StudentRepository
                 $jobList[] = $r["job_role"];
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -171,7 +171,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -193,7 +193,7 @@ class StudentRepository
         return new PageDataModel($page, $totalPage, $list);
     }
 
-    public function findById($id): ?StudentModel
+    public function findById($id): ?PdcStudentModel
     {
 
         $sql = "SELECT * FROM student where user_id=$id";
@@ -203,7 +203,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -240,7 +240,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],

@@ -46,6 +46,8 @@ class User
                     $_SESSION['userName'] = $row['user_name'];
                     return 1;
 
+                }else{
+                    return 0;
                 }
             } else if ($row['user_role'] == 'admin') {
                 if (password_verify($password, $row['password'])) {

@@ -29,7 +29,7 @@
 
                         <p class="error">
                             
-                            <?php
+                            <?php 
                                     
                                     if (isset($data['loginError'])) {
                                             echo $data['loginError'];
