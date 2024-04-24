@@ -30,13 +30,13 @@ $studentRequests = $pdcController->getStudentRequest();
             <!--                <option value="company">Company</option>-->
             <!--            </select>-->
 
-            <label for="status-filter">Filter by Status:</label>
-            <select id="status-filter">
-                <option value="all">All</option>
-                <option value="pending">Pending</option>
-                <option value="resolved">Resolved</option>
-                <option value="unresolved">Un-resolved</option>
-            </select>
+            <!--            <label for="status-filter">Filter by Status:</label>-->
+            <!--            <select id="status-filter">-->
+            <!--                <option value="all">All</option>-->
+            <!--                <option value="pending">Pending</option>-->
+            <!--                <option value="resolved">Resolved</option>-->
+            <!--                <option value="unresolved">Un-resolved</option>-->
+            <!--            </select>-->
         </div>
 
         <div class="filter-menu">
@@ -44,7 +44,20 @@ $studentRequests = $pdcController->getStudentRequest();
             <input type="text" id="complaint-id-search">
             <button class="search-btn" id="search-button">Search</button>
         </div>
-
+        <form action="" method="GET" class="filter-form">
+            <div>
+                <select name="status-filter" id="status-filter">
+                    <option value="all">All</option>
+                    <option value="resolved" <?php echo isset($_GET["status-filter"]) ? $_GET["status-filter"] == "resolved" ? "selected" : "" : ""; ?>>
+                        resolved
+                    </option>
+                    <option value="unresolved" <?php echo isset($_GET["status-filter"]) ? $_GET["status-filter"] == "unresolved" ? "selected" : "" : ""; ?>>
+                        unresolved
+                    </option>
+                </select>
+                <button type="submit" class="btn">Filter</button>
+            </div>
+        </form>
         <table id="complaints-table">
             <thead>
             <tr>
