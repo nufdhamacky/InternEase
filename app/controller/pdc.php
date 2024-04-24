@@ -2,7 +2,7 @@
 include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
-include_once('../app/model/StudentModel.php');
+include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
 
 class Pdc extends Controller
@@ -116,7 +116,7 @@ class Pdc extends Controller
         return $this->studentRepository->getAll($page);
     }
 
-    public function findStudentById($id): ?StudentModel
+    public function findStudentById($id): ?PdcStudentModel
     {
         return $this->studentRepository->findById($id);
     }
@@ -202,7 +202,7 @@ class Pdc extends Controller
         $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $student = new StudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
+        $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
         $this->studentRepository->save($student);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
@@ -220,7 +220,7 @@ class Pdc extends Controller
         $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
 
 
-        $student = new StudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array(), array());
+        $student = new PdcStudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array(), array());
         $this->studentRepository->update($student);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
@@ -240,7 +240,7 @@ class Pdc extends Controller
                 $regNo = mysqli_real_escape_string($this->conn, $row[2]);
                 $indexNo = (int)mysqli_real_escape_string($this->conn, $row[3]);
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $student = new StudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
+                $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
                 $this->studentRepository->save($student);
 
             }
