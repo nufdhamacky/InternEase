@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/main2.css">
+    <link rel="stylesheet" href="<?=ROOT?>/css/pdc/main2.css">
     <title>Add Student</title>
 </head>
 <body>
 <div class="main-div">
         <div class="leftpart">
-            <img src="../../../public/images/InternEaseLogo.png" alt="" class="img1">
+            <img src="<?=ROOT?>/assets/images/logo.png" alt="" class="img1">
             <h1>Internship</h1>
             <h1>Management</h1>
             <h1>System</h1>
-            <img src="../../../public/images/image.png" alt="" class="img2">                
+            <img src="<?=ROOT?>/assets/images/loginimage.png" alt="" class="img2">                
         </div> 
         <div class="rightpart">
-            <form class="box" action="../../controllers/addstudent_controller.php" method="post">
+            <form class="box" action="<?=ROOT?>/pdc/addNewStudent" method="post">
                 <h2>Welcome to InternEase</h2>
                     <p class="label1">First Name:<br></p>
+               
                 <input type="text" required name="first_name" placeholder="Enter your first name" class="box1">
                     <p class="label1">Last Name:<br></p>
                 <input type="text" required name="last_name" placeholder="Enter your last name" class="box2">
@@ -42,4 +43,3 @@
     </div>
 </body>
 </html>
-

@@ -32,6 +32,8 @@ body
 {
     width: 150px;
     margin-left: 60px;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
 .navigation img ul
@@ -137,13 +139,16 @@ body
     cursor:pointer;
 }
 
-.user .personicon{
-    font-size: 30px;
-    margin-left: 10px;
+.user span{
+    font-weight: 600;
+    font-size: 25px;
 }
 
-/* ================== Student Details List ============== */
-.details {
+.profile-icon{
+    font-size: 3rem;
+}
+
+.details{
   position: relative;
   width: 100%;
   display: grid;
@@ -155,7 +160,7 @@ body
 .details .compdetails{
   position: relative;
   display: grid;
-  min-height: 500px;
+  min-height: 400px;
   min-width: 400px;
   background: white;
   padding: 20px;
@@ -179,7 +184,7 @@ body
     color: rgba(9, 62, 76, 1);
 }
 
-.details .grid {
+.details .grid{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0px; /* Add some spacing between grid items */
@@ -271,4 +276,23 @@ select{
     border-radius: 5px; 
     cursor: pointer;
     align-items: center;
+    margin-right: 10px;
+}
+
+.submit .sbtn{
+    background-color: #96D1E1; 
+    font-size: 20px;
+    color: black; 
+    width: 350px;
+    font-weight: bold;
+    border-color: #c7c5bbb1; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.submit button :hover {
+    background-color: #72abbb;
 }

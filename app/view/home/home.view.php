@@ -11,6 +11,10 @@
 <body>
     <div class="container">
         <div class="main-left">
+            <div class="img">
+                <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
+            </div>
+            
             <div class="box">
                 <div class="welcome-part">
                     <h1>WELCOME TO</h1>
@@ -36,5 +40,7 @@
             <img src="<?=ROOT?>/assets/images/landing-img.PNG" alt="">
         </div>
     </div>
+
+    <script src="<?=ROOT?>/js/topbar.js"></script>
 </body>
 </html>

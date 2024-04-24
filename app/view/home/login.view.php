@@ -29,7 +29,7 @@
 
                         <p class="error">
                             
-                            <?php
+                            <?php 
                                     
                                     if (isset($data['loginError'])) {
                                             echo $data['loginError'];
@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <P class="fp">Forgot password?</P>
+                        <P class="fp"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/home/sendEmailOTP">Forgot Password?</a></P>
 
                     </div>
                     <div class="submit">

@@ -17,19 +17,36 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span>WSO2</span>
+                    <span></span>
                     <ion-icon name="person-circle-outline" class = "personicon"></ion-icon>
                 </div>
+            </div>
+
+            <div class="submit">
+
+                <a href="scheduleInt">
+                    <button type="submit" class="sbtn">SCHEDULE INTERVIEW</button>
+                </a>
+
+                <a href="tech">
+                    <button type="submit" class="sbtn">SCHEDULE TECH-TALK</button>
+                </a>
+
+                <a href="tech">
+                    <button type="submit"class="sbtn">SCHEDULE COMPANY VISIT</button>
+                </a>
+                
             </div>
 
             <div class = "left-part">
                 <div class="details">
                     <div class="compdetails"> 
 
-                        <div>
-                            <ion-icon name="information-circle-outline"></ion-icon>
-                            <h3>Tech Talks</h3>
-                        </div>
+                        <div class = "cardHeader">
+                        <!-- <ion-icon name="information-circle-outline"></ion-icon> -->
+                            <h2>Schedule Tech Talks</h2>
+                        </div> 
+
                         <div>Date:</div>
                         <div class = "input-container">
                             <input type = "text" class = "bx1">
@@ -68,12 +85,12 @@
                 </div>
             </div>
 
-            <div class = "right-part">
+            <!-- <div class = "right-part">
                 <div class="detaiils">
                     <div class="compdetails">
                         <div>
                             <ion-icon name="information-circle-outline"></ion-icon>
-                            <h3>Tech Talks</h3>
+                            <h3>Schedule Company Visit</h3>
                         </div>
                         <div>Date:</div>
                         <div class = "input-container">
@@ -90,12 +107,28 @@
                         </div>
 
                         <div>Time Slot:</div>
-                        <div>
-                            
+                        <div class = "timeslot">
+                            <div class = "select">
+                                <select>
+                                    <option value = "9">09.00 AM</option>
+                                    <option value = "10">10.00 AM</option>
+                                    <option value = "1030">10.30 AM</option>
+                                    <option value = "11">11.00 AM</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select>
+                                    <option value = "10">10.00 AM</option>
+                                    <option value = "1030">10.30 AM</option>
+                                    <option value = "11">11.00 AM</option>
+                                    <option value = "1130">11.30 AM</option>
+                                </select>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>

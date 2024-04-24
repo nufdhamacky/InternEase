@@ -26,14 +26,13 @@ body{
 }
 
 .main-left img{
-    width: 30%;
-    margin-left: 150px;
-    margin-top: 45px;
+    width: 200px;
+    align-items: center;
 }
 
 .box{
     margin-top: 50px;
-    margin-left: 70px;
+    align-items: center;
 }
 
 .box .ims-part{
@@ -118,8 +117,9 @@ body{
 }
 
 .main-right img{
-    width: 90%;
-    margin-top: auto;
+    width: 100%;
+    height: 100%;
+    /* margin-top: auto; */
 }
 
 .active{
