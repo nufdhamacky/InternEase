@@ -31,17 +31,15 @@
             </div>
             
             <div class = "secondbar">
-                <div class = "search">
-                    <ion-icon name="search-outline"></ion-icon>
-                    <input type = "text" placeholder = "Search Student" class = "box1">
-                </div>
 
                 <div class = "allstudents" id="studentCategory">
                     <select>
+                        <option value = "all">All</option>
                         <option value = "se">Software Engineer</option>
                         <option value = "qa">Quality Assurance</option>
                         <option value = "ba">Business Analyst</option>
                     </select>
+                    <ion-icon name="search-outline"></ion-icon>
                 </div>
             </div>
             
@@ -57,8 +55,8 @@
                         <tr>
                             <td>Student Name</td>
                             <td>Registration No.</td>
+                            <td>Position</td>
                             <td>CV</td>
-                            <td>Profile</td>
                             <td>Action</td>
                         </tr>
                         </thead>
@@ -69,9 +67,9 @@
                                     <tr>
                                         <td><?php echo $req->firstname . ' ' . $req->lastname; ?></td>
                                         <td><?php echo $req->regno; ?> </td>
+                                        <td><?php echo $req->regno; ?> </td>
                                         <!-- <td><?php echo $req->cv; ?></td> -->
                                         <td><a href="path_to_cv_file" class="download-cv-btn">Download CV</a></td>
-                                        <td><a href="#" span class = "view"></span>View Profile</td>
                                         <td>
                                             <select>
                                                 <option value = "" selected hidden>--Select Action--</option>

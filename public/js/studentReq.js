@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Set default selection to Software Engineer
-    const defaultCategory = 'se';
+    const defaultCategory = 'all';
     const defaultTable = document.getElementById(defaultCategory + 'Table');
     const defaultSelect = document.querySelector('.allstudents select');
     
