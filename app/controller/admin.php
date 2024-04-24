@@ -59,6 +59,7 @@ class Admin extends Controller {
 
 //PROFILE - ADMIN
 
+
     public function profile() {
         if (!$this->isLoggedIn()){return;}
                 $this->model('AdminModel');
@@ -101,6 +102,8 @@ class Admin extends Controller {
                         if($_POST["col"] !=='password'){
                             $_SESSION["userName"] =$data['value'];
                             $email = 1;
+                            $inputotp = new Mailer;
+                            $Otp = $inputotp->sendOTPEmail($data['value'],'Email Verification');
                             $data =['email'=>  $email];
                         }else{ 
                             $pwd = 1;
