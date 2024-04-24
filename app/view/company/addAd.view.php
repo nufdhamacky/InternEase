@@ -40,9 +40,15 @@
                             <h4>Position</h4>
                             <select name="position">
                                 <option value = "" selected hidden>Select Position</option>
-                                <option value = "Sofware Engineer">Sofware Engineer</option>
-                                <option value = "Quality Assuarance">Quality Assurance</option>
+                                <option value = "Sofware Engineer">Sofware Engineer(Front-End)</option>
+                                <option value = "Sofware Engineer">Sofware Engineer(Back-End)</option>
+                                <option value = "QA(Manual Testing)">QA(Manual Testing)</option>
                                 <option value = "Business Analyst">Business Analyst</option>
+                                <option value = "Data Analayst">Data Analayst</option>
+                                <option value = "Graphic Design">Graphic Design</option>
+                                <option value = "Product Management">Product Management</option>
+                                <option value = "Software Test Automation">Software Test Automation</option>
+                                <option value = "Digital Marketiing">Digital Marketiing</option>
                             </select>
                             <br>
 
@@ -85,10 +91,18 @@
 
                             <div class = "card">
                                 <h4>No. of Interns</h4>
-                                <h4 class = "spaceleft" style="margin-left:150px">Working Mode</h4>
+                                <h4 class = "spaceleft">No. of CVs Required</h4>
                             </div>
                             <div class = "card">
                                 <input name="no_of_intern" type = "number" class = "bx1">
+                                <input name="no_of_cvs_required" type = "number" class = "bx1">
+
+                            </div>
+
+                            <div class="card"> 
+                                <h4 class = "spaceleft" style="margin-left:200px">Working Mode</h4>
+                            </div>
+                            <div class="card">
                                 <select name="working_mode">
                                     <option value = "Online">Online</option>
                                     <option value = "Physical">Physical</option>
