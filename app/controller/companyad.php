@@ -22,13 +22,16 @@ class CompanyAd extends Controller
     public function reject()
     {
         $id = $_GET["id"];
-        $this->companyAdRepository->reject($id);
+        $reason = $_GET["reason"];
+        $this->companyAdRepository->reject($id, $reason);
+
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/advertisement');</script>";
     }
 
     public function accept()
     {
         $id = $_GET["id"];
+
         $this->companyAdRepository->accept($id);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/advertisement');</script>";
     }

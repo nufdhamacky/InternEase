@@ -56,7 +56,8 @@ $ads = $companyAdController->getAll();
                             <td>
                                 <a href="<?= ROOT ?>/companyad/accept?id=<?php echo $a->adId; ?>"
                                    style="display: <?php echo $a->status == 0 || $a->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                                <a href="<?= ROOT ?>/companyad/reject?id=<?php echo $a->adId; ?>"
+                                <a href="#"
+                                   onclick="rejectAd(<?php echo $a->adId; ?>)"
                                    style="display: <?php echo $a->status == 0 || $a->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                             </td>
                         </tr>
@@ -72,5 +73,6 @@ $ads = $companyAdController->getAll();
 </div>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="<?= ROOT ?>/js/advertisement.js"></script>
 </body>
 </html>
