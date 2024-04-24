@@ -1,40 +1,90 @@
 <?php require_once("../app/view/inc/header.php"); ?>
+<link rel="stylesheet" href="<?= ROOT ?>/assets/css/profile.css">
 
 <div class="container">
-        <?php require_once("../app/view/inc/sidebar.php"); ?>
-    
-        <div class="main">
-            <?php require_once("../app/view/inc/topbar.php"); ?>
+    <?php require_once("../app/view/inc/sidebar.php"); ?>
 
-            <div class="content">
-                <div class="profile-box">
-                    <div class="profile-header">
-                        <div class="profile">
-                            <img class="profile-picture" src="<?=ROOT?>/assets/images/Sham.jpg" alt="Profile Picture">
-                            <div class="profile-name">Shamah</div>
-                        </div>
-                        <button class="edit-button">Edit</button>
-                        <i class="settings-icon fas fa-cog"></i>
-                    </div>
-                    <div class="profile-content">
-                        <div class="input1">
-                            <textarea class="text-area" placeholder="Course"></textarea>
-                        <textarea class="text-area" placeholder="Contact"></textarea>
-                        <textarea class="text-area" placeholder="School"></textarea>
-                        </div>
-                        <div class="text1-area">
-                            <label for="cv-upload" class="cv-label">Upload CV:</label>
-                            <input type="file" id="cv-upload" class="cv-input">
-                            <label for="cv-upload" class="cv-button" >Choose File</label>
-                        </div>
-                        <textarea class="text-area" placeholder="Interested Areas"></textarea>
-                        <textarea class="text-area" placeholder="Experience"></textarea>
-                        <textarea class="text-area" placeholder="Extra Curricular"></textarea>
-                        <textarea class="text-area" placeholder="Qualifications"></textarea>
-                    </div>
-                </div>
+    <div class="main">
+        <?php require_once("../app/view/inc/topbar.php"); ?>
+
+        <div class="profile-container">
+            <h2>Student Profile</h2>
+            <div class="profile-card">
+                <?php
+                $studentData = $this->fetchStudentProfile();
+                if ($studentData) {
+                    echo "<div class='profile-details'>";
+                    echo "<img src='" . ROOT . "/assets/images/Sham.jpg' alt='Profile Picture'>";
+                    echo "<p><strong>First Name:</strong> " . $studentData['firstName'] . "</p>";
+                    echo "<p><strong>Last Name:</strong> " . $studentData['lastName'] . "</p>";
+                    echo "<p><strong>Email:</strong> " . $studentData['email'] . "</p>";
+                    echo "<p><strong>Index No:</strong> " . $studentData['index_no'] . "</p>";
+                    echo "<p><strong>Registration No:</strong> " . $studentData['reg_no'] . "</p>";
+                    if ($studentData['cv']) {
+                        echo "<p><strong>CV:</strong> <a href='" . ROOT . "/uploads/" . $studentData['cv'] . "' target='_blank'>View CV</a></p>";
+                    }
+                    echo "</div>";
+                    echo "<button class='edit-btn' onclick='openEditModal()'>Edit Profile</button>";
+                } else {
+                    echo "<p>Student profile not found.</p>";
+                }
+                ?>
             </div>
         </div>
     </div>
+</div>
 
-    <?php require_once("../app/view/inc/footer.php"); ?>
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <form action="<?=ROOT?>/student/updateProfile" method="post" enctype="multipart/form-data">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" value="<?= $studentData['firstName'] ?>">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" value="<?= $studentData['lastName'] ?>">
+            <label for="cv">Upload CV</label>
+            <input type="file" id="cv" name="cv">
+            <button type="submit" name="submit">Save Changes</button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function openEditModal() {
+        document.getElementById("editModal").style.display = "block";
+    }
+
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("editModal")) {
+            closeEditModal();
+        }
+    }
+
+    // Handle form submission
+    document.getElementById("editForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var formData = new FormData(event.target);
+        formData.append("userId", <?= $studentData['user_id'] ?>);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "<?= ROOT ?>/student/updateProfile", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                console.log(xhr.responseText);
+                // Handle successful response
+                closeEditModal();
+                // Optionally, you can refresh the page or update the UI with the new data
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
+
+<?php require_once("../app/view/inc/footer.php"); ?>
+
