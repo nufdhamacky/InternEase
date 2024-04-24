@@ -3,7 +3,7 @@
 class StudentModel extends Model{
     
     public function getStudentByUserId($userId) {
-        $query = "SELECT * FROM students WHERE user_id = ?";
+        $query = "SELECT * FROM student WHERE user_id = ?";
         $result = $this->query($query, [$userId]);
         return $result[0] ?? null;
     }
@@ -24,7 +24,7 @@ class StudentModel extends Model{
         $updateValues[] = $userId;
 
         // Update the student record in the database
-        $query = "UPDATE students SET $updateFields WHERE user_id = ?";
+        $query = "UPDATE student SET $updateFields WHERE user_id = ?";
         $this->query($query, $updateValues);
     }
 }

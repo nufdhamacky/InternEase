@@ -72,9 +72,8 @@ class Student extends Controller{
         $ads = $admodel->fetchAds();
         // $adsWithStatus = $admodel->fetchAdsWithStatus($userId);
 
-        // var_dump($_SESSION);
-        // var_dump($ads);
-        $this->view('student/advertisement', ['data' => $ads]);
+        
+        $this->view('student/advertisement', array('ads' => $ads));
 
     }
     public function profile(){
@@ -142,8 +141,8 @@ class Student extends Controller{
             if ($studentData) {
                 // Update first name and last name
                 $studentModel->updateStudent($userId, [
-                    'firstName' => $firstName,
-                    'lastName' => $lastName
+                    'first_name' => $firstName,
+                    'last_name' => $lastName
                 ]);
     
                 // Handle file upload
@@ -155,7 +154,9 @@ class Student extends Controller{
     
                 // Return the updated student data as a JSON response
                 $updatedStudentData = $studentModel->getStudentByUserId($userId);
-                echo json_encode($updatedStudentData);
+                // echo json_encode($updatedStudentData);
+                $this->redirect("profile");
+                
             } else {
                 echo json_encode(['error' => 'Student profile not found.']);
             }

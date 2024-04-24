@@ -24,8 +24,8 @@
             <div class="ad-cards">
             
                 <?php
-                if (isset($data['data']) && is_array($data['data'])) {
-                    foreach ($data['data'] as $index => $ad) {
+                if (isset($ads) && count($ads) > 0) {
+                    foreach ($ads as $index => $ad) {
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
                         echo '<img src="' . ROOT . $ad['image_url'] . '" alt="Advertisement ' . ($index + 1) . '">';
                         echo '<h3>' . $ad['company_id'] . '</h3>';
