@@ -3,6 +3,14 @@
 class Applied extends Model {
     protected $table = 'first_round_test';
 
+    private $connection;
+    
+    
+
+    public function __construct() {
+        $this->connection = $this->connection();
+    }
+
     public function hasApplied($userId, $adId) {
         $result = $this->where('user_id', $userId)->where('ad_id', $adId);
         return !empty($result);

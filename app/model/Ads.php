@@ -6,6 +6,14 @@ class Ads extends Model{
 
     protected $table = 'company_ad';
 
+    private $connection;
+    
+    
+
+    public function __construct() {
+        $this->connection = $this->connection();
+    }
+
     public function fetchAds(){
         return $this->findall();
     }
