@@ -262,6 +262,11 @@ class Pdc extends Controller
         return $this->pdcComplaintRepository->getAll($order);
     }
 
+    public function getStudentRequestById($id): PdcComplaintModel
+    {
+        return $this->pdcComplaintRepository->findById($id);
+    }
+
     public function getStudentRequestCount(): int
     {
         return $this->pdcComplaintRepository->getCount();
@@ -270,6 +275,14 @@ class Pdc extends Controller
     public function filterStudentRequest($status, $order): array
     {
         return $this->pdcComplaintRepository->filter($status, $order);
+    }
+
+    public function replyComplaint()
+    {
+        $id = $_POST["id"];
+        $reply = mysqli_real_escape_string($this->conn, $_POST['reply']);
+        $this->pdcComplaintRepository->reply($id, $reply);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/studentrequest');</script>";
     }
 
     public function index()
@@ -327,6 +340,7 @@ class Pdc extends Controller
         $this->view('pdc/blacklistedcompanies');
     }
 
+
     public function addblacklist()
     {
         $this->view('pdc/addblacklist');
@@ -370,6 +384,11 @@ class Pdc extends Controller
     public function companyreport()
     {
         $this->view('pdc/companyreport');
+    }
+
+    public function companyreportpercentage()
+    {
+        $this->view('pdc/companyreportpercentage');
     }
 
     public function schedule()

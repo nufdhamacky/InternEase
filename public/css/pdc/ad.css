@@ -137,16 +137,19 @@ body {
     border-collapse: collapse;
 }
 
+
 .details table th, .details table td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
 }
 
-.details table th {
-    text-align: left;
-    font-weight: bold;
-    color: #0b596f;
+/* Add this CSS to make table headings bold */
+.details table thead th {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold; /* Add this line to make headings bold */
 }
+
 
 .details table tbody tr:hover {
     background-color: #f5f5f5;
@@ -161,6 +164,6 @@ body {
 }
 
 .details table tbody tr td a:hover {
-    background-color: #0b596f;
+    background-color: #8cbdd0;
     color: #fff;
 }
