@@ -21,6 +21,7 @@ class StudentRepository
         $userResult = $this->conn->query($userSql);
         if ($userResult) {
             $userId = $this->conn->insert_id;
+            
             $sql = "INSERT INTO student(user_id,email,first_name,last_name,index_no,reg_no) VALUES({$userId},'{$student->email}','{$student->firstName}', '{$student->lastName}',{$student->indexNo},'{$student->regNo}')";
             $result = $this->conn->query($sql);
 
@@ -29,14 +30,6 @@ class StudentRepository
             }
         }
 
-        $sql = "INSERT INTO apply_advertisement(applied_by,round_id) VALUES({$studentId},1)";
-        $result = $this->conn->query($sql);
-        if ($result) {
-            $id = $this->conn->insert_id;
-            $sql = "INSERT INTO first_round_data(applied_id,ad_id) VALUES($id,{$adId})";
-            $r = $this->conn->query($sql);
-
-        }
         return null;
     }
 

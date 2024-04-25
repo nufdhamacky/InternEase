@@ -15,10 +15,12 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Request</title>
-    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/studentreq.css">
 </head>
 <body>
 <div class="container">
+
+
     <div class="report_item" style="width:fit-content;">
         <h2>Complaints</h2>
 
@@ -26,7 +28,7 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
         <div class="filter-menu">
             <label for="complaint-id-search">Search by Complaint ID:</label>
             <input type="text" id="complaint-id-search">
-            <button class="search-btn" id="search-button">Search</button>
+            <button class="btn" id="search-button">Search</button>
         </div>
         <form action="" method="GET" class="filter-form">
             <div class="filter-menu">
@@ -41,7 +43,8 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
                 </select>
 
             </div>
-            <div>
+            <div class="filter-menu">
+                <label for="status-filter">Sort By Status:</label>
                 <select name="status-filter" id="status-filter">
                     <option value="all">All</option>
                     <option value="resolved" <?php echo isset($_GET["status-filter"]) ? $_GET["status-filter"] == "resolved" ? "selected" : "" : ""; ?>>
@@ -71,8 +74,10 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
                     <td><?php echo $request->id; ?></td>
                     <td><?php echo $request->title; ?></td>
                     <td><?php echo $request->date; ?></td>
-                    <td><?php echo $request->description; ?></td>
-                    <td style="color: <?php echo $request->status == 0 ? "blue" : ($request->status == 1 ? "green" : "red"); ?>"><?php echo $request->status == 0 ? "Unresolved" : "Resolved"; ?></td>
+                    <td>
+                        <a href="complaintdes?id=<?php echo $request->id; ?>" class="btn view-btn">view</a>
+                    </td>
+                    <td style="color: <?php echo $request->status == 0 ? "red" : ($request->status == 1 ? "green" : "red"); ?>"><?php echo $request->status == 0 ? "Unresolved" : "Resolved"; ?></td>
 
                 </tr>
             <?php } ?>
