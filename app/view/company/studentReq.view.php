@@ -26,14 +26,14 @@
             
           <div class = "secondbar">
 
-            <form action="" method="GET" class="filter-ads">
+            <!-- <form action="" method="GET" class="filter-ads">
                 <div>
                     <select name="company_ad" id="company_ad">
                         <option value="all">All</option>
 
                     </select>
                 </div>
-            </form>
+            </form> -->
 
                 <div class = "allstudents" id="studentCategory">
                     <select>
@@ -51,7 +51,7 @@
         <div id="seTable" class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Student Requests for Software Engineer</h2>
+                    <h2>Student Requests</h2>
                 </div>
 
                 <table>
@@ -61,7 +61,6 @@
                                 <td>Registration No.</td>
                                 <td>Position</td>
                                 <td>CV</td>
-                                <td>Profile</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
@@ -73,8 +72,7 @@
                                 <td><?php echo htmlspecialchars($req['first_name']." ".$req['last_name']) ;?></td>
                                 <td><?php echo htmlspecialchars($req['reg_no']) ;?></td>
                                 <td><?php echo htmlspecialchars($req['position']) ;?></td>
-                                <td><a href="path_to_cv_file" class="download-cv-btn"><?php echo htmlspecialchars($req['cv']) ;?></a></td>
-                                <td><a href="#" span class = "view"></span></td>
+                                <td><a href="path_to_cv_file" class="download-cv-btn"><?php echo htmlspecialchars($req['cv']) ;?>Download CV</a></td>
                                 <td>
                                     <select>
                                         <option value = "" selected hidden>--Select Action--</option>
