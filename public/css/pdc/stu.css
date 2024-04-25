@@ -143,12 +143,63 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+.details .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .details .cardHeader h2 {
     font-size: 1.5em;
     font-weight: bold;
     color: #0b596f;
-    margin-bottom: 20px;
+    margin: 0;
 }
+
+.details .cardHeader .filter-form {
+    display: flex;
+    align-items: center;
+}
+
+.details .cardHeader .filter-form select {
+    margin-right: 10px;
+}
+
+.details .cardHeader .btn {
+    background-color: #0b596f;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.details .cardHeader .btn:hover {
+    background-color: #064d5e;
+}
+
+.details .cardHeader .upload-btn {
+    margin-left: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.details .cardHeader .upload-btn input[type="file"] {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/*.details .cardHeader h2 {*/
+/*    font-size: 1.5em;*/
+/*    font-weight: bold;*/
+/*    color: #0b596f;*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
 .details table {
     width: 100%;
