@@ -2,10 +2,10 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
     /** database config **/
-    define('DBNAME', 'internEaseTest');
+    define('DBNAME', 'intern_ease');
     define('DBHOST', 'localhost');
     define('DBUSER', 'root');
-    define('DBPASS', '');
+    define('DBPASS', 'password');
 
     define('ROOT', 'http://localhost/internease/public');
 
