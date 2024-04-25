@@ -27,8 +27,8 @@
                 if (isset($ads) && count($ads) > 0) {
                     foreach ($ads as $index => $ad) {
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
-                        echo '<img src="' . ROOT . $ad['image_url'] . '" alt="Advertisement ' . ($index + 1) . '">';
-                        echo '<h3>' . $ad['company_id'] . '</h3>';
+                        echo '<img src="' . ROOT . '/assets/images/' . $ad['user_profile'] . '" alt="Advertisement ' . ($index + 1) . '">';
+                        echo '<h3>' . $ad['company_name'] . '</h3>';
                         echo '<p>' . $ad['requirements'] . '</p>';
                         // echo '<p>' . $ad['ad_id'] . '</p>';
                         echo '</div>';
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-
+<!-- Second Round -->
     <div id="preferencesModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -58,7 +58,8 @@
                 for ($i = 1; $i <= 3; $i++) {
                     echo "<label for='preference$i'>Preference $i:</label>";
                     echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    echo "<option value=''>None</option>"; // Add None option as the default
+                    // echo "<option value=''>None</option>"; // Add None option as the default
+
                     // Add options for each job role
                     foreach ($jobRoles as $role) {
                         echo "<option value='$role'>$role</option>";
@@ -80,6 +81,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Assign userId to a JavaScript variable
 echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
+
+
 ?>
 
     <script>
@@ -120,9 +123,12 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                 <span class="close" onclick="closeAdDetails()">&times;</span>
                 <h2>${ad.company_name}</h2>
                 <p><strong>Job Position:</strong> ${ad.position}</p>
-                <p><strong>Mode of Work:</strong> ${ad.modeOfWork}</p>
-                <p></strong>Location:</strong> ${ad.location}</p>
-                <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
+                <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
+                <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
+                <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
+                <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
+                <p><strong>Qualifications:</strong> ${ad.qualification}</p>
+                <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
                 <p><strong>Requirements:</strong> ${ad.requirements}</p>
                 <button id="apply" onclick="applyToJob(${ad.ad_id}, ${userId})">Apply</button>
                 <button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
@@ -253,7 +259,53 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
             }
         }
 
-        
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch round dates from PHP
+            const roundDates = <?php echo json_encode($roundData); ?>;
+            const currentDate = new Date(); // Current date
+
+            // Flag to check if any round is active
+            let isActive = false;
+
+            // Mapping round IDs to database IDs
+            const roundIdMapping = {
+                "firstround": 1,
+                "secondround": 2
+            };
+
+            // Iterate through round dates
+            roundDates.forEach(function(round) {
+                const roundStartDate = new Date(round.start_date); // Start date of the round
+                const roundEndDate = new Date(round.end_date); // End date of the round
+                const roundElementId = Object.keys(roundIdMapping).find(key => roundIdMapping[key] === round.id); // Round element ID
+
+                if (!roundElementId) {
+                    console.error('Invalid round ID:', round.id);
+                    return;
+                }
+
+                const roundElement = document.getElementById(roundElementId); // Round element
+
+                if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
+                    roundElement.classList.add('active');
+                    // isActive = true;
+                } else {
+                    roundElement.classList.remove('active');
+                }
+            });
+
+            console.log(roundStartDate);
+
+            // If no round is active, you can set a default active round (e.g., the first round)
+            // if (!isActive && roundDates.length > 0) {
+            //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
+            //     const firstRoundElement = document.getElementById(firstRoundElementId);
+            //     firstRoundElement.classList.add('active');
+            // }
+        });
+
+
+
 
 
     </script>

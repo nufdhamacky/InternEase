@@ -47,10 +47,13 @@
     margin-right: 5px;
     font-size: 12px;
     background-color: peachpuff;
+    border: 1px solid #0b596f;
+    animation: blink 1s infinite;
 }
 
-.active .round-marker{
-    background-color: black;
+.rounds .round.active .round-marker {
+    border: 1px dashed black;
+    animation: none;
 }
 
 .rounds .round .round-text{
@@ -58,6 +61,17 @@
     font-size: 20px;
 }
 
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .ad-cards {
     grid-column: 1 / span 7;

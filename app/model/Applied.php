@@ -69,7 +69,9 @@ class Applied extends Model {
     // }
 
     public function apply($studentId, $adId)
-    {
+{
+    $validity = $this->validateApplication($studentId);
+    if($validity){
         // Check if the user has already applied for any job
         $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
         $stmt = $this->connection->prepare($query);
@@ -79,7 +81,6 @@ class Applied extends Model {
         
         $result = $stmt->get_result();
 
-    
         $existingEntries = $result->fetch_all(MYSQLI_ASSOC);
     
         foreach ($existingEntries as $existingEntry) {
@@ -91,7 +92,7 @@ class Applied extends Model {
             
             if (!$stmt2) {
                 // Handle the error if prepare() fails
-                return false;
+                return ['success' => false, 'message' => 'Error preparing statement'];
             }
     
             $stmt2->bind_param('i', $appliedId);
@@ -101,14 +102,14 @@ class Applied extends Model {
     
             if (!$result2) {
                 // Handle the error if get_result() fails
-                return false;
+                return ['success' => false, 'message' => 'Error executing statement'];
             }
     
             $existingAdEntry = $result2->fetch_assoc();
     
             if ($existingAdEntry && $existingAdEntry['ad_id'] == $adId) {
                 // User has already applied for this ad, return false
-                return false;
+                return ['success' => false, 'message' => 'You have already applied for this job'];
             }
         }
     
@@ -118,7 +119,7 @@ class Applied extends Model {
         
         if (!$stmt) {
             // Handle the error if prepare() fails
-            return false;
+            return ['success' => false, 'message' => 'Error preparing statement'];
         }
         
         $stmt->bind_param('i', $studentId);
@@ -126,7 +127,7 @@ class Applied extends Model {
     
         if (!$success) {
             // Failed to insert into the applyadvertisement table
-            return false;
+            return ['success' => false, 'message' => 'Error applying for job'];
         }
     
         // Get the inserted id
@@ -138,16 +139,42 @@ class Applied extends Model {
         
         if (!$stmt) {
             // Handle the error if prepare() fails
-            return false;
+            return ['success' => false, 'message' => 'Error preparing statement'];
         }
         
         $stmt->bind_param('ii', $adId, $appliedId);
         $success = $stmt->execute();
     
-        return $success;
+        return ['success' => $success];
+    } else {
+        return ['success' => false, 'message' => 'You have reached the maximum number of applications'];
     }
+}
+
     
 
+    public function validateApplication($studentId) {
+        // Query to get the count of unique entries in the applyadvertisement table for the given student
+        $query = "SELECT COUNT(DISTINCT aa.id) AS applied_count, r.count AS round_count 
+                  FROM applyadvertisement AS aa
+                  JOIN round AS r ON r.id = aa.round_id
+                  WHERE aa.applied_by = ?";
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('i', $studentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $counts = $result->fetch_assoc();
+    
+        // Check if the applied count is less than or equal to the round count
+        if ($counts['applied_count'] >= $counts['round_count']) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
 
     
 
@@ -212,35 +239,19 @@ class Applied extends Model {
 
     public function fetchAppliedAdsCount($studentId){
 
-        $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
+        $query = "SELECT COUNT(DISTINCT frd.ad_id) AS count 
+                  FROM applyadvertisement AS aa 
+                  INNER JOIN first_round_data AS frd ON aa.id = frd.applied_id 
+                  WHERE aa.applied_by = ?";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param('i', $studentId);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        $existingEntries = $result->fetch_all(MYSQLI_ASSOC);
-
-        foreach($existingEntries as $existingEntry){
-            $appliedId = $existingEntry['id'];
-
-            $query2 = "SELECT COUNT(DISTINCT ad_id) AS count FROM first_round_data WHERE applied_id = ?";
-            $stmt2 = $this->connection->prepare($query2);
-            
+        $appliedAdsCount = $result->fetch_assoc();
     
-            $stmt2->bind_param('i', $appliedId);
-            $stmt2->execute();
-            
-            $result2 = $stmt2->get_result();
-    
-    
-            $appliedAdsCount = $result2->fetch_assoc();
-
-            
-    
-        }
-
         return $appliedAdsCount['count'];
     }
+    
     
     
 }
