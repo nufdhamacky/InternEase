@@ -451,7 +451,7 @@ class Admin extends Controller {
       
         // Validate and regenerate if necessary
         if (!preg_match("/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/", $password)) {
-          return generateStrongString($length);
+          return $this->generateStrongString($length);
         }
       
         return $password;
