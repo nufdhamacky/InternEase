@@ -1,3 +1,4 @@
+/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +9,7 @@
 body {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #f9f9f9;
 }
 
 .container {
@@ -28,8 +30,11 @@ body {
 .navigation img {
     width: 150px;
     margin-left: 60px;
-    margin-top: 50px;
-    margin-bottom: 20px;
+
+}
+
+.button_a {
+    text-decoration: none;
 }
 
 .navigation img ul {
@@ -49,7 +54,8 @@ body {
     background-color: #CFE3EA;
 }
 
-.navigation ul li:nth-child(7) {
+
+.navigation ul li:nth-child(8) {
     margin-bottom: 50px;
 }
 
@@ -85,15 +91,18 @@ body {
     white-space: nowrap;
 }
 
-/* main */
-
+/* Main content styles */
 .main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
-    background: white;
+    background: #fff;
     transition: 0.5s;
+    padding: 20px;
+    z-index: 0;
+    overflow-x: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .topbar {
@@ -102,224 +111,81 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
 }
 
 .toggle {
-    position: relative;
-    top: 0;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 1.8em;
     cursor: pointer;
+    color: #fff;
 }
 
 .user {
     display: flex;
     align-items: center;
-    position: relative;
-    min-width: 40px;
-    height: 40px;
-    overflow: hidden;
+    color: #fff;
     cursor: pointer;
 }
 
-.user .personicon {
-    font-size: 30px;
-    margin-left: 10px;
+.user span {
+    margin-right: 10px;
 }
 
+/* Form styles */
 .details {
-    position: relative;
-    width: 100%;
-    display: grid;
-    padding: 250px;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 30px;
-}
-
-.details .compdetails {
-    position: relative;
-    display: grid;
-    min-height: 500px;
-    min-width: 400px;
-    background: white;
     padding: 20px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.details .cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .cardHeader h2 {
-    font-weight: 600;
-    color: rgba(9, 62, 76, 1);
-}
-
-.details .grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0px; /* Add some spacing between grid items */
-}
-
-.grid .card1 {
-    text-align: center;
-    padding: 5px;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.08);
-}
-
-.card {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-}
-
-.card .input-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.card .calendar-icon {
-    position: relative;
-    right: 60px;
-    transform: translateY(-10%);
-    font-size: 24px;
-}
-
-.card .bx1, .card select {
-    width: 100px;
-    height: 40px;
-    margin-right: 30px;
-    margin-left: 30px;
-}
-
-.card .h4 {
-    margin: 10px 10px;
-}
-
-.card .spaceleft {
-    margin: 0px 90px;
-}
-
-select, .bx1 {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-select {
-    height: 40px;
-    cursor: pointer;
-}
-
-.card select {
-    margin-left: 65px;
-}
-
-.card option {
-    text-align: center;
-}
-
-.submit {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.submit button {
-    background-color: #0B5A6F;
-    font-size: 15px;
-    color: white;
-    border: none;
-    width: 80px;
-    height: 40px;
+    font-size: 1.5em;
     font-weight: bold;
-    padding: 5px 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    align-items: center;
-}
-
-.submit .sbtn {
-    background-color: #96D1E1;
-    font-size: 20px;
-    color: black;
-    width: 350px;
-    font-weight: bold;
-    border-color: #c7c5bbb1;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    align-items: center;
+    color: #0b596f;
     margin-bottom: 20px;
-}
-
-.submit button :hover {
-    background-color: #72abbb;
 }
 
 .form-container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    width: 100%;
 }
 
-.form-container h2 {
-    font-size: 24px;
+.input-container {
     margin-bottom: 20px;
-    color: #0B5A6F;
 }
 
-.form-container label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.form-container input[type="datetime-local"],
-.form-container textarea,
-.form-container select {
+.input-container select {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    resize: none;
+    border: 1px solid #ccc;
 }
 
-.form-container button {
-    background-color: #0B5A6F;
-    color: white;
+.timeslot input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.submit button {
+    padding: 10px 20px;
+    background-color: #0b596f;
+    color: #fff;
     border: none;
-    width: 100px;
-    height: 40px;
-    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.form-container button:hover {
-    background-color: #72abbb;
 }

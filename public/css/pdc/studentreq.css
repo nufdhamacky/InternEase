@@ -1,0 +1,105 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.report_item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.filter-menu {
+    margin-bottom: 20px;
+}
+
+.filter-menu label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-menu select,
+.filter-menu input[type="text"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.filter-menu .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0b596f;
+    color: #fff;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f4f4f4;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .report_item {
+        width: 95%;
+    }
+
+    .filter-menu {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .filter-menu label,
+    .filter-menu select,
+    .filter-menu input[type="text"],
+    .filter-menu .btn {
+        margin-bottom: 10px;
+    }
+
+    table {
+        overflow-x: auto;
+    }
+}

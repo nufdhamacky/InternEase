@@ -1,6 +1,9 @@
 <?php
 include_once('../app/controller/pdc.php');
+include_once('../app/controller/companyad.php');
 $pdcController = new Pdc();
+$companyAdController = new CompanyAd();
+$ads = $companyAdController->getAll();
 
 ?>
 <!DOCTYPE html>
@@ -47,7 +50,7 @@ $pdcController = new Pdc();
             <div class="card">
                 <a style="text-decoration: none" href="studentrequest">
                     <div>
-                        <div class="number">12</div>
+                        <div class="number"><?php echo $pdcController->getStudentRequestCount(); ?></div>
                         <div class="cardName">Student Request</div>
                     </div>
                 </a>
@@ -65,7 +68,7 @@ $pdcController = new Pdc();
             <div class="internshipAds">
                 <div class="cardHeader">
                     <h2>Applied Advertisements Status</h2>
-                    <a href="advertisement" class="btn">View All</a>
+                    <a href="advertisement" class="btn view-btn">View All</a>
                 </div>
                 <table>
                     <thead>
@@ -77,53 +80,16 @@ $pdcController = new Pdc();
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>WSO2</td>
-                        <td>Software Engineering</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
+                    <?php
+                    foreach ($ads as $a) { ?>
 
-                    <tr>
-                        <td>99X</td>
-                        <td>QA</td>
-                        <td><span class="status approved">Approved</span></td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $a->company->name; ?></td>
+                            <td><?php echo $a->position; ?></td>
+                            <td style="color: <?php echo $a->status == 0 ? "blue" : ($a->status == 1 ? "green" : "red"); ?>"><?php echo $a->status == 0 ? "Pending" : ($a->status == 1 ? "Approved" : "Rejected"); ?></td>
 
-                    <tr>
-                        <td>Virtusa</td>
-                        <td>Web Development</td>
-                        <td><span class="status rejected">Rejected</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>CodeGen</td>
-                        <td>Software Engineering</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>IFS</td>
-                        <td>QA</td>
-                        <td><span class="status approved">Approved</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>99X</td>
-                        <td>Software Engineering</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>Virtusa</td>
-                        <td>Web Development</td>
-                        <td><span class="status rejected">Rejected</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>CodeGen</td>
-                        <td>QA</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
+                        </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
 

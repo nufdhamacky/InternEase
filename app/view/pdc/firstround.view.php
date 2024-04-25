@@ -104,7 +104,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
         </div>
 
         <form action="" method="GET" class="filter-form">
-            <div>
+            <div class="filter-container">
                 <select name="company" id="company">
                     <option value="all">All</option>
                     <?php
@@ -131,7 +131,16 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                         <td>Email</td>
                         <td>Applied Companies</td>
                         <td>Job Roles</td>
+                        <td>Status</td>
+                        <td class="filter-column">
 
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+
+                        </td>
                     </tr>
                     </thead>
 
@@ -145,14 +154,21 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <td><?php foreach ($student->ads as $r) { ?>
                                     <div>
                                         <span><?php echo $r->company->name; ?>  </span>
-                                        <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
                                     </div>
 
                                 <?php } ?>
                             </td>
+
                             <td>
                                 <?php foreach ($student->ads as $r) {
                                     echo $r->position; ?> <br> <?php } ?>
+                            </td>
+                            <td>
+                                <?php foreach ($student->ads as $r) { ?>
+                                    <div>
+                                        <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
+                                    </div>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>
