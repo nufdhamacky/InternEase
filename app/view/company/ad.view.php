@@ -58,7 +58,9 @@
                                 <td>Qualification</td>
                                 <td colspan="2">Internship Period</td>
                                 <td>No. of Interns</td>
+                                <td>No. of CVs Required</td>
                                 <td>Working Mode</td>
+                                <td>Status</td>
                             </tr>
                         </thead>
 
@@ -72,7 +74,9 @@
                                         <td><?php echo $ad->fromDate; ?> </td>
                                         <td><?php echo $ad->toDate; ?> </td>
                                         <td><?php echo $ad->interns; ?> </td>
+                                        <td><?php echo $ad->no_of_cvs_required; ?> </td>
                                         <td><?php echo $ad->workMode; ?> </td>
+                                        <td><?php echo $ad->status; ?> </td>
                                     </tr>
                                     <?php } ?>
                         </tbody>

@@ -47,7 +47,7 @@
                                 <img src="<?php echo $imagePath ?>" alt="Company Logo"><br>
                             </div>
                             <h1>Welcome to <?php echo $_SESSION['companyName']; ?></h1><br>
-                            <span class="icon"><ion-icon name="location-outline"></ion-icon><h5><?php echo $companyDetails->address ?></h5></span>
+                            <span class="icon"><ion-icon name="location-outline"></ion-icon><h6><?php echo $companyDetails->address ?></h6></span>
                         </div>
 
                         <div class="description">
