@@ -6,7 +6,7 @@
 }
 
 body
-{   
+{
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -17,7 +17,7 @@ body
     width: 100%;
 }
 
-.navigation 
+.navigation
 {
     position: fixed;
     width: 300px;
@@ -48,7 +48,7 @@ body
     width:100%;
     list-style: none;
 }
- 
+
 .navigation ul li:hover
 {
     background-color: #CFE3EA;
@@ -150,9 +150,9 @@ body
   padding: 250px;
   grid-template-columns: 2fr 1fr;
   grid-gap: 30px;
-  
 
-  
+
+
 }
 
 .details .compdetails{
@@ -170,7 +170,7 @@ body
   left: 30%;
   transform: translate(-50%, -50%);
   margin-right: 30px;
-} 
+}
 
 .details .cardHeader {
     display: flex;
@@ -231,7 +231,7 @@ body
 }
 
 .card .h4 {
-    margin: 10px 10px; 
+    margin: 10px 10px;
 }
 
 .card .spaceleft{
@@ -239,11 +239,11 @@ body
 }
 
 select, .bx1 {
-    width: 100%; 
+    width: 100%;
     padding: 5px;
-    margin: 5px 0; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 select{
@@ -261,20 +261,20 @@ select{
 
 .submit {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     margin-top: 20px;
 }
 
 .submit button {
-    background-color: #0B5A6F; 
+    background-color: #0B5A6F;
     font-size: 15px;
-    color: white; 
+    color: white;
     border: none;
     width: 80px;
     height: 40px;
     font-weight: bold;
-    padding: 0px 5px; 
-    border-radius: 5px; 
+    padding: 0px 5px;
+    border-radius: 5px;
     cursor: pointer;
     align-items: center;
 }

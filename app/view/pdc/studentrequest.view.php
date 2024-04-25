@@ -19,6 +19,8 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
 </head>
 <body>
 <div class="container">
+    
+
     <div class="report_item" style="width:fit-content;">
         <h2>Complaints</h2>
 

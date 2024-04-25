@@ -23,7 +23,7 @@ if (path.startsWith(`${startUrl}/index`) || path.startsWith(`${startUrl}/dashboa
     manageCompany.style.backgroundColor = color;
 } else if (path.startsWith(`${startUrl}/roundselection`) || path.startsWith(`${startUrl}/firstround`) || path.startsWith(`${startUrl}/secondround`)) {
     roundSelection.style.backgroundColor = color;
-} else if (path.startsWith(`${startUrl}/request`)) {
+} else if (path.startsWith(`${startUrl}/request`) || path.startsWith(`${startUrl}/studentrequest`)) {
     request.style.backgroundColor = color;
 } else if (path.startsWith(`${startUrl}/schedule`) || path.startsWith(`${startUrl}/addschedule`)) {
     schedule.style.backgroundColor = color;

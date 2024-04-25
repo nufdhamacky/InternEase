@@ -1,3 +1,4 @@
+/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +9,7 @@
 body {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #f9f9f9;
 }
 
 .container {
@@ -23,19 +25,17 @@ body {
     border-left: 10px solid #0B5A6F;
     transition: 0.5s;
     overflow: hidden;
+    z-index: 1000;
 }
 
 .navigation img {
     width: 150px;
     margin-left: 60px;
-
 }
 
-.navigation img ul {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+.navigation ul {
+    list-style: none;
+    padding: 0;
 }
 
 .navigation ul li {
@@ -57,44 +57,35 @@ body {
     display: block;
     width: 100%;
     display: flex;
+    align-items: center;
     text-decoration: none;
     color: white;
+    padding: 15px 20px;
 }
 
 .navigation ul li a .icon {
-    position: relative;
-    display: block;
     min-width: 50px;
-    height: 50px;
-    line-height: 70px;
-    text-align: center;
-}
-
-.navigation ul li a .icon ion-icon {
-    font-size: 0.75cm;
+    font-size: 1.5em;
 }
 
 .navigation ul li a .title {
-    position: relative;
-    display: block;
-    padding: 0 10px;
-    height: 10px;
-    line-height: 60px;
-    text-align: start;
-    white-space: nowrap;
+    padding-left: 20px;
+    font-size: 1.1em;
 }
 
-/* main */
-
+/* Main content styles */
 .main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
-    background: white;
+    background: #fff;
     transition: 0.5s;
+    padding: 20px;
+    z-index: 0;
+    overflow-x: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .topbar {
     width: 100%;
@@ -102,207 +93,92 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
 }
 
 .toggle {
-    position: relative;
-    top: 0;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 1.8em;
     cursor: pointer;
-
+    color: #fff;
 }
 
 .user {
-    position: relative;
-    min-width: 40px;
-    height: 40px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #fff;
     cursor: pointer;
 }
 
+.user span {
+    margin-right: 10px;
+}
 
-/* ================== Order Details List ============== */
+/* Advertisement page styles */
 .details {
-    position: relative;
-    width: 100%;
     padding: 20px;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: 30px;
-    /* margin-top: 10px; */
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.details .studentList {
-    position: relative;
-    display: grid;
-    grid-template-rows:1fr 1fr 4fr;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-}
-
-.details .cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.cardHeader h2 {
-    font-weight: 600;
-    color: rgba(9, 62, 76, 1);
-}
-
-.danger {
-    color: red;
-}
-
-.cardHeader .btn {
-    position: relative;
-    padding: 5px 10px;
-    background: #0b596f;
-    text-decoration: none;
-    color: white;
-    border-radius: 6px;
+.details .cardHeader h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0b596f;
+    margin-bottom: 20px;
 }
 
 .details table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
 }
 
-.details table thead td {
-    color: rgba(9, 62, 76, 1);
-    font-weight: 600;
+.details table th, .details table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
 }
 
-
-.details .studentList table tr {
-    color: black;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px; /* Add margin between each row */
+.details table th {
+    text-align: left;
+    font-weight: bold;
+    color: #0b596f;
 }
 
-
-.details .studentList table tr:last-child {
-    border-bottom: none;
+.details table tbody tr:hover {
+    background-color: #f5f5f5;
 }
 
-.details .studentList table tbody {
-
-}
-
-
-.details .studentList table tbody tr:hover {
-    background: #CFE3EA;
-    color: black;
-}
-
-.details .studentList table tr td {
-    padding: 7.25px;
-}
-
-.details .studentList table tr td:last-child {
-    text-align: end;
-}
-
-/*.details .internshipAds table tr td:nth-child(2) {
-    text-align: end;
-}
-.details .internshipAds table tr td:nth-child(3) {
-    text-align: center;
-}*/
-
-
-.details .view {
-    padding: 2px 10px;
-    border: 1px solid rgba(11, 90, 111, 1);
-    color: rgba(11, 90, 111, 1);
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-
-.recentCustomers {
-    position: relative;
-    display: grid;
-    min-height: 500px;
-    padding: 20px;
-    background: var(--white);
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-}
-
-.cardHeader form {
-    display: flex;
-    align-items: center;
-}
-
-.cardHeader form input[type="file"] {
-    display: none;
-}
-
-.cardHeader form label.upload-btn {
-    padding: 8px 15px; /* Adjusted padding for both buttons */
-    background: #0b596f;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 20px; /* Added more margin between the buttons */
-}
-
-.cardHeader form button[type="submit"] {
-    padding: 8px 15px; /* Adjusted padding to match the "Select File" button */
-    background: #0b596f;
+.details table tbody tr td a {
     text-decoration: none;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    outline: none;
+    color: #0b596f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-
-.cardHeader form label.upload-btn:hover {
-    background: #09404f;
+.details table tbody tr td a:hover {
+    background-color: #0b596f;
+    color: #fff;
 }
 
-/* Style the file input label text */
-.cardHeader form label.upload-btn span {
-    display: inline-block;
-    padding-right: 10px; /* Add spacing between button and text */
+/* Pagination styles */
+.pagination {
+    margin-top: 20px;
 }
 
-.filter-form {
-    display: flex;
-    align-items: center;
-
+.pagination a {
+    padding: 8px 16px;
+    background-color: #0b596f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
-.filter-form select {
-    padding: 8px 15px;
-    border-radius: 6px;
+.pagination a:hover {
+    background-color: #064d5e;
 }
-
-.filter-form button {
-    padding: 8px 15px;
-    background: #0b596f;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-}
-
-.filter-form button:hover {
-    background: #09404f;
-}
-
