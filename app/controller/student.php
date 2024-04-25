@@ -11,11 +11,14 @@ class Student extends Controller{
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
+        $studentModel = $this->model("StudentModel");
+
+        $studentId = $studentModel->get_student_id_with_user_id($userId);
         
-        $appliedAdids = $appliedModel->fetchAppliedAdIds($userId);
+        $appliedAdids = $appliedModel->fetchAppliedAdIds($studentId);
 
         $appliedAds = $admodel->fetchAdsWithId($appliedAdids);
-        $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($userId);
+        $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($studentId);
 
         $data = [
             'appliedAds' => $appliedAds,
@@ -27,23 +30,28 @@ class Student extends Controller{
     }
 
     public function apply()
-    {
-        // Handle AJAX request to add/remove from wishlist
-        $userId = $_POST['userId'];
-        $adId = $_POST['adId'];
+{
+    // Handle AJAX request to apply for a job
+    $userId = $_POST['userId'];
+    $adId = $_POST['adId'];
+    
+    //instantiate student model and get student id
+    $studentModel = $this->model("StudentModel");
+    $studentId = $studentModel->get_student_id_with_user_id($userId);
 
-        // Instantiate the Wishlist model and perform the required operations
-        $appliedModel = $this->model('Applied');
-        $success = $appliedModel->apply($userId, $adId);
+    // Instantiate the Applied model and perform the required operations
+    $appliedModel = $this->model('Applied');
+    $success = $appliedModel->apply($studentId, $adId);
 
-        // Return a JSON response
-        if ($success) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error adding job to wishlist']);
-        }
-        
+
+    // Return a JSON response
+    if ($success) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Error applying for job']);
     }
+}
+
 
     public function wishlist() {
         // Handle AJAX request to add/remove from wishlist
@@ -72,9 +80,8 @@ class Student extends Controller{
         $ads = $admodel->fetchAds();
         // $adsWithStatus = $admodel->fetchAdsWithStatus($userId);
 
-        // var_dump($_SESSION);
-        // var_dump($ads);
-        $this->view('student/advertisement', ['data' => $ads]);
+        
+        $this->view('student/advertisement', array('ads' => $ads));
 
     }
     public function profile(){
@@ -98,14 +105,14 @@ class Student extends Controller{
     public function applied(){
         $adsModel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
-        $appliedAdids = $appliedModel->fetchappliedAdIds($_SESSION['userId']);
+        $appliedAdids = $appliedModel->fetchappliedAdIds($_SESSION['studentId']);
         $appliedAds = $adsModel->fetchAdsWithId($appliedAdids);
 
         $data = [
             'ads' => $appliedAds
         ];
 
-        $this->view('student/wishlist', $data);
+        $this->view('student/applied', $data);
     }
 
     public function wishlisted(){
@@ -142,8 +149,8 @@ class Student extends Controller{
             if ($studentData) {
                 // Update first name and last name
                 $studentModel->updateStudent($userId, [
-                    'firstName' => $firstName,
-                    'lastName' => $lastName
+                    'first_name' => $firstName,
+                    'last_name' => $lastName
                 ]);
     
                 // Handle file upload
@@ -155,7 +162,9 @@ class Student extends Controller{
     
                 // Return the updated student data as a JSON response
                 $updatedStudentData = $studentModel->getStudentByUserId($userId);
-                echo json_encode($updatedStudentData);
+                // echo json_encode($updatedStudentData);
+                $this->redirect("profile");
+                
             } else {
                 echo json_encode(['error' => 'Student profile not found.']);
             }

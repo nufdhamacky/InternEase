@@ -3,6 +3,14 @@
 class Notification extends Model{
     protected $table = 'notifications';
 
+    private $connection;
+    
+    
+
+    public function __construct() {
+        $this->connection = $this->connection();
+    }
+
     public function fetchNotifs($userId){
         $query = "SELECT * FROM notifications WHERE user_id = ?";
     

@@ -84,6 +84,7 @@ body {
 }
 
 /* main */
+
 .main {
     position: absolute;
     width: calc(100% - 300px);
@@ -92,6 +93,7 @@ body {
     background: white;
     transition: 0.5s;
 }
+
 
 .topbar {
     width: 100%;
@@ -130,6 +132,7 @@ body {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 30px;
+    /* margin-top: 10px; */
 }
 
 .details .internshipAds {
@@ -173,17 +176,18 @@ body {
 }
 
 .details .internshipAds table tr {
-    color: var black;
+    color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details .internshipAds table thead {
+    background-color: #D9D9D9;
+    color: rgba(9, 62, 76, 1);
+    font-weight: 600;
 }
 
 .details .internshipAds table tr:last-child {
     border-bottom: none;
-}
-
-.details .internshipAds table tbody tr:hover {
-    background: #CFE3EA;
-    color: black;
 }
 
 .details .internshipAds table tr td {
@@ -193,6 +197,22 @@ body {
 .details .internshipAds table tr td:last-child {
     text-align: end;
 }
+
+.details .internshipAds table tbody tr:hover {
+    background: #CFE3EA;
+    color: black;
+}
+
+.details .internshipAds table tr td select {
+    cursor: pointer;
+}
+
+/*.details .internshipAds table tr td:nth-child(2) {
+    text-align: end;
+}
+.details .internshipAds table tr td:nth-child(3) {
+    text-align: center;
+}*/
 
 .details .internshipAds table tr td select.status-select {
     width: 100%;
@@ -222,18 +242,19 @@ body {
 .details .internshipAds table tr td select.status-select option[value="rejected"] {
     background: #f00;
     color: white;
-} 
+}
 
 
-.status.approved {
+.status-select.approved {
     padding: 2px 4px;
     /* background: #8de02c; */
     /* color: white; */
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
-  }
-.status.pending {
+}
+
+.status-select.pending {
     padding: 2px 4px;
     /* background: #1795ce;
     color: white; */
@@ -241,7 +262,8 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
-.status.rejected {
+
+.status-select.rejected {
     padding: 2px 4px;
     background: #f00;
     color:white;
@@ -252,4 +274,9 @@ body {
 
 .details .view {
     padding: 2px 10px;
-    border: 1px solid rgba(11, 90, 111, 1
+    border: 1px solid rgba(11, 90, 111, 1);
+    color: rgba(11, 90, 111, 1);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}

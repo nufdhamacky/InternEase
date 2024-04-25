@@ -49,7 +49,29 @@
                     <span class="error"><?= isset($data['signupError']['website']) ?></span>
                     <br>
             </p>
-            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['compsite']) ? $_POST['email'] : '' ?>">
+
+            <p class="label1">Contact Person: 
+                
+
+                    <span class="error"><?= isset($data['signupError']['contactPerson']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="contactPerson" class="box1" value="<?= isset($_POST['contactPerson']) ? $_POST['contactPerson'] : '' ?>">
+
+            <p class="label1">Contact No:
+
+                    <span class="error"><?= isset($data['signupError']['contactNo']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="contactNo" class="box1" value="<?= isset($_POST['contactNo']) ? $_POST['contactNo'] : '' ?>">
+
+            <p class="label1">Address: 
+                
+                    <span class="error"><?= isset($data['signupError']['address']) ?></span>
+                    <br>
+            </p>
+            <input type="text" name="address" class="box1" value="<?= isset($_POST['address']) ? $_POST['address'] : '' ?>">
             
             <p class="label1">Password:
                 
@@ -74,9 +96,9 @@
                 <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
             </div>
 
-                <div class="submit" align="center">
-                    <button type="submit">Sign Up</button>
-                </div>
+            <div class="submit" align="center">
+                <button type="submit">Sign Up</button>
+            </div>
 
         </form>
         </div>  
@@ -85,12 +107,12 @@
 
     <script src="<?=ROOT?>/js/login.js"></script>
     <?php
-        // Check if the form is submitted and there are no signup errors
-        if (isset($_POST['signup']) && empty($data['signupError'])) {
-            // Redirect to the home page
-            header("Location: " . ROOT . "../login");
-            exit();
-        }
+        // // Check if the form is submitted and there are no signup errors
+        // if (isset($_POST['signup']) && empty($data['signupError'])) {
+        //     // Redirect to the home page
+        //     header("Location: " . ROOT . "../login");
+        //     exit();
+        // }
     ?>
 
 </body>

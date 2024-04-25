@@ -1,0 +1,350 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu' , sans-serif;
+}
+
+body
+{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container
+{
+    position: relative;
+    width: 100%;
+}
+
+.navigation 
+{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0b596f;
+    border-left: 10px solid #0B5A6F;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation img
+{
+    width: 150px;
+    margin-left: 60px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.navigation img ul
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li
+{
+    position: relative;
+    width:100%;
+    list-style: none;
+}
+ 
+.navigation ul li:hover
+{
+    background-color: #CFE3EA;
+}
+
+.navigation ul li:nth-child(7)
+{
+    margin-bottom: 50px;
+}
+
+.navigation ul li a
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+}
+
+.navigation ul li a .icon
+{
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon
+{
+    font-size: 0.75cm;
+}
+
+.navigation ul li a .title
+{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+/* main */
+
+.main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: white;
+    transition: 0.5s;
+}
+
+
+.topbar{
+    width : 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle{
+    width: 60px;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.user span{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.bell-icon{
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.profile-icon{
+    font-size: 3rem;
+}
+
+.secondbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: 40px;
+}
+
+.details .studentdetails{
+    width: 120%;
+    background-color: #FFF;
+    padding: 20px 5px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 5px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader h2 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: rgba(9, 62, 76, 1);
+}
+
+.details .studentdetails nav{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.studentdetails nav::after{
+    content: "";
+    background: silver;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 47px;
+    filter: blur(0.5px);
+}
+
+.studentdetails label{
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    color: #3e82977a;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+input[type='radio']{
+    display: none;
+}
+
+.studentdetails nav .slider{
+    position: absolute;
+    height: 4.5px;
+    background-color: #0b596f;
+    border-radius: 20px;
+    width: 33.3333333333%;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    transition: all 0.3s ease;
+    filter: blur(0.4px);
+}
+
+#se:checked ~ nav .slider{
+    left: 33.3333333333%;
+}
+
+#ba:checked ~ nav .slider{
+    left: 66.6666666667%;
+}
+
+#qa:checked ~ nav .qa{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+#se:checked ~ nav .se{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+#ba:checked ~ nav .ba{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+section{
+    filter: blur(0.3px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .content{
+    display: none;
+    margin-bottom: 30px;
+}
+
+section .content .title{
+    font-size: 21px;
+    font-weight: 500;
+    margin: 40px 0 10px 0;
+}
+
+#qa:checked ~ section .content-1{
+    display: block;
+}
+
+#se:checked ~ section .content-2{
+    display: block;
+}
+
+#ba:checked ~ section .content-3{
+    display: block;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.details table thead td {
+    font-weight: 600;
+}
+
+.details .studentdetails table tr {
+    color: var black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details .studentdetails table thead{
+    background-color: #D9D9D9;
+}
+.details .studentdetails table tr:last-child {
+    border-bottom: none;
+}
+
+.details .studentdetails table tr td {
+    padding: 7.25px;
+}
+
+.details .studentdetails table tr td:last-child {
+    text-align: end;
+}
+
+.details .studentdetails table tr td select {
+    cursor: pointer;
+}
+
+.download-btn, .send-btn {
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 20px;
+    /* background-color: red; */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn{
+    background-color: red;
+}
+
+.send-btn{
+    background-color: #007bff;
+}
+
+.download-btn:hover {
+    background-color: rgb(225, 103, 103);
+}
+
+.send-btn:hover{
+    background-color: #0056b3;
+}

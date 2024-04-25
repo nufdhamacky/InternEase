@@ -3,6 +3,14 @@
 class Wishlist extends Model {
     protected $table = 'wishlist';
 
+    private $connection;
+    
+    
+
+    public function __construct() {
+        $this->connection = $this->connection();
+    }
+
     public function addToWishlist($userId, $adId) {
         $query = "SELECT * FROM $this->table WHERE user_id = ? AND ad_id = ?";
         $stmt = $this->connection->prepare($query);

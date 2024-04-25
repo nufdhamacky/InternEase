@@ -15,8 +15,8 @@
                 if ($studentData) {
                     echo "<div class='profile-details'>";
                     echo "<img src='" . ROOT . "/assets/images/Sham.jpg' alt='Profile Picture'>";
-                    echo "<p><strong>First Name:</strong> " . $studentData['firstName'] . "</p>";
-                    echo "<p><strong>Last Name:</strong> " . $studentData['lastName'] . "</p>";
+                    echo "<p><strong>First Name:</strong> " . $studentData['first_name'] . "</p>";
+                    echo "<p><strong>Last Name:</strong> " . $studentData['last_name'] . "</p>";
                     echo "<p><strong>Email:</strong> " . $studentData['email'] . "</p>";
                     echo "<p><strong>Index No:</strong> " . $studentData['index_no'] . "</p>";
                     echo "<p><strong>Registration No:</strong> " . $studentData['reg_no'] . "</p>";
@@ -41,9 +41,9 @@
         <h2>Edit Profile</h2>
         <form action="<?=ROOT?>/student/updateProfile" method="post" enctype="multipart/form-data">
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" value="<?= $studentData['firstName'] ?>">
+            <input type="text" id="firstName" name="firstName" value="<?= $studentData['first_name'] ?>">
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" value="<?= $studentData['lastName'] ?>">
+            <input type="text" id="lastName" name="lastName" value="<?= $studentData['last_name'] ?>">
             <label for="cv">Upload CV</label>
             <input type="file" id="cv" name="cv">
             <button type="submit" name="submit">Save Changes</button>
@@ -87,4 +87,3 @@
 </script>
 
 <?php require_once("../app/view/inc/footer.php"); ?>
-

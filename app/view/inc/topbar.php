@@ -21,6 +21,9 @@ if ($pageTitle === '') {
 
 $notifmodel = $this->model('Notification');
 $notifications = $notifmodel->fetchNotifs($_SESSION['userId']);
+
+$studentModel = $this->model('StudentModel');
+$student = $studentModel->getStudentByUserId($_SESSION['userId']);
 ?>
 
 <header class="top-bar">
@@ -29,7 +32,7 @@ $notifications = $notifmodel->fetchNotifs($_SESSION['userId']);
     <div class="grid-container">
         <div class="grid-items">
             <div class="user-profile">
-                <div class="username"><?= $_SESSION["companyName"]; ?></div>
+                <div class="username"><?= $student["first_name"]; ?></div>
                 <a href="<?=ROOT?>/student/profile"><img class="avatar" src="<?=ROOT?>/assets/images/Sham.jpg" alt="User Avatar"></a>
             </div>
             <!-- notification-->

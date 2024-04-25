@@ -1,40 +1,49 @@
 <?php
 include_once('../app/model/RoundModel.php');
-class RoundRepository{
+
+class RoundRepository
+{
 
 
     private $conn;
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function save(RoundModel $request) : ?RoundModel{
-        $sql="INSERT INTO round(id,advertisement_count,start_date,end_date,job_role_count) VALUES({$request->id}, {$request->advertisementCount},'{$request->startDate}', '{$request->endDate}',{$request->jobRoleCount})";
+    public function save(RoundModel $request): ?RoundModel
+    {
+        $sql = "INSERT INTO round(id,count,start_date,end_date) VALUES({$request->id}, {$request->count},'{$request->startDate}', '{$request->endDate}')";
         $result = $this->conn->query($sql);
-        
-        if($result===TRUE){
+
+        if ($result === TRUE) {
             return $request;
         }
         return null;
     }
 
 
-    
+    public function update(RoundModel $request)
+    {
+        $sql = "UPDATE round SET count={$request->count},start_date='{$request->startDate}',end_date='{$request->endDate}' WHERE id={$request->id}";
+        $result = $this->conn->query($sql);
+    }
 
-    public function findById(int $id) : ?RoundModel{
+
+    public function findById(int $id): ?RoundModel
+    {
         $sql = "SELECT * FROM round where id = {$id}";
 
         $result = $this->conn->query($sql);
-        if($result->num_rows==0){
+        if ($result->num_rows == 0) {
             return null;
         }
         $row = $result->fetch_assoc();
 
         $value = new RoundModel(
             $row['id'],
-            $row['advertisement_count'],
-            $row['job_role_count'],
+            $row['count'],
             $row['start_date'],
             $row['end_date']
         );
@@ -43,20 +52,18 @@ class RoundRepository{
     }
 
 
-
-
-    public function getAll() : array{
+    public function getAll(): array
+    {
         $sql = "SELECT * FROM round";
 
         $result = $this->conn->query($sql);
-        $list = []; 
+        $list = [];
 
         while ($row = $result->fetch_assoc()) {
-           
+
             $value = new RoundModel(
                 $row['id'],
-                $row['advertisement_count'],
-                $row['job_role_count'],
+                $row['count'],
                 $row['start_date'],
                 $row['end_date']
             );
@@ -68,5 +75,5 @@ class RoundRepository{
 
     }
 
-    
+
 }

@@ -1,24 +1,21 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Ubuntu' , sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-body
-{
+body {
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-.container
-{
+.container {
     position: relative;
     width: 100%;
 }
 
-.navigation 
-{
+.navigation {
     position: fixed;
     width: 300px;
     height: 100%;
@@ -28,40 +25,34 @@ body
     overflow: hidden;
 }
 
-.navigation img
-{
+.navigation img {
     width: 150px;
     margin-left: 60px;
 
 }
 
-.navigation img ul
-{
+.navigation img ul {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li
-{
+.navigation ul li {
     position: relative;
-    width:100%;
+    width: 100%;
     list-style: none;
 }
- 
-.navigation ul li:hover
-{
+
+.navigation ul li:hover {
     background-color: #CFE3EA;
 }
 
-.navigation ul li:nth-child(8)
-{
+.navigation ul li:nth-child(8) {
     margin-bottom: 50px;
 }
 
-.navigation ul li a
-{
+.navigation ul li a {
     position: relative;
     display: block;
     width: 100%;
@@ -70,8 +61,7 @@ body
     color: white;
 }
 
-.navigation ul li a .icon
-{
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 50px;
@@ -80,13 +70,11 @@ body
     text-align: center;
 }
 
-.navigation ul li a .icon ion-icon
-{
+.navigation ul li a .icon ion-icon {
     font-size: 0.75cm;
 }
 
-.navigation ul li a .title
-{
+.navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -98,7 +86,7 @@ body
 
 /* main */
 
-.main{
+.main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
@@ -108,8 +96,8 @@ body
 }
 
 
-.topbar{
-    width : 100%;
+.topbar {
+    width: 100%;
     height: 60px;
     display: flex;
     justify-content: space-between;
@@ -117,11 +105,11 @@ body
     padding: 0 10px;
 }
 
-.toggle{
+.toggle {
     position: relative;
     top: 0;
     width: 60px;
-    height:60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,34 +118,34 @@ body
 
 }
 
-.user{
+.user {
     position: relative;
     min-width: 40px;
     height: 40px;
     overflow: hidden;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
 /* ================== Order Details List ============== */
 .details {
-  position: relative;
-  width: 100%;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: 30px;
-  /* margin-top: 10px; */
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 30px;
+    /* margin-top: 10px; */
 }
 
-.details .studentList{
-  position: relative;
-  display: grid;
-  min-height: 550px;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
+.details .studentList {
+    position: relative;
+    display: grid;
+    grid-template-rows:1fr 1fr 4fr;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
 }
 
 .details .cardHeader {
@@ -171,7 +159,7 @@ body
     color: rgba(9, 62, 76, 1);
 }
 
-.danger{
+.danger {
     color: red;
 }
 
@@ -196,14 +184,21 @@ body
 }
 
 
-
 .details .studentList table tr {
     color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Add margin between each row */
 }
+
+
 .details .studentList table tr:last-child {
     border-bottom: none;
 }
+
+.details .studentList table tbody {
+
+}
+
 
 .details .studentList table tbody tr:hover {
     background: #CFE3EA;
@@ -226,8 +221,7 @@ body
 }*/
 
 
-
-.details .view{
+.details .view {
     padding: 2px 10px;
     border: 1px solid rgba(11, 90, 111, 1);
     color: rgba(11, 90, 111, 1);
@@ -245,4 +239,70 @@ body
     background: var(--white);
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
-  }
+}
+
+.cardHeader form {
+    display: flex;
+    align-items: center;
+}
+
+.cardHeader form input[type="file"] {
+    display: none;
+}
+
+.cardHeader form label.upload-btn {
+    padding: 8px 15px; /* Adjusted padding for both buttons */
+    background: #0b596f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 20px; /* Added more margin between the buttons */
+}
+
+.cardHeader form button[type="submit"] {
+    padding: 8px 15px; /* Adjusted padding to match the "Select File" button */
+    background: #0b596f;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+
+.cardHeader form label.upload-btn:hover {
+    background: #09404f;
+}
+
+/* Style the file input label text */
+.cardHeader form label.upload-btn span {
+    display: inline-block;
+    padding-right: 10px; /* Add spacing between button and text */
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+
+}
+
+.filter-form select {
+    padding: 8px 15px;
+    border-radius: 6px;
+}
+
+.filter-form button {
+    padding: 8px 15px;
+    background: #0b596f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.filter-form button:hover {
+    background: #09404f;
+}
+

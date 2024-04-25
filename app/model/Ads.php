@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -6,8 +7,20 @@ class Ads extends Model{
 
     protected $table = 'company_ad';
 
+    private $connection;
+    
+    
+
+    public function __construct() {
+        $this->connection = $this->connection();
+    }
+
     public function fetchAds(){
-        return $this->findall();
+        $sql = 'SELECT * FROM company_ad';
+        $result = mysqli_query($this->connection, $sql);
+        $ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+        return $ads;
     }
 
     public function fetchAdsWithId($ad_ids){
