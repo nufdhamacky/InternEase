@@ -48,11 +48,12 @@ class CompanyAdRepository
 
     }
 
-    public function reject(int $id)
+    public function reject(int $id, string $reason)
     {
         $sql = "UPDATE company_ad SET status=2 WHERE ad_id={$id}";
         $result = $this->conn->query($sql);
-
+        $reasonSql = "INSERT INTO ad_reject_reason (ad_id,reason) VALUES ({$id},'{$reason}')";
+        $reasonResult = $this->conn->query($reasonSql);
     }
 
 }

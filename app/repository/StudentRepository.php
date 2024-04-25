@@ -29,6 +29,14 @@ class StudentRepository
             }
         }
 
+        $sql = "INSERT INTO apply_advertisement(applied_by,round_id) VALUES({$studentId},1)";
+        $result = $this->conn->query($sql);
+        if ($result) {
+            $id = $this->conn->insert_id;
+            $sql = "INSERT INTO first_round_data(applied_id,ad_id) VALUES($id,{$adId})";
+            $r = $this->conn->query($sql);
+
+        }
         return null;
     }
 

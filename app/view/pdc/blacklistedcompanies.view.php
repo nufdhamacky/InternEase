@@ -26,7 +26,7 @@ $reports = $reportController->getAll();
 
         <!--        </div>-->
         <div class="cardHeader">
-            <h2>Company Blacklist Report</h2>
+            <h2>Company Blacklist Complaints</h2>
         </div>
         <table>
             <thead>
