@@ -47,10 +47,10 @@ class Pdc extends Controller
 
     public function getStudentCount()
     {
-        $pdcModel = $this->model('PdcModel');
         $count = $this->studentRepository->getCount();
         return $count;
     }
+
 
     public function getAllCompany(): array
     {
@@ -260,6 +260,11 @@ class Pdc extends Controller
     public function getStudentRequest($order): array
     {
         return $this->pdcComplaintRepository->getAll($order);
+    }
+
+    public function getStudentRequestCount(): int
+    {
+        return $this->pdcComplaintRepository->getCount();
     }
 
     public function filterStudentRequest($status, $order): array

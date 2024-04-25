@@ -38,4 +38,15 @@ class PdcComplaintRepository
         }
         return $list;
     }
+
+    public function getCount(): int
+    {
+        $sql = "SELECT count(*) as count FROM complaint WHERE type = 'user_complaint' and user_type = 'student'";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            return $row['count'];
+        }
+        return 0;
+    }
 }

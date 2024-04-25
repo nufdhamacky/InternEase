@@ -47,7 +47,7 @@ $pdcController = new Pdc();
             <div class="card">
                 <a style="text-decoration: none" href="studentrequest">
                     <div>
-                        <div class="number">12</div>
+                        <div class="number"><?php echo $pdcController->getStudentRequestCount(); ?></div>
                         <div class="cardName">Student Request</div>
                     </div>
                 </a>

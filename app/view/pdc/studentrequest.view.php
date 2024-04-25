@@ -15,7 +15,7 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Request</title>
-    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/admin/com.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/studentreq.css">
 </head>
 <body>
 <div class="container">
@@ -41,7 +41,8 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
                 </select>
 
             </div>
-            <div>
+            <div class="filter-menu">
+                <label for="status-filter">Sort By Status:</label>
                 <select name="status-filter" id="status-filter">
                     <option value="all">All</option>
                     <option value="resolved" <?php echo isset($_GET["status-filter"]) ? $_GET["status-filter"] == "resolved" ? "selected" : "" : ""; ?>>
