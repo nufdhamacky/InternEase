@@ -342,6 +342,11 @@ class Pdc extends Controller
         $this->view('pdc/studentrequest');
     }
 
+    public function complaintdes()
+    {
+        $this->view('pdc/complaintdes');
+    }
+
     public function ads()
     {
         $this->view('pdc/ads');

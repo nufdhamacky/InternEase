@@ -72,7 +72,9 @@ if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
                     <td><?php echo $request->id; ?></td>
                     <td><?php echo $request->title; ?></td>
                     <td><?php echo $request->date; ?></td>
-                    <td><?php echo $request->description; ?></td>
+                    <td>
+                        <a href="complaintdes?id=<?php echo $request->id; ?>">view</a>
+                    </td>
                     <td style="color: <?php echo $request->status == 0 ? "blue" : ($request->status == 1 ? "green" : "red"); ?>"><?php echo $request->status == 0 ? "Unresolved" : "Resolved"; ?></td>
 
                 </tr>
