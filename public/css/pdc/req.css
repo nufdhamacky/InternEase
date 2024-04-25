@@ -25,17 +25,23 @@ body {
     border-left: 10px solid #0B5A6F;
     transition: 0.5s;
     overflow: hidden;
-    z-index: 1000;
 }
 
 .navigation img {
     width: 150px;
     margin-left: 60px;
+
 }
 
-.navigation ul {
-    list-style: none;
-    padding: 0;
+.button_a {
+    text-decoration: none;
+}
+
+.navigation img ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .navigation ul li {
@@ -48,6 +54,7 @@ body {
     background-color: #CFE3EA;
 }
 
+
 .navigation ul li:nth-child(8) {
     margin-bottom: 50px;
 }
@@ -57,20 +64,31 @@ body {
     display: block;
     width: 100%;
     display: flex;
-    align-items: center;
     text-decoration: none;
     color: white;
-    padding: 15px 20px;
 }
 
 .navigation ul li a .icon {
+    position: relative;
+    display: block;
     min-width: 50px;
-    font-size: 1.5em;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 0.75cm;
 }
 
 .navigation ul li a .title {
-    padding-left: 20px;
-    font-size: 1.1em;
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
 }
 
 /* Main content styles */
@@ -132,18 +150,16 @@ body {
     background: white;
     padding: 30px;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex; /* Added */
+    justify-content: space-between; /* Added */
+    align-items: center; /* Added */
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
 }
 
-.cardBox .card:hover {
-    background: #CFE3EA;
-    transform: translateY(-5px); /* Added slight elevation on hover */
+.cardBox .card .content {
+    flex-grow: 1; /* Added */
 }
 
 .cardBox .card .number {
@@ -164,6 +180,11 @@ body {
     color: #AAD4E1;
 }
 
+.cardBox .card:hover {
+    background: #CFE3EA;
+    transform: translateY(-5px); /* Added slight elevation on hover */
+}
+
 .cardBox .card:hover .number {
     color: #fff; /* Change number color on hover */
 }
@@ -171,6 +192,7 @@ body {
 .cardBox .card:hover .iconBx {
     color: #fff; /* Change icon color on hover */
 }
+
 
 /* Advertisement status table styles */
 .details {
