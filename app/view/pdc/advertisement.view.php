@@ -48,6 +48,7 @@ $ads = $companyAdController->getAll();
                     <tbody>
                     <?php
                     foreach ($ads as $a) { ?>
+                        
                         <tr>
                             <td><?php echo $a->company->name; ?></td>
                             <td><?php echo $a->noOfIntern; ?></td>
