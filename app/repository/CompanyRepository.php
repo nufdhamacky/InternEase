@@ -58,6 +58,16 @@ class CompanyRepository
         return $list;
     }
 
+    public function getCount(): int
+    {
+        $sql = "SELECT count(distinct c.user_id) as count FROM company as c JOIN company_report as r on c.user_id = r.company_id";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            return $row['count'];
+        }
+        return 0;
+    }
 
     public function deleteReport($id)
     {
@@ -160,13 +170,6 @@ class CompanyRepository
         return $count;
     }
 
-    public function blockCompany(int $id)
-    {
-        $sql = "UPDATE users SET user_status=2 WHERE user_id={$id}";
-        $result = $this->conn->query($sql);
-        $delSql = "DELETE FROM company_report WHERE company_id={$id}";
-        $delResult = $this->conn->query($delSql);
-    }
 
     public function getBlackListCount(): int
     {
