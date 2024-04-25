@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User extends Model
 {
 
     public function login($username, $password, $conn)
@@ -56,6 +56,24 @@ class User
                     $result1 = $conn->query($sql);
 
                     $_SESSION['userId'] = $row['user_id'];
+                    $_SESSION['userRole'] = $row['user_role'];
+                    $_SESSION['userStatus'] = $row['user_status'];
+                    $_SESSION['userName'] = $row['user_name'];
+                    return 1;
+
+                } else {
+                    return 0;
+                }
+            }else if ($row['user_role'] == 'student') {
+                if (password_verify($password, $row['password'])) {
+
+                    $sql = "SELECT * FROM student WHERE user_id = {$row['user_id']}";
+                    $result1 = $conn->query($sql);
+
+                    $student = $result1->fetch_assoc();
+
+                    $_SESSION['userId'] = $row['user_id'];
+                    $_SESSION['studentId'] = $student['id'];
                     $_SESSION['userRole'] = $row['user_role'];
                     $_SESSION['userStatus'] = $row['user_status'];
                     $_SESSION['userName'] = $row['user_name'];
@@ -147,6 +165,31 @@ class User
 
         }
 
+    }
+
+    function validate_email($email){
+        $query = "SELECT user_name from users where user_name = '{$email}'";
+        $result = $this->query($query);
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function resetPassword($data) {
+        extract($data);
+        $password = password_hash($confirmPassword, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET password = ? WHERE user_name= ?";
+        $params = array($password, $_SESSION['resetEmail']);
+
+        $update = $this->query($query, $params);
+
+        if ($update) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

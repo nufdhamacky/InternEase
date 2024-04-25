@@ -1,3 +1,4 @@
+
 /* Reset default margin and padding */
 * {
     margin: 0;
@@ -286,4 +287,3 @@ body {
 .status.rejected {
     background: #f00;
     color: white;
-}

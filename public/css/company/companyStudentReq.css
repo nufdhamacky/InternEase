@@ -202,11 +202,11 @@ body
 /* ================== Student Details List ============== */
 .details {
   position: relative;
-  width: 90%;
+  /* width: 90%; */
   padding: 20px;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-gap: 30px;
+  /* grid-gap: 30px; */
 }
 
 .details .studentdetails{

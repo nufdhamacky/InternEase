@@ -6,8 +6,8 @@
     include_once('../app/repository/TechTalkRepository.php');
     include_once('../app/model/TechTalkModel.php');
 
-    include_once('../app/repository/StudentReqRepository.php');
-    include_once('../app/model/StudentReqModel.php');
+    include_once('../app/repository/CompanyStudentRepository.php');
+    // include_once('../app/model/StudentReqModel.php');
 
     include_once('../app/repository/CompanyDetailsRepository.php');
     // include_once('../app/model/CompanyDetailsModel.php');
@@ -16,7 +16,7 @@
 
         private $advertisementRepository;
         private $techTalkRepository;
-        private $studentReqRepository;
+        private $companyStudentRepository;
         private $companyDetailsRepository;
 
         public function __construct(){
@@ -24,7 +24,7 @@
             parent ::__construct();
             $this->advertisementRepository = new AdvertisementRepository($this->conn);
             $this->techTalkRepository = new TechTalkRepository($this->conn);
-            $this->studentReqRepository = new StudentReqRepository($this->conn);
+            $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
             $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
 
         }
@@ -86,14 +86,14 @@
         }
 
         public function studentReq(){
+            $std = new CompanyStudentRepository;
+            $data=['stdrequests'=>$std->getStudentRequests()];
             
-            $this->view('company/studentReq');
+            $this->view('company/studentReq',$data);
 
         }
 
-        public function getAllReqs(): array{
-            return $this->studentReqRepository->getAllRequests();
-        }
+
 
         public function tech(){
             
@@ -110,7 +110,8 @@
         public function profile(){
             $userDetails = $this->companyDetailsRepository->getCompanyDetails($_SESSION['userId']);
             $this->view('company/profile', ["userDetails" => $userDetails]);
-        }
+
+       }
 
         public function editProfile(){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -225,39 +226,37 @@
             return $studentCount;
         }
         
-        public function addNewAd(){
-
+        public function addNewAd() {
             $position = mysqli_real_escape_string($this->conn, $_POST['position']);
-
+    
             // Initialize an empty array to store selected requirements
             $requirements = array();
-
+    
             // Check if any checkboxes are checked
-            if(isset($_POST['req'])) {
-                
+            if (isset($_POST['req'])) {
                 // Loop through each selected checkbox value and store it in the array
-                foreach($_POST['req'] as $requirement) {
-                    
-                    // Perform any necessary validation and sanitization here
-                    $requirements[] = $requirement;
-
+                foreach ($_POST['req'] as $requirement) {
+                    $requirements[] = mysqli_real_escape_string($this->conn, $requirement);
                 }
             }
-
+    
             // Convert the array of selected requirements into a comma-separated string
             $requirementsString = implode(", ", $requirements);
-
-            $interns = mysqli_real_escape_string($this->conn, $_POST['no_of_intern']);
-            $workMode = mysqli_real_escape_string($this->conn, $_POST['working_mode']);
-            $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']); // Correct the input name
-            $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']); // Correct the input name
-            $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
-            
-
-             // Assuming you have a company_id available somewhere
-             $companyId = $_SESSION['userId'];
+    
+            // Check if each field is set, otherwise assign a default value
+            $interns = isset($_POST['no_of_intern']) ? mysqli_real_escape_string($this->conn, $_POST['no_of_intern']) : 0;
+            $workMode = isset($_POST['working_mode']) ? mysqli_real_escape_string($this->conn, $_POST['working_mode']) : 'Online';
+            $fromDate = isset($_POST['start_date']) ? mysqli_real_escape_string($this->conn, $_POST['start_date']) : '';
+            $toDate = isset($_POST['end_date']) ? mysqli_real_escape_string($this->conn, $_POST['end_date']) : '';
+            $qualification = isset($_POST['qualification']) ? mysqli_real_escape_string($this->conn, $_POST['qualification']) : '';
+            $status = isset($_POST['status']) ? mysqli_real_escape_string($this->conn, $_POST['status']) : 'Open';
+            $image_url = isset($_POST['image_url']) ? mysqli_real_escape_string($this->conn, $_POST['image_url']) : '';
+            $no_of_cvs_required = isset($_POST['no_of_cvs_required']) ? mysqli_real_escape_string($this->conn, $_POST['no_of_cvs_required']) : 0;
+    
+            // Assuming you have a company_id available somewhere
+            $companyId = $_SESSION['userId'];
              
-             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification); 
+             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification, $status, $image_url, $no_of_cvs_required); 
 
              $result = $this->advertisementRepository->save($advertisement);
 
