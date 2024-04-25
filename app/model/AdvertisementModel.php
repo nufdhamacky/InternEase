@@ -1,11 +1,12 @@
 <?php
 
-class AdvertisementModel{
-    
+class AdvertisementModel
+{
+
     public $position;
     public $req;
     public $interns;
-    public $workMode;   
+    public $workMode;
     public $fromDate;
     public $toDate;
     public $companyId;
@@ -14,7 +15,9 @@ class AdvertisementModel{
     public $image_url;
     public $no_of_cvs_required;
 
+
     public function __construct( $position, $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification, $status, $image_url, $no_of_cvs_required){
+
 
         $this->position = $position;
         $this->req = $req;

@@ -37,7 +37,9 @@ $pageData = $pdController->getPendingCompany($page);
                 <tr>
                     <td><?php echo $company->name; ?></td>
                     <td><?php echo $company->email; ?></td>
-                    <td><?php echo $company->website; ?></td>
+                    <td>
+                        <a href="<?php echo (strpos($company->website, 'http') === 0 ? '' : 'http://') . $company->website; ?>"><?php echo $company->website; ?></a>
+                    </td>
                     <td><?php echo $company->contactPerson; ?></td>
                     <td><?php echo $company->contact; ?></td>
                     <td style="color: <?php echo $company->status == 0 ? "blue" : ($company->status == 1 ? "green" : "red"); ?>"><?php echo $company->status == 0 ? "Pending" : ($company->status == 1 ? "Approved" : "Rejected"); ?></td>

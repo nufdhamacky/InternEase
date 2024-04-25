@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User extends Model
 {
 
     public function login($username, $password, $conn)
@@ -46,6 +46,8 @@ class User
                     $_SESSION['userName'] = $row['user_name'];
                     return 1;
 
+                }else{
+                    return 0;
                 }
             } else if ($row['user_role'] == 'admin') {
                 if (password_verify($password, $row['password'])) {
@@ -145,6 +147,31 @@ class User
 
         }
 
+    }
+
+    function validate_email($email){
+        $query = "SELECT user_name from users where user_name = '{$email}'";
+        $result = $this->query($query);
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function resetPassword($data) {
+        extract($data);
+        $password = password_hash($confirmPassword, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET password = ? WHERE user_name= ?";
+        $params = array($password, $_SESSION['resetEmail']);
+
+        $update = $this->query($query, $params);
+
+        if ($update) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

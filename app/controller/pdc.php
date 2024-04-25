@@ -2,8 +2,11 @@
 include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
-include_once('../app/model/StudentModel.php');
+include_once('../app/repository/PdcComplaintRepository.php');
+include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
+include_once('../app/model/PdcComplaintModel.php');
+
 
 class Pdc extends Controller
 {
@@ -11,12 +14,15 @@ class Pdc extends Controller
     private StudentRepository $studentRepository;
     private CompanyVisitRepository $companyVisitRepository;
 
+    private PdcComplaintRepository $pdcComplaintRepository;
+
     public function __construct()
     {
         parent::__construct();
         $this->companyRepository = new CompanyRepository($this->conn);
         $this->studentRepository = new StudentRepository($this->conn);
         $this->companyVisitRepository = new CompanyVisitRepository($this->conn);
+        $this->pdcComplaintRepository = new PdcComplaintRepository($this->conn);
 
     }
 
@@ -81,8 +87,8 @@ class Pdc extends Controller
         $message = "This is a test email.";
 
 // Additional headers
-        $headers = "From: kopipakee@gmail.com\r\n";
-        $headers .= "Reply-To: kopipakee@gmail.com\r\n";
+        $headers = "From: 2021is033@stu.ucsc.ac.lk.com\r\n";
+        $headers .= "Reply-To: 2021is033@stu.ucsc.ac.lk.com\r\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 // Send email
@@ -116,7 +122,7 @@ class Pdc extends Controller
         return $this->studentRepository->getAll($page);
     }
 
-    public function findStudentById($id): ?StudentModel
+    public function findStudentById($id): ?PdcStudentModel
     {
         return $this->studentRepository->findById($id);
     }
@@ -202,7 +208,7 @@ class Pdc extends Controller
         $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $student = new StudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
+        $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
         $this->studentRepository->save($student);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
@@ -220,7 +226,7 @@ class Pdc extends Controller
         $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
 
 
-        $student = new StudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array(), array());
+        $student = new PdcStudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array(), array());
         $this->studentRepository->update($student);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
@@ -240,7 +246,7 @@ class Pdc extends Controller
                 $regNo = mysqli_real_escape_string($this->conn, $row[2]);
                 $indexNo = (int)mysqli_real_escape_string($this->conn, $row[3]);
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $student = new StudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
+                $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
                 $this->studentRepository->save($student);
 
             }
@@ -250,6 +256,16 @@ class Pdc extends Controller
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
 
+
+    public function getStudentRequest($order): array
+    {
+        return $this->pdcComplaintRepository->getAll($order);
+    }
+
+    public function filterStudentRequest($status, $order): array
+    {
+        return $this->pdcComplaintRepository->filter($status, $order);
+    }
 
     public function index()
     {

@@ -22,11 +22,11 @@ class CompanyRepository
 
     public function getReportsByCompany($id): array
     {
-        $reportSql = "SELECT r.*,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$id";
+        $reportSql = "SELECT r.*,s.id as student_id,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$id";
         $reportResult = $this->conn->query($reportSql);
         $list = [];
         while ($r = $reportResult->fetch_assoc()) {
-            $student = new StudentShortModel($r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
+            $student = new StudentShortModel($r["student_id"], $r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
             $report = new ReportModel($r["id"], $student, $r["reason"], $r["date"]);
             $list[] = $report;
         }
@@ -40,14 +40,14 @@ class CompanyRepository
         $list = [];
         while ($row = $result->fetch_assoc()) {
             $companyId = $row["user_id"];
-            $reportSql = "SELECT r.*,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$companyId";
+            $reportSql = "SELECT r.*,s.id as student_id,s.user_id,s.first_name,s.last_name,s.reg_no FROM company_report r join student s on s.user_id=r.reported_by where r.company_id=$companyId";
             $reportResult = $this->conn->query($reportSql);
-            $totalRecruitmentsSql = "SELECT count(ca.ad_id) as count FROM firstrounddata f JOIN company_ad ca ON f.ad_id = ca.ad_id WHERE f.status =1  AND ca.company_id=$companyId";
+            $totalRecruitmentsSql = "SELECT count(ca.ad_id) as count FROM first_round_data f JOIN company_ad ca ON f.ad_id = ca.ad_id WHERE f.status =1  AND ca.company_id=$companyId";
             $totalRecruitmentsResult = $this->conn->query($totalRecruitmentsSql);
             $totalRecruitments = $totalRecruitmentsResult->fetch_assoc()["count"];
             $reports = [];
             while ($r = $reportResult->fetch_assoc()) {
-                $student = new StudentShortModel($r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
+                $student = new StudentShortModel($r["student_id"], $r["user_id"], $r["first_name"], $r["last_name"], $r["reg_no"]);
                 $report = new ReportModel($r["id"], $student, $r["reason"], $r["date"]);
                 $reports[] = $report;
             }
@@ -171,6 +171,18 @@ class CompanyRepository
     public function getBlackListCount(): int
     {
         $sql = "SELECT count(c.user_id) as count FROM company as c join users as u on c.user_id = u.user_id where u.user_status=2";
+        $result = $this->conn->query($sql);
+
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            return $row['count'];
+        }
+        return 0;
+    }
+
+    public function getBlackListComplaintCount(): int
+    {
+        $sql = "SELECT count (distinct reported_by) as count FROM company_report";
         $result = $this->conn->query($sql);
 
         $row = $result->fetch_assoc();

@@ -1,5 +1,5 @@
 <?php
-include_once('../app/model/StudentModel.php');
+include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/MyCompanyModel.php');
 include_once('../app/model/CompanyAdModel.php');
 include_once('../app/model/PageDataModel.php');
@@ -14,7 +14,7 @@ class StudentRepository
         $this->conn = $conn;
     }
 
-    public function save(StudentModel $student): ?StudentModel
+    public function save(PdcStudentModel $student): ?PdcStudentModel
     {
         $password = password_hash($student->password, PASSWORD_DEFAULT);
         $userSql = "INSERT INTO users(user_name,user_role,user_status,password) VALUES('{$student->email}','student',1,'{$password}')";
@@ -29,10 +29,18 @@ class StudentRepository
             }
         }
 
+        $sql = "INSERT INTO apply_advertisement(applied_by,round_id) VALUES({$studentId},1)";
+        $result = $this->conn->query($sql);
+        if ($result) {
+            $id = $this->conn->insert_id;
+            $sql = "INSERT INTO first_round_data(applied_id,ad_id) VALUES($id,{$adId})";
+            $r = $this->conn->query($sql);
+
+        }
         return null;
     }
 
-    public function update(StudentModel $student): void
+    public function update(PdcStudentModel $student): void
     {
         $sql = "UPDATE student SET email='{$student->email}',first_name='{$student->firstName}',last_name='{$student->lastName}',index_no={$student->indexNo},reg_no='{$student->regNo}' WHERE user_id={$student->userId}";
         $result = $this->conn->query($sql);
@@ -71,7 +79,7 @@ class StudentRepository
                 $adList[] = $ad;
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -109,7 +117,7 @@ class StudentRepository
                 $adList[] = $ad;
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -142,7 +150,7 @@ class StudentRepository
                 $jobList[] = $r["job_role"];
             }
 
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -171,7 +179,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -193,7 +201,7 @@ class StudentRepository
         return new PageDataModel($page, $totalPage, $list);
     }
 
-    public function findById($id): ?StudentModel
+    public function findById($id): ?PdcStudentModel
     {
 
         $sql = "SELECT * FROM student where user_id=$id";
@@ -203,7 +211,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],
@@ -240,7 +248,7 @@ class StudentRepository
 
         while ($row = $result->fetch_assoc()) {
             // Create a new CompanyModel instance for each row
-            $value = new StudentModel(
+            $value = new PdcStudentModel(
                 $row['user_id'],
                 $row['email'],
                 $row['first_name'],

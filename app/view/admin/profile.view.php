@@ -154,65 +154,62 @@ function toggleContent(type) {
 </script>
 <?php 
 
-    if(isset($pwd) && $pwd == 1) {
-        echo "
-        
-        <script>
-            
-                Swal.fire({
-                    title: 'Updated Sucessful',
-                    text: 'Your Password has been updated sucessfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-          
-        </script>";
-    }
-    
-    if(isset($pwd) && $pwd == 0){
-        echo "
-        
-        <script>
-            
-                Swal.fire({
-                    title: 'Updated Unsucessful',
-                    text: 'Please try again!',
-                    icon: 'error',
-                    confirmButtonText: 'return'
-                });
-          
-        </script>";
-    }
+if (isset($pwd) && $pwd == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Updated Successful',
+            text: 'Your Password has been updated successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/admin/logout'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
 
-    if(isset($email) && $email == 1) {
-        echo "
-        
-        <script>
-            
-                Swal.fire({
-                    title: 'Updated Sucessful',
-                    text: 'Your Email has been updated sucessfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-          
-        </script>";
-    } 
-    
-    if(isset($email) && $email == 0){
-        echo "
-        
-        <script>
-            
-                Swal.fire({
-                    title: 'Updated Unsucessful',
-                    text: 'Please try again!',
-                    icon: 'error',
-                    confirmButtonText: 'return'
-                });
-          
-        </script>";
-    }
+if (isset($pwd) && $pwd == 0) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Updated Unsuccessful',
+            text: 'Please try again!',
+            icon: 'error',
+            confirmButtonText: 'Return'
+        });
+    </script>";
+}
+
+if (isset($email) && $email == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Updated Successful',
+            text: 'Your Email has been updated successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/admin/logout'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+
+
+if (isset($email) && $email == 0) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Updated Unsuccessful',
+            text: 'Please try again!',
+            icon: 'error',
+            confirmButtonText: 'Return'
+        });
+    </script>";
+}
 ?>
 
 </body>

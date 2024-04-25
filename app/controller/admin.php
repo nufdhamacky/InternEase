@@ -4,17 +4,65 @@ class Admin extends Controller {
 
 
     public function isLoggedIn(){
-        if(isset($_SESSION['userId']) && isset($_SESSION['userRole'])=="admin"){
+        if(isset($_SESSION['userId']) && isset($_SESSION['userRole']) && $_SESSION['userRole'] == "admin"){
             return true;
         } else{
-            $_SESSION['loginError'] = "Please login first!";
-            echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
-            return 0;
+            return false; // It's better to return false instead of 0 for a boolean function.
         }
+    }
+    
+
+    
+    //DASHBOARD / INDEX
+    public function index(){
+        if (!$this->isLoggedIn()){return;}
+      
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+        
+            $adminModel->setTable('company');
+            $companies = $adminModel->getCompany();
+        
+            $adminModel->setTable('company_ad');
+            $advertisments = $adminModel->getCompanyAD();
+
+            //$firstround = $adminModel->get_1stround();
+            $total = $adminModel->totalstudents();
+
+            $trend = $adminModel->companyInternTrend();
+            $trend2 = $adminModel->PositionTrend();
+         
+            $data = [
+               // '1stData'=> $firstround,
+               'companylist'=> $trend['companies'],
+               'years' => $trend['years'],
+               'internsByYear' => $trend['internsByYear'],
+               'Positions'=>$trend2['positions'],
+               'companiesP'=>$trend2['companies'],
+               'yearsP' =>$trend2['years'],
+               'Pyear'=>$trend2['internsByYearP'],
+               'total' => $total,
+               'companies' => $companies,
+               'advertisments' => $advertisments,
+                'BL' => $adminModel->blacklisted_companies(),
+                'com_count' =>$this->count_complaints(),
+                'students' =>  $adminModel->getStudentCounts(),
+                'first_round_data' => $adminModel->get_1stround(),
+                'second_round_data' => $adminModel->get_2ndround(),
+               
+            ];           
+            
+            $this->view('admin/index', $data);
+
     }
 
 
 //PROFILE - ADMIN
+    public function testmail(){
+        $smtp = new Mailer;
+        $smtp->sendMail("ggogamer60@gmail.com","PWD", "AAAA");
+        
+    }
 
     public function profile() {
         if (!$this->isLoggedIn()){return;}
@@ -58,6 +106,8 @@ class Admin extends Controller {
                         if($_POST["col"] !=='password'){
                             $_SESSION["userName"] =$data['value'];
                             $email = 1;
+                            $inputotp = new Mailer;
+                            $Otp = $inputotp->sendOTPEmail($data['value'],'Email Verification');
                             $data =['email'=>  $email];
                         }else{ 
                             $pwd = 1;
@@ -65,7 +115,6 @@ class Admin extends Controller {
                             
                         }
                         $this->view('admin/profile',$data);
-                        exit();
                     } else {
                         if($_POST["col"] !='password'){
                             $email = 0;
@@ -76,7 +125,6 @@ class Admin extends Controller {
                             
                         }
                         $this->view('admin/profile',$data);
-                        exit();
                     }
                 } else {
                     $this->view('admin/profile');
@@ -86,47 +134,6 @@ class Admin extends Controller {
         
   
 
-    //DASHBOARD / INDEX
-    public function index(){
-        if (!$this->isLoggedIn()){return;}
-      
-            $this->model('AdminModel');
-            $adminModel = new AdminModel;
-        
-            $adminModel->setTable('company');
-            $companies = $adminModel->getCompany();
-        
-            $adminModel->setTable('company_ad');
-            $advertisments = $adminModel->getCompanyAD();
-
-            //$firstround = $adminModel->get_1stround();
-            $total = $adminModel->totalstudents();
-
-            $trend = $adminModel->companyInternTrend();
-            $trend2 = $adminModel->PositionTrend();
-         
-            $data = [
-               // '1stData'=> $firstround,
-               'companylist'=> $trend['companies'],
-               'years' => $trend['years'],
-               'internsByYear' => $trend['internsByYear'],
-               'Positions'=>$trend2['positions'],
-               'companiesP'=>$trend2['companies'],
-               'yearsP' =>$trend2['years'],
-               'Pyear'=>$trend2['internsByYearP'],
-               'total' => $total,
-                'BL' => $adminModel->blacklisted_companies(),
-                'companies' => $companies,
-                'advertisments' => $advertisments,
-                'students' =>  $adminModel->getStudentCounts(),
-                'first_round_data' => $adminModel->get_1stround(),
-                'second_round_data' => $adminModel->get_2ndround(),
-               
-            ];           
-            
-            $this->view('admin/index', $data);
-
-    }
 
     function max_width($pdf,$headers,$data =[]){
         $max_column = 0;
@@ -204,7 +211,7 @@ class Admin extends Controller {
 
     function reg_report(){
         $companies = isset($_GET['data']) ? json_decode(urldecode($_GET['data']), true) : [];
-        $headers = array('company_name', 'Email', 'contact_person', 'contact_no');
+        $headers = array('company_name', 'email', 'contact_person', 'contact_no');
         $numColumns = count($headers);
         $pdf =  new FPDF('P','mm',array(297,50 * $numColumns));
         $pdf->AddPage();
@@ -237,8 +244,46 @@ class Admin extends Controller {
         $pdf->Output();
     }
 
+    //Report functions
+
+    public function hash(){
+        $pwd = password_hash('12345', PASSWORD_DEFAULT);
+        echo $pwd;
+    }
+
+    public function reports(){
+        if (!$this->isLoggedIn()){return;}
+      
+            $this->model('AdminModel');
+            $adminModel = new AdminModel;
+        
+            $adminModel->setTable('company');
+            $companies = $adminModel->getCompany();
+        
+            $adminModel->setTable('company_ad');
+            $advertisments = $adminModel->getCompanyAD();
+            $data = [
+            
+                 'companies' => $companies,
+                 'advertisments' => $advertisments,
+  
+             ];           
+             
+
+
+
+        $this->view('admin/reports',$data); 
+    }
 
     //COMPLAINT FUNCTIONS
+
+    function count_complaints(){
+        $this->model('AdminModel');
+        $adminModel = new AdminModel;
+        $adminModel->setTable('complaint');
+        $com_count = $adminModel->getComplaintsCount();
+        return $com_count;
+    }
 
     public function complaints(){
         if (!$this->isLoggedIn()){return;}
@@ -313,20 +358,19 @@ class Admin extends Controller {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertpdc'])) {
             $data = [
+                'password' =>$this->generateStrongString(10),
                 'first_name' => $_POST["pdc_fname"],
                 'last_name' => $_POST["pdc_lname"],
                 'email' => $_POST["pdc_email"],
-                'password' => $_POST["pdc_pwd"],
             ];
 
 
-            $confirmPassword = $_POST["pdc_rpwd"];
+           
 
             require_once '../app/controller/helper/validation.php';
             $validate = new Validation;
             $errorlist = [
 
-            $error_pwd = $validate->validate_pwd($data['password'],$confirmPassword),
             $error_email = $validate->validate_email($data['email']),
             $error_firstname = $validate->validate_name("First Name",$data['first_name']),
             $error_lastname = $validate->validate_name("Last Name", $data['last_name']) ];
@@ -350,10 +394,20 @@ class Admin extends Controller {
                 }
             }
             */
+            $email = $_POST["pdc_email"];
+            $pwd =$data['password'];
             $add = NULL;
             if(empty($errors)){
-                if ($adminModel->insertPDC($confirmPassword, $data)) {
+                if ($adminModel->insertPDC($data)) {
                     $add = 1;
+                    $smtp = new Mailer;
+                    $body = 
+                    "<h2> PDC user created Sucessfully</h2>
+                    <p>Your user name for InternEase is $email <b></b></p>
+                    <p>Your Password:$pwd</p>
+                    <p style='color:red;'>Please change your password after logging in</p>
+                    ";
+                    $smtp->sendMail($email,"PDC Account info",$body);
     
                 } else {
                     $add = 0;
@@ -373,8 +427,43 @@ class Admin extends Controller {
 
        
         $this->view('admin/managepdc', $data);
+        return 0;
 
     }
+
+    public function generateStrongString($length = 8) {
+        $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = "";
+        $characterSets = [
+          'lowercase' => str_split(str_split($characters)[array_rand(range(0, 25))]),
+          'uppercase' => str_split(str_split($characters)[array_rand(range(26, 51))]),
+          'numeric' => str_split(str_split($characters)[array_rand(range(52, 61))]),
+        ];
+      
+        // Ensure at least one character from each set
+        foreach ($characterSets as $type => $charSet) {
+          $password .= $charSet[0];
+        }
+      
+        // Fill remaining characters randomly
+        $remainingLength = $length - strlen($password);
+        $password .= substr(str_shuffle($characters), 0, $remainingLength);
+      
+        // Validate and regenerate if necessary
+        if (!preg_match("/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/", $password)) {
+          return $this->generateStrongString($length);
+        }
+      
+        return $password;
+      }
+     
+    public function pwd(){
+      // Example usage
+      $strongString = $this->generateStrongString(10);
+      echo $strongString; // Output: aB2dEf3Gh1jK
+    
+    }
+      
  
 
     function company_report(){
@@ -408,7 +497,7 @@ class Admin extends Controller {
     }
     */
 
-    /*
+    
     public function add_admin(){
         $this->model('AdminModel');
         $admin = new adminmodel;
@@ -425,7 +514,7 @@ class Admin extends Controller {
 
        $admin->insertadmin($data);
     }
-*/
+
 }
 
 

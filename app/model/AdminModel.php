@@ -33,14 +33,11 @@ class AdminModel extends model {
 
 //MANAGE PDC FUNCS
     
-    public function insertPDC($confirmPassword,$data = []) {
-        if ($data['password'] !== $confirmPassword) {
-            return false;
-        } else {
-            $data['password'] = password_hash($confirmPassword, PASSWORD_DEFAULT);
+    public function insertPDC($data = []) {
+      
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-            $this->setTable('pdc_user');   
-            $insertResult = $this->insert($data);
+            
             $user = [
                 'user_name' => $data['email'],
                 'user_role' => 'pdc',
@@ -52,6 +49,9 @@ class AdminModel extends model {
 
             $this->setTable('users');   
             $insertUser = $this->insert($user);
+
+            $this->setTable('pdc_user');   
+            $insertResult = $this->insert($data);
             
             if ($insertResult) {
                 return 1;
@@ -59,7 +59,7 @@ class AdminModel extends model {
                return 0;
             }
             
-        }
+        
     }
     
 //REPORT/DASHBOARD FUNCTIONS
@@ -411,6 +411,17 @@ class AdminModel extends model {
         return $complaintsArray;
     }
 
+    public function getComplaintsCount() {
+        $query = "SELECT * FROM " . $this->getTable();
+        $complaints = $this->query($query);
+        $count = 0;
+        foreach ($complaints as $complaint) {
+            $count+=1;
+
+        }
+        return $count;
+    }
+
     public function check_status($data =[]){
     
         $query = "UPDATE " . $this->getTable() . " SET status = 1, reply = '{$data['reply']}' WHERE complaint_id = {$data['id']}";
@@ -435,7 +446,7 @@ class AdminModel extends model {
             if (!empty($MoreDetail)) {
                 
                 $id =$complaint['company_id'];
-                $email = $MoreDetail[0]['Email'];
+                $email = $MoreDetail[0]['email'];
                 $index = NULL;
                 $contact_no = $MoreDetail[0]['contact_no'];
                 $contact_person = $MoreDetail[0]['contact_person'];
@@ -496,8 +507,22 @@ class AdminModel extends model {
 
         $hasedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['password'] = $hasedPassword;
+
         if($this->query("INSERT INTO " . $this->getTable() . "(user_name,user_role,user_profile,user_status,password) VALUES (?,?,?,?,?)", array_values($data))){
-            echo "1";
+            $select = "SELECT user_id FROM users Where user_name = '{$data['user_name']}' ";
+            $result = $this->query($select);
+            if($result){
+                $adminId = $result[0]['user_id'];
+                echo "id ";
+            }
+            $data = [ 'admin_id' => $adminId, 'Email' => $data['user_name'], 'Password' =>$hasedPassword , 
+            'FirstName'=> 'Root','LastName' => 'Root' ];
+            $this->setTable('admin');
+            if($this->insert($data)){
+                echo "1";
+            }else{
+                echo "0";
+            }
         }else{
 
             echo "0";
