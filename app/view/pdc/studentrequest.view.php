@@ -1,7 +1,12 @@
 <?php
 include_once('../app/controller/pdc.php');
 $pdcController = new Pdc();
-$studentRequests = $pdcController->getStudentRequest();
+if (isset($_GET["status-filter"]) && $_GET["status-filter"] != "all") {
+    $studentRequests = $pdcController->filterStudentRequest($_GET["status-filter"], $_GET["sort"]);
+} else {
+    $studentRequests = $pdcController->getStudentRequest(isset($_GET["sort"]) ? $_GET["sort"] : "asc");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,28 +21,7 @@ $studentRequests = $pdcController->getStudentRequest();
 <div class="container">
     <div class="report_item" style="width:fit-content;">
         <h2>Complaints</h2>
-        <div class="filter-menu">
-            <label for="date-filter">Sort by Date:</label>
-            <select id="date-filter">
-                <option value="oldest">Oldest</option>
-                <option value="latest">Latest</option>
-            </select>
 
-            <!--            <label for="user-type-filter">Filter by User Type:</label>-->
-            <!--            <select id="user-type-filter">-->
-            <!--                <option value="all">All Users</option>-->
-            <!--                <option value="student">Student</option>-->
-            <!--                <option value="company">Company</option>-->
-            <!--            </select>-->
-
-            <!--            <label for="status-filter">Filter by Status:</label>-->
-            <!--            <select id="status-filter">-->
-            <!--                <option value="all">All</option>-->
-            <!--                <option value="pending">Pending</option>-->
-            <!--                <option value="resolved">Resolved</option>-->
-            <!--                <option value="unresolved">Un-resolved</option>-->
-            <!--            </select>-->
-        </div>
 
         <div class="filter-menu">
             <label for="complaint-id-search">Search by Complaint ID:</label>
@@ -45,6 +29,18 @@ $studentRequests = $pdcController->getStudentRequest();
             <button class="search-btn" id="search-button">Search</button>
         </div>
         <form action="" method="GET" class="filter-form">
+            <div class="filter-menu">
+                <label for="date-filter">Sort by Date:</label>
+                <select id="date-filter" name="sort">
+                    <option value="asc" <?php echo isset($_GET["sort"]) ? $_GET["sort"] == "asc" ? "selected" : "" : ""; ?>>
+                        Oldest
+                    </option>
+                    <option value="desc" <?php echo isset($_GET["sort"]) ? $_GET["sort"] == "desc" ? "selected" : "" : ""; ?>>
+                        Latest
+                    </option>
+                </select>
+
+            </div>
             <div>
                 <select name="status-filter" id="status-filter">
                     <option value="all">All</option>
@@ -76,7 +72,7 @@ $studentRequests = $pdcController->getStudentRequest();
                     <td><?php echo $request->title; ?></td>
                     <td><?php echo $request->date; ?></td>
                     <td><?php echo $request->description; ?></td>
-                    <td style="color: <?php echo $request->status == 0 ? "blue" : ($request->status == 1 ? "green" : "red"); ?>"><?php echo $request->status == 0 ? "Pending" : ($request->status == 1 ? "Resolved" : "Unresolved"); ?></td>
+                    <td style="color: <?php echo $request->status == 0 ? "blue" : ($request->status == 1 ? "green" : "red"); ?>"><?php echo $request->status == 0 ? "Unresolved" : "Resolved"; ?></td>
 
                 </tr>
             <?php } ?>

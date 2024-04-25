@@ -257,9 +257,14 @@ class Pdc extends Controller
     }
 
 
-    public function getStudentRequest(): array
+    public function getStudentRequest($order): array
     {
-        return $this->pdcComplaintRepository->getAll();
+        return $this->pdcComplaintRepository->getAll($order);
+    }
+
+    public function filterStudentRequest($status, $order): array
+    {
+        return $this->pdcComplaintRepository->filter($status, $order);
     }
 
     public function index()
