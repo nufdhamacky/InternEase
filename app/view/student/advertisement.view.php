@@ -114,61 +114,61 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
     
 
         function displayAdDetails(index) {
-    var adData = <?php echo json_encode($ads); ?>;
-    var adDetailsWindow = document.getElementById('adDetailsWindow');
-    var adContent = document.querySelector('.ad-details .ad-content');
+            var adData = <?php echo json_encode($ads); ?>;
+            var adDetailsWindow = document.getElementById('adDetailsWindow');
+            var adContent = document.querySelector('.ad-details .ad-content');
 
-    var ad = adData[index];
-    console.log(ad);
+            var ad = adData[index];
+            console.log(ad);
 
-    // Make an AJAX request to check if the student has already applied
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (this.readyState === XMLHttpRequest.DONE) {
-            if (this.status === 200) {
-                var data = JSON.parse(this.responseText);
-                var hasApplied = data.hasApplied; // Assuming the response contains a boolean indicating whether the student has applied
+            // Make an AJAX request to check if the student has already applied
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                        var data = JSON.parse(this.responseText);
+                        var hasApplied = data.hasApplied; 
 
-                console.log(hasApplied);
+                        console.log(hasApplied);
 
-                // Update UI accordingly
-                var applyButtonHtml = hasApplied ? "Applied" : "Apply";
-                var applyButtonOnClick = hasApplied ? "" : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
-                var applyButtonBackground = hasApplied ? "violet" : "";
+                        // Update UI accordingly
+                        var applyButtonHtml = hasApplied ? "Applied" : "Apply";
+                        var applyButtonOnClick = hasApplied ? `onclick="alert('You have already applied for this position')"` : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
+                        var applyButtonBackground = hasApplied ? "violet" : "";
 
-                var applyButton = `
-                    <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
-                        ${applyButtonHtml}
-                    </button>
-                `;
+                        var applyButton = `
+                            <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
+                                ${applyButtonHtml}
+                            </button>
+                        `;
 
-                var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
+                        var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
 
-                adContent.innerHTML = `
-                    <span class="close" onclick="closeAdDetails()">&times;</span>
-                    <h2>${ad.company_name}</h2>
-                    <p><strong>Job Position:</strong> ${ad.position}</p>
-                    <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
-                    <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
-                    <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
-                    <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
-                    <p><strong>Qualifications:</strong> ${ad.qualification}</p>
-                    <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
-                    <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                    ${applyButton}
-                    ${wishlistButton}
-                `;
+                        adContent.innerHTML = `
+                            <span class="close" onclick="closeAdDetails()">&times;</span>
+                            <h2>${ad.company_name}</h2>
+                            <p><strong>Job Position:</strong> ${ad.position}</p>
+                            <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
+                            <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
+                            <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
+                            <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
+                            <p><strong>Qualifications:</strong> ${ad.qualification}</p>
+                            <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
+                            <p><strong>Requirements:</strong> ${ad.requirements}</p>
+                            ${applyButton}
+                            ${wishlistButton}
+                        `;
 
-                adDetailsWindow.style.display = 'block';
-            } else {
-                console.error('Error checking application status:', this.status);
-            }
+                        adDetailsWindow.style.display = 'block';
+                    } else {
+                        console.error('Error checking application status:', this.status);
+                    }
+                }
+            };
+
+            xhr.open("GET", `hasApplied?adId=${ad.ad_id}`, true);
+            xhr.send();
         }
-    };
-
-    xhr.open("GET", `hasApplied?adId=${ad.ad_id}`, true);
-    xhr.send();
-}
 
 
 
