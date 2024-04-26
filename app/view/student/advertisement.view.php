@@ -221,6 +221,8 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                             var applyButton = document.getElementById('apply');
                             applyButton.style.background = 'violet';
                             applyButton.innerHTML = `Applied`;
+                            var wishlistButton = document.getElementById('wishlist');
+                            wishlistButton.style.display = `none`;
                             alert('Applied to Job');
                         } else {
                             alert('Error: ' + response.message);
