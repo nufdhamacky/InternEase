@@ -14,6 +14,7 @@
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
                         echo '<img src="' . ROOT . '/assets/images/' . $ad['user_profile'] . '" alt="Advertisement ' . ($index + 1) . '">';
                         echo '<h3>' . $ad['company_name'] . '</h3>';
+                        echo '<h5>' . $ad['position'] . '</h5>';
                         echo '<p>' . $ad['requirements'] . '</p>';
                         echo '</div>';
                     }
