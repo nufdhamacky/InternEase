@@ -1,36 +1,44 @@
 <?php
 
-class AdvertisementModel
-{
-
+class AdvertisementModel {
     public $position;
-    public $req;
+    public $requirements;
     public $interns;
-    public $workMode;
+    public $workingMode;
     public $fromDate;
     public $toDate;
     public $companyId;
     public $qualification;
+    public $otherQualifications; // This field should be defined
     public $status;
-    public $image_url;
+    public $imageUrl;
     public $no_of_cvs_required;
 
-
-    public function __construct( $position, $req, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification, $status, $image_url, $no_of_cvs_required){
-
-
+    public function __construct(
+        $position,
+        $requirements,
+        $interns,
+        $workingMode,
+        $fromDate,
+        $toDate,
+        $companyId,
+        $qualification,
+        $otherQualifications, // Ensure this field is expected
+        $status,
+        $imageUrl,
+        $no_of_cvs_required
+    ) {
         $this->position = $position;
-        $this->req = $req;
+        $this->requirements = $requirements;
         $this->interns = $interns;
-        $this->workMode = $workMode;
+        $this->workingMode = $workingMode;
         $this->fromDate = $fromDate;
         $this->toDate = $toDate;
         $this->companyId = $companyId;
         $this->qualification = $qualification;
+        $this->otherQualifications = $otherQualifications; // Initialize properly
         $this->status = $status;
-        $this->image_url = $image_url;
-        $this->no_of_cvs_required = $no_of_cvs_required;
+        $this->imageUrl = $imageUrl;
+        $this->no_of_cvs_required = $no_of_cvs_required; // Initialize this
     }
-
-
 }

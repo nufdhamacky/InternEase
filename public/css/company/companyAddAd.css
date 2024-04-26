@@ -229,8 +229,15 @@ body
     margin-right: 5px;
 }
 
-.details .compdetails .description{
-    
+.qualification-input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 16px; 
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
 }
 
 .heading-advertisement{
