@@ -46,8 +46,10 @@ $pageData = $pdController->getPendingCompany($page);
                     <td>
                         <a href="<?= ROOT ?>/pdc/acceptCompany?id=<?php echo $company->userId; ?>"
                            style="display: <?php echo $company->status == 0 || $company->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                        <a href="<?= ROOT ?>/pdc/rejectCompany?id=<?php echo $company->userId; ?>"
+                        <a href="#"
+                           onclick="rejectCompany(<?php echo $company->userId; ?>)"
                            style="display: <?php echo $company->status == 0 || $company->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+
                     </td>
                 </tr>
             <?php } ?>
@@ -63,6 +65,6 @@ $pageData = $pdController->getPendingCompany($page);
         </div>
     </div>
 </div>
-
+<script src="<?= ROOT ?>/js/pdcCompany.js"></script>
 </body>
 </html>

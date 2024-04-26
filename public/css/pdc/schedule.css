@@ -137,7 +137,6 @@ body {
 
 /* Second bar styles */
 .secondbar {
-    display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
 }
@@ -195,15 +194,6 @@ body {
     margin: 0;
 }
 
-.details .cardHeader .filter-form {
-    display: flex;
-    align-items: center;
-}
-
-.details .cardHeader .filter-form select {
-    margin-right: 10px;
-}
-
 .details .cardHeader .btn {
     background-color: #0b596f;
     color: #fff;
@@ -216,22 +206,6 @@ body {
 .details .cardHeader .btn:hover {
     background-color: #064d5e;
 }
-
-.details .cardHeader .upload-btn {
-    margin-left: auto;
-    position: relative;
-    overflow: hidden;
-}
-
-.details .cardHeader .upload-btn input[type="file"] {
-    position: absolute;
-    font-size: 100px;
-    right: 0;
-    top: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
 
 .details table {
     width: 100%;
@@ -277,4 +251,32 @@ body {
     margin-right: 5px;
     text-decoration: none;
     color: #0b596f;
+}
+
+.toggle-bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    background-color: #087da4;
+    position: relative;
+    color: #fff;
+    padding: 1vw;
+    margin-top: 2vw;
+    border-radius: 2vw;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle_content {
+    display: none;
+    position: relative;
+    padding: 1vw;
+    background-color: white;
+    margin-top: 10px;
+    transition: max-height 0.5s ease;
+}
+
+.toggle-bar:hover {
+    background-color: #044865;
 }
