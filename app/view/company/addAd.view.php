@@ -67,7 +67,7 @@
                             </div>
                            <br>
                            
-                            <h4>Qualifications</h4>
+                            <h4>Qualification</h4>
                             <br>
 
                             <select name="qualification">
@@ -79,7 +79,8 @@
                             </select>
                             <br>
 
-                            <br>
+                            <h4>Other Qualifications</h4>
+                            <input type="text" name="description"> 
                             
                             <h4>Internship Period</h4>
                             <div class = "card">
@@ -100,7 +101,7 @@
                             </div>
 
                             <div class="card"> 
-                                <h4 class = "spaceleft" style="margin-left:200px">Working Mode</h4>
+                                <h4 class = "spaceleft" style="margin-left:190px">Working Mode</h4>
                             </div>
                             <div class="card">
                                 <select name="working_mode">

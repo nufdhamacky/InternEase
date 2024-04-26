@@ -229,6 +229,10 @@ body
     margin-right: 5px;
 }
 
+.details .compdetails .description{
+    
+}
+
 .heading-advertisement{
     display: flex;  
     flex-direction: row;
