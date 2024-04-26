@@ -16,7 +16,7 @@
         <li>
             <a href="studentReq">
                 <span class="icon"><ion-icon name="id-card-outline"></ion-icon></span>
-                <span class="title">Student Requests</span>
+                <span class="title">Student Applications</span>
             </a>
         </li>
         <li>
