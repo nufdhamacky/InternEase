@@ -28,7 +28,6 @@ $ads = $companyAdController->getAll();
             </div>
             <div class="user">
                 <ion-icon name="notifications-circle-outline"></ion-icon>
-                <span><?php echo $_SESSION['userRole']; ?></span>
                 <ion-icon name="person-circle-outline"></ion-icon>
             </div>
 
