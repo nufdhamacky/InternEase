@@ -62,8 +62,7 @@
         </div>  
     </div>
     <script src="<?=ROOT?>/js/login.js"></script>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
 <?php 
 
 if (isset($sent) && $sent == 1) {
@@ -82,4 +81,6 @@ if (isset($sent) && $sent == 1) {
     </script>";
 }
 ?>
+</body>
+
 </html>
