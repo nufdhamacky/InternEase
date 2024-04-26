@@ -76,7 +76,7 @@
                                         <td><?php echo $ad->interns; ?> </td>
                                         <td><?php echo $ad->no_of_cvs_required; ?> </td>
                                         <td><?php echo $ad->workMode; ?> </td>
-                                        <td><?php echo $ad->status; ?> </td>
+                                        <td style="color: <?php echo $ad->status == 0 ? "blue" : ($ad->status == 1 ? "green" : "red"); ?>"><?php echo $ad->status == 0 ? "Pending" : ($ad->status == 1 ? "Approved" : "Rejected"); ?></td>
                                     </tr>
                                     <?php } ?>
                         </tbody>

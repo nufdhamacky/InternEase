@@ -7,11 +7,10 @@
     left: 0;
     width: 300px;
     height: 100%;
-    background-color: var(--blue);
-    border-left: 10px solid var(--blue);
-    transition: 0.5s;
-    overflow: hidden;
+    background-color: #0b596f;
+    border-left: 10px solid #0B5A6F;
     transition: width 0.3s ease-out;
+    overflow: hidden;
 }
 
 .navigation img

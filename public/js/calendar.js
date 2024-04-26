@@ -17,44 +17,106 @@ let reminderList =
 let eventIdCounter = 1;
 
 // Function to add events
+// function addEvent() {
+// 	let date = eventDateInput.value;
+// 	let title = eventTitleInput.value;
+// 	let description = eventDescriptionInput.value;
+
+// 	if (date && title) {
+// 		// Create a unique event ID
+// 		let eventId = eventIdCounter++;
+
+// 		events.push(
+// 			{
+// 				id: eventId, date: date,
+// 				title: title,
+// 				description: description
+// 			}
+// 		);
+// 		showCalendar(currentMonth, currentYear);
+// 		eventDateInput.value = "";
+// 		eventTitleInput.value = "";
+// 		eventDescriptionInput.value = "";
+// 		displayReminders();
+// 	}
+// }
+
 function addEvent() {
-	let date = eventDateInput.value;
-	let title = eventTitleInput.value;
-	let description = eventDescriptionInput.value;
+    let date = eventDateInput.value;
+    let title = eventTitleInput.value;
+    let description = eventDescriptionInput.value;
 
-	if (date && title) {
-		// Create a unique event ID
-		let eventId = eventIdCounter++;
+	console.log([date, title, description]);
 
-		events.push(
-			{
-				id: eventId, date: date,
-				title: title,
-				description: description
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'addCalendarEvent', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4){
+			if(xhr.status === 200){
+				var response = JSON.parse(xhr.responseText);
+				if(response.success){
+					showCalendar(currentMonth, currentYear);
+					eventDateInput.value = "";
+					eventTitleInput.value = "";
+					eventDescriptionInput.value = "";
+					displayReminders();
+					alert('Event Added');
+				}
+				else{
+					alert('Error: ' + response.message);
+				}
 			}
-		);
-		showCalendar(currentMonth, currentYear);
-		eventDateInput.value = "";
-		eventTitleInput.value = "";
-		eventDescriptionInput.value = "";
-		displayReminders();
-	}
+			else {
+				console.error('Error adding event: ', xhr.status, xhr.statusText);
+			}
+		}
+
+	};
+	xhr.send('date=' + date + '&title=' + title + '&description=' + description);
 }
+
 
 // Function to delete an event by ID
-function deleteEvent(eventId) {
-	// Find the index of the event with the given ID
-	let eventIndex =
-		events.findIndex((event) =>
-			event.id === eventId);
+// function deleteEvent(eventId) {
+// 	// Find the index of the event with the given ID
+// 	let eventIndex =
+// 		events.findIndex((event) =>
+// 			event.id === eventId);
 
-	if (eventIndex !== -1) {
-		// Remove the event from the events array
-		events.splice(eventIndex, 1);
-		showCalendar(currentMonth, currentYear);
-		displayReminders();
-	}
+// 	if (eventIndex !== -1) {
+// 		// Remove the event from the events array
+// 		events.splice(eventIndex, 1);
+// 		showCalendar(currentMonth, currentYear);
+// 		displayReminders();
+// 	}
+// }
+
+function deleteEvent(eventId) {
+    fetch(`deleteCalendarEvent?id=${eventId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Event deleted successfully, update UI as needed
+            return response.json();
+        } else {
+            // Handle error response
+            throw new Error('Failed to delete event');
+        }
+    })
+    .then(data => {
+        // Update UI (e.g., refresh calendar, display success message)
+        showCalendar(currentMonth, currentYear);
+        displayReminders();
+        console.log(data.message); // Log success message
+    })
+    .catch(error => {
+        console.error('Error deleting event:', error);
+        // Handle error, display error message to the user
+    });
 }
+
 
 // Function to display reminders
 function displayReminders() {

@@ -16,6 +16,7 @@ class Pdc extends Controller
 
     private PdcComplaintRepository $pdcComplaintRepository;
 
+
     public function __construct()
     {
         parent::__construct();
@@ -47,10 +48,10 @@ class Pdc extends Controller
 
     public function getStudentCount()
     {
-        $pdcModel = $this->model('PdcModel');
         $count = $this->studentRepository->getCount();
         return $count;
     }
+
 
     public function getAllCompany(): array
     {
@@ -80,32 +81,34 @@ class Pdc extends Controller
 
     public function sendEmail()
     {
-        ini_set("SMTP", "tls://smtp.gmail.com");
-        ini_set("smtp_port", "587");
-        $to = "sayisenthil@gmail.com";
-        $subject = "Test Email";
-        $message = "This is a test email.";
 
-// Additional headers
-        $headers = "From: 2021is033@stu.ucsc.ac.lk.com\r\n";
-        $headers .= "Reply-To: 2021is033@stu.ucsc.ac.lk.com\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-// Send email
-        $mail_sent = mail($to, $subject, $message, $headers);
-
-        if ($mail_sent) {
-            echo "Email sent successfully.";
+        $companies = $this->companyRepository->getFullByEmail();
+        if (empty($companies)) {
+            echo "No companies to send email";
         } else {
-            echo "Email sending failed.";
+            foreach ($companies as $company) {
+                $to = $company;
+                $subject = "Test Email";
+                $body = "This is a test email.";
+
+                $email = new mailer;
+                $email->sendMail($to, $subject, $body);
+            }
         }
+
+        $this->schedule();
     }
 
+    public function schedule()
+    {
+        $this->view('pdc/schedule');
+    }
 
     public function rejectCompany()
     {
         $id = $_GET["id"];
-        $this->companyRepository->reject($id);
+        $reason = $_GET["reason"];
+        $this->companyRepository->reject($id, $reason);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
     }
 
@@ -115,7 +118,6 @@ class Pdc extends Controller
         $this->companyRepository->accept($id);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
     }
-
 
     public function getAllStudent($page): PageDataModel
     {
@@ -147,7 +149,6 @@ class Pdc extends Controller
         }
         return $this->studentRepository->filterByCourse($course, $page);
     }
-
 
     public function getAllCompanyVisits($page): PageDataModel
     {
@@ -256,15 +257,32 @@ class Pdc extends Controller
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
 
-
     public function getStudentRequest($order): array
     {
         return $this->pdcComplaintRepository->getAll($order);
     }
 
+    public function getStudentRequestById($id): PdcComplaintModel
+    {
+        return $this->pdcComplaintRepository->findById($id);
+    }
+
+    public function getStudentRequestCount(): int
+    {
+        return $this->pdcComplaintRepository->getCount();
+    }
+
     public function filterStudentRequest($status, $order): array
     {
         return $this->pdcComplaintRepository->filter($status, $order);
+    }
+
+    public function replyComplaint()
+    {
+        $id = $_POST["id"];
+        $reply = mysqli_real_escape_string($this->conn, $_POST['reply']);
+        $this->pdcComplaintRepository->reply($id, $reply);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/studentrequest');</script>";
     }
 
     public function index()
@@ -337,6 +355,11 @@ class Pdc extends Controller
         $this->view('pdc/studentrequest');
     }
 
+    public function complaintdes()
+    {
+        $this->view('pdc/complaintdes');
+    }
+
     public function ads()
     {
         $this->view('pdc/ads');
@@ -362,9 +385,9 @@ class Pdc extends Controller
         $this->view('pdc/companyreport');
     }
 
-    public function schedule()
+    public function companyreportpercentage()
     {
-        $this->view('pdc/schedule');
+        $this->view('pdc/companyreportpercentage');
     }
 
     public function addschedule()

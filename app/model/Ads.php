@@ -16,7 +16,10 @@ class Ads extends Model{
     }
 
     public function fetchAds(){
-        $sql = 'SELECT * FROM company_ad';
+        $sql = 'SELECT company_ad.*, company.company_name, users.user_profile
+                FROM company_ad 
+                JOIN company ON company.user_id = company_ad.company_id
+                JOIN users ON users.user_id = company_ad.company_id';
         $result = mysqli_query($this->connection, $sql);
         $ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_free_result($result);

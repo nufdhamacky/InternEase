@@ -1,17 +1,22 @@
 <?php
 
 class CompanyModel {
-    public function getTotalAd($conn){
-        $sql = "SELECT count(*) as count FROM company_ad";
-
-        $result = $conn->query($sql);
-
-        if($result->num_rows > 0){
+    public function getTotalAd($conn, $userId) {
+        // Ensure the prepared statement is used to avoid SQL injection
+        $sql = "SELECT COUNT(*) AS count FROM company_ad WHERE company_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             return $row['count'];
         }
+
         return 0;
     }
+    
 
     function getTotalStudents($conn){
         $sql = "SELECT count(*) as count FROM student";

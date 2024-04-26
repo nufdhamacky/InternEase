@@ -82,7 +82,7 @@
         <div class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Student Requests</h2>
+                    <h2>Student Applications</h2>
                     <a href="studentReq" class="btn">View All</a> 
                 </div>
                 <table>

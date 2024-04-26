@@ -47,10 +47,13 @@
     margin-right: 5px;
     font-size: 12px;
     background-color: peachpuff;
+    border: 1px solid #0b596f;
+    animation: blink 1s infinite;
 }
 
-.active .round-marker{
-    background-color: black;
+.rounds .round.active .round-marker {
+    border: 1px dashed black;
+    animation: none;
 }
 
 .rounds .round .round-text{
@@ -58,13 +61,47 @@
     font-size: 20px;
 }
 
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.filterSection {
+    grid-column: 1 / span 7;
+    align-self: center;
+    justify-self: end;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.filterSection button {
+    color: black;
+    background: peachpuff;
+}
+
+.filterSection button a{
+    text-decoration: none;
+    color : black;
+}
+
+.filterSection button:hover{
+    background-color: rgb(244, 255, 185);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.322);
+}
 
 .ad-cards {
     grid-column: 1 / span 7;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding-top: 90px;
+    padding-top: 20px;
     justify-content: center;
     align-items: center;
 
@@ -78,6 +115,10 @@
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(77, 73, 73, 0.479);
     transition: transform 0.3s ease-in-out;
+    padding: 10px;
+    line-height: 25px;
+    text-overflow: ellipsis;
+    white-space: wrap;
 }
 
 .ad-card:hover {
@@ -103,13 +144,6 @@
     padding: 5px;
 }
 
-h3{
-    padding: 10px;
-}
-
-p{
-    padding: 10px;
-}
 
 .ad-info p {
     font-size: 14px;
@@ -136,7 +170,13 @@ p{
     padding: 20px;
     border: 1px solid #888;
     border-radius: 10px;
-    width: 70%;
+    max-width: 60%;
+    min-width: none;
+    line-height: 25px;
+}
+
+.ad-content h2{
+    margin-bottom: 30px;
 }
 
 .close {
@@ -155,13 +195,13 @@ p{
 
 button {
     padding: 10px 20px;
-    background-color: #4cafaa;
+    background-color: #7cb9ca;
     color: white;
-    border: 2px solid var(--secondary);
+    border: 1px solid var(--secondary);
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 
@@ -175,6 +215,7 @@ button {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    
 }
 
 .modal-content {
@@ -183,6 +224,7 @@ button {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+
 }
 
 .close {

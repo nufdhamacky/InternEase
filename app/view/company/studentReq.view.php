@@ -1,3 +1,16 @@
+<?php
+    include_once('../app/controller/Company.php');
+    $companyController = new Company();
+
+    $ads = $companyController->getAllApprovedAds();
+    if (isset($_GET["ads"]) && $_GET["ads"] != "all") {
+        $students = $companyController->filterStudents($_GET["ads"]);
+    } else {
+        $students = $companyController->getAllStudents();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,32 +39,29 @@
             
           <div class = "secondbar">
 
-            <!-- <form action="" method="GET" class="filter-ads">
+            <form action="" method="GET" class="allstudents">
                 <div>
-                    <select name="company_ad" id="company_ad">
-                        <option value="all">All</option>
-
+                    <select name="ad_id" id="ads">
+                        <option value="all" <?php if (!isset($_GET['ad_id']) || $_GET['ad_id'] == 'all') echo 'selected'; ?>>All</option>
+                        <?php foreach ($ads as $ad): ?>
+                            <option value="<?php echo htmlspecialchars($ad['ad_id']); ?>" 
+                                <?php if (isset($_GET['ad_id']) && $_GET['ad_id'] == $ad['ad_id']) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($ad['position']); ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
+                    <button type="submit" class="btn"><ion-icon name="search-outline"></ion-icon></button>
                 </div>
-            </form> -->
+            </form>
 
-                <div class = "allstudents" id="studentCategory">
-                    <select>
-                        <option value="all">All</option>
-                        <?php foreach($stdrequests as $post):?>
-                            <option value = <?php echo htmlspecialchars($post['position']);?> ><?php echo htmlspecialchars($post['position']);?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <ion-icon name="search-outline"></ion-icon>
-                </div>
-            </div>
+           </div>
             
         <!--student data list-->
 
         <div id="seTable" class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Student Requests</h2>
+                    <h2>Student Applications</h2>
                 </div>
 
                 <table>
@@ -66,13 +76,13 @@
                         </thead>
 
                         <tbody>
-                            <?php if(isset($stdrequests) && !empty($stdrequests)) {?>
-                                <?php foreach ($stdrequests as $req) :?>
+                            <?php if(isset($ad) && !empty($ad)) {?>
+                                <?php foreach ($students as $student) :?>
                             <tr>
-                                <td><?php echo htmlspecialchars($req['first_name']." ".$req['last_name']) ;?></td>
-                                <td><?php echo htmlspecialchars($req['reg_no']) ;?></td>
-                                <td><?php echo htmlspecialchars($req['position']) ;?></td>
-                                <td><a href="path_to_cv_file" class="download-cv-btn"><?php echo htmlspecialchars($req['cv']) ;?>Download CV</a></td>
+                            <td><?php echo $student->firstName . " " . $student->lastName; ?></td>
+                            <td><?php echo $student->regNo; ?></td>
+                            <td><?php echo $student->position; ?></td>
+                                <td><a href="path_to_cv_file" class="download-cv-btn"><?php echo $student->cv; ?>Download CV</a></td>
                                 <td>
                                     <select>
                                         <option value = "" selected hidden>--Select Action--</option>
@@ -100,7 +110,7 @@
         </div>
     </div>
 
-    <script src="<?=ROOT?>/js/"></script>
+    <!-- <script src="<?=ROOT?>/js/"></script> -->
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

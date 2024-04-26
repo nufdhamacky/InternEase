@@ -40,8 +40,8 @@
                             <h4>Position</h4>
                             <select name="position">
                                 <option value = "" selected hidden>Select Position</option>
-                                <option value = "Sofware Engineer">Sofware Engineer(Front-End)</option>
-                                <option value = "Sofware Engineer">Sofware Engineer(Back-End)</option>
+                                <option value = "Sofware Engineer(Front-End)">Sofware Engineer(Front-End)</option>
+                                <option value = "Sofware Engineer(Back-End)">Sofware Engineer(Back-End)</option>
                                 <option value = "QA(Manual Testing)">QA(Manual Testing)</option>
                                 <option value = "Business Analyst">Business Analyst</option>
                                 <option value = "Data Analayst">Data Analayst</option>
@@ -104,8 +104,8 @@
                             </div>
                             <div class="card">
                                 <select name="working_mode">
-                                    <option value = "Online">Online</option>
-                                    <option value = "Physical">Physical</option>
+                                    <option value = "Remote">Remote</option>
+                                    <option value = "Onsite">Onsite</option>
                                     <option value = "Hybrid">Hybrid</option>
                                 </select>
                             </div>

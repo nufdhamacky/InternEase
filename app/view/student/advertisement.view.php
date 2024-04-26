@@ -20,6 +20,10 @@
                 </div>
             </div>
 
+            <div class="filterSection">
+                <button><a href="applied" class="btn">View Applications</a></button>
+                <button><a href="wishlisted" class="btn">View Your Wishlist</a></button>
+            </div>
 
             <div class="ad-cards">
             
@@ -27,8 +31,9 @@
                 if (isset($ads) && count($ads) > 0) {
                     foreach ($ads as $index => $ad) {
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
-                        echo '<img src="' . ROOT . $ad['image_url'] . '" alt="Advertisement ' . ($index + 1) . '">';
-                        echo '<h3>' . $ad['company_id'] . '</h3>';
+                        echo '<img src="' . ROOT . '/assets/images/' . $ad['user_profile'] . '" alt="Advertisement ' . ($index + 1) . '">';
+                        echo '<h3>' . $ad['company_name'] . '</h3>';
+                        echo '<h5>' . $ad['position'] . '</h5>';
                         echo '<p>' . $ad['requirements'] . '</p>';
                         // echo '<p>' . $ad['ad_id'] . '</p>';
                         echo '</div>';
@@ -45,7 +50,7 @@
         </div>
     </div>
 
-
+<!-- Second Round -->
     <div id="preferencesModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -58,7 +63,8 @@
                 for ($i = 1; $i <= 3; $i++) {
                     echo "<label for='preference$i'>Preference $i:</label>";
                     echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    echo "<option value=''>None</option>"; // Add None option as the default
+                    // echo "<option value=''>None</option>"; // Add None option as the default
+
                     // Add options for each job role
                     foreach ($jobRoles as $role) {
                         echo "<option value='$role'>$role</option>";
@@ -80,6 +86,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Assign userId to a JavaScript variable
 echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
+
+
 ?>
 
     <script>
@@ -106,30 +114,56 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
     
 
         function displayAdDetails(index) {
-           
             var adData = <?php echo json_encode($ads); ?>;
-
             var adDetailsWindow = document.getElementById('adDetailsWindow');
             var adContent = document.querySelector('.ad-details .ad-content');
 
-            // Assuming your data structure includes additional details like 'position', 'modeOfWork', 'internshipPeriod', 'requirements'
             var ad = adData[index];
             console.log(ad);
 
-            adContent.innerHTML = `
-                <span class="close" onclick="closeAdDetails()">&times;</span>
-                <h2>${ad.company_name}</h2>
-                <p><strong>Job Position:</strong> ${ad.position}</p>
-                <p><strong>Mode of Work:</strong> ${ad.modeOfWork}</p>
-                <p></strong>Location:</strong> ${ad.location}</p>
-                <p style="color:red;"><strong>Application Deadline:</strong> ${ad.deadline}</p>
-                <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                <button id="apply" onclick="applyToJob(${ad.ad_id}, ${userId})">Apply</button>
-                <button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
-            `;
+            // Make an asynchronous request to check if the student has already applied
+            fetch(`hasApplied?adId=${ad.ad_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    var hasApplied = data.hasApplied; // Assuming the response contains a boolean indicating whether the student has applied
 
-            adDetailsWindow.style.display = 'block';
+                    console.log(hasApplied);
+                    
+                    // Update UI accordingly
+                    var applyButtonHtml = hasApplied ? "Applied" : "Apply";
+                    var applyButtonOnClick = hasApplied ? "" : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
+                    var applyButtonBackground = hasApplied ? "violet" : "";
+
+                    var applyButton = `
+                        <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
+                            ${applyButtonHtml}
+                        </button>
+                    `;
+
+                    var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
+
+                    adContent.innerHTML = `
+                        <span class="close" onclick="closeAdDetails()">&times;</span>
+                        <h2>${ad.company_name}</h2>
+                        <p><strong>Job Position:</strong> ${ad.position}</p>
+                        <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
+                        <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
+                        <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
+                        <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
+                        <p><strong>Qualifications:</strong> ${ad.qualification}</p>
+                        <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
+                        <p><strong>Requirements:</strong> ${ad.requirements}</p>
+                        ${applyButton}
+                        ${wishlistButton}
+                    `;
+
+                    adDetailsWindow.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error checking application status:', error);
+                });
         }
+
 
         function closeAdDetails() {
             document.getElementById('adDetailsWindow').style.display = 'none';
@@ -253,7 +287,61 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
             }
         }
 
-        
+        document.addEventListener("DOMContentLoaded", function() {
+    const roundDates = <?php echo json_encode($roundData); ?>;
+    const currentDate = new Date(); // Current date
+
+    if (!Array.isArray(roundDates) || roundDates.length === 0) {
+        console.error('No round dates found or invalid data format.');
+        return;
+    }
+
+    let isActive = false;
+
+    const roundIdMapping = {
+        "firstround": 1,
+        "secondround": 2
+        // Add more mappings if needed
+    };
+
+    
+
+    roundDates.forEach(function(round) {
+        const roundStartDate = new Date(round.start_date);
+        const roundEndDate = new Date(round.end_date);
+        const roundElementId = Object.keys(roundIdMapping).find(key => roundIdMapping[key] === round.id);
+
+        if (!roundElementId) {
+            console.error('Invalid round ID:', round.id);
+            return;
+        }
+
+        console.log(round.id);
+    console.log(roundIdMapping[key]);   
+
+        const roundElement = document.getElementById(roundElementId);
+
+        if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
+            roundElement.classList.add('active');
+            isActive = true;
+        } else {
+            roundElement.classList.remove('active');
+        }
+
+        console.log(roundStartDate); // Log start date for debugging
+    });
+
+    // Uncomment this section if you want to set a default active round
+    // if (!isActive) {
+    //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
+    //     const firstRoundElement = document.getElementById(firstRoundElementId);
+    //     firstRoundElement.classList.add('active');
+    // }
+});
+
+
+
+
 
 
     </script>
