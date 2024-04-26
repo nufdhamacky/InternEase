@@ -116,7 +116,9 @@ class Pdc extends Controller
     {
         $id = $_GET["id"];
         $this->companyRepository->accept($id);
-        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        $pending = 1;
+        $data = ['pending' => $pending];
+        $this->view('pdc/companyrequest', $data);
     }
 
     public function getAllStudent($page): PageDataModel

@@ -65,6 +65,27 @@ $pageData = $pdController->getPendingCompany($page);
         </div>
     </div>
 </div>
-<script src="<?= ROOT ?>/js/pdcCompany.js"></script>
+<script src="<?= ROOT ?>/js/pdcCompany.js">
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
+
+if (isset($pending) && $pending == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Accepted',
+            text: 'Company is allowed to log in.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+            }
+        });
+    </script>";
+} ?>
 </body>
 </html>
