@@ -192,6 +192,18 @@ body
     align-items: center;
 }
 
+.allstudents .btn{
+    width: 30px;
+    height: 29px;
+    border: 1px solid rgba(11, 90, 111, 1);
+    border-radius: 5px;
+}
+
+.allstudents .btn ion-icon{
+    font-size: 1.1rem;
+    color: #0B5A6F;
+}
+
 .allstudents select{
     border: 1px solid rgba(11, 90, 111, 1);
     padding: 5px 5px 5px 10px; 
