@@ -63,16 +63,7 @@
                         <label for="pdc_email">Email:</label>
                         <input class="input-text" type="text" name="pdc_email" id="pdc_email">
                         </div>
-
-                        <div class="formgroup">
-                        <label for="pdc_pwd">password:</label>
-                        <input class="input-text" type="password" name="pdc_pwd" id="pdc_pwd">
-                        </div>  
-                        
-                        <div class="formgroup">
-                        <label for="pdc_rpwd">Confirm-password:</label>
-                        <input class="input-text" type="password" name="pdc_rpwd" id="pdc_rpwd">
-                        </div>   
+  
                         <p >
                             <?php       
                               if (isset($data['errors']) && is_array($data['errors'])) {

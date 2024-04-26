@@ -4,80 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/css/home/signup.css">
-
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
     <title>Sign Up</title>
 </head>
-
 <body>
     <div class="main-div">
         <div class="leftpart">
-        <a href="../home"><img src="<?=ROOT?>/assets/images/logo.png" alt="" class="img1"></a>
+            <a href="../home"><img src="<?=ROOT?>/assets/images/logo.png" alt="Logo" class="img1"></a>
             <h1>Internship</h1>
             <h1>Management</h1>
             <h1>System</h1>
-            <img src="<?=ROOT?>/assets/images/loginimage.png" alt="" class="img2">                
+            <img src="<?=ROOT?>/assets/images/loginimage.png" alt="Login Image" class="img2">                
         </div>
-
         <div class="rightpart">
-            
-        <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
-            <h4>Create Account</h4>
+            <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
+                <h4>Create Account</h4>
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" class="box1" value="<?= $_POST['companyName'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['companyName'] ?? '' ?></span>
 
-            <p class="label1">Company Name: 
-                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="box1" value="<?= $_POST['email'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['email'] ?? '' ?></span>
 
-                    <span class="error"><?= isset($data['signupError']['companyName']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
-            
-            <p class="label1">Email:
-                
-                
-                    <span class="error"><?= isset($data['signupError']['email']) ?></span>
-                    <br>
-            </p>
-            <input type="email" name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+                <label for="compsite">Company Website:</label>
+                <input type="text" id="compsite" name="compsite" class="box1" value="<?= $_POST['compsite'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['website'] ?? '' ?></span>
 
-            <p class="label1">Company Website:
-                
-                
-                    <span class="error"><?= isset($data['signupError']['website']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
-            
-            <p class="label1">Password:
-                
-                    <span class="error"><?= isset($data['signupError']['password']) ?></span>
-                    <br>
-            </p>
-            <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
-            <i class='bx bxs-show eye-icon'></i>
-            
-            <p class="label1">Confirm Password:
-                
-                    <span class="error"><?= isset($data['signupError']['confirmPassword']) ?></span>
-                    <br>
-            </p>
-            <input type="password" name="confirmPassword" class="box2">
-            
+                <label for="contactPerson">Contact Person:</label>
+                <input type="text" id="contactPerson" name="contactPerson" class="box1" value="<?= $_POST['contactPerson'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['contactPerson'] ?? '' ?></span>
 
-            <div class="member">
-                <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
-            </div>
+                <label for="contactNo">Contact No:</label>
+                <input type="text" id="contactNo" name="contactNo" class="box1" value="<?= $_POST['contactNo'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['contactNo'] ?? '' ?></span>
 
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" class="box1" value="<?= $_POST['address'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['address'] ?? '' ?></span>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="box2" value="<?= $_POST['password'] ?? '' ?>">
+                <i class='bx bxs-show eye-icon'></i>
+                <span class="error"><?= $data['signupError']['password'] ?? '' ?></span>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="box2">
+                <span class="error"><?= $data['signupError']['confirmPassword'] ?? '' ?></span>
+
+                <div class="member">
+                    <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
+                </div>
                 <div class="submit" align="center">
                     <button type="submit">Sign Up</button>
                 </div>
-
-        </form>
+            </form>
         </div>  
-        
     </div>
-
     <script src="<?=ROOT?>/js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
 <?php 
@@ -86,18 +69,18 @@ if (isset($sent) && $sent == 1) {
     echo "
     <script>
         Swal.fire({
-            title: 'Company added to review list!',
-            text: 'you will be notified about the status of your account.',
+            title: 'Company Signed up',
+            text: 'Your request will be reviewd',
             icon: 'success',
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '" . ROOT . "/home/login'; // Correctly concatenated
+                window.location.href = '" . ROOT . "/home/index'; // Correctly concatenated
             }
         });
     </script>";
 }
 ?>
 </body>
+
 </html>
- 

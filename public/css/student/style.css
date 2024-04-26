@@ -1,5 +1,7 @@
 :root{
     --blue: #0B5A6F;
+    --primary: #8498a0;
+    --secondary: #284455;
 
 }
 
@@ -7,26 +9,55 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 0.3s ease-in;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 body{
     min-height: 100vh;
     overflow-x: hidden;
     background-color: azure;
-    
+    transition: 0.3s ease-out;
+    /* background: linear-gradient(to right, #125199, #85d8ec, #ffffff, #85d8ec, #125199); */
+
+}
+
+a{
+    text-decoration: none;
 }
 
 .container{
     position: relative;
     width: 100%;
+
 }
 
-.main{
-    left: 318px;
-    width: 800px;
-    height: 839px;
-    position:relative;
+.main {
+    left: 300px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: calc(100% - 300px); /* Set the initial max-width */
+    transition: left 0.3s ease-out, width 0.3s ease-out; /* Include max-width in the transition */
+}
 
+.main.active {
+    left: 0;
+    width: 100%;
+    transition: left 0.3s ease-in, width 0.3s ease-in;
+}
+
+
+
+.top-bar.active{
+    width: 100%;
+    transition: 0.3s ease-in;
+}
+
+.navigation.active{
+    width: 0;
+    transition: width 0.3s ease-in;
+    border: none;
 }
 
 .main .top{
@@ -332,3 +363,9 @@ body{
         margin: 20px auto;
         padding: 20px;
     }
+
+
+#wishlist{
+    border: red;
+    
+}

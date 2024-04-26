@@ -1,7 +1,7 @@
 <div class="navigation">
-    <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
+    <img src="<?= ROOT ?>/assets/images/logo.png" alt="">
     <ul>
-    <li>
+        <li>
             <a href="dashboard" id="dashboard">
                 <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
@@ -32,7 +32,7 @@
             </a>
         </li>
         <li>
-            <a href="#" id="schedule">
+            <a href="schedule" id="schedule">
                 <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>
                 <span class="title">Schedule</span>
             </a>
@@ -44,10 +44,10 @@
             </a>
         </li>
         <li>
-            <a href="#" id="profile">
-                <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
-                <span class="title">Profile</span>
-            </a>
+            <!--            <a href="#" id="profile">-->
+            <!--                <span class="icon"><ion-icon name="person-outline"></ion-icon></span>-->
+            <!--                <span class="title">Profile</span>-->
+            <!--            </a>-->
         </li>
         <li>
             <a href="logout">
@@ -58,4 +58,4 @@
     </ul>
 </div>
 
-<script src="<?=ROOT?>/js/sidemenu.js"></script>
+<script src="<?= ROOT ?>/js/sidemenu.js"></script>

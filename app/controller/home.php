@@ -19,6 +19,12 @@
 
         }
 
+        public function contactus(){
+            
+            $this->view('home/contactus');
+
+        }
+
         public function login(){
             
             $this->view('home/login');
@@ -31,7 +37,7 @@
 
         }
 
-        public function signupStd(){
+        public function signupStudent(){
             
             $this->view('home/signupStd');
 
@@ -50,7 +56,7 @@
             $validation = new Validation();
 
             $errors = $validation->validateLogin($username, $password);
-
+            
             if(!$errors){
 
                 //creating user model object
@@ -60,7 +66,7 @@
                 $loginAccess = $user->login($username, $password, $this->conn);
 
                 if($loginAccess == 1){
-                    
+                   
                     if($_SESSION['userStatus']== 1){    
                         if($_SESSION['userRole'] == 'company' )
                             echo "<script> window.location.href='http://localhost/internease/public/company/dashboard';</script>";
@@ -95,7 +101,11 @@
             
             //store psot varialble in local variable
             $company = $_POST['companyName'];
+            $contactPerson = $_POST['contactPerson'];
+            $contactNo = $_POST['contactNo'];    
+            $compsite = $_POST['compsite'];
             $email = $_POST['email'];
+            $address = $_POST['address'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirmPassword'];
 
@@ -114,7 +124,7 @@
                 $user = $this->model('User');
 
                 //calling signup function from user model to check signup
-                $signupAccess = $user->signup($company, $email, $password, $this->conn);
+                $signupAccess = $user->signup($company, $email, $password, $compsite, $address, $contactPerson, $contactNo, $this->conn);
 
                 if($signupAccess == 0){
                     $data['signupError'] = 'Email already registered !';
@@ -124,8 +134,10 @@
                     $data['signupError'] = 'Something went wrong. Try again later !';
                     $this->view('home/signup', $data);
                     
-                } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                }else{
+                    $data = ['sent'=>1];
+                    $this->view('home/signup', $data);
+
                 }
 
             } else {
@@ -169,7 +181,7 @@
                     $this->view('home/signupStd', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                   ;
                 }
 
             } else {
@@ -179,6 +191,84 @@
 
         }
 
+        public function resetPassword(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pwd_reset"])){
+                $data = [ 'password' => $_POST['password'],'confirmPassword' => $_POST['confirmPassword']];
+                require_once "helper/Validation.php";
+                $validatePWD = new Validation;
+                $errors = $validatePWD->validate_pwd($data['password'],$data['confirmPassword']);
+                if(!empty($errors)){
+                    $data = ['errors' => $errors];
+                    $this->view('home/resetpage',$data);
+                    return 0;
+                }
+
+                $this->model('User');
+                $reset = new User;
+                if($reset->resetPassword($data)){
+                    $data = ['pwd'=>1];
+                    $this->view('home/resetpage',$data);
+                }else{
+                    $errors['Email_notfound'] = "No user registered for the email entered.";
+                    $data = ['errors'=>$errors];
+                    $this->view('home/resetPassword',$data);
+                    return 0;
+                }
+            }else{
+                echo "ERR";  
+            }
+        }
+
+        public function sendEmailOTP(){
+            $this->view('home/resetPassword');
+        }
+
+
+        public function password_reset_request(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["otp_req"])){
+                $email = $_POST['email'];
+                $_SESSION['resetEmail'] = $email;
+                $this->model('User');
+                $validate = new User;
+                if($validate->validate_email($email)){
+                    $smtp = new Mailer;
+                    $data = ['otp'=>1];
+                    if(!$smtp->sendOTPEmail($email,"Password Reset OTP")){
+                        $errors['OTP_failed'] = "OTP failure, try again";
+                        $data = ['errors'=>$errors];
+                        $this->view('home/resetPassword',$data);
+                        return 0;
+                    }
+                    $this->view('home/resetPassword',$data);
+
+                }else{
+                    $errors['Email_notfound'] = "No user registered for the email entered.";
+                    $data = ['errors'=>$errors];
+                    $this->view('home/resetPassword',$data);
+                    return 0;
+                }
+            }else{
+                echo "ERR";  
+            }
+
+        }
+
+        public function validate_otp(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_otp"])){
+                $smtp = new Mailer;
+                $email = $_SESSION['resetEmail'];
+                $otp = $_POST['otp'];
+                if($smtp->validateOTP($email,$otp)){
+                    $data=['email'=> $email];
+                    $this->view('home/resetpage',$data);
+                }else{
+                    echo "otp  nooo";
+                    return false;
+                }
+
+            }
+    
 
     }
 
+}

@@ -1,24 +1,24 @@
- *{
+
+/* Reset default margin and padding */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Ubuntu' , sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-body
-{
+body {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #f9f9f9;
 }
 
-.container
-{
+.container {
     position: relative;
     width: 100%;
 }
 
-.navigation 
-{
+.navigation {
     position: fixed;
     width: 300px;
     height: 100%;
@@ -28,46 +28,39 @@ body
     overflow: hidden;
 }
 
-.navigation img
-{
+.navigation img {
     width: 150px;
     margin-left: 60px;
 
 }
 
-.button_a{
+.button_a {
     text-decoration: none;
 }
 
-.navigation img ul
-{
+.navigation img ul {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li
-{
+.navigation ul li {
     position: relative;
-    width:100%;
+    width: 100%;
     list-style: none;
 }
- 
-.navigation ul li:hover
-{
+
+.navigation ul li:hover {
     background-color: #CFE3EA;
 }
 
 
-
-.navigation ul li:nth-child(8)
-{
+.navigation ul li:nth-child(8) {
     margin-bottom: 50px;
 }
 
-.navigation ul li a
-{
+.navigation ul li a {
     position: relative;
     display: block;
     width: 100%;
@@ -76,8 +69,7 @@ body
     color: white;
 }
 
-.navigation ul li a .icon
-{
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 50px;
@@ -86,13 +78,11 @@ body
     text-align: center;
 }
 
-.navigation ul li a .icon ion-icon
-{
+.navigation ul li a .icon ion-icon {
     font-size: 0.75cm;
 }
 
-.navigation ul li a .title
-{
+.navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -102,111 +92,127 @@ body
     white-space: nowrap;
 }
 
-/* main */
-
-.main{
+/* Main content styles */
+.main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
-    background: white;
+    background: #fff;
     transition: 0.5s;
+    padding: 20px;
+    z-index: 0;
+    overflow-x: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.topbar{
-    width : 100%;
+.topbar {
+    width: 100%;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
 }
 
-.toggle{
-    position: relative;
-    top: 0;
+.toggle {
     width: 60px;
-    height:60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 1.8em;
     cursor: pointer;
-
+    color: #fff;
 }
 
-.user{
-    position: relative;
-    min-width: 40px;
-    height: 40px;
-    overflow: hidden;
-    cursor:pointer;
+.user {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.user span {
+    margin-right: 10px;
 }
 
 /* Cards */
-
-.cardBox{
+.cardBox {
     position: relative;
-    width:100%;
+    width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
 }
 
-.cardBox .card{
+.cardBox .card {
     position: relative;
-    background:white;
+    background: white;
     padding: 30px;
     border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
+    display: flex; /* Added */
+    justify-content: space-between; /* Added */
+    align-items: center; /* Added */
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.cardBox .card .content {
+    flex-grow: 1; /* Added */
 }
 
 .cardBox .card .number {
-    position: relative;
     font-weight: 500;
     font-size: 2.5rem;
-    color:#0b596f;
+    color: #0b596f;
+    margin-bottom: 10px;
 }
 
-.cardBox .card .cardName{
-    color:black;
+.cardBox .card .cardName {
+    color: black;
     font-size: 1.2rem;
     margin-top: 5px;
 }
 
-.cardBox .card .iconBx{
+.cardBox .card .iconBx {
     font-size: 3.5rem;
-    color :#AAD4E1;
+    color: #AAD4E1;
 }
 
-.cardBox .card:hover{
+.cardBox .card:hover {
     background: #CFE3EA;
+    transform: translateY(-5px); /* Added slight elevation on hover */
 }
 
-/* ================== Order Details List ============== */
+.cardBox .card:hover .number {
+    color: #fff; /* Change number color on hover */
+}
+
+.cardBox .card:hover .iconBx {
+    color: #fff; /* Change icon color on hover */
+}
+
+
+/* Advertisement page styles */
 .details {
-  position: relative;
-  width: 100%;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 30px;
-  /* margin-top: 10px; */
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
 }
 
-.details .internshipAds{
-  position: relative;
-  display: grid;
-  min-height: 350px;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
+.details .internshipAds {
+    position: relative;
+    display: grid;
+    min-height: 350px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
 }
 
 .details .cardHeader {
@@ -223,7 +229,7 @@ body
 .cardHeader .btn {
     position: relative;
     padding: 5px 10px;
-    background:rgba(170, 212, 225, 1);
+    background: rgba(9, 108, 135, 1);
     text-decoration: none;
     color: white;
     border-radius: 6px;
@@ -240,9 +246,10 @@ body
 }
 
 .details .internshipAds table tr {
-    color: var black;
+    color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .details .internshipAds table tr:last-child {
     border-bottom: none;
 }
@@ -260,34 +267,23 @@ body
     text-align: end;
 }
 
-/*.details .internshipAds table tr td:nth-child(2) {
-    text-align: end;
+.status {
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
 }
-.details .internshipAds table tr td:nth-child(3) {
-    text-align: center;
-}*/
 
 .status.approved {
-    padding: 2px 4px;
     background: #8de02c;
     color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-  }
+}
+
 .status.pending {
-    padding: 2px 4px;
     background: #1795ce;
     color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
 }
+
 .status.rejected {
-    padding: 2px 4px;
     background: #f00;
     color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-}

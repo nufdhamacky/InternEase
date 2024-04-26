@@ -1,3 +1,9 @@
+<?php
+    include_once('../app/controller/Company.php');
+
+    $allAdvertisements = $data['advertisements'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +24,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
                 <div class = "user">
-                    <span><?php //echo $_SESSION['company_name']; ?></span>
+                    <span><?php echo $_SESSION['companyName']; ?></span>
                     <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
                 </div>
 
@@ -27,59 +33,58 @@
             <div class="details">
                 <div class="heading-advertisement">
                     <h2>Advertisements</h2>
-                    <a href="addAd.php">
+                    <a href="addAd">
                         <button class="add-advertisement">+ Add</button>
                     </a>
                 </div>
-                
+                <br>
                 <div class="filter-details">
                     <div class = "secondbar">
                         <div class = "search">
                             <ion-icon name="search-outline"></ion-icon>
-                            <input type = "text" placeholder = "Search Student" class = "box1">
-                        </div>
-
-                        <div class = "allstudents">
-                            <select>
-                                <option value = "all">All</option>
-                            </select>
+                            <input type = "text" placeholder = "Search Position" class = "box1">
                         </div>
                     </div>
-                </div>
+                </div><br>
 
-                <div class="ad-table">
-                    <div class="table-heading">
-                        <div class="position-class">Poisition</div>
-                        <div class="requirement-class">Requirements</div>
-                        <div class="intake-class">No of intakes</div>
-                        <div class="mode-class">Working mode</div>
-                    </div>
-                    <div class="table-all-data">
-                                <div class="each-data">
-                                    <div class="position-class">
-                                        
-                                    </div>
-                                    <div class="requirement-class"><?php echo $row['requirements'] ?></div>
-                                    <div class="intake-class"><?php echo $row['no_of_intern'] ?></div>
-                                    <div class="mode-class"><?php echo $row['working_mode'] ?></div>
-                                    <div>
-                                        <a href="adView.php?id=<?php echo $row['ad_id']; ?>">
-                                            <button class="data-view-btn" type="submit">View</button></div>
-                                        </a>
-                                    <div>
-                                        <form method="post">
-                                            <input type="hidden" name="record_id" value="">
-                                                <button class="data-delete-btn" type="submit">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                  
-                                <div class="each-data">
-                                    <div class="position-class">No bokings available</div>
-                                </div>
+                
 
-                    </div>
-                </div>
+                <div class="studentdetails">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Position</td>
+                                <td>Requirements</td>
+                                <td>Qualification</td>
+                                <td colspan="2">Internship Period</td>
+                                <td>No. of Interns</td>
+                                <td>No. of CVs Required</td>
+                                <td>Working Mode</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php 
+                                foreach($allAdvertisements as $ad){ ?>
+                                    <tr>
+                                        <td><?php echo $ad->position; ?> </td>
+                                        <td><?php echo $ad->req; ?> </td>
+                                        <td><?php echo $ad->qualification; ?> </td>
+                                        <td><?php echo $ad->fromDate; ?> </td>
+                                        <td><?php echo $ad->toDate; ?> </td>
+                                        <td><?php echo $ad->interns; ?> </td>
+                                        <td><?php echo $ad->no_of_cvs_required; ?> </td>
+                                        <td><?php echo $ad->workMode; ?> </td>
+                                        <td style="color: <?php echo $ad->status == 0 ? "blue" : ($ad->status == 1 ? "green" : "red"); ?>"><?php echo $ad->status == 0 ? "Pending" : ($ad->status == 1 ? "Approved" : "Rejected"); ?></td>
+                                    </tr>
+                                    <?php } ?>
+                        </tbody>
+                    </table>
+
+            </div>
+
+                
     
             </div>
         </div>

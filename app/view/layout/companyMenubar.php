@@ -1,7 +1,7 @@
 <div class = "navigation">
     <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
-    <li>
+        <li>
             <a href="dashboard">
                 <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
@@ -16,13 +16,13 @@
         <li>
             <a href="studentReq">
                 <span class="icon"><ion-icon name="id-card-outline"></ion-icon></span>
-                <span class="title">Student Requests</span>
+                <span class="title">Student Applications</span>
             </a>
         </li>
         <li>
-            <a href="shortlistStudents">
+            <a href="shortlistedStu">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                <span class="title">Shortlist Students</span>
+                <span class="title">Shortlisted Students</span>
             </a>
         </li>
         <li>
@@ -32,17 +32,18 @@
             </a>
         </li>
         <li>
-            <a href="request">
-                <span class="icon"><ion-icon name="swap-horizontal-outline"></ion-icon></span>
-                <span class="title">Request</span>
+            <a href="recruitedStu">
+                <span class="icon"><ion-icon name="search-circle-outline"></ion-icon></span>
+                <span class="title">Recruited Students</span>
             </a>
         </li>
         <li>
-            <a href="profile">
+            <a href="profileview">
                 <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
                 <span class="title">Profile</span>
             </a>
         </li>
+        <br>
         <li>
             <a href="logout">
                 <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
@@ -51,3 +52,5 @@
         </li>
     </ul>
 </div>
+
+<script src="<?=ROOT?>/js/companySidemenu.js"></script>

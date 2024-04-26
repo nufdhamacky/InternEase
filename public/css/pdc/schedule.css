@@ -1,0 +1,282 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #f9f9f9;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0b596f;
+    border-left: 10px solid #0B5A6F;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation img {
+    width: 150px;
+    margin-left: 60px;
+
+}
+
+.button_a {
+    text-decoration: none;
+}
+
+.navigation img ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+}
+
+.navigation ul li:hover {
+    background-color: #CFE3EA;
+}
+
+
+.navigation ul li:nth-child(8) {
+    margin-bottom: 50px;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 0.75cm;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 10px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+/* Main content styles */
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: #fff;
+    transition: 0.5s;
+    padding: 20px;
+    z-index: 0;
+    overflow-x: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: #fff;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.user span {
+    margin-right: 10px;
+}
+
+/* Second bar styles */
+.secondbar {
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search form {
+    display: flex;
+    align-items: center;
+}
+
+.search form ion-icon {
+    margin-right: 10px;
+    color: #0b596f;
+}
+
+.search form input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.search form button {
+    padding: 10px 20px;
+    background-color: #0b596f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Company visit table styles */
+.details {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.details .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.details .cardHeader h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0b596f;
+    margin: 0;
+}
+
+.details .cardHeader .btn {
+    background-color: #0b596f;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.details .cardHeader .btn:hover {
+    background-color: #064d5e;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.details table th,
+.details table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.details table th {
+    text-align: left;
+    font-weight: bold;
+    color: #0b596f;
+}
+
+.details table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.details table tbody tr td span.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.details table tbody tr td span.pending {
+    color: blue;
+}
+
+.details table tbody tr td span.approved {
+    color: green;
+}
+
+.details table tbody tr td span.rejected {
+    color: red;
+}
+
+.details table tbody tr td a {
+    display: inline-block;
+    margin-right: 5px;
+    text-decoration: none;
+    color: #0b596f;
+}
+
+.toggle-bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    background-color: #087da4;
+    position: relative;
+    color: #fff;
+    padding: 1vw;
+    margin-top: 2vw;
+    border-radius: 2vw;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle_content {
+    display: none;
+    position: relative;
+    padding: 1vw;
+    background-color: white;
+    margin-top: 10px;
+    transition: max-height 0.5s ease;
+}
+
+.toggle-bar:hover {
+    background-color: #044865;
+}

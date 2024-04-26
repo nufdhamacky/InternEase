@@ -1,0 +1,132 @@
+
+/* Styling for the top bar */
+.top-bar {
+    position: sticky;
+    display: flex;
+
+    grid-column: 1 / 7;
+    
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#aed0e7;
+    color: #000;
+    padding: 7px; 
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    -webkit-backdrop-filter: blur(5.2px);
+    backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(190, 102, 102, 0.29);
+    max-height: 60px;
+    
+}
+
+.top-bar .button{
+    padding: 10px 20px;
+    background-color: #7cb9ca;
+    color: white;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+.grid-container {
+    display: inline-grid;
+    column-gap: 20px; /* Adjust the gap between items as needed */
+    grid-template-columns: auto auto auto;
+    background-color: var(--blue);
+    padding: 5px;
+
+    border-radius: 15px;
+    max-height: 53px;
+    width: 200px; /* Set your desired width */
+    box-sizing: border-box; /* Include padding in the total width */
+}
+.grid-items {
+    display: inline-flex; /* Use inline-flex to make the items appear in a row */
+    color: azure;
+}
+
+.user-profile,
+.notification,
+.logout {
+    display: inline-block; /* Make individual items appear next to each other */
+    margin-right: 20px; /* Adjust margin as needed */
+}
+.notification,
+.logout{
+    padding-top: 10px;
+}
+
+a.logout{
+    text-decoration: none;
+    color: inherit;
+}
+
+.notification{
+    padding-left: 20px;
+}
+
+div.title{
+    display: inline;
+    font-size: 25px ;
+    font-family: 'Consolas, 'Courier New', monospace';
+}
+.content{
+    padding-top: 70px;
+}
+
+.page-title {
+    font-size: 40px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin-right: 10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: azure;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+}
+
+
+.notifications-container {
+    display: none;
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    max-width: 300px;
+    z-index: 1000;
+    border: #000;
+}
+
+.notification {
+    border: 0.5px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.notification:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}

@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `company_ad` (
   `company_id` int NOT NULL,
   `qualification` varchar(300) NOT NULL,
   PRIMARY KEY (`ad_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Dumping data for table `company_ad`
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `pdc_user` (
   `last_name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Dumping data for table `pdc_user`
