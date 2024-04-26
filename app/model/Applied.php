@@ -64,7 +64,6 @@ class Applied extends Model {
     // }
 
     public function alreadyApplied($studentId, $adId){
-        
         // Check if the user has already applied for any job
         $query = "SELECT COUNT(*) AS num_applied FROM applyadvertisement AS aa 
                   JOIN first_round_data AS frd ON aa.id = frd.applied_id 
