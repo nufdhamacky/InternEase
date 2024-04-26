@@ -130,10 +130,14 @@
                     $data['signupError'] = 'Email already registered !';
                     $this->view('home/signup', $data);
                 }
-                else{
+                else if($signupAccess == 2){
                     $data['signupError'] = 'Something went wrong. Try again later !';
                     $this->view('home/signup', $data);
                     
+                }else{
+                    $data = ['sent'=>1];
+                    $this->view('home/signup', $data);
+
                 }
 
             } else {
@@ -177,8 +181,7 @@
                     $this->view('home/signupStd', $data);
                     
                 } else {
-                    $data = ['sent'=>1];
-                    $this->view('home/signupStd', $data);;
+                   ;
                 }
 
             } else {
