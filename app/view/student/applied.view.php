@@ -9,11 +9,11 @@
             <div class="ad-cards">
             
                 <?php
-                if (isset($data['ads']) && is_array($data['ads'])) {
-                    foreach ($data['ads'] as $index => $ad) {
+                if (isset($ads) && count($ads) > 0) {
+                    foreach ($ads as $index => $ad) {
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
-                        echo '<img src="' . ROOT . $ad['image_url'] . '" alt="Advertisement ' . ($index + 1) . '">';
-                        echo '<h3>' . $ad['ad_id'] . '</h3>';
+                        echo '<img src="' . ROOT . '/assets/images/' . $ad['user_profile'] . '" alt="Advertisement ' . ($index + 1) . '">';
+                        echo '<h3>' . $ad['company_name'] . '</h3>';
                         echo '<p>' . $ad['requirements'] . '</p>';
                         echo '</div>';
                     }

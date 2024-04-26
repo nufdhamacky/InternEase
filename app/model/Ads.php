@@ -36,7 +36,11 @@ class Ads extends Model{
         $placeholders = implode(',', array_fill(0, count($ad_ids), '?'));
     
         // Construct the SQL query
-        $query = "SELECT * FROM $this->table WHERE ad_id IN ($placeholders)";
+        $query = "SELECT company_ad.*, company.company_name, users.user_profile
+        FROM company_ad 
+        JOIN company ON company.user_id = company_ad.company_id
+        JOIN users ON users.user_id = company_ad.company_id 
+        WHERE company_ad.ad_id IN ($placeholders)";
     
         // Prepare the statement
         $stmt = $this->connection->prepare($query);
