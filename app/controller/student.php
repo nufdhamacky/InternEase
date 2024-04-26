@@ -120,12 +120,13 @@ class Student extends Controller{
     public function hasApplied(){
         $studentId = $_SESSION['studentId'];
         $adId = $_GET['adId'];
-        
+    
         $appliedModel = $this->model('Applied');
-
+    
         $hasApplied = $appliedModel->alreadyApplied($studentId, $adId);
-        return $hasApplied;
+        echo json_encode(['hasApplied' => $hasApplied]);
     }
+
 
     public function advertisement(){
         $userId = $_SESSION['userId'];
