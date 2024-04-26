@@ -90,37 +90,36 @@ class User extends Model
 
     }
 
-    public function signup($company, $email, $password, $companySite, $address, $contactPerson, $contactNo, $conn)
-    {
-
-        $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql = "SELECT * FROM users WHERE user_name = '$email'";
-
-        $result = $conn->query($sql);
-
+    public function signup($company, $email, $password, $companySite, $address, $contactPerson, $contactNo) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $conn = $this->connection(); // Use this single connection for all queries within this function
+    
+        // Check if the email already exists
+        $stmt = $conn->prepare("SELECT user_id FROM users WHERE user_name = ? AND user_role ='company'");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
         if ($result->num_rows > 0) {
-
+            echo "EMAIL EXISTS";
             return 0;
-
         } else {
-
-            $sql = "INSERT INTO users (user_name, user_role, password)
-                        VALUES ('$email', 'company', '$hasedPassword')";
-
-            $result1 = $conn->query($sql);
-
-            if ($result1) {
-
+            // Insert into users table
+            $stmt = $conn->prepare("INSERT INTO users (user_name, user_role, password) VALUES (?, 'company', ?)");
+            $stmt->bind_param('ss', $email, $hashedPassword);
+            $userInsertion = $stmt->execute();
+    
+            if ($userInsertion) {
+                // Retrieve the last inserted ID
                 $lastId = $conn->insert_id;
-
-                $sql = "INSERT INTO company (company_name, user_id, contact_person, email, contact_no, company_site, address)
-                            VALUES ('$company', '$lastId','$contactPerson','$email','$contactNo','$companySite','$address')";
-
-                $result2 = $conn->query($sql);
-
-                if ($result2) {
-
+    
+                // Insert into company table
+                $stmt = $conn->prepare("INSERT INTO company (company_name, user_id, contact_person, email, contact_no, company_site, address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param('sisssss', $company, $lastId, $contactPerson, $email, $contactNo, $companySite, $address);
+                $companyInsertion = $stmt->execute();
+    
+                if ($companyInsertion) {
+                    // Set session variables
                     $_SESSION['userId'] = $lastId;
                     $_SESSION['companyName'] = $company;
                     $_SESSION['userRole'] = 'company';
@@ -129,18 +128,20 @@ class User extends Model
                     $_SESSION['userEmail'] = $email;
                     return 1;
                 } else {
-
-                    $sql = "DELETE FROM users WHERE id = '$lastId'";
-                    $conn->query($sql);
+                    // If inserting into company table failed, remove the user entry
+                    $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+                    $stmt->bind_param('i', $lastId);
+                    $stmt->execute();
                     return 2;
-
                 }
             } else {
                 return 2;
             }
         }
-
     }
+    
+      
+    
 
     public function signupStudent($username, $email, $password, $conn)
     {
