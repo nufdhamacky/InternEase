@@ -26,6 +26,7 @@
             $this->techTalkRepository = new TechTalkRepository($this->conn);
             $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
             $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
+            $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
 
         }
         public function isLoggedIn() {
@@ -85,14 +86,34 @@
             
         }
 
-        public function studentReq(){
-            $std = new CompanyStudentRepository;
-            $data=['stdrequests'=>$std->getStudentRequests()];
+        // public function studentReq(){
+        //     $std = new CompanyStudentRepository;
+        //     $data=['stdrequests'=>$std->getStudentRequests()];
             
-            $this->view('company/studentReq',$data);
+        //     $this->view('company/studentReq',$data);
+
+        // }
+
+        public function studentReq(){
+            
+            $this->view('company/studentReq');
 
         }
 
+        public function getAllApprovedAds(): array 
+        {
+            return $this->companyStudentRepository->getAds();
+        }
+
+        public function getAllStudents(): array
+        {
+            return $this->companyStudentRepository->getStudentRequests();
+        }
+
+        public function filterStudents(): array
+        {
+            return $this->companyStudentRepository->getStudentRequests();
+        }
 
 
         public function tech(){
@@ -214,10 +235,11 @@
         }
         
 
-        public function getTotalAd(){
+        public function getTotalAd() {
+            // Get the user ID from the session
+            $userId = $_SESSION['userId'] ?? 0;
             $CompanyModel = $this->model('CompanyModel');
-            $adCount = $CompanyModel->getTotalAd($this->conn);
-            return $adCount;
+            return $CompanyModel->getTotalAd($this->conn, $userId);
         }
 
         public function getTotalStudents(){ 
