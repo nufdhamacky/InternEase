@@ -120,35 +120,6 @@
             return $this->companyStudentRepository->getStudentRequests();
         }
 
-        public function downloadCV($studentId)
-    {
-        // Fetch the student data from the repository to get the CV path
-        $studentRepository = new StudentRepository();
-        $student = $studentRepository->getStudentById($studentId);
-
-        if ($student && file_exists($student['cv'])) {
-            $cvFilePath = $student['cv'];
-
-            // Set headers to initiate file download
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="' . basename($cvFilePath) . '"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($cvFilePath));
-
-            // Output the file content to the browser
-            readfile($cvFilePath);
-            exit; // Ensure no further code is executed
-        } else {
-            // Handle the case where the CV does not exist
-            header("HTTP/1.0 404 Not Found");
-            echo "CV not found.";
-            exit;
-        }
-    }
-
 
         public function tech(){
             
