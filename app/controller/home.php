@@ -130,12 +130,10 @@
                     $data['signupError'] = 'Email already registered !';
                     $this->view('home/signup', $data);
                 }
-                else if($signupAccess == 2){
+                else{
                     $data['signupError'] = 'Something went wrong. Try again later !';
                     $this->view('home/signup', $data);
                     
-                } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
                 }
 
             } else {
@@ -179,7 +177,8 @@
                     $this->view('home/signupStd', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                    $data = ['sent'=>1];
+                    $this->view('home/signupStd', $data);;
                 }
 
             } else {
@@ -265,7 +264,8 @@
                 }
 
             }
-        }
+    
 
     }
 
+}

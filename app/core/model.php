@@ -12,11 +12,12 @@ class Model extends Database {
     
     // find value by where condition
     public function where($column, $value) {
-        $query = "SELECT * FROM $this->table WHERE $column = :value";
+        $query = "SELECT * FROM $this->table WHERE $column = ? ";
         return $this->query($query, [
-            'value' => $value
+          'value' => $value
         ]);
-    }
+      }
+      
 
     public function setTable($table) {
         $this->table = $table;

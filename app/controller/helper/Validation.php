@@ -26,14 +26,21 @@
                 $errors['email'] = "Invalid email address.";
             }
 
-            // Validate Password
-            if (strlen($password) < 8 ||
-                !preg_match("/[0-9]/", $password) ||
-                !preg_match("/[A-Z]/", $password) ||
-                !preg_match("/[^a-zA-Z0-9]/", $password)
-            ) {
-                $errors['password'] = "Password must be at least 8 characters.";
+            if (strlen($password) < 8 ) {
+                $errors['password_length'] = "Password must be at least 8 characters.";
             }
+
+            if(!preg_match("/[0-9]/", $password)){
+                $errors['password_numerical'] = "Password must be at least contain a Number";
+            }
+
+            if(!preg_match("/[A-Z]/", $password)){
+                $errors['password_uppercase'] = "Passwords must contain a upper-case letter.";
+            }
+
+            if(!preg_match("/[a-z]/", $password)){
+                $errors['password_lowercase'] = "Passwords must contain a lower-case letter.";
+            
 
             // Validate Confirm Password
             if ($password !== $confirmPassword) {
@@ -42,6 +49,7 @@
 
             return $errors;
         }
+    }
     
         public function validate_password($password, $confirmPassword) {
             $errors = [];
