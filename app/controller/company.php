@@ -235,10 +235,11 @@
         }
         
 
-        public function getTotalAd(){
+        public function getTotalAd() {
+            // Get the user ID from the session
+            $userId = $_SESSION['userId'] ?? 0;
             $CompanyModel = $this->model('CompanyModel');
-            $adCount = $CompanyModel->getTotalAd($this->conn);
-            return $adCount;
+            return $CompanyModel->getTotalAd($this->conn, $userId);
         }
 
         public function getTotalStudents(){ 
