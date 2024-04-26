@@ -4,6 +4,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     /** database config **/
     define('DBNAME', 'intern_ease');
     define('DBHOST', 'localhost');
+    define('DBHOST', 'localhost:3307');
     define('DBUSER', 'root');
     define('DBPASS', 'password');
 
