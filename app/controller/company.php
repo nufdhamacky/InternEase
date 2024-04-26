@@ -7,10 +7,9 @@
     include_once('../app/model/TechTalkModel.php');
 
     include_once('../app/repository/CompanyStudentRepository.php');
-    // include_once('../app/model/StudentReqModel.php');
+    // include_once('../app/model/CompanyStudentModel.php');
 
     include_once('../app/repository/CompanyDetailsRepository.php');
-    // include_once('../app/model/CompanyDetailsModel.php');
 
     class Company extends Controller {
 
@@ -94,10 +93,17 @@
 
         // }
 
-        public function studentReq(){
-            
-            $this->view('company/studentReq');
-
+        public function studentReq() {
+            $ads = $this->getAllApprovedAds();
+            $students = array();
+    
+            if (isset($_GET["ad_id"]) && $_GET["ad_id"] !== "all") {
+                $students = $this->companyStudentRepository->getStudentRequestsByAd($_GET["ad_id"]);
+            } else {
+                $students = $this->companyStudentRepository->getStudentRequests();
+            }
+    
+            $this->view('company/studentReq', ['ads' => $ads, 'students' => $students]);
         }
 
         public function getAllApprovedAds(): array 
@@ -105,9 +111,8 @@
             return $this->companyStudentRepository->getAds();
         }
 
-        public function getAllStudents(): array
-        {
-            return $this->companyStudentRepository->getStudentRequests();
+        public function getAllStudents(?int $ad_id = null): array {
+            return $this->companyStudentRepository->getStudentRequests($ad_id);
         }
 
         public function filterStudents(): array
