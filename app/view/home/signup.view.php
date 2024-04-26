@@ -79,15 +79,25 @@
     </div>
 
     <script src="<?=ROOT?>/js/login.js"></script>
-    <?php
-        // Check if the form is submitted and there are no signup errors
-        if (isset($_POST['signup']) && empty($data['signupError'])) {
-            // Redirect to the home page
-            header("Location: " . ROOT . "../login");
-            exit();
-        }
-    ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
+<?php 
 
+if (isset($sent) && $sent == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company added to review list!',
+            text: 'you will be notified about the status of your account.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/home/login'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+?>
 </body>
 </html>
  
