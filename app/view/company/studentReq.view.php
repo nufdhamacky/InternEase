@@ -73,8 +73,8 @@ $students = $data['students'];
                                         <select>
                                             <option value="" selected hidden>--Select Action--</option>
                                             <option value="shortlist">Shortlist</option> 
+                                            <option value="pending">Pending</option>
                                             <option value="reject">Reject</option> 
-                                            <option value="pending">Pending</option> 
                                         </select>
                                     </td>
                                 </tr>
