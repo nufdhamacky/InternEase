@@ -117,6 +117,16 @@ class Student extends Controller{
         // $this->view('student/wishlist');
     }
 
+    public function hasApplied(){
+        $studentId = $_SESSION['studentId'];
+        $adId = $_GET['adId'];
+        
+        $appliedModel = $this->model('Applied');
+
+        $hasApplied = $appliedModel->alreadyApplied($studentId, $adId);
+        return $hasApplied;
+    }
+
     public function advertisement(){
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');

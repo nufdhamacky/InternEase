@@ -11,11 +11,6 @@ class Applied extends Model {
         $this->connection = $this->connection();
     }
 
-    public function hasApplied($userId, $adId) {
-        $result = $this->where('user_id', $userId)->where('ad_id', $adId);
-        return !empty($result);
-    }
-
     // public function apply($userId, $adId)
     // {
     //     // Check if the user has already applied for the job
@@ -69,49 +64,34 @@ class Applied extends Model {
     // }
 
     public function alreadyApplied($studentId, $adId){
-        $validity = $this->validateApplication($studentId);
-    if($validity){
+        
         // Check if the user has already applied for any job
-        $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
+        $query = "SELECT COUNT(*) AS num_applied FROM applyadvertisement AS aa 
+                  JOIN first_round_data AS frd ON aa.id = frd.applied_id 
+                  WHERE aa.applied_by = ? AND frd.ad_id = ?";
         $stmt = $this->connection->prepare($query);
         
-        $stmt->bind_param('i', $studentId);
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return ['success' => false, 'message' => 'Error preparing statement'];
+        }
+    
+        $stmt->bind_param('ii', $studentId, $adId);
         $stmt->execute();
         
         $result = $stmt->get_result();
-
-        $existingEntries = $result->fetch_all(MYSQLI_ASSOC);
     
-        foreach ($existingEntries as $existingEntry) {
-            $appliedId = $existingEntry['id'];
+        $row = $result->fetch_assoc();
     
-            // Check if the user has already applied for the same ad
-            $query2 = "SELECT ad_id FROM first_round_data WHERE applied_id = ?";
-            $stmt2 = $this->connection->prepare($query2);
-            
-            if (!$stmt2) {
-                // Handle the error if prepare() fails
-                return ['success' => false, 'message' => 'Error preparing statement'];
-            }
-    
-            $stmt2->bind_param('i', $appliedId);
-            $stmt2->execute();
-            
-            $result2 = $stmt2->get_result();
-    
-            if (!$result2) {
-                // Handle the error if get_result() fails
-                return ['success' => false, 'message' => 'Error executing statement'];
-            }
-    
-            $existingAdEntry = $result2->fetch_assoc();
-    
-            if ($existingAdEntry && $existingAdEntry['ad_id'] == $adId) {
-                // User has already applied for this ad, return false
-                return ['success' => false, 'message' => 'You have already applied for this job'];
-            }
+        if ($row['num_applied'] > 0) {
+            // User has already applied for this ad
+            return true;
+        } else {
+            // User has not applied for this ad
+            return false;
         }
     }
+    
 
     public function apply($studentId, $adId)
 {

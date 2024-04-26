@@ -121,39 +121,49 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
             var ad = adData[index];
             console.log(ad);
 
-            // Check if the student has already applied for the job
-            var hasApplied = ad.applied; // Assuming ad.applied is a boolean value indicating whether the student has applied
+            // Make an asynchronous request to check if the student has already applied
+            fetch(`hasApplied?adId=${ad.ad_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    var hasApplied = data.hasApplied; // Assuming the response contains a boolean indicating whether the student has applied
 
-            // Update UI accordingly
-            var applyButtonHtml = hasApplied ? "Applied" : "Apply";
-            var applyButtonOnClick = hasApplied ? "" : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
-            var applyButtonBackground = hasApplied ? "violet" : "";
+                    console.log(hasApplied);
+                    
+                    // Update UI accordingly
+                    var applyButtonHtml = hasApplied ? "Applied" : "Apply";
+                    var applyButtonOnClick = hasApplied ? "" : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
+                    var applyButtonBackground = hasApplied ? "violet" : "";
 
-            var applyButton = `
-                <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
-                    ${applyButtonHtml}
-                </button>
-            `;
+                    var applyButton = `
+                        <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
+                            ${applyButtonHtml}
+                        </button>
+                    `;
 
-            var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
+                    var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
 
-            adContent.innerHTML = `
-                <span class="close" onclick="closeAdDetails()">&times;</span>
-                <h2>${ad.company_name}</h2>
-                <p><strong>Job Position:</strong> ${ad.position}</p>
-                <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
-                <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
-                <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
-                <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
-                <p><strong>Qualifications:</strong> ${ad.qualification}</p>
-                <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
-                <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                ${applyButton}
-                ${wishlistButton}
-            `;
+                    adContent.innerHTML = `
+                        <span class="close" onclick="closeAdDetails()">&times;</span>
+                        <h2>${ad.company_name}</h2>
+                        <p><strong>Job Position:</strong> ${ad.position}</p>
+                        <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
+                        <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
+                        <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
+                        <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
+                        <p><strong>Qualifications:</strong> ${ad.qualification}</p>
+                        <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
+                        <p><strong>Requirements:</strong> ${ad.requirements}</p>
+                        ${applyButton}
+                        ${wishlistButton}
+                    `;
 
-            adDetailsWindow.style.display = 'block';
+                    adDetailsWindow.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error checking application status:', error);
+                });
         }
+
 
         function closeAdDetails() {
             document.getElementById('adDetailsWindow').style.display = 'none';
