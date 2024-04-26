@@ -5,7 +5,7 @@ $reportController = new CompanyReport();
 //$pageData = $reportController->getAll($page);
 
 $reports = $reportController->getAll();
-$companies = $reportController->getBlackCompanies();
+//$companies = $reportController->getBlackCompanies();
 
 ?>
 
@@ -54,14 +54,14 @@ $companies = $reportController->getBlackCompanies();
             </thead>
 
             <tbody>
-            <?php foreach ($companies as $company) { ?>
-                <tr>
-                    <td><?php echo $company->companyName; ?></td>
-                    <td><?php echo $company->contactPerson; ?></td>
-                    <td><?php echo $company->contact; ?></td>
-                    <td><?php echo $company->reason; ?></td>
-                </tr>
-            <?php } ?>
+            <!--            --><?php //foreach ($companies as $company) { ?>
+            <!--                <tr>-->
+            <!--                    <td>--><?php //echo $company->companyName; ?><!--</td>-->
+            <!--                    <td>--><?php //echo $company->contactPerson; ?><!--</td>-->
+            <!--                    <td>--><?php //echo $company->contact; ?><!--</td>-->
+            <!--                    <td>--><?php //echo $company->reason; ?><!--</td>-->
+            <!--                </tr>-->
+            <!--            --><?php //} ?>
             </tbody>
         </table>
 

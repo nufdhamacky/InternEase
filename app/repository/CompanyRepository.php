@@ -135,6 +135,19 @@ class CompanyRepository
 
     }
 
+    public function getFullByEmail(): array
+    {
+        $sql = "SELECT c.email FROM company c JOIN users u ON c.user_id=u.user_id where u.user_status=1";
+        $result = $this->conn->query($sql);
+
+        $emails = [];
+        while ($row = $result->fetch_assoc()) {
+            $emails[] = $row['email'];
+        }
+        return $emails;
+
+    }
+
     public function getFullByStatus($status): array
     {
 
@@ -202,10 +215,13 @@ class CompanyRepository
 
     }
 
-    public function reject(int $id)
+    public function reject(int $id, string $reason)
     {
         $sql = "UPDATE users SET user_status=2 WHERE user_id={$id}";
         $result = $this->conn->query($sql);
 
+        $reasonSql = "INSERT INTO company_reject_reason (user_id,reason) VALUES ({$id},'{$reason}')";
+        $reasonResult = $this->conn->query($reasonSql);
     }
+
 }
