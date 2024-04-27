@@ -24,7 +24,7 @@ $reports = $reportController->getReportsByCompany($id);
             <h2>Students Complaints</h2>
             <div class="headerButtons">
                 <a href="#"
-                   onclick="blockcompany(<?php echo $id; ?>)" class="btn delete">Block</a>
+                   onclick="blockcompany(<?php echo $id; ?>)" class="btn-delete">Block</a>
             </div>
         </div>
 
