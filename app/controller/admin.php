@@ -83,7 +83,9 @@ class Admin extends Controller {
 //PROFILE - ADMIN
 
     public function profile() {
+        
         if (!$this->isLoggedIn()){return;}
+       
                 $this->model('AdminModel');
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
@@ -104,7 +106,6 @@ class Admin extends Controller {
                         if($error){
                             $data['pwd_error']=$error;
                             $this->view('admin/profile',$data);
-                            return 0;
                         }
                     }else{
                         $error = $validate->validate_email($data['value']);
@@ -140,10 +141,12 @@ class Admin extends Controller {
                         }
 
                        
-                    
                 } else {
                     $this->view('admin/profile');
+                    
                 }
+
+                
 
     }
 
@@ -154,7 +157,6 @@ class Admin extends Controller {
                 $otp = $_POST['otp'];
                 if($smtp->validateOTP($email,$otp)){
 
-                    
                     $data = [
                         'id' => $_SESSION["userId"],
                         'column' => 'user_name',
@@ -173,8 +175,9 @@ class Admin extends Controller {
                     }
                     
                 }else{
-                $data =['otp_fail'=>0];
-                $this->view('admin/profile',$data);
+
+                    $data =['otp_fail'=>0];
+                    $this->view('admin/profile',$data);
                 }
 
             }
@@ -422,7 +425,8 @@ class Admin extends Controller {
 
             $error_email = $validate->validate_email($data['email']),
             $error_firstname = $validate->validate_name("First Name",$data['first_name']),
-            $error_lastname = $validate->validate_name("Last Name", $data['last_name']) ];
+            $error_lastname = $validate->validate_name("Last Name", $data['last_name']) 
+            ];
 
  
             $errors=[];
@@ -431,23 +435,12 @@ class Admin extends Controller {
                     $errors[]=$err;
                 }
             }
-            /*
-            if($error_pwd || $error_email || $error_firstname || $error_lastname){
-            
-                if($error_pwd){
-                    $errors['pwd_error']=$error_pwd;
-                }
-
-                if($error_email){
-                    $errors['email_error']=$error_email;
-                }
-            }
-            */
+          
             $email = $_POST["pdc_email"];
             $pwd =$data['password'];
             $add = NULL;
             
-            if(empty($errors)){
+            if(empty($errorlist)){
                 if ($adminModel->insertPDC($data)) {
                     $add = 1;
                     $smtp = new Mailer;

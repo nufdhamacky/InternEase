@@ -19,7 +19,7 @@
                         <span class="close">&times;</span>
                         <form action="<?=ROOT?>/admin/validate_otp" method="POST" id="otpForm">
                             <h3> OTP has been sent to <span style='color:blue'><?php echo htmlspecialchars($_SESSION['newEmail']) ?><span> </h2>
-                            <input type="text" name="otp" placeholder="Enter OTP" required>
+                            <input type="number" name="otp" placeholder="Enter OTP"  required>
                             <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
                         </form>
                     </div>
@@ -210,7 +210,7 @@ if (isset($pwd) && $pwd == 0) {
     </script>";
 }
 
-if (isset($otp_fail) && $otp_fail == 1) {
+if (isset($otp_fail)) {
     echo "
     <script>
         Swal.fire({
