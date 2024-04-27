@@ -14,7 +14,7 @@ class CompanyBlockReasonRepository
 
     public function getAll(): array
     {
-        $sql = "SELECT cbr.*,c.* FROM company_block_reason cbr JOIN company c ON cbr.user_id=c.user_id";
+        $sql = "SELECT cbr.*,c.* ,u.user_status FROM company_block_reason cbr JOIN company c ON cbr.user_id=c.user_id JOIN users u ON c.user_id=u.user_id WHERE u.user_status=2";
         $result = $this->conn->query($sql);
         $list = [];
         while ($row = $result->fetch_assoc()) {

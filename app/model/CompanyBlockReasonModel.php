@@ -1,6 +1,6 @@
 <?php
 
-include_once("MyCompanyModel.php");      // Include StudentShortModel.php file
+include_once("MyCompanyModel.php");     // Include the MyCompanyModel.php file
 
 class CompanyBlockReasonModel
 {
