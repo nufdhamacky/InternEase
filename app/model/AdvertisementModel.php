@@ -9,7 +9,7 @@ class AdvertisementModel {
     public $toDate;
     public $companyId;
     public $qualification;
-    public $otherQualifications; // This field should be defined
+    public $otherQualifications; 
     public $status;
     public $imageUrl;
     public $no_of_cvs_required;

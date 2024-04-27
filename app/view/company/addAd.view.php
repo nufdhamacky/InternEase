@@ -73,7 +73,8 @@ $companyController = new Company();
                         <br>
 
                         <h4>Other Qualifications</h4>
-                        <input type="text" name="description" class="qualification-input"> 
+                        <textarea name="other_qualifications" rows="4" cols="50" placeholder="Enter additional qualifications or descriptions..." class="qualification-textarea"></textarea>
+                        <br>
 
                         <h4>Internship Period</h4>
                         <div class="card">
@@ -81,7 +82,7 @@ $companyController = new Company();
                             <h4 class="h4">to</h4>
                             <input name="end_date" class="ad-date" type="month" required>
                         </div>
-                        <br>
+                        <!-- <br> -->
 
                         <div class="card">
                             <h4>No. of Interns</h4>

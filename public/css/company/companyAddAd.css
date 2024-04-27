@@ -309,10 +309,28 @@ select{
     text-align: center;
 }
 
+input[type="number"], 
+input[type="text"], 
+select {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    font-size: 16px; 
+    box-sizing: border-box; /* Ensure padding doesn't affect element width */
+    height: 40px; 
+    outline: none; /* Remove default focus outline */
+}
+
+input[type="number"] {
+    width: 230px; 
+    margin-right: 35px;
+}
+
 .submit {
     display: flex;
-    justify-content: center; /* Center the button horizontally within the submit div */
-    margin-top: 20px; /* Add margin for spacing */
+    justify-content: center; 
+    margin-top: 20px; 
 }
 
 .submit button {
