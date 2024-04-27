@@ -70,15 +70,16 @@ $students = $data['students'];
                                         <a href="<?= htmlspecialchars($student['cv']) ?>" download class="download-cv-btn">Download CV</a>
                                     </td>
                                     <td>
-                                        <select>
-                                            <option value="" selected hidden>--Select Action--</option>
-                                            <option value="shortlist">Shortlist</option> 
-                                            <option value="pending">Pending</option>
-                                            <option value="reject">Reject</option> 
-                                        </select>
+                                    <select class="status-select" data-student-id="<?= htmlspecialchars($student['id']) ?>">
+                                        <option value="" selected hidden>--Select Action--</option>
+                                        <option value="shortlist">Shortlist</option> 
+                                        <option value="pending">Pending</option>
+                                        <option value="reject">Reject</option> 
+                                    </select>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
+                            
                         <?php else: ?>
                             <tr>
                                 <td colspan="5">No student applications found.</td>
@@ -93,6 +94,43 @@ $students = $data['students'];
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script>
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', (event) => {
+            const studentId = event.target.getAttribute('data-student-id');
+            const selectedValue = event.target.value;
+
+            if (selectedValue) {
+                // Define the URL to which you're sending the request (this might be a controller endpoint)
+                const url = '/InternEase/public/company/updateStatus'; // Adjust this URL to your endpoint
+
+                // Send the AJAX request using the fetch API
+                fetch(url, {
+                    method: 'POST', // Use POST method for modifying data
+                    headers: {
+                        'Content-Type': 'application/json', // JSON content type
+                        'X-Requested-With': 'XMLHttpRequest', // Indicate it's an AJAX request
+                    },
+                    body: JSON.stringify({
+                        applied_id: studentId,
+                        status: selectedValue, // Map the action to the correct status code
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Status updated successfully.');
+                    } else {
+                        console.error('Error updating status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
