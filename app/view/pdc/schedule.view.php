@@ -2,7 +2,7 @@
 include_once('../app/controller/pdc.php');
 $pdcController = new Pdc();
 $page = $_GET['page'] ?? 1;
-
+$type = $_GET['type'] ?? "visit";
 if (isset($_GET['query'])) {
     $pageData = $pdcController->searchAllCompanyVisits($_GET['query'], $page);
 } else {
@@ -44,6 +44,7 @@ if (isset($_GET['query'])) {
                 <div class="search">
                     <form action="" id="searchForm" method="get">
                         <ion-icon name="search-outline"></ion-icon>
+                        <input type="text" name="type" hidden value="<?php echo $type ?? ""; ?>">
                         <input type="text" name="query" id="searchField" value="<?php echo $_GET["query"] ?? ""; ?>"
                                placeholder="Search Company" class="box1">
                         <button type="submit">Search</button>
@@ -183,7 +184,6 @@ if (isset($_GET['query'])) {
             </div>
         </div>
     </div>
-</div>
 </div>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

@@ -69,6 +69,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <div class="input-container">
                                 <input type="date" id="editStartDate"
                                        value="<?php echo $firstRound == null ? "" : $firstRound->startDate; ?>"
+                                       onchange="validateSaveBtn()"
                                        name="start_date" class="bx1">
                             </div>
                             <h4 class="h4">to</h4>
@@ -76,6 +77,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <div class="input-container">
                                 <input type="date" id="editEndDate" name="end_date"
                                        value="<?php echo $firstRound == null ? "" : $firstRound->endDate; ?>"
+                                       onchange="validateSaveBtn()"
                                        class="bx1">
                             </div>
                         </div>
@@ -93,7 +95,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
 
                                 </select>
                             </div>
-                            <div class="submit">
+                            <div class="submit" id="saveBtn">
                                 <button onclick="saveChanges()">SAVE</button>
                             </div>
                         </div>
@@ -165,9 +167,9 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             </td>
                             <td>
                                 <?php foreach ($student->ads as $r) { ?>
-                                    <div>
-                                        <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
-                                    </div>
+
+                                    <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
+                                    <br>
                                 <?php } ?>
                             </td>
                         </tr>
@@ -182,10 +184,47 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script>
+        let oldStartDate;
+        let oldEndDate;
+
         function editSection() {
+            document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('viewSection').style.display = 'none';
             document.getElementById('editSection').style.display = 'block';
             document.getElementById('editBtn').style.display = 'none';
+            oldStartDate = document.getElementById('editStartDate').value;
+            oldEndDate = document.getElementById('editEndDate').value;
+        }
+
+        function validateSaveBtn() {
+            const startDate = document.getElementById('editStartDate').value;
+            const endDate = document.getElementById('editEndDate').value;
+            const advertisementCount = document.getElementById('editAdvertisementCount').value;
+
+            if (startDate === "" || endDate === "" || advertisementCount === "") {
+                document.getElementById('saveBtn').style.display = 'none';
+            } else {
+                if (new Date(startDate) < new Date()) {
+                    alert("Start date should be greater than current date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    document.getElementById('editStartDate').value = oldStartDate;
+                    return;
+                }
+                if (new Date(endDate) < new Date()) {
+                    alert("End date should be greater than current date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    document.getElementById('editEndDate').value = oldEndDate;
+                    return;
+                }
+                if (new Date(startDate) > new Date(endDate)) {
+                    alert("Start date should be less than end date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    return;
+                }
+                document.getElementById('saveBtn').style.display = 'block';
+                oldStartDate = startDate;
+                oldEndDate = endDate;
+            }
         }
 
         function saveChanges() {
@@ -199,6 +238,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
             document.getElementById('viewSection').style.display = 'block';
             document.getElementById('editSection').style.display = 'none';
             document.getElementById('editBtn').style.display = 'block';
+
         }
     </script>
 </body>

@@ -175,6 +175,18 @@ class CompanyRepository
         return $companies;
     }
 
+//    public function getPendingByEmail(): array
+//    {
+//        $sql = "SELECT c.email FROM company c JOIN users u ON c.user_id=u.user_id where u.user_status=0";
+//        $result = $this->conn->query($sql);
+//
+//        $emails = [];
+//        while ($row = $result->fetch_assoc()) {
+//            $emails[] = $row['email'];
+//        }
+//        return $emails;
+//    }
+
     public function getCountByStatus($status): int
     {
         $countQuery = "SELECT count(c.user_id) as count FROM company c JOIN users u ON c.user_id=u.user_id where user_status=$status";

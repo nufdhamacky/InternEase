@@ -121,6 +121,22 @@ class Pdc extends Controller
         $this->view('pdc/companyrequest', $data);
     }
 
+//    public function acceptEmail()
+//    {
+//        if (empty($companies)) {
+//            echo "No companies to send email";
+//        } else {
+//            foreach ($companies as $company) {
+//                $to = $company;
+//                $subject = "Test Email";
+//                $body = "This is a test email.";
+//
+//                $email = new mailer;
+//                $email->sendMail($to, $subject, $body);
+//            }
+//        }
+//    }
+
     public function getAllStudent($page): PageDataModel
     {
         return $this->studentRepository->getAll($page);
