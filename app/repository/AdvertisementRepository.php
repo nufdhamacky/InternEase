@@ -2,81 +2,70 @@
 
 include_once('../app/model/AdvertisementModel.php');
 
-class AdvertisementRepository{
+class AdvertisementRepository {
     private $conn;
 
-    public function __construct($conn){
+    public function __construct($conn) {
         $this->conn = $conn;
-    } 
-
+    }
 
     public function save(AdvertisementModel $advertisement) {
-        // Corrected SQL with 11 placeholders
-        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, status, image_url, no_of_cvs_required) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-        // Prepare the statement
+        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, image_url, no_of_cvs_required) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
-            // Handle the error
-            return null;
+            return null; // Error handling
         }
-    
-        // Corrected bind_param with 11 variables and type definition string
+
         $stmt->bind_param(
-            'ssisssisiii',  // This should match the types of your fields
+            'ssisssisissi',
             $advertisement->position,
-            $advertisement->req, 
+            $advertisement->requirements,
             $advertisement->interns,
-            $advertisement->workMode,
+            $advertisement->workingMode,
             $advertisement->fromDate,
             $advertisement->toDate,
             $advertisement->companyId,
             $advertisement->qualification,
+            $advertisement->other_qualifications, 
             $advertisement->status,
-            $advertisement->image_url,
+            $advertisement->imageUrl,
             $advertisement->no_of_cvs_required
         );
-    
-        // Execute the statement
+
         $result = $stmt->execute();
-    
-        if ($result) {
-            return true;
-        } else {
-            return null;
-        }
+        return $result;
     }
-    
 
     public function getAllAdvertisements(): array {
-        $companyId = $_SESSION['userId']; 
-        $sql = "SELECT * FROM company_ad WHERE company_id='$companyId'";
-        $result = $this->conn->query($sql);
+        $companyId = $_SESSION['userId'];
+        $sql = "SELECT * FROM company_ad WHERE company_id = ?";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param('i', $companyId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         $advertisements = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $advertisement = new AdvertisementModel(
-                    $row['position'],
-                    $row['requirements'],  // Adjust this based on your database schema
-                    $row['no_of_intern'],
-                    $row['working_mode'],
-                    $row['from_date'],
-                    $row['to_date'],
-                    $row['company_id'],
-                    $row['qualification'],
-                    $row['status'],
-                    $row['image_url'],
-                    $row['no_of_cvs_required']
-                );
-
-                $advertisements[] = $advertisement;
-            }
+        while ($row = $result->fetch_assoc()) {
+            $advertisement = new AdvertisementModel(
+                $row['position'],
+                $row['requirements'],
+                $row['no_of_intern'],
+                $row['working_mode'],
+                $row['from_date'],
+                $row['to_date'],
+                $row['company_id'],
+                $row['qualification'],
+                $row['other_qualifications'], // Use correct field name
+                $row['status'],
+                $row['image_url'],
+                $row['no_of_cvs_required']
+            );
+            $advertisements[] = $advertisement;
         }
 
         return $advertisements;
     }
-    
-    
 }

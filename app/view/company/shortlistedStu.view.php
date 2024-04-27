@@ -33,7 +33,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <td>Job Role</td>
+                            <td>Position</td>
                             <td>No. of Shortlisted Students</td>
                             <td></td>
                         </tr>

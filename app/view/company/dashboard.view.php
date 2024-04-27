@@ -31,7 +31,7 @@
             <div class ="cardBox">
                 <div class ="card">
                     <div>
-                        <div class="number">23-Nov 2023</div>
+                        <div class="number">23-Nov 2024</div>
                         <div class="cardName">Final Date for Applications</div>
                     </div>
                     <div class="iconBx">
@@ -55,7 +55,7 @@
                 <div class ="card">
                 <a href="shortlistedStu">
                     <div>
-                        <div class="number">35</div>
+                        <div class="number">5</div>
                         <div class="cardName">Total Students Shortlisted</div>
                     </div>
                     <div class="iconBx">

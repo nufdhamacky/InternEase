@@ -1,118 +1,135 @@
 <?php
-    include_once('../app/controller/Company.php');
-    $companyController = new Company();
-
-    $ads = $companyController->getAllApprovedAds();
-    if (isset($_GET["ads"]) && $_GET["ads"] != "all") {
-        $students = $companyController->filterStudents($_GET["ads"]);
-    } else {
-        $students = $companyController->getAllStudents();
-    }
-
+$ads = $data['ads'];
+$students = $data['students'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Requests</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companyStudentReq.css">
 </head>
 <body>
 
-    <div class="container">
-        <?php require_once('../app/view/layout/companyMenubar.php') ?>
-        <div class ="main">
-            <div class = "topbar">
-
-                <div class = "toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-                <div class = "user">
-                    <span><?php echo $_SESSION['companyName']; ?></span>
-                    <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
-                </div>
-
+<div class="container">
+    <?php require_once('../app/view/layout/companyMenubar.php'); ?>
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
             </div>
-            
-          <div class = "secondbar">
+            <div class="user">
+                <span><?= $_SESSION['companyName'] ?></span>
+                <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+            </div>
+        </div>
 
+        <div class="secondbar">
             <form action="" method="GET" class="allstudents">
                 <div>
                     <select name="ad_id" id="ads">
-                        <option value="all" <?php if (!isset($_GET['ad_id']) || $_GET['ad_id'] == 'all') echo 'selected'; ?>>All</option>
+                        <option value="all" <?= (!isset($_GET['ad_id']) || $_GET['ad_id'] === 'all') ? 'selected' : ''; ?>>All</option>
                         <?php foreach ($ads as $ad): ?>
-                            <option value="<?php echo htmlspecialchars($ad['ad_id']); ?>" 
-                                <?php if (isset($_GET['ad_id']) && $_GET['ad_id'] == $ad['ad_id']) echo 'selected'; ?>>
-                                <?php echo htmlspecialchars($ad['position']); ?>
+                            <option value="<?= htmlspecialchars($ad['ad_id']) ?>" 
+                                    <?= (isset($_GET['ad_id']) && $_GET['ad_id'] === $ad['ad_id']) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($ad['position']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                     <button type="submit" class="btn"><ion-icon name="search-outline"></ion-icon></button>
                 </div>
             </form>
-
-           </div>
-            
-        <!--student data list-->
+        </div>
 
         <div id="seTable" class="details">
             <div class="studentdetails">
-                <div class = "cardHeader">
+                <div class="cardHeader">
                     <h2>Student Applications</h2>
                 </div>
 
                 <table>
-                        <thead>
-                            <tr>
-                                <td>Student Name</td>
-                                <td>Registration No.</td>
-                                <td>Position</td>
-                                <td>CV</td>
-                                <td>Action</td>
-                            </tr>
-                        </thead>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Registration No.</th>
+                            <th>Position</th>
+                            <th>CV</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            <?php if(isset($ad) && !empty($ad)) {?>
-                                <?php foreach ($students as $student) :?>
-                            <tr>
-                            <td><?php echo $student->firstName . " " . $student->lastName; ?></td>
-                            <td><?php echo $student->regNo; ?></td>
-                            <td><?php echo $student->position; ?></td>
-                                <td><a href="path_to_cv_file" class="download-cv-btn"><?php echo $student->cv; ?>Download CV</a></td>
-                                <td>
-                                    <select>
-                                        <option value = "" selected hidden>--Select Action--</option>
-                                        <option value="shortlist">Shortlist</option> 
-                                        <option value="reject">Reject</option> 
-                                        <option value="pending">Pending</option> 
+                    <tbody>
+                        <?php if ($students): ?>
+                            <?php foreach ($students as $student): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?></td>
+                                    <td><?= htmlspecialchars($student['reg_no']) ?></td>
+                                    <td><?= htmlspecialchars($student['position']) ?></td>
+                                    <td>
+                                        <a href="<?= htmlspecialchars($student['cv']) ?>" download class="download-cv-btn">Download CV</a>
+                                    </td>
+                                    <td>
+                                    <select class="status-select" data-student-id="<?= htmlspecialchars($student['id']) ?>">
+                                        <option value="pending" <?= ($student['status'] == 0) ? 'selected' : '' ?>>Pending</option>
+                                        <option value="shortlist" <?= ($student['status'] == 1) ? 'selected' : '' ?>>Shortlist</option>
+                                        <option value="reject" <?= ($student['status'] == 2) ? 'selected' : '' ?>>Reject</option>
                                     </select>
-                                </td>
-                                
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                            
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5">No student applications found.</td>
                             </tr>
-                            <?php endforeach ?>
-
-                            <?php } ?>
-                        </tbody>
+                        <?php endif; ?>
+                    </tbody>
                 </table>
-
-                
-
             </div>
         </div>
-
-        
-        </div>
-            
-        </div>
     </div>
+</div>
 
-    <!-- <script src="<?=ROOT?>/js/"></script> -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', (event) => {
+            const studentId = event.target.getAttribute('data-student-id');
+            const selectedValue = event.target.value;
+
+            if (selectedValue) {
+                // Define the URL to which you're sending the request (this might be a controller endpoint)
+                const url = '/InternEase/public/company/updateStatus'; // Adjust this URL to your endpoint
+
+                // Send the AJAX request using the fetch API
+                fetch(url, {
+                    method: 'POST', // Use POST method for modifying data
+                    headers: {
+                        'Content-Type': 'application/json', // JSON content type
+                        'X-Requested-With': 'XMLHttpRequest', // Indicate it's an AJAX request
+                    },
+                    body: JSON.stringify({
+                        applied_id: studentId,
+                        status: selectedValue, // Map the action to the correct status code
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Status updated successfully.');
+                    } else {
+                        console.error('Error updating status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
