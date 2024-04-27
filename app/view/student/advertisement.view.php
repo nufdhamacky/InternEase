@@ -21,8 +21,8 @@
             </div>
 
             <div class="filterSection">
-                <button><a href="applied" class="btn">View Applications</a></button>
-                <button><a href="wishlisted" class="btn">View Your Wishlist</a></button>
+                <a href="applied"><button class="btn">View Applications</button></a>
+                <a href="wishlisted"><button class="btn">View Your Wishlist</button></a>
             </div>
 
             <div class="ad-cards">
@@ -63,7 +63,7 @@
                 for ($i = 1; $i <= 3; $i++) {
                     echo "<label for='preference$i'>Preference $i:</label>";
                     echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    // echo "<option value=''>None</option>"; // Add None option as the default
+                    echo "<option value=''>None</option>"; // Add None option as the default
 
                     // Add options for each job role
                     foreach ($jobRoles as $role) {

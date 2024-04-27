@@ -133,9 +133,6 @@
                             echo '<td>' . $ad['working_mode'] . '</td>';
                             echo '<td><span style="display: inline-block; border-radius: 10px; padding: 2px 10px; color: white; background-color:' . ($ad['applicationStatus'] == 0 ? "rgba(40, 36, 215, 0.84)" : ($ad['applicationStatus'] == 1 ? "rgba(25, 178, 59, 1)" : "red")) . '; width: 100px; text-align: center;">' . ($ad['applicationStatus'] == 0 ? "Pending" : ($ad['applicationStatus'] == 1 ? "Shortlisted" : ($ad['applicationStatus'] == 2 ? "Rejected" : "Recruited"))) . '</span></td>';
                             echo '</tr>';
-
-                             echo 'status : ' . $ad['status'] . ' application status : ' . $ad['applicationStatus'] . ' <br>';
-                            
                         }
                     }
                     ?>

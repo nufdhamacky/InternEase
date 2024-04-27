@@ -11,6 +11,7 @@ class Student extends Controller{
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
+        $wishlistModel = $this->model('Wishlist');
 
         // Retrieve applied ad IDs and their statuses
         $appliedAdIds = $appliedModel->fetchAppliedAdIds($_SESSION['studentId']);
@@ -123,22 +124,18 @@ class Student extends Controller{
         // $this->view('student/wishlist');
     }
 
-    public function removeFromWishlist(){
-        if (isset($_POST['adId'])) {
-            $adId = $_POST['adId'];
-            
-            // Include necessary files and initialize any required objects
-        
-            // Call the model method to delete from the wishlist
-            $success = $wishlistModel->deleteFromWishlist($_SESSION['userId'], $adId);
-        
-            if ($success) {
-                echo "Item deleted from wishlist successfully";
-            } else {
-                echo "Failed to delete item from wishlist";
-            }
+    public function removeFromWishlist()
+    {
+        $userId = $_SESSION['userId'];
+        $adId = $_POST['adId'];
+
+        $wishlistModel = $this->model('Wishlist');
+        $success = $wishlistModel->deleteFromWishlist($userId, $adId);
+
+        if ($success) {
+            echo json_encode(['success' => true, 'message' => 'Item deleted from wishlist successfully']);
         } else {
-            echo "Ad ID not provided";
+            echo json_encode(['success' => false, 'message' => 'Failed to delete item from wishlist']);
         }
     }
 

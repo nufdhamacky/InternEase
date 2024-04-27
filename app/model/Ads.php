@@ -19,7 +19,8 @@ class Ads extends Model{
         $sql = 'SELECT company_ad.*, company.company_name, users.user_profile
                 FROM company_ad 
                 JOIN company ON company.user_id = company_ad.company_id
-                JOIN users ON users.user_id = company_ad.company_id';
+                JOIN users ON users.user_id = company_ad.company_id
+                WHERE company_ad.status = 1';
         $result = mysqli_query($this->connection, $sql);
         $ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_free_result($result);
@@ -64,7 +65,14 @@ class Ads extends Model{
     
 
     public function fetchAdsWithStatus($userId) {
-        $ads = $this->findall();
+        
+
+        $query = "SELECT * FROM $this->table";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $ads = $result->fetch_all(MYSQLI_ASSOC);
 
         foreach ($ads as &$ad) {
             $appliedModel = new Applied();
