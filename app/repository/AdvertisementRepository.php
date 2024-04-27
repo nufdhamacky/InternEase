@@ -28,7 +28,7 @@ class AdvertisementRepository {
             $advertisement->toDate,
             $advertisement->companyId,
             $advertisement->qualification,
-            $advertisement->otherQualifications, // Fixed field name
+            $advertisement->other_qualifications, 
             $advertisement->status,
             $advertisement->imageUrl,
             $advertisement->no_of_cvs_required

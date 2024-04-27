@@ -72,6 +72,7 @@
                                         <td><?php echo $ad->position; ?> </td>
                                         <td><?php echo $ad->requirements; ?> </td>
                                         <td><?php echo $ad->qualification; ?> </td>
+                                        <td><?php echo $ad->other_qualifications; ?> </td>
                                         <td><?php echo $ad->fromDate; ?> </td>
                                         <td><?php echo $ad->toDate; ?> </td>
                                         <td><?php echo $ad->interns; ?> </td>
@@ -85,8 +86,6 @@
 
             </div>
 
-                
-    
             </div>
         </div>
                    

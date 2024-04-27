@@ -9,7 +9,7 @@ class AdvertisementModel {
     public $toDate;
     public $companyId;
     public $qualification;
-    public $otherQualifications; 
+    public $other_qualifications; 
     public $status;
     public $imageUrl;
     public $no_of_cvs_required;
@@ -23,7 +23,7 @@ class AdvertisementModel {
         $toDate,
         $companyId,
         $qualification,
-        $otherQualifications, // Ensure this field is expected
+        $other_qualifications, // Ensure this field is expected
         $status,
         $imageUrl,
         $no_of_cvs_required
@@ -36,7 +36,7 @@ class AdvertisementModel {
         $this->toDate = $toDate;
         $this->companyId = $companyId;
         $this->qualification = $qualification;
-        $this->otherQualifications = $otherQualifications; // Initialize properly
+        $this->other_qualifications = $other_qualifications; // Initialize properly
         $this->status = $status;
         $this->imageUrl = $imageUrl;
         $this->no_of_cvs_required = $no_of_cvs_required; // Initialize this
