@@ -67,12 +67,36 @@
 
             </div>  
 
+                       
+        </div>
+        <div class="chart_container">
+            <div class="search-container">
+                
+                <form action="<?=ROOT?>/admin/search_company" method="POST">
+                    <div class="formgroup">
+                    <input class="input-text" type="text" placeholder="Search by Company Name" name="company">
+                    <input class="btn" type="submit" value="Search" name="search_company" ><br>
+                    </div>
+                </form>
+            
 
-    </div>
-    <div class="chart_container">
-        <div class="chart"  id="chart_bar2" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
-        <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> * 10vw);" ></div>  
-    </div>
+                    <?php if(isset($_SESSION['search_company']) && $_SESSION['search_company']!=NULL){  ?>
+                    
+                    <form action="<?=ROOT?>/admin/removefilter" method="post">
+                    <?php if($empty==1){?>
+                        <p>No companies found!</p>
+                    <?php }?>
+                       <input class="btn" type="submit" value="Reset Filter" name="removefilter" ><br>
+                    </form>
+                    <?php } ?>
+            </div>
+            
+            <div id='chartdiv' style="display:block;">
+                <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
+                <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
+            </div>
+            
+        </div>
     </div>
     
 
@@ -88,7 +112,14 @@
     google.charts.setOnLoadCallback(drawChart_interns);
     google.charts.setOnLoadCallback(drawChart_positions);
 
- 
+
+    var charts = document.getElementById('chartdiv');
+    var empty = <?php echo json_encode($empty); ?>;
+    console.log('empty:',empty);
+    if(empty == 1){
+        charts.style.display = 'none';
+        charts.style.opacity = 0;
+    }
 
 
     function generateRandomColor() {
@@ -102,7 +133,7 @@
         }
         return color;
     }
-
+   
     function drawChart_interns() {
         var companies = <?php echo json_encode($companylist); ?>;
         var years = <?php echo json_encode($years); ?>;
@@ -134,6 +165,7 @@
             chartArea: { width: '50%' },
             hAxis: { title: 'Number of Interns' },
             vAxis: { title: 'Company' },
+            errorHandling: 'none',
             colors: Array.from({ length: years.length }, generateRandomColor) // Generate random colors
         };
 
