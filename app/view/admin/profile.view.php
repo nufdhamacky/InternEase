@@ -13,6 +13,19 @@
 <div class="container">
     <?php include('../app/view/layout/Admin_sidemenu.php') ?>
         <div class="content">
+                
+            <div class="modal" id="otpModal" style="display:none;">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form action="<?=ROOT?>/admin/validate_otp" method="POST" id="otpForm">
+                            <h3> OTP has been sent to <span style='color:blue'><?php echo htmlspecialchars($_SESSION['newEmail']) ?><span> </h2>
+                            <input type="number" name="otp" placeholder="Enter OTP"  required>
+                            <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
+                        </form>
+                    </div>
+            </div>
+
+
             <div class="toggle-bar" onclick="toggleContent('edit')" id="toggleE">Edit Email Address <ion-icon  id="editI" name="caret-down-outline" size="small" ></ion-icon></div>  
                 <div class="toggle" id="editToggle">
 
@@ -54,12 +67,7 @@
             <form class="update-form" method="POST" action='profile'>
                 <label>Please Enter your Password Below: A password must contain a lower-case,upper-case letter,a numerical character and have at least 8 characters.</label>
                 <div class="formgroup">
-                <input type="hidden" name="col" value="password">
-                <!--<select name="col" id="col" onchange="togglePasswordFields()">
-                    <option value="user_name" selected>Email</option>
-                    <option value="password">password</option>
-                </select>
--->          
+                <input type="hidden" name="col" value="password">          
 
                 <div id="updatevalue">
                     <label for="updatevalue">New Password</label>
@@ -90,6 +98,10 @@
             </div>
 
         </div>
+
+       
+    </div>
+
 </div>
    
 
@@ -133,6 +145,7 @@ function toggleContent(type) {
         <?php } elseif (isset($data['email_error']) && $data['email_error']) { ?>
             toggleContent('edit');
         <?php } ?>
+        
     });
 
    function fadeInElement(element) {
@@ -147,6 +160,21 @@ function toggleContent(type) {
             clearInterval(timer); // Stop timer when opacity reaches 1
             }
         }, 10); // Update opacity every 10 milliseconds
+    }
+
+    otp();  
+
+    function otp() {
+        var bar1=document.getElementById('toggleR');
+        var bar2=document.getElementById('toggleE');
+        var modal = document.getElementById('otpModal');
+        var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
+        console.log("OTP:", otp);
+        if (otp === 1) {
+            bar1.style.display = 'none';
+            bar2.style.display = 'none';
+            modal.style.display = 'block';
+        }
     }
 
 
@@ -175,6 +203,18 @@ if (isset($pwd) && $pwd == 0) {
     <script>
         Swal.fire({
             title: 'Updated Unsuccessful',
+            text: 'Please try again!',
+            icon: 'error',
+            confirmButtonText: 'Return'
+        });
+    </script>";
+}
+
+if (isset($otp_fail)) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Incorrect OTP',
             text: 'Please try again!',
             icon: 'error',
             confirmButtonText: 'Return'

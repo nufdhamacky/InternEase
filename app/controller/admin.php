@@ -31,6 +31,11 @@ class Admin extends Controller {
 
             $trend = $adminModel->companyInternTrend();
             $trend2 = $adminModel->PositionTrend();
+            $data=[];
+            $empty=0;
+            if(empty($trend['companies']) || empty($trend2['companies'])){
+                $empty=1;
+            }
          
             $data = [
                // '1stData'=> $firstround,
@@ -49,6 +54,7 @@ class Admin extends Controller {
                 'students' =>  $adminModel->getStudentCounts(),
                 'first_round_data' => $adminModel->get_1stround(),
                 'second_round_data' => $adminModel->get_2ndround(),
+                'empty'=>$empty
                
             ];           
             
@@ -56,16 +62,30 @@ class Admin extends Controller {
 
     }
 
+    public function search_company(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search_company"])) {
+            $_SESSION['search_company']=$_POST['company'];
+        }
+        $_SESSION['filter']=1;
+        $this->index();
 
-//PROFILE - ADMIN
-    public function testmail(){
-        $smtp = new Mailer;
-        $smtp->sendMail("ggogamer60@gmail.com","PWD", "AAAA");
-        
     }
 
+    public function removefilter(){
+        unset($_SESSION['filter']);
+        unset( $_SESSION['search_company']);
+
+        $this->index();
+
+    }
+
+
+//PROFILE - ADMIN
+
     public function profile() {
+        
         if (!$this->isLoggedIn()){return;}
+       
                 $this->model('AdminModel');
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateadmin"])) {
@@ -86,7 +106,6 @@ class Admin extends Controller {
                         if($error){
                             $data['pwd_error']=$error;
                             $this->view('admin/profile',$data);
-                            return 0;
                         }
                     }else{
                         $error = $validate->validate_email($data['value']);
@@ -102,36 +121,69 @@ class Admin extends Controller {
                     $adminModel = new AdminModel; 
                     $adminModel->setTable('users');
 
-                    if ($adminModel->updateAdmin($data)) {
-                        if($_POST["col"] !=='password'){
-                            $_SESSION["userName"] =$data['value'];
-                            $email = 1;
+                   
+                    if($_POST["col"] !=='password'){
                             $inputotp = new Mailer;
                             $Otp = $inputotp->sendOTPEmail($data['value'],'Email Verification');
-                            $data =['email'=>  $email];
+                            $_SESSION['newEmail'] =  $data['value'] ;
+                            $data =['otp'=> 1];
+                            $this->view('admin/profile',$data);
                         }else{ 
-                            $pwd = 1;
-                            $data =['pwd'=>   $pwd];
-                            
+                            if($adminModel->updateAdmin($data)){
+                                $pwd = 1;
+                                $data =['pwd'=>   $pwd];  
+                            }else{
+                                $pwd = 0;
+                                $data =['pwd'=>   $pwd];  
+                            }
+
+                            $this->view('admin/profile',$data);
                         }
-                        $this->view('admin/profile',$data);
-                    } else {
-                        if($_POST["col"] !='password'){
-                            $email = 0;
-                            $data =['email'=>  $email];
-                        }else{ 
-                            $pwd = 0;
-                            $data =['pwd'=>   $pwd];
-                            
-                        }
-                        $this->view('admin/profile',$data);
-                    }
+
+                       
                 } else {
                     $this->view('admin/profile');
+                    
                 }
 
+                
+
     }
-        
+
+    public function validate_otp(){
+            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_otp"])){
+                $smtp = new Mailer;
+                $email = $_SESSION['newEmail'];
+                $otp = $_POST['otp'];
+                if($smtp->validateOTP($email,$otp)){
+
+                    $data = [
+                        'id' => $_SESSION["userId"],
+                        'column' => 'user_name',
+                        'value' => $email,
+                        'confirmPassword' => NULL
+                    ];
+
+                    $this->model('AdminModel');
+                    $admin=new AdminModel;
+                    if($admin->updateAdmin($data)){
+                        $data=['email'=> 1];
+                        $this->view('admin/profile',$data);
+                    }else{
+                        $data=['email'=> 0];
+                        $this->view('admin/profile',$data);
+                    }
+                    
+                }else{
+
+                    $data =['otp_fail'=>0];
+                    $this->view('admin/profile',$data);
+                }
+
+            }
+
+
+    }
   
 
 
@@ -373,7 +425,8 @@ class Admin extends Controller {
 
             $error_email = $validate->validate_email($data['email']),
             $error_firstname = $validate->validate_name("First Name",$data['first_name']),
-            $error_lastname = $validate->validate_name("Last Name", $data['last_name']) ];
+            $error_lastname = $validate->validate_name("Last Name", $data['last_name']) 
+            ];
 
  
             $errors=[];
@@ -382,22 +435,12 @@ class Admin extends Controller {
                     $errors[]=$err;
                 }
             }
-            /*
-            if($error_pwd || $error_email || $error_firstname || $error_lastname){
-            
-                if($error_pwd){
-                    $errors['pwd_error']=$error_pwd;
-                }
-
-                if($error_email){
-                    $errors['email_error']=$error_email;
-                }
-            }
-            */
+          
             $email = $_POST["pdc_email"];
             $pwd =$data['password'];
             $add = NULL;
-            if(empty($errors)){
+            
+            if(empty($errorlist)){
                 if ($adminModel->insertPDC($data)) {
                     $add = 1;
                     $smtp = new Mailer;

@@ -1,6 +1,6 @@
 <?php 
 
-    class Validation {
+    class Validation extends Controller {
 
         public function validateLogin($username, $password) {
             $errors = [];
@@ -122,6 +122,11 @@
           
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $errors['invalidemail'] = "Invalid email format.";
+                }
+                $this->model('User');
+                $Email_validate = new User;
+                if($Email_validate->validate_email($email)){
+                    $errors['Email_exist'] = "Email Already registered";
                 }
             
 
