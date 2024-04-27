@@ -22,9 +22,24 @@
                 ?>
                 
             </div>
-             
+            <div class="ad-details" id="adDetailsWindow">
+                <div class="ad-content">
+                    <!-- js handling -->
+                </div>
+            </div> 
 
         </div>
 </div>
+
+<<script>
+    function displayAdDetails(index) {
+        var adData = <?php echo json_encode($ads); ?>
+        var adDetailsWindow = document.getElementById('adDetailsWindow');
+        var adContent = document.querySelector('.ad-details .ad-content');
+
+        var ad = adData[index];
+        console.log(ad);
+    }
+</script>
 
 <?php require_once("../app/view/inc/footer.php"); ?>

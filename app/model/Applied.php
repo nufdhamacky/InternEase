@@ -200,7 +200,28 @@ class Applied extends Model {
     }
     
 
-    
+    public function fetchApplicationStatus($studentId, $adId){
+        $query =    "SELECT status 
+                    FROM first_round_data
+                    JOIN applyadvertisement ON applyadvertisement.id = first_round_data.applied_id
+                    WHERE first_round_data.ad_id = ?
+                    AND applyadvertisement.applied_by = ?";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('ii', $adId, $studentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // If there is a row in the result set, fetch the status
+            $row = $result->fetch_assoc();
+            $status = $row['status'];
+            return $status;
+        } else {
+            // If no row is found, return null or handle the absence of status as needed
+            return null;
+        }
+    }
 
     // public function apply($userId, $adId){
     //     $query = "SELECT * FROM $this->table WHERE applied_by = ? AND ad_id = ?";
