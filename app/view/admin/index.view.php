@@ -69,18 +69,18 @@
 
                        
         </div>
-        <div class="chart_container">
-            <div class="search-container">
+        <div class="search-container">
                 
                 <form action="<?=ROOT?>/admin/search_company" method="POST">
                     <div class="formgroup">
-                    <input class="input-text" type="text" placeholder="Search by Company Name" name="company">
+                    <input class="input-text" type="text" placeholder="<?php if(isset($_SESSION['search_company'])){echo $_SESSION['search_company'];}
+                    else{ echo "search company";} ?>" name="company">
                     <input class="btn" type="submit" value="Search" name="search_company" ><br>
                     </div>
                 </form>
             
 
-                    <?php if(isset($_SESSION['search_company']) && $_SESSION['search_company']!=NULL){  ?>
+                <?php if(isset($_SESSION['search_company'])){  ?>
                     
                     <form action="<?=ROOT?>/admin/removefilter" method="post">
                     <?php if($empty==1){?>
@@ -88,8 +88,10 @@
                     <?php }?>
                        <input class="btn" type="submit" value="Reset Filter" name="removefilter" ><br>
                     </form>
-                    <?php } ?>
-            </div>
+                <?php } ?>
+        </div>
+
+        <div class="chart_container">
             
             <div id='chartdiv' style="display:block;">
                 <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
