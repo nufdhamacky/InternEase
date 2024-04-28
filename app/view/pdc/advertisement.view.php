@@ -48,7 +48,7 @@ $ads = $companyAdController->getAll();
                     <tbody>
                     <?php
                     foreach ($ads as $a) { ?>
-                        
+
                         <tr>
                             <td><?php echo $a->company->name; ?></td>
                             <td><?php echo $a->noOfIntern; ?></td>
@@ -56,10 +56,10 @@ $ads = $companyAdController->getAll();
                             <td style="color: <?php echo $a->status == 0 ? "blue" : ($a->status == 1 ? "green" : "red"); ?>"><?php echo $a->status == 0 ? "Pending" : ($a->status == 1 ? "Approved" : "Rejected"); ?></td>
                             <td>
                                 <a href="<?= ROOT ?>/companyad/accept?id=<?php echo $a->adId; ?>"
-                                   style="display: <?php echo $a->status == 0 || $a->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
+                                   style="display: <?php echo $a->status == 0 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
                                 <a href="#"
                                    onclick="rejectAd(<?php echo $a->adId; ?>)"
-                                   style="display: <?php echo $a->status == 0 || $a->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+                                   style="display: <?php echo $a->status == 0 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                             </td>
                         </tr>
                     <?php } ?>

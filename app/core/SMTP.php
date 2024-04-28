@@ -66,7 +66,7 @@ class Mailer extends Database{
     function validateOTP($email, $otp) {
         $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}' AND otp = {$otp}";
         $ValidateOTP = $this->query($sql);
-        if(empty($ValidateOTP)){
+        if(empty($ValidateOTP) || count($ValidateOTP)==0){
             return false;
         }
         foreach ($ValidateOTP AS $v){

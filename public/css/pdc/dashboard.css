@@ -1,3 +1,5 @@
+
+/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +10,7 @@
 body {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #f9f9f9;
 }
 
 .container {
@@ -89,17 +92,19 @@ body {
     white-space: nowrap;
 }
 
-/* main */
-
+/* Main content styles */
 .main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
-    background: white;
+    background: #fff;
     transition: 0.5s;
+    padding: 20px;
+    z-index: 0;
+    overflow-x: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .topbar {
     width: 100%;
@@ -107,32 +112,31 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
 }
 
 .toggle {
-    position: relative;
-    top: 0;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 1.8em;
     cursor: pointer;
-
+    color: #fff;
 }
 
 .user {
-    position: relative;
-    min-width: 40px;
-    height: 40px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #fff;
     cursor: pointer;
 }
 
-/* Cards */
+.user span {
+    margin-right: 10px;
+}
 
+/* Cards */
 .cardBox {
     position: relative;
     width: 100%;
@@ -147,17 +151,23 @@ body {
     background: white;
     padding: 30px;
     border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
+    display: flex; /* Added */
+    justify-content: space-between; /* Added */
+    align-items: center; /* Added */
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.cardBox .card .content {
+    flex-grow: 1; /* Added */
 }
 
 .cardBox .card .number {
-    position: relative;
     font-weight: 500;
     font-size: 2.5rem;
     color: #0b596f;
+    margin-bottom: 10px;
 }
 
 .cardBox .card .cardName {
@@ -173,9 +183,19 @@ body {
 
 .cardBox .card:hover {
     background: #CFE3EA;
+    transform: translateY(-5px); /* Added slight elevation on hover */
 }
 
-/* ================== Order Details List ============== */
+.cardBox .card:hover .number {
+    color: #fff; /* Change number color on hover */
+}
+
+.cardBox .card:hover .iconBx {
+    color: #fff; /* Change icon color on hover */
+}
+
+
+/* Advertisement page styles */
 .details {
     position: relative;
     width: 100%;
@@ -183,7 +203,6 @@ body {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 30px;
-    /* margin-top: 10px; */
 }
 
 .details .internshipAds {
@@ -227,7 +246,7 @@ body {
 }
 
 .details .internshipAds table tr {
-    color: var black;
+    color: black;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -248,36 +267,23 @@ body {
     text-align: end;
 }
 
-/*.details .internshipAds table tr td:nth-child(2) {
-    text-align: end;
-}
-.details .internshipAds table tr td:nth-child(3) {
-    text-align: center;
-}*/
-
-.status.approved {
+.status {
     padding: 2px 4px;
-    background: #8de02c;
-    color: white;
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.status.approved {
+    background: #8de02c;
+    color: white;
 }
 
 .status.pending {
-    padding: 2px 4px;
     background: #1795ce;
     color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
 }
 
 .status.rejected {
-    padding: 2px 4px;
     background: #f00;
     color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-}
