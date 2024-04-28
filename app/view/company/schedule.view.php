@@ -206,7 +206,6 @@
                     type: 'GET',
                     dataType: 'json'
                 }).then(function(response) {
-                    // Update the existingEvents array
                     existingEvents = response;
                 }).fail(function() {
                     alert('There was an error while fetching events!');
@@ -220,6 +219,7 @@
 
         
         function setupCalendar() {
+            var today = moment().format('YYYY-MM-DD');
             $('#calendar').fullCalendar();
             $('#tech_talk_calendar').fullCalendar({
                 height: 600,
@@ -230,10 +230,13 @@
                         center: 'title',
                         right: 'agendaWeek,agendaDay'
                     },
+                    validRange: {
+                        start: today
+                    },
                     dayClick: function(date, jsEvent, view) {
                     if (date.day() === 5 && date.hour() >= 8 ) {    
                         selectedStart = date.format('YYYY-MM-DDTHH:mm');
-        // Set the end time to one hour after the start time
+
                         selectedEnd = date.clone().add(2, 'hour').format('YYYY-MM-DDTHH:mm');
 
                         startdate = selectedStart.split('A')[0];
@@ -243,9 +246,7 @@
                         endtime = selectedEnd.split('A')[1];
                    
 
-                    // Only after fetching the events we allow the check
-                    
-                            console.log("events",existingEvents);
+                        console.log("events",existingEvents);
                         if (isTimeSlotAvailable(selectedStart, selectedEnd)) {
                             $('#start').text("Scheduling for the date: "+startdate+"  From:"+starttime+"  To:"+endtime);
 
@@ -361,8 +362,8 @@
                 success: function(response) {
                     console.log(response); 
                     console.log('Tech talk scheduled successfully.');
-                    // If you want to redirect to a new page on success:
-                    //window.location.href = '<?=ROOT?>/company/schedule';
+                
+                    window.location.href = '<?=ROOT?>/company/schedule';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending schedule data: ' + error);
