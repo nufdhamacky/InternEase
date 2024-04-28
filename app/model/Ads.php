@@ -28,9 +28,9 @@ class Ads extends Model{
     }
 
     public function fetchAdsWithId($ad_ids){
-        // Ensure $ad_ids is an array
-        if (!is_array($ad_ids)) {
-            throw new InvalidArgumentException("Input must be an array of ad IDs");
+        // Ensure $ad_ids is an array and not empty
+        if (!is_array($ad_ids) || empty($ad_ids)) {
+            throw new InvalidArgumentException("Input must be a non-empty array of ad IDs");
         }
     
         // Prepare the placeholders for the ad IDs in the SQL query
@@ -38,10 +38,10 @@ class Ads extends Model{
     
         // Construct the SQL query
         $query = "SELECT company_ad.*, company.company_name, users.user_profile
-        FROM company_ad 
-        JOIN company ON company.user_id = company_ad.company_id
-        JOIN users ON users.user_id = company_ad.company_id 
-        WHERE company_ad.ad_id IN ($placeholders)";
+                FROM company_ad 
+                JOIN company ON company.user_id = company_ad.company_id
+                JOIN users ON users.user_id = company_ad.company_id 
+                WHERE company_ad.ad_id IN ($placeholders)";
     
         // Prepare the statement
         $stmt = $this->connection->prepare($query);
@@ -61,6 +61,7 @@ class Ads extends Model{
     
         return $ads;
     }
+    
     
     
 

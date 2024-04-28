@@ -201,18 +201,24 @@ class Student extends Controller{
     }
 
     public function wishlisted(){
-
         $adsModel = $this->model('Ads');
         $wishlistModel = $this->model('Wishlist');
-        $wishlistedAdids = $wishlistModel->fetchWishlistedAdIds($_SESSION['userId']);
-        $wishlistedAds = $adsModel->fetchAdsWithId($wishlistedAdids);
-
-        $data = [
-            'ads' => $wishlistedAds
-        ];
-
-        $this->view('student/wishlist', $data);
+        
+        try {
+            $wishlistedAdids = $wishlistModel->fetchWishlistedAdIds($_SESSION['userId']);
+            $wishlistedAds = $adsModel->fetchAdsWithId($wishlistedAdids);
+    
+            $data = [
+                'ads' => $wishlistedAds
+            ];
+    
+            $this->view('student/wishlist', $data);
+        } catch (InvalidArgumentException $e) {
+            // Pass the exception object to the view
+            $this->view('student/wishlist', ['exception' => $e]);
+        }
     }
+    
 
 
     public function fetchStudentProfile() {
@@ -247,7 +253,7 @@ class Student extends Controller{
     
                 // Return the updated student data as a JSON response
                 $updatedStudentData = $studentModel->getStudentByUserId($userId);
-                // echo json_encode($updatedStudentData);
+                echo json_encode($updatedStudentData);
                 $this->redirect("profile");
                 
             } else {
@@ -256,8 +262,21 @@ class Student extends Controller{
         }
     }
     
+    // private function uploadFile($file) {
+    //     $uploadDir = ROOT . '/uploads/';  // Concatenate ROOT into the string
+    //     $fileName = uniqid() . '_' . basename($file['name']);
+    //     $uploadPath = $uploadDir . $fileName;
+    
+    //     var_dump($fileName);
+    //     if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+    //         return $fileName;
+    //     }
+    
+    //     return null;
+    // }
+
     private function uploadFile($file) {
-        $uploadDir = '<?=ROOT?>/uploads/'; 
+        $uploadDir = __DIR__ . '/../../public/uploads/'; // Use the correct file system path
         $fileName = uniqid() . '_' . basename($file['name']);
         $uploadPath = $uploadDir . $fileName;
     
@@ -267,6 +286,10 @@ class Student extends Controller{
     
         return null;
     }
+    
+    
+    
+    
 
     
     public function logout(){
