@@ -176,9 +176,9 @@ class Company extends Controller
     }
 
 
-        public function tech(){
-            
-            $this->view('company/tech');
+    public function tech(){
+
+        $this->view('company/tech');
 
     }
 
@@ -288,7 +288,7 @@ class Company extends Controller
                 'to_date' => $_POST['end'] ?? '',
                 'status' => 0,
             ];
-            
+
             // Output the POST data for debugging
             echo "<pre>";
 
@@ -303,19 +303,19 @@ class Company extends Controller
                 ob_flush();
             }
             flush();
-            
-            
-                $this->model('TechTalkModel');
-                $schedule = new TechTalkModel;
-                $schedule->store_techtalk($data);
-              
 
-            } else {
-                // Handle the error for non-POST requests
-                echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
-            }
 
-            exit;
+            $this->model('TechTalkModel');
+            $schedule = new TechTalkModel;
+            $schedule->store_techtalk($data);
+
+
+        } else {
+            // Handle the error for non-POST requests
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+        }
+
+        exit;
 
     }
 
@@ -324,7 +324,7 @@ class Company extends Controller
         $TechModel = new TechTalkModel;
         echo $TechModel->get_techtalks();
     }
-    
+
 
 
     public function shortlistedSE()
