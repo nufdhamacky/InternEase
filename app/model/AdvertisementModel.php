@@ -1,6 +1,7 @@
 <?php
 
-class AdvertisementModel {
+class AdvertisementModel
+{
     public $position;
     public $requirements;
     public $interns;
@@ -9,7 +10,7 @@ class AdvertisementModel {
     public $toDate;
     public $companyId;
     public $qualification;
-    public $other_qualifications; 
+    public $other_qualifications;
     public $status;
     public $imageUrl;
     public $no_of_cvs_required;
@@ -25,9 +26,9 @@ class AdvertisementModel {
         $qualification,
         $other_qualifications, // Ensure this field is expected
         $status,
-        $imageUrl,
         $no_of_cvs_required
-    ) {
+    )
+    {
         $this->position = $position;
         $this->requirements = $requirements;
         $this->interns = $interns;
@@ -38,7 +39,6 @@ class AdvertisementModel {
         $this->qualification = $qualification;
         $this->other_qualifications = $other_qualifications; // Initialize properly
         $this->status = $status;
-        $this->imageUrl = $imageUrl;
         $this->no_of_cvs_required = $no_of_cvs_required; // Initialize this
     }
 }
