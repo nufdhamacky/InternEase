@@ -7,7 +7,7 @@ include_once('../app/repository/TechTalkRepository.php');
 include_once('../app/model/TechTalkModel.php');
 
 include_once('../app/repository/CompanyStudentRepository.php');
-// include_once('../app/model/CompanyStudentModel.php');
+//include_once('../app/model/CompanyStudentModel.php');
 
 include_once('../app/repository/CompanyDetailsRepository.php');
 
@@ -177,10 +177,9 @@ class Company extends Controller
     }
 
 
-    public function tech()
-    {
-
-        $this->view('company/tech');
+        public function tech(){
+            
+            $this->view('company/tech');
 
     }
 
