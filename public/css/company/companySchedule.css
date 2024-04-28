@@ -236,7 +236,7 @@ body
 .details .studentdetails nav{
     position: relative;
     height: 50px;
-    width: 80%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -280,7 +280,7 @@ input[type='radio']{
     height: 4.5px;
     background-color: #0b596f;
     border-radius: 20px;
-    width: 50%;
+    width: 33.3333333333%;
     z-index: 1;
     left: 0;
     bottom: 0;
@@ -289,7 +289,11 @@ input[type='radio']{
 }
 
 #techschedule:checked ~ nav .slider{
-    left: 50%;
+    left: 33.3333333333%;
+}
+
+#companyvisit:checked ~ nav .slider{
+    left: 66.6666666667%;
 }
 
 #intschedule:checked ~ nav .intschedule{
@@ -298,6 +302,11 @@ input[type='radio']{
 }
 
 #techschedule:checked ~ nav .techschedule{
+    color: #0b596f;
+    font-size: 20px;
+}
+
+#companyvisit:checked ~ nav .companyvisit{
     color: #0b596f;
     font-size: 20px;
 }
@@ -331,12 +340,130 @@ section .content .title{
     display: block;
 }
 
+#companyvisit:checked ~ section .content-3{
+    display: block;
+}
+
 .details .studentdetails table tr td:nth-child(3) {
     text-align: center;
 }
 
 .studentdetails table tbody .del{
     color: red;
+}
+
+.details .compdetails{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    min-width: 400px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 62%;
+    transform: translate(-50%, -50%);
+  }
+
+.compdetails .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardHeader h2 {
+    font-weight: 600;
+    color: rgba(9, 62, 76, 1);
+}
+
+.content-3 .input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-3 .card .calendar-icon {
+    position: relative;
+    right: 60px;
+    transform: translateY(-10%);
+    font-size: 24px;
+}
+
+.content-3 .card .bx1, .card select{
+    width: 100px;
+    height: 40px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.content-3 .card .h4 {
+    margin: 10px 10px; 
+}
+
+.content-3 .card .spaceleft{
+    margin: 0px 90px;
+}
+
+.content-3 select, .bx1 {
+    width: 100%; 
+    padding: 5px;
+    margin: 5px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+.content-3 select{
+    height: 40px;
+    cursor: pointer;
+}
+
+.content-3 .card select{
+    margin-left: 65px;
+}
+
+.content-3 .card option{
+    text-align: center;
+}
+
+.content-3 .submit {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+.content-3 .submit button {
+    background-color: #0B5A6F; 
+    font-size: 15px;
+    color: white; 
+    border: none;
+    width: 80px;
+    height: 40px;
+    font-weight: bold;
+    padding: 5px 5px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    align-items: center;
+}
+
+.content-3 .submit .sbtn{
+    background-color: #96D1E1; 
+    font-size: 20px;
+    color: black; 
+    width: 350px;
+    font-weight: bold;
+    border-color: #c7c5bbb1; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.content-3 .submit button :hover {
+    background-color: #72abbb;
 }
 
 .download-cv-btn {
@@ -429,8 +556,6 @@ section .content .title{
 
 .details select {
     padding: 2px 10px;
-    border: 1px solid rgba(11, 90, 111, 1);
-    color: rgba(11, 90, 111, 1);
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
