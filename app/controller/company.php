@@ -7,7 +7,7 @@
     include_once('../app/model/TechTalkModel.php');
 
     include_once('../app/repository/CompanyStudentRepository.php');
-    // include_once('../app/model/CompanyStudentModel.php');
+    //include_once('../app/model/CompanyStudentModel.php');
 
     include_once('../app/repository/CompanyDetailsRepository.php');
 
@@ -156,6 +156,57 @@
             return $this->companyStudentRepository->getStudentRequests();
         }
 
+        public function schedule_tech_talk(){
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Access the POST data
+                $data = [
+                    'company_id' => $_SESSION['userId'] ?? 'default_id',
+                    'topic' => $_POST['title'] ?? '',
+                    'from_date' => $_POST['start'] ?? '',
+                    'to_date' => $_POST['end'] ?? '',
+                    'status' => 0,
+                    'location' => $_POST['location'] ?? '',
+                ];
+                
+                // Output the POST data for debugging
+                echo "<pre>";
+
+                foreach($data as $d){
+                    echo "<br>";
+                    var_dump($d);
+                    echo "<br>";
+                }
+
+                echo "</pre>";
+                if (ob_get_level() > 0) {
+                    ob_flush();
+                }
+                flush();
+                
+                
+                    $this->model('TechTalkModel');
+                    $schedule = new TechTalkModel;
+                    $schedule->store_techtalk($data);
+                  
+
+                } else {
+                    // Handle the error for non-POST requests
+                    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+                }
+
+                exit;
+
+        }
+
+        public function request_techtalks() {
+            header('Content-Type: application/json');
+            $TechModel = new TechTalkModel;
+            echo $TechModel->get_techtalks();
+        }
+        
+        
+
 
         public function tech(){
             
@@ -248,31 +299,7 @@
         }
 
         public function addTechtalk(){
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $userId = $_SESSION['userId']; // Assuming you have userId in session
-        
-                $date = isset($_POST['date']) ? mysqli_real_escape_string($this->conn, $_POST['date']) : '';
-                $duration = isset($_POST['duration']) ? mysqli_real_escape_string($this->conn, $_POST['duration']) : '';
-                $startTime = isset($_POST['start_time']) ? mysqli_real_escape_string($this->conn, $_POST['start_time']) : '';
-                $endTime = isset($_POST['end_time']) ? mysqli_real_escape_string($this->conn, $_POST['end_time']) : '';
-
-                // Create a TechTalkModel object
-                $techTalk = new TechTalkModel($userId, $date, $duration, $startTime, $endTime);
-        
-                // Pass $techTalk to repository method for database insertion
-                $result = $this->techTalkRepository->addTechTalk($techTalk);
-
-                if ($result) {
-                    // Redirect after successful submission
-                    header("Location: /internease/public/company/tech");
-                    exit();
-                } else {
-                    // Handle insertion failure
-                    echo "Data Insertion Failed";
-                }
-            } else {
-                // Handle GET request if needed
-            }
+          
         }
         
 
