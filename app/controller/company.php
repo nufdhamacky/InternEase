@@ -109,6 +109,9 @@
         public function updateStatus() {
             $input = json_decode(file_get_contents('php://input'), true);
         
+            // Log the received data for debugging
+            error_log("Received input: " . json_encode($input));
+        
             if (!isset($input['applied_id']) || !isset($input['status'])) {
                 http_response_code(400); // Bad Request
                 echo json_encode(['error' => 'Invalid input parameters']);
@@ -116,23 +119,27 @@
             }
         
             $appliedId = intval($input['applied_id']);
-            $status = intval($input['status']); // Convert status to an integer
-        
+            $status = $input['status']; // Keep status as a string for mapping
+            
+            // Mapping the status
             $statusMapping = [
-                'shortlist' => 0,
-                'recruited' => 1,
-                'reject' => 2
+                'pending' => 0,
+                'shortlist' => 1,
+                'reject' => 2,
+                'recruit' => 3
             ];
         
+            // Validate that the status exists in the mapping
             if (!array_key_exists($status, $statusMapping)) {
-                http_response_code(400);
-                echo json_encode(['error' => 'Invalid status']);
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid status: ' . $status]);
                 return;
             }
         
-            $result = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
+            // Update status in the database
+            $updateResult = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
         
-            if ($result) {
+            if ($updateResult) {
                 http_response_code(200);
                 echo json_encode(['message' => 'Status updated successfully']);
             } else {
@@ -140,6 +147,7 @@
                 echo json_encode(['error' => 'Failed to update status']);
             }
         }
+        
         
 
         public function getAllApprovedAds(): array 

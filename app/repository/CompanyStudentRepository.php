@@ -18,7 +18,7 @@ class CompanyStudentRepository extends model {
 
     public function getStudentRequests() {
         $userId = $_SESSION['userId'];
-        $sql = "SELECT s.cv, s.first_name, s.last_name, s.reg_no, ca.position, aa.id
+        $sql = "SELECT s.cv, s.first_name, s.last_name, s.reg_no, ca.position, aa.id, frt.status
                 FROM student AS s 
                 JOIN applyadvertisement AS aa ON s.id = aa.applied_by 
                 JOIN first_round_data AS frt ON frt.applied_id = aa.id 
@@ -56,7 +56,7 @@ class CompanyStudentRepository extends model {
     }
 
     public function updateStudentStatus($appliedId, $status) {
-        $query = "UPDATE applyadvertisement SET status = ? WHERE id = ?";
+        $query = "UPDATE first_round_data SET status = ? WHERE applied_id = ?";
         
         $stmt = $this->conn->prepare($query);
         
