@@ -288,7 +288,6 @@ class Company extends Controller
                 'from_date' => $_POST['start'] ?? '',
                 'to_date' => $_POST['end'] ?? '',
                 'status' => 0,
-                'location' => $_POST['location'] ?? '',
             ];
             
             // Output the POST data for debugging

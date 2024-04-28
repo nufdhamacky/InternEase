@@ -8,8 +8,7 @@ class TechTalkModel extends Model{
                 c.company_name,
                 t.topic,
                 t.from_date,
-                t.to_date,
-                t.location
+                t.to_date
             FROM `tech_talk` AS t
             JOIN company AS c ON t.company_id = c.user_id
             WHERE t.status = 1
@@ -17,6 +16,9 @@ class TechTalkModel extends Model{
     
         $results = $this->query($query);
         $techtalks = [];
+        if(empty($results)){
+            return 0;
+        }
     
         foreach ($results as $r) {
             $techtalks[] = [
@@ -24,7 +26,6 @@ class TechTalkModel extends Model{
                 'title' => $r['topic'], // FullCalendar expects 'title'
                 'start' => date('Y-m-d\TH:i', strtotime($r['from_date'])),
                 'end' => date('Y-m-d\TH:i', strtotime($r['to_date'])),
-                'location' => $r['location'] ,
 
             ];
         }

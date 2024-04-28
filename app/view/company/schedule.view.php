@@ -116,10 +116,6 @@
                                             <input type="text" class="form-control" id="techTalkTitle" placeholder="Enter title">
                                         </div>
                                         <div class="form-group">
-                                            <label for="techTalkTitle">Location</label>
-                                            <input type="text" class="form-control" id="techTalkLocation" placeholder="Enter title">
-                                        </div>
-                                        <div class="form-group">
                                             <label for="techTalkStart" id="start">Start Date and Time</label>
                                             <input type="datetime-local" class="form-control" id="techTalkStart" style="display:none" readonly >
                                         </div>
@@ -269,7 +265,7 @@
                             alert('There was an error while fetching events!');
                         },
                         eventClick: function(calEvent, jsEvent, view) {
-                            alert('Event: ' + calEvent.title + '\nCompany: ' + calEvent.company + '\nLocation: ' + calEvent.location);
+                            alert('Event: ' + calEvent.title + '\nCompany: ' + calEvent.company );
                         }
                     }
                 });
@@ -330,7 +326,6 @@
             e.preventDefault();
 
             var title = $('#techTalkTitle').val();
-            var location = $('#techTalkLocation').val();
 
 
             console.log("Submitting start:", selectedStart);
@@ -338,10 +333,10 @@
             
             $('#techTalkModal').modal('hide');
 
-            sendScheduleData(selectedStart, selectedEnd, title, location);
+            sendScheduleData(selectedStart, selectedEnd, title);
          });
 
-        function sendScheduleData(startDate, endDate, title, location) {
+        function sendScheduleData(startDate, endDate, title) {
 
             var formattedStartDate = startDate.replace('A', ' ').split('.')[0] + ':00';
             var formattedEndDate = endDate.replace('A', ' ').split('.')[0] + ':00'
@@ -350,8 +345,7 @@
             console.log('Formatted End', formattedEndDate);
             console.log('start', startDate);
             console.log('end', endDate);
-            console.log('title', title);
-            console.log('location', location);
+            console.log('title', title);;
             
             $.ajax({
                 url: '<?=ROOT?>/company/schedule_tech_talk',
@@ -359,7 +353,6 @@
                     title: title,
                     start: formattedStartDate,
                     end: formattedEndDate,
-                    location: location
                 },
                 type: 'POST',
                 success: function(response) {
