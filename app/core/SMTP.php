@@ -24,8 +24,8 @@ class Mailer extends Database
         $this->mail->SMTPAuth = true;           // Enable SMTP authentication
         $this->mail->Username = 'intern.easeucsc@gmail.com'; // SMTP username
         $this->mail->Password = 'afjcgcwfdcfuumir'; // SMTP password
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $this->mail->Port = 465;                 // TCP port to connect to, use 465 for `SMTPS`
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
+        $this->mail->Port = 465;                 // TCP port to connect to, use 465 for SMTPS
 
         $this->mail->setFrom('intern.easeucsc@gmail.com', 'InternEase');
     }
