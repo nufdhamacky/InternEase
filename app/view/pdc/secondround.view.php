@@ -135,10 +135,15 @@ $students = $roundController->getSecondRoundStudents();
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script>
+        let oldStartDate;
+        let oldEndDate;
+
         function editSection() {
             document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('viewSection').style.display = 'none';
             document.getElementById('editSection').style.display = 'block';
+            oldStartDate = document.getElementById('editStartDate').value;
+            oldEndDate = document.getElementById('editEndDate').value;
         }
 
         function validateSaveBtn() {
@@ -149,6 +154,18 @@ $students = $roundController->getSecondRoundStudents();
             if (startDate === "" || endDate === "" || advertisementCount === "") {
                 document.getElementById('saveBtn').style.display = 'none';
             } else {
+                if (new Date(startDate) < new Date()) {
+                    alert("Start date should be greater than current date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    document.getElementById('editStartDate').value = oldStartDate;
+                    return;
+                }
+                if (new Date(endDate) < new Date()) {
+                    alert("End date should be greater than current date");
+                    document.getElementById('saveBtn').style.display = 'none';
+                    document.getElementById('editEndDate').value = oldEndDate;
+                    return;
+                }
                 if (new Date(startDate) > new Date(endDate)) {
                     alert("Start date should be less than end date");
                     document.getElementById('saveBtn').style.display = 'none';

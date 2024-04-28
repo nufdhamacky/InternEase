@@ -5,7 +5,7 @@ $reportController = new CompanyReport();
 //$pageData = $reportController->getAll($page);
 
 $reports = $reportController->getAll();
-//$companies = $reportController->getBlackCompanies();
+$companies = $reportController->getBlackCompanies();
 
 ?>
 
@@ -21,9 +21,11 @@ $reports = $reportController->getAll();
 <body>
 <div class="cardBox">
     <div class="card">
-        <a style="text-decoration: none" href="companyreportpercentage">
+        <a style="text-decoration: none"
+           href="<?php echo $reportController->getReportCount() > 0 ? "companyreportpercentage" : "#"; ?>">
             <div>
-                <div class="number"><?php echo $reportController->getReportCount() ?></div>
+                <div class="number"><?php echo $reportController->getReportCount(); ?></div>
+
                 <div class="cardName">Company Complaints</div>
             </div>
         </a>
@@ -54,14 +56,14 @@ $reports = $reportController->getAll();
             </thead>
 
             <tbody>
-            <!--            --><?php //foreach ($companies as $company) { ?>
-            <!--                <tr>-->
-            <!--                    <td>--><?php //echo $company->companyName; ?><!--</td>-->
-            <!--                    <td>--><?php //echo $company->contactPerson; ?><!--</td>-->
-            <!--                    <td>--><?php //echo $company->contact; ?><!--</td>-->
-            <!--                    <td>--><?php //echo $company->reason; ?><!--</td>-->
-            <!--                </tr>-->
-            <!--            --><?php //} ?>
+            <?php foreach ($companies as $company) { ?>
+                <tr>
+                    <td><?php echo $company->company->name; ?></td>
+                    <td><?php echo $company->company->contactPerson; ?></td>
+                    <td><?php echo $company->company->contact; ?></td>
+                    <td><?php echo $company->reason; ?></td>
+                </tr>
+            <?php } ?>
             </tbody>
         </table>
 
