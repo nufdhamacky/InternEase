@@ -1,4 +1,4 @@
-<div class = "navigation">
+<div class = "navigation" style="left:0 !important;">
     <img src = "<?=ROOT?>/assets/images/logo.png" alt="">
     <ul>
         <li>
