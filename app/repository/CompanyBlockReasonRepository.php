@@ -27,7 +27,7 @@ class CompanyBlockReasonRepository
 
     public function blockCompany(int $id, string $reason)
     {
-        $sql = "UPDATE users SET user_status=2 WHERE user_id={$id}";
+        $sql = "UPDATE users SET user_status=3 WHERE user_id={$id}";
         $result = $this->conn->query($sql);
         $delSql = "DELETE FROM company_report WHERE company_id={$id}";
         $delResult = $this->conn->query($delSql);
@@ -35,4 +35,26 @@ class CompanyBlockReasonRepository
         $reasonSql = "INSERT INTO company_block_reason (user_id,reason) VALUES ({$id},'{$reason}')";
         $reasonResult = $this->conn->query($reasonSql);
     }
+
+    public function getBlockMail($id): string
+    {
+        $sql = "SELECT email FROM company WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row["email"];
+    }
+
+    public function getCount(): int
+    {
+        $sql = "SELECT count(c.user_id) as count FROM company as c join users as u on c.user_id = u.user_id where u.user_status=3";
+        $result = $this->conn->query($sql);
+
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            return $row['count'];
+        }
+        return 0;
+    }
+
+
 }

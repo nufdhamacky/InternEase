@@ -148,6 +148,22 @@ class CompanyRepository
 
     }
 
+    public function getCompanyMail($id)
+    {
+        $sql = "SELECT email FROM company WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
+
+    public function getBlockCompanyMail($id)
+    {
+        $sql = "SELECT email FROM company WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
+
     public function getFullByStatus($status): array
     {
 

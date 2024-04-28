@@ -86,6 +86,56 @@ if (isset($pending) && $pending == 1) {
             }
         });
     </script>";
+}
+
+if (isset($pending) && $pending == 0) {
+    echo "
+<script>
+    Swal.fire({
+        title: 'There was a issue acccepting company',
+        text: 'Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+        }
+    });
+</script>
+";
+}
+
+if (isset($rejected) && $rejected == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Rejected',
+            text: 'Company is not allowed to log in.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+
+if (isset($rejected) && $rejected == 0) {
+    echo "
+<script>
+    Swal.fire({
+        title: 'There was a issue acccepting company',
+        text: 'Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+        }
+    });
+</script>
+";
 } ?>
 </body>
 </html>

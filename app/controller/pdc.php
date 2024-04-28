@@ -3,6 +3,8 @@ include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
 include_once('../app/repository/PdcComplaintRepository.php');
+include_once('../app/repository/CompanyBlockReasonRepository.php');
+include_once('../app/model/CompanyBlockReasonModel.php');
 include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
 include_once('../app/model/PdcComplaintModel.php');
@@ -16,6 +18,8 @@ class Pdc extends Controller
 
     private PdcComplaintRepository $pdcComplaintRepository;
 
+    private CompanyBlockReasonRepository $companyBlockReasonRepository;
+
 
     public function __construct()
     {
@@ -24,6 +28,7 @@ class Pdc extends Controller
         $this->studentRepository = new StudentRepository($this->conn);
         $this->companyVisitRepository = new CompanyVisitRepository($this->conn);
         $this->pdcComplaintRepository = new PdcComplaintRepository($this->conn);
+        $this->companyBlockReasonRepository = new CompanyBlockReasonRepository($this->conn);
 
     }
 
@@ -42,7 +47,7 @@ class Pdc extends Controller
 
     public function getBlackListCompanyCount(): int
     {
-        $count = $this->companyRepository->getBlackListCount();
+        $count = $this->companyBlockReasonRepository->getCount();
         return $count;
     }
 
@@ -108,18 +113,48 @@ class Pdc extends Controller
     {
         $id = $_GET["id"];
         $reason = $_GET["reason"];
-        $this->companyRepository->reject($id, $reason);
-        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        $email = $this->companyRepository->getCompanyMail($id);
+        $subject = "Company Request Rejected";
+        $body = "Your company request has been rejected. Reason: " . $reason;
+        $mail = new mailer;
+        $sucess = $mail->sendMail($email, $subject, $body);
+        if ($sucess == 'Message has been sent') {
+            $rejected = 1;
+            $data = ['rejected' => $rejected];
+            $this->companyRepository->reject($id, $reason);
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/request');</script>";
+        } else {
+            $rejected = 0;
+            $data = ['rejected' => $rejected];
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        }
+
     }
 
     public function acceptCompany()
     {
         $id = $_GET["id"];
-        $this->companyRepository->accept($id);
-        $pending = 1;
-        $data = ['pending' => $pending];
-        $this->view('pdc/companyrequest', $data);
+        $email = $this->companyRepository->getCompanyMail($id);
+        $subject = "Company Request Accepted";
+        $body = "Your company request has been accepted. You can now login to your account.";
+        $mail = new mailer;
+        $sucess = $mail->sendMail($email, $subject, $body);
+        if ($sucess == 'Message has been sent') {
+            $pending = 1;
+            $data = ['pending' => $pending];
+
+            $this->companyRepository->accept($id);
+
+            $this->view('pdc/companyrequest', $data);
+        } else {
+            $pending = 0;
+            $data = ['pending' => $pending];
+            $this->view('pdc/companyrequest', $data);
+
+        }
+
     }
+
 
 //    public function acceptEmail()
 //    {
@@ -255,9 +290,11 @@ class Pdc extends Controller
         $filename = $_FILES["csv"]["tmp_name"];
         if ($_FILES["csv"]["size"] > 0) {
             $file = fopen($filename, "r");
+            $list = [];
 
             while (($row = fgetcsv($file, 10000, ",")) !== FALSE) {
                 if ($row[4] === "email") continue;
+                if (trim($row[4]) == "") continue;
                 $email = mysqli_real_escape_string($this->conn, $row[4]);
                 $password = mysqli_real_escape_string($this->conn, $row[5]);
                 $firstName = mysqli_real_escape_string($this->conn, $row[0]);
@@ -267,8 +304,20 @@ class Pdc extends Controller
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
                 $this->studentRepository->save($student);
+                $list[] = $email;
 
             }
+            $subject = "Welcome to InternEase";
+            $body = "Welcome to InternEase. Your account has been created successfully. You can now login to your account\n
+            your username is your email and the password is your first four letters and the @ sign with your registration number \n
+            eg: email : 2021is033@stu.ucsc.cmb.ac.lk\n
+            Name : Nirmal\n
+            Registration No : 2021/IS/033\n
+            password : Nirm@033\n";
+
+            $mail = new mailer;
+            $sucess = $mail->sendBulkMail($list, $subject, $body);
+
         }
 
 

@@ -62,6 +62,39 @@ $reports = $reportController->getReportsByCompany($id);
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="<?= ROOT ?>/js/blockcompany.js"></script>
+<?php
 
+if (isset($rejected) && $rejected == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Blacklisted Successfully',
+            text: 'Company has been blacklisted successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+           window.location.replace('http://localhost/internease/public/pdc/dashboard');
+            }
+        });
+    </script>";
+}
+
+if (isset($rejected) && $rejected == 0) {
+    echo "
+<script>
+    Swal.fire({
+        title: 'There was a issue acccepting company',
+        text: 'Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+           window.location.replace('http://localhost/internease/public/pdc/dashboard');
+        }
+    });
+</script>
+";
+} ?>
 </body>
 </html>
