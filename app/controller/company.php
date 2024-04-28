@@ -106,6 +106,42 @@
             $this->view('company/studentReq', ['ads' => $ads, 'students' => $students]);
         }
 
+        public function updateStatus() {
+            $input = json_decode(file_get_contents('php://input'), true);
+        
+            if (!isset($input['applied_id']) || !isset($input['status'])) {
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid input parameters']);
+                return;
+            }
+        
+            $appliedId = intval($input['applied_id']);
+            $status = intval($input['status']); // Convert status to an integer
+        
+            $statusMapping = [
+                'shortlist' => 0,
+                'recruited' => 1,
+                'reject' => 2
+            ];
+        
+            if (!array_key_exists($status, $statusMapping)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Invalid status']);
+                return;
+            }
+        
+            $result = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
+        
+            if ($result) {
+                http_response_code(200);
+                echo json_encode(['message' => 'Status updated successfully']);
+            } else {
+                http_response_code(500); // Internal Server Error
+                echo json_encode(['error' => 'Failed to update status']);
+            }
+        }
+        
+
         public function getAllApprovedAds(): array 
         {
             return $this->companyStudentRepository->getAds();

@@ -79,6 +79,16 @@
                                         <td><?php echo $ad->no_of_cvs_required; ?> </td>
                                         <td><?php echo $ad->workingMode; ?> </td>
                                         <td style="color: <?php echo $ad->status == 0 ? "blue" : ($ad->status == 1 ? "green" : "red"); ?>"><?php echo $ad->status == 0 ? "Pending" : ($ad->status == 1 ? "Approved" : "Rejected"); ?></td>
+                                        <td>
+                                            <a href="">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="delete">
+                                                <ion-icon name="trash-outline" class="del"></ion-icon>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                         </tbody>

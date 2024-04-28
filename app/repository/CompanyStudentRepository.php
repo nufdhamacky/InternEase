@@ -18,7 +18,7 @@ class CompanyStudentRepository extends model {
 
     public function getStudentRequests() {
         $userId = $_SESSION['userId'];
-        $sql = "SELECT s.cv, s.first_name, s.last_name, s.reg_no, ca.position
+        $sql = "SELECT s.cv, s.first_name, s.last_name, s.reg_no, ca.position, aa.id
                 FROM student AS s 
                 JOIN applyadvertisement AS aa ON s.id = aa.applied_by 
                 JOIN first_round_data AS frt ON frt.applied_id = aa.id 
@@ -32,7 +32,7 @@ class CompanyStudentRepository extends model {
 
     public function getStudentRequestsByAd($ad_id) {
         $userId = $_SESSION['userId'];
-        $sql = "SELECT s.cv, s.first_name, s.last_name, s.reg_no, ca.position
+        $sql = "SELECT aa.id, s.cv, s.first_name, s.last_name, s.reg_no, ca.position
                 FROM student AS s 
                 JOIN applyadvertisement AS aa ON s.id = aa.applied_by 
                 JOIN first_round_data AS frt ON frt.applied_id = aa.id 
@@ -54,4 +54,20 @@ class CompanyStudentRepository extends model {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function updateStudentStatus($appliedId, $status) {
+        $query = "UPDATE applyadvertisement SET status = ? WHERE id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        if ($stmt) {
+            $stmt->bind_param('ii', $status, $appliedId);
+            $result = $stmt->execute();
+            $stmt->close();
+            return $result;
+        } else {
+            throw new Exception("Statement preparation failed: " . $this->conn->error);
+        }
+    }
+    
 }
