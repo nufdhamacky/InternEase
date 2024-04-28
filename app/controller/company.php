@@ -7,7 +7,7 @@ include_once('../app/repository/TechTalkRepository.php');
 include_once('../app/model/TechTalkModel.php');
 
 include_once('../app/repository/CompanyStudentRepository.php');
-// include_once('../app/model/CompanyStudentModel.php');
+//include_once('../app/model/CompanyStudentModel.php');
 
 include_once('../app/repository/CompanyDetailsRepository.php');
 
@@ -126,6 +126,9 @@ class Company extends Controller
     {
         $input = json_decode(file_get_contents('php://input'), true);
 
+        // Log the received data for debugging
+        error_log("Received input: " . json_encode($input));
+
         if (!isset($input['applied_id']) || !isset($input['status'])) {
             http_response_code(400); // Bad Request
             echo json_encode(['error' => 'Invalid input parameters']);
@@ -133,23 +136,27 @@ class Company extends Controller
         }
 
         $appliedId = intval($input['applied_id']);
-        $status = intval($input['status']); // Convert status to an integer
+        $status = $input['status']; // Keep status as a string for mapping
 
+        // Mapping the status
         $statusMapping = [
-            'shortlist' => 0,
-            'recruited' => 1,
-            'reject' => 2
+            'pending' => 0,
+            'shortlist' => 1,
+            'reject' => 2,
+            'recruit' => 3
         ];
 
+        // Validate that the status exists in the mapping
         if (!array_key_exists($status, $statusMapping)) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Invalid status']);
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Invalid status: ' . $status]);
             return;
         }
 
-        $result = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
+        // Update status in the database
+        $updateResult = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
 
-        if ($result) {
+        if ($updateResult) {
             http_response_code(200);
             echo json_encode(['message' => 'Status updated successfully']);
         } else {
@@ -169,10 +176,9 @@ class Company extends Controller
     }
 
 
-    public function tech()
-    {
-
-        $this->view('company/tech');
+        public function tech(){
+            
+            $this->view('company/tech');
 
     }
 
@@ -238,16 +244,88 @@ class Company extends Controller
     public function shortlistedStu()
     {
 
-        $this->view('company/shortlistedStu');
+        $companyId = $_SESSION['userId'];
+        $positions = $this->companyStudentRepository->getCompanyPosWithCounts($companyId);
+
+        $data = [
+            'positions' => $positions
+        ];
+        $this->view('company/shortlistedStu', $data);
 
     }
 
     public function shortlistedQA()
     {
+        if (isset($_GET['position'])) {
+            $position = urldecode($_GET['position']); // Ensure the parameter is decoded properly
+        } else {
+            throw new Exception("Position parameter is missing");
+        }
 
-        $this->view('company/shortlistedQA');
+        $companyId = $_SESSION['userId'] ?? null; // Get companyId from session
+
+        if ($companyId) {
+            $shortlistedStudents = $this->companyStudentRepository->fetchShortlistedStuByPos($companyId, $position);
+
+            $data = [
+                'shortlistedStudents' => $shortlistedStudents
+            ];
+
+            $this->view('company/shortlistedQA', $data);
+        } else {
+            throw new Exception("User not logged in");
+        }
+    }
+
+    public function schedule_tech_talk(){
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Access the POST data
+            $data = [
+                'company_id' => $_SESSION['userId'] ?? 'default_id',
+                'topic' => $_POST['title'] ?? '',
+                'from_date' => $_POST['start'] ?? '',
+                'to_date' => $_POST['end'] ?? '',
+                'status' => 0,
+            ];
+            
+            // Output the POST data for debugging
+            echo "<pre>";
+
+            foreach($data as $d){
+                echo "<br>";
+                var_dump($d);
+                echo "<br>";
+            }
+
+            echo "</pre>";
+            if (ob_get_level() > 0) {
+                ob_flush();
+            }
+            flush();
+            
+            
+                $this->model('TechTalkModel');
+                $schedule = new TechTalkModel;
+                $schedule->store_techtalk($data);
+              
+
+            } else {
+                // Handle the error for non-POST requests
+                echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+            }
+
+            exit;
 
     }
+
+    public function request_techtalks() {
+        header('Content-Type: application/json');
+        $TechModel = new TechTalkModel;
+        echo $TechModel->get_techtalks();
+    }
+    
+
 
     public function shortlistedSE()
     {

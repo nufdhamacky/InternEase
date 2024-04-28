@@ -14,7 +14,8 @@ class AdvertisementRepository
     public function save(AdvertisementModel $advertisement)
     {
         $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -22,7 +23,7 @@ class AdvertisementRepository
         }
 
         $stmt->bind_param(
-            'ssisssisissi',
+            'ssisssissii',
             $advertisement->position,
             $advertisement->requirements,
             $advertisement->interns,
@@ -39,6 +40,7 @@ class AdvertisementRepository
         $result = $stmt->execute();
         return $result;
     }
+
 
     public function getAllAdvertisements(): array
     {
