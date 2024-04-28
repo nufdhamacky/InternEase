@@ -127,7 +127,7 @@ if (isset($_GET['query'])) {
 
                 </div>
             </div>
-            <a href="<?= ROOT ?>/pdc/sendEmail" class="btn">Send</a>
+            <!--            <a href="--><?php //= ROOT ?><!--/pdc/sendEmail" class="btn">Send</a>-->
             <div id="seTable" class="details">
                 <div class="studentdetails">
                     <div class="cardHeader">
