@@ -226,16 +226,39 @@
         }
 
         public function shortlistedStu(){
-            
-            $this->view('company/shortlistedStu');
+
+            $companyId = $_SESSION['userId'];
+            $positions = $this->companyStudentRepository->getCompanyPosWithCounts($companyId);
+
+            $data = [
+                'positions' => $positions
+            ];
+            $this->view('company/shortlistedStu', $data);
 
         }
 
-        public function shortlistedQA(){
+        public function shortlistedQA() {
+            if (isset($_GET['position'])) {
+                $position = urldecode($_GET['position']); // Ensure the parameter is decoded properly
+            } else {
+                throw new Exception("Position parameter is missing");
+            }
             
-            $this->view('company/shortlistedQA');
-
+            $companyId = $_SESSION['userId'] ?? null; // Get companyId from session
+            
+            if ($companyId) {
+                $shortlistedStudents = $this->companyStudentRepository->fetchShortlistedStuByPos($companyId, $position);
+        
+                $data = [
+                    'shortlistedStudents' => $shortlistedStudents
+                ];
+        
+                $this->view('company/shortlistedQA', $data);
+            } else {
+                throw new Exception("User not logged in");
+            }
         }
+        
 
         public function shortlistedSE(){
             
