@@ -11,23 +11,77 @@ class Student extends Controller{
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
-        // $studentModel = $this->model("StudentModel");
+        $wishlistModel = $this->model('Wishlist');
 
-        // $studentId = $studentModel->get_student_id_with_user_id($userId);
-        
-        $appliedAdids = $appliedModel->fetchAppliedAdIds($_SESSION['studentId']);
-
-        $appliedAds = $admodel->fetchAdsWithId($appliedAdids);
+        // Retrieve applied ad IDs and their statuses
+        $appliedAdIds = $appliedModel->fetchAppliedAdIds($_SESSION['studentId']);
+        $appliedAds = $admodel->fetchAdsWithId($appliedAdIds);
         $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($_SESSION['studentId']);
 
+        // Fetch and attach application status to each applied ad
+        foreach ($appliedAds as &$ad) {
+            $status = $appliedModel->fetchApplicationStatus($_SESSION['studentId'], $ad['ad_id']);
+            $ad['applicationStatus'] = $status;
+        }
+
+        // Prepare data to be passed to the view
         $data = [
             'appliedAds' => $appliedAds,
             'appliedAdsCount' => $appliedAdsCount
         ];
 
+        // Load the view with the data
         $this->view('student/dashboard', $data);
 
+
     }
+
+    public function addCalendarEvent(){
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $date = $_POST["date"];
+            $title = $_POST["title"];
+            $description = $_POST["description"];
+    
+            $calendarModel = $this->model('CalendarModel');
+
+            $result = $calendarModel->addEvent($date, $title, $description);
+            
+            // Check the result of the operation
+            if ($result === "Event added successfully") {
+                echo json_encode(["message" => $result]);
+            } else {
+                http_response_code(500); // Set HTTP status code to indicate internal server error
+                echo json_encode(["error" => $result]);
+            }
+        } else {
+            http_response_code(405); // Set HTTP status code to indicate method not allowed
+            echo json_encode(["error" => "Method not allowed"]);
+        }
+    }
+    
+    public function deleteCalendarEvent(){
+
+        if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
+            $eventId = $_GET["id"];
+            
+            $calendarModel = $this->model('CalendarModel');
+            
+            $result = $calendarModel->deleteEvent($eventId);
+            
+            // Check the result of the operation
+            if ($result === "Event deleted successfully") {
+                echo json_encode(["message" => $result]);
+            } else {
+                http_response_code(500); // Set HTTP status code to indicate internal server error
+                echo json_encode(["error" => $result]);
+            }
+        } else {
+            http_response_code(405); // Set HTTP status code to indicate method not allowed
+            echo json_encode(["error" => "Method not allowed"]);
+        }
+    }
+    
 
     public function apply()
     {
@@ -69,6 +123,32 @@ class Student extends Controller{
 
         // $this->view('student/wishlist');
     }
+
+    public function removeFromWishlist()
+    {
+        $userId = $_SESSION['userId'];
+        $adId = $_POST['adId'];
+
+        $wishlistModel = $this->model('Wishlist');
+        $success = $wishlistModel->deleteFromWishlist($userId, $adId);
+
+        if ($success) {
+            echo json_encode(['success' => true, 'message' => 'Item deleted from wishlist successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to delete item from wishlist']);
+        }
+    }
+
+    public function hasApplied(){
+        $studentId = $_SESSION['studentId'];
+        $adId = $_GET['adId'];
+    
+        $appliedModel = $this->model('Applied');
+    
+        $hasApplied = $appliedModel->alreadyApplied($studentId, $adId);
+        echo json_encode(['hasApplied' => $hasApplied]);
+    }
+
 
     public function advertisement(){
         $userId = $_SESSION['userId'];

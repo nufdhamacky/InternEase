@@ -134,8 +134,10 @@
                     $data['signupError'] = 'Something went wrong. Try again later !';
                     $this->view('home/signup', $data);
                     
-                } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/home';</script>";
+                }else{
+                    $data = ['sent'=>1];
+                    $this->view('home/signup', $data);
+
                 }
 
             } else {
@@ -179,7 +181,7 @@
                     $this->view('home/signupStd', $data);
                     
                 } else {
-                    echo "<script> window.location.href='http://localhost/internease/public/comapany/index';</script>";
+                   ;
                 }
 
             } else {
@@ -265,7 +267,8 @@
                 }
 
             }
-        }
+    
 
     }
 
+}

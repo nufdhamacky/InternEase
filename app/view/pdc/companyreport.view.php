@@ -21,9 +21,10 @@ $reports = $reportController->getReportsByCompany($id);
 <div class="details">
     <div class="companyList">
         <div class="cardHeader">
-            <h2>Students Reports</h2>
+            <h2>Students Complaints</h2>
             <div class="headerButtons">
-                <a href="<?= ROOT ?>/companyreport/blockCompany?id=<?php echo $id; ?>" class="btn delete">Block</a>
+                <a href="#"
+                   onclick="blockcompany(<?php echo $id; ?>)" class="btn delete">Block</a>
             </div>
         </div>
 
@@ -60,5 +61,7 @@ $reports = $reportController->getReportsByCompany($id);
 </div>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="<?= ROOT ?>/js/blockcompany.js"></script>
+
 </body>
 </html>

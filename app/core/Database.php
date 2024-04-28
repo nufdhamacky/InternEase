@@ -2,12 +2,18 @@
 
     class Database {
 
-        public function connection () {
+        private $conn = null;
 
-            $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+        public function connection () {
+          
+            if ($this->conn === null) {
+              
+                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+            }
             return $conn;
-            
         }
+
+           
 
        
         public function query($sql, $data = [], $data_type = "object") {

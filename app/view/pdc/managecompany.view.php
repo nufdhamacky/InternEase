@@ -34,7 +34,7 @@ $pageData = $pdController->getApprovedCompany($page);
             <div class="card">
                 <a style="text-decoration: none" href="blacklistedcompanies">
                     <div>
-                        <div class="number">5</div>
+                        <div class="number"><?php echo $pdController->getBlackListCompanyCount() ?></div>
                         <div class="cardName">Black listed Companies</div>
                     </div>
                 </a>

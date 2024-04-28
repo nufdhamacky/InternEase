@@ -39,7 +39,6 @@
         </div>
     </div>
 
-    <!-- OTP Modal -->
     <div class="modal" id="otpModal" style="display:none;">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -53,7 +52,7 @@
 
     <script src="<?=ROOT?>/js/login.js"></script>
     <script>
-    otp();  // Make sure this function is needed and $otp is correctly defined in PHP above
+    otp();  
 
     function otp() {
         var modal = document.getElementById('otpModal');
