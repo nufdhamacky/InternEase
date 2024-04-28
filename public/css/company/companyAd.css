@@ -290,6 +290,10 @@ body
     text-align: end;
 }
 
+.studentdetails table tbody .del{
+    color: red;
+}
+
 .ad-table{
     width: 75%;
     height: 100vh;
