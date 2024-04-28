@@ -131,7 +131,7 @@ if (isset($_GET['query'])) {
             <div id="seTable" class="details">
                 <div class="studentdetails">
                     <div class="cardHeader">
-                        <h2>Company Visit Schedule</h2>
+                        <h2>Techtalk Schedule</h2>
                     </div>
                     <table>
                         <thead>
