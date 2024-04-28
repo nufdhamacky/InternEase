@@ -2,16 +2,19 @@
 
 include_once('../app/model/AdvertisementModel.php');
 
-class AdvertisementRepository {
+class AdvertisementRepository
+{
     private $conn;
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function save(AdvertisementModel $advertisement) {
-        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, image_url, no_of_cvs_required) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public function save(AdvertisementModel $advertisement)
+    {
+        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -19,7 +22,7 @@ class AdvertisementRepository {
         }
 
         $stmt->bind_param(
-            'ssisssisissi',
+            'ssisssissii',
             $advertisement->position,
             $advertisement->requirements,
             $advertisement->interns,
@@ -28,9 +31,8 @@ class AdvertisementRepository {
             $advertisement->toDate,
             $advertisement->companyId,
             $advertisement->qualification,
-            $advertisement->other_qualifications, 
+            $advertisement->other_qualifications,
             $advertisement->status,
-            $advertisement->imageUrl,
             $advertisement->no_of_cvs_required
         );
 
@@ -38,7 +40,8 @@ class AdvertisementRepository {
         return $result;
     }
 
-    public function getAllAdvertisements(): array {
+    public function getAllAdvertisements(): array
+    {
         $companyId = $_SESSION['userId'];
         $sql = "SELECT * FROM company_ad WHERE company_id = ?";
         $stmt = $this->conn->prepare($sql);
@@ -60,7 +63,6 @@ class AdvertisementRepository {
                 $row['qualification'],
                 $row['other_qualifications'], // Use correct field name
                 $row['status'],
-                $row['image_url'],
                 $row['no_of_cvs_required']
             );
             $advertisements[] = $advertisement;
