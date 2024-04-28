@@ -48,5 +48,14 @@ class Wishlist extends Model {
         return $adIdArray;
     }
 
+    public function deleteFromWishlist($userId, $adId) {
+        $query = "DELETE FROM wishlist WHERE user_id = ? AND ad_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('ii', $userId, $adId);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
+
 }
 ?>
