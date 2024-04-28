@@ -71,10 +71,9 @@ $students = $data['students'];
                                     </td>
                                     <td>
                                     <select class="status-select" data-student-id="<?= htmlspecialchars($student['id']) ?>">
-                                        <option value="" selected hidden>--Select Action--</option>
-                                        <option value="shortlist">Shortlist</option> 
-                                        <option value="pending">Pending</option>
-                                        <option value="reject">Reject</option> 
+                                        <option value="pending" <?= ($student['status'] == 0) ? 'selected' : '' ?>>Pending</option>
+                                        <option value="shortlist" <?= ($student['status'] == 1) ? 'selected' : '' ?>>Shortlist</option>
+                                        <option value="reject" <?= ($student['status'] == 2) ? 'selected' : '' ?>>Reject</option>
                                     </select>
                                     </td>
                                 </tr>

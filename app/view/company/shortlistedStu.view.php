@@ -41,24 +41,20 @@
 
                     <tbody>
 
+                    <?php if($positions): ?>
+                        <?php foreach($positions as $position): ?>
                         <tr>
-                            <td>Quality Assurance</td>
-                            <td>18</td>
-                            <td><a href="shortlistedQA" span class = "view"></span>View List</a></td>
+                            <td><?= htmlspecialchars($position['position']) ?></td>
+                            <td><?= $position['application_count']?></td>
+                            <td><a href="shortlistedQA?position=<?= urlencode($position['position']) ?>" span class = "view"></span>View List</a></td>
                         </tr>
-
-                        <tr>
-                            <td>Software Engineer</td>
-                            <td>10</td>
-                            <td><a href="shortlistedSE" span class = "view"></span>View List</td>
-                        </tr>
-
-                        <tr>
-                            <td>Business Analyst</td>
-                            <td>12</td>
-                            <td><a href="shortlistedBA" span class = "view"></span>View List</td>
-                        </tr>
-
+                        <?php endforeach;?>
+                            
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5">No positions found.</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
 

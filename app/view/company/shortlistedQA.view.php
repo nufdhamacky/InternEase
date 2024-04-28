@@ -45,10 +45,12 @@
 
                     <tbody>
 
+                    <?php if($shortlistedStudents): ?>
+                        <?php foreach($shortlistedStudents as $student): ?>
                         <tr>
-                            <td>Hamsayini Senthilrasa</td>
+                            <td><?php echo $student['first_name'] . ' ' . $student['last_name']; ?></td>
                             <td>BSc. in Computer Science</td>
-                            <td>21020369</td>
+                            <td><?= $student['reg_no']?></td>
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
                             <td>
@@ -59,37 +61,13 @@
                                 </select>
                             </td>
                         </tr>
-
+                        <?php endforeach;?>
+                    <?php else:?>
                         <tr>
-                            <td>Nufdha Macky</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>21020574</td>
-                            <td><a href="#" span class = "view"></span>View Profile</td>
-                            <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
-                            <td>
-                                <select>
-                                    <option value = "" selected hidden>--Select Action--</option>
-                                    <option value="recruited">Recruited</option> 
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
+                            <td colspan="5">No students found.</td>
                         </tr>
-
-                        <tr>
-                            <td>Binali Ukwatte</td>
-                            <td>BSc. in Information Systems</td>
-                            <td>21020364</td>
-                            <td><a href="#" span class = "view"></span>View Profile</td>
-                            <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
-                            <td>
-                                <select>
-                                    <option value = "" selected hidden>--Select Action--</option>
-                                    <option value="recruited">Recruited</option> 
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </td>
-                        </tr>
-
+                    <?php endif;?>
+                    
                     </tbody>
                 </table>
 

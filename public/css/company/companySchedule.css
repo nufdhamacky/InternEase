@@ -22,6 +22,7 @@ body
 .navigation 
 {
     position: fixed;
+    left:0 !important;
     width: 300px;
     height: 100%;
     background-color: #0b596f;
@@ -627,3 +628,4 @@ section .content .title{
 .submit button :hover {
     background-color: #72abbb;
 }
+
