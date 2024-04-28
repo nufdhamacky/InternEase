@@ -25,7 +25,6 @@ class Company extends Controller
         parent::__construct();
         $this->advertisementRepository = new AdvertisementRepository($this->conn);
         $this->techTalkRepository = new TechTalkRepository($this->conn);
-        $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
         $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
         $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
 

@@ -356,7 +356,7 @@ class Pdc extends Controller
             <strong>Email:</strong> 2021is033@stu.ucsc.cmb.ac.lk<br>
             <strong>Name:</strong> Valarmathy<br>
             <strong>Registration No:</strong> 2021/IS/033<br>
-            <strong>Password:</strong> Nirm@033
+            <strong>Password:</strong> @033
         </div>
     </div>
 </body>

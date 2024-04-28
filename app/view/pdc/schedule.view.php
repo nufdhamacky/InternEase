@@ -131,15 +131,15 @@ if (isset($_GET['query'])) {
             <div id="seTable" class="details">
                 <div class="studentdetails">
                     <div class="cardHeader">
-                        <h2>Techtalk Schedule</h2>
+                        <h2>TechTalk Schedule</h2>
                     </div>
                     <table>
                         <thead>
                         <tr>
                             <td>Company Name</td>
-                            <td>Request Date</td>
-                            <td>Visit Date</td>
-                            <td>Reason</td>
+                            <td>Topic</td>
+                            <td>Date</td>
+                            <td>Date</td>
                             <td>Status</td>
                             <td>Action</td>
                         </tr>
