@@ -115,12 +115,30 @@
 
             //creating validation object
             $validation = new Validation();
+           
+            $errors = [
+                'email' => $validation->validate_email($email),
+                'company_name' => $validation->validate_name('Company Name', $company),
+                'password' => $validation->validate_pwd($password, $confirmPassword),
+                'contact_person' => $validation->validate_name('Contact Person', $contactPerson),
+            ];
+            
 
-            $errors = $validation->validateSignup($company, $email, $password, $confirmPassword);
 
             if(!$errors){
 
-                //creating user model object
+                $smtp = new Mailer;
+               
+                if(!$smtp->sendOTPEmail($email,"Your OTP for company Registration!")){
+                    $errors['OTP_failed'] = "OTP failure, try again";
+                    $data = ['errors'=>$errors];
+                    $this->view('home/resetPassword',$data);
+                    return 0;
+                }else{
+                    $data = ['otp'=>1];
+                    $this->view('home/signup', $data);
+                }
+                
                 $user = $this->model('User');
 
                 //calling signup function from user model to check signup
@@ -141,7 +159,7 @@
                 }
 
             } else {
-                $data['signupError'] = $errors;
+                $data['errors'] = $errors;
                 $this->view('home/signup', $data);
             }
 
@@ -165,6 +183,9 @@
             $errors = $validation->validateSignup($username, $email, $password, $confirmPassword);
 
             if(!$errors){
+
+            
+                $this->view('home/resetPassword',$data);
 
                 //creating user model object
                 $user = $this->model('User');
@@ -256,19 +277,30 @@
         public function validate_otp(){
             if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_otp"])){
                 $smtp = new Mailer;
-                $email = $_SESSION['resetEmail'];
+                if(isset($_SESSION['resetEmail'])){
+                    $email = $_SESSION['resetEmail'];
+                }else{
+                    $email = $_SESSION['signupEmail'];
+                }
+               
                 $otp = $_POST['otp'];
                 if($smtp->validateOTP($email,$otp)){
                     $data=['email'=> $email];
-                    $this->view('home/resetpage',$data);
+                    if(isset($_SESSION['resetEmail'])){
+                        $this->view('home/resetpage',$data);
+                    }
+                    else{
+                        $data=['sent'=> 1];
+                        $this->view('home/signup',$data);
+                    }
                 }else{
-                    echo "otp  nooo";
-                    return false;
+                    $data=['sent'=> 0];
+                    $this->view('home/signup',$data);
                 }
 
             }
     
 
-    }
+        }
 
 }
