@@ -12,7 +12,6 @@ class AdvertisementModel
     public $qualification;
     public $other_qualifications;
     public $status;
-    public $imageUrl;
     public $no_of_cvs_required;
 
     public function __construct(

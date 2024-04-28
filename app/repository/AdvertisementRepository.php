@@ -14,6 +14,7 @@ class AdvertisementRepository
     public function save(AdvertisementModel $advertisement)
     {
         $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required) 
+
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($sql);
