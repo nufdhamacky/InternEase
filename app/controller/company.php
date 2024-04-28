@@ -278,6 +278,56 @@ class Company extends Controller
         }
     }
 
+    public function schedule_tech_talk(){
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Access the POST data
+            $data = [
+                'company_id' => $_SESSION['userId'] ?? 'default_id',
+                'topic' => $_POST['title'] ?? '',
+                'from_date' => $_POST['start'] ?? '',
+                'to_date' => $_POST['end'] ?? '',
+                'status' => 0,
+                'location' => $_POST['location'] ?? '',
+            ];
+            
+            // Output the POST data for debugging
+            echo "<pre>";
+
+            foreach($data as $d){
+                echo "<br>";
+                var_dump($d);
+                echo "<br>";
+            }
+
+            echo "</pre>";
+            if (ob_get_level() > 0) {
+                ob_flush();
+            }
+            flush();
+            
+            
+                $this->model('TechTalkModel');
+                $schedule = new TechTalkModel;
+                $schedule->store_techtalk($data);
+              
+
+            } else {
+                // Handle the error for non-POST requests
+                echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+            }
+
+            exit;
+
+    }
+
+    public function request_techtalks() {
+        header('Content-Type: application/json');
+        $TechModel = new TechTalkModel;
+        echo $TechModel->get_techtalks();
+    }
+    
+
 
     public function shortlistedSE()
     {
