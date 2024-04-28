@@ -24,35 +24,17 @@ class Mailer extends Database
         $this->mail->SMTPAuth = true;           // Enable SMTP authentication
         $this->mail->Username = 'intern.easeucsc@gmail.com'; // SMTP username
         $this->mail->Password = 'afjcgcwfdcfuumir'; // SMTP password
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $this->mail->Port = 465;                 // TCP port to connect to, use 465 for `SMTPS`
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
+        $this->mail->Port = 465;                 // TCP port to connect to, use 465 for SMTPS
 
         $this->mail->setFrom('intern.easeucsc@gmail.com', 'InternEase');
-    }
-
-    public function sendBulkMail($emails, $subject, $body)
-    {
-        try {
-            foreach ($emails as $to) {
-                $this->mail->addBCC($to);     // Add a recipient
-            }
-            
-            $this->mail->isHTML(true);        // Set email format to HTML
-            $this->mail->Subject = $subject;
-            $this->mail->Body = $body;
-
-            $this->mail->send();
-            return 'Message has been sent';
-        } catch (Exception $e) {
-            return "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
-        }
     }
 
     function validateOTP($email, $otp)
     {
         $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}' AND otp = {$otp}";
         $ValidateOTP = $this->query($sql);
-        if (empty($ValidateOTP)) {
+        if (empty($ValidateOTP) || count($ValidateOTP) == 0) {
             return false;
         }
         foreach ($ValidateOTP as $v) {
@@ -66,6 +48,24 @@ class Mailer extends Database
         }
     }
 
+    public function sendBulkMail($emails, $subject, $body)
+    {
+        try {
+            foreach ($emails as $to) {
+                $this->mail->addBCC($to);     // Add a recipient
+            }
+
+            $this->mail->isHTML(true);        // Set email format to HTML
+            $this->mail->Subject = $subject;
+            $this->mail->Body = $body;
+
+            $this->mail->send();
+            return 'Message has been sent';
+        } catch (Exception $e) {
+            return "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+        }
+    }
+
     public function sendOTPEmail($email, $subject)
     {
         $mailer = new Mailer();
@@ -76,6 +76,7 @@ class Mailer extends Database
                  <p>This OTP is valid for the next 10 minutes.</p>";
         $mailer->sendMail($email, $subject, $body);
         return $otp;
+
     }
 
     function generateOTP($length = 6)
@@ -103,7 +104,6 @@ class Mailer extends Database
 
     }
 
-
     public function sendMail($to, $subject, $body)
     {
         try {
@@ -112,26 +112,10 @@ class Mailer extends Database
             $this->mail->Subject = $subject;
             $this->mail->Body = $body;
 
-    function validateOTP($email, $otp) {
-        $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}' AND otp = {$otp}";
-        $ValidateOTP = $this->query($sql);
-        if(empty($ValidateOTP) || count($ValidateOTP)==0){
-            return false;
-        }
-        foreach ($ValidateOTP AS $v){
-            if ($v) {
-                if ($v['otp'] == $otp && time() < $v['expiry']) {
-                    return true;  // OTP is correct and not expired
-                }
-            }
-            return false;  // OTP is incorrect or expired
-
-
             $this->mail->send();
             return 'Message has been sent';
         } catch (Exception $e) {
             return "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
     }
-
 }

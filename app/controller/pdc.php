@@ -308,12 +308,60 @@ class Pdc extends Controller
 
             }
             $subject = "Welcome to InternEase";
-            $body = "Welcome to InternEase. Your account has been created successfully. You can now login to your account\n
-            your username is your email and the password is your first four letters and the @ sign with your registration number \n
-            eg: email : 2021is033@stu.ucsc.cmb.ac.lk\n
-            Name : Nirmal\n
-            Registration No : 2021/IS/033\n
-            password : Nirm@033\n";
+            $body = "
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Welcome to InternEase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Welcome to InternEase</h1>
+        <p>Your account has been created successfully. You can now login to your account.</p>
+        <p>Your username is your email and the password is your first four letters and the @ sign with your registration number.</p>
+        <div class='info'>
+            <strong>Example:</strong><br>
+            <strong>Email:</strong> 2021is033@stu.ucsc.cmb.ac.lk<br>
+            <strong>Name:</strong> Valarmathy<br>
+            <strong>Registration No:</strong> 2021/IS/033<br>
+            <strong>Password:</strong> Nirm@033
+        </div>
+    </div>
+</body>
+</html>";
+
 
             $mail = new mailer;
             $sucess = $mail->sendBulkMail($list, $subject, $body);
