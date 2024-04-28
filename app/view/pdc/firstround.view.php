@@ -83,7 +83,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                         </div>
                         <h4>No of advertisements students can apply:</h4>
                         <div class="card">
-                            <label for="editAdvertisementCount">Select Count:</label>
+                            <!--                            <label for="editAdvertisementCount">Select Count:</label>-->
                             <div class="input-container">
                                 <select id="editAdvertisementCount"
                                         name="advertisement_count">
