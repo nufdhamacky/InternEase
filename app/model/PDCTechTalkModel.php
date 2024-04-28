@@ -1,6 +1,6 @@
 <?php
 
-include_once("MyCompanyModel.php.php");
+include_once("MyCompanyModel.php");
 
 class PDCTechTalkModel
 {

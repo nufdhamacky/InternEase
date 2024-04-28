@@ -3,11 +3,13 @@ include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
 include_once('../app/repository/PdcComplaintRepository.php');
+include_once('../app/repository/PDCTechTalkRepository.php');
 include_once('../app/repository/CompanyBlockReasonRepository.php');
 include_once('../app/model/CompanyBlockReasonModel.php');
 include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
 include_once('../app/model/PdcComplaintModel.php');
+include_once('../app/model/PDCTechTalkModel.php');
 
 
 class Pdc extends Controller
@@ -16,6 +18,7 @@ class Pdc extends Controller
     private StudentRepository $studentRepository;
     private CompanyVisitRepository $companyVisitRepository;
 
+    private PDCTechTalkRepository $pdcTechTalkRepository;
     private PdcComplaintRepository $pdcComplaintRepository;
 
     private CompanyBlockReasonRepository $companyBlockReasonRepository;
@@ -29,6 +32,7 @@ class Pdc extends Controller
         $this->companyVisitRepository = new CompanyVisitRepository($this->conn);
         $this->pdcComplaintRepository = new PdcComplaintRepository($this->conn);
         $this->companyBlockReasonRepository = new CompanyBlockReasonRepository($this->conn);
+        $this->pdcTechTalkRepository = new PDCTechTalkRepository($this->conn);
 
     }
 
@@ -234,6 +238,27 @@ class Pdc extends Controller
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
     }
 
+    public function getAllTechTalks()
+    {
+        return $this->pdcTechTalkRepository->getAll();
+    }
+
+    public function acceptTechTalk()
+    {
+        $id = $_GET["id"];
+        $this->pdcTechTalkRepository->accept($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
+
+    }
+
+    public function rejectTechTalk()
+    {
+        $id = $_GET["id"];
+        $this->pdcTechTalkRepository->reject($id);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
+
+    }
+
     public function addVisitRequest()
     {
         $companyIds = $_POST['company'];
@@ -278,7 +303,6 @@ class Pdc extends Controller
         $lastName = mysqli_real_escape_string($this->conn, $_POST['last_name']);
         $regNo = mysqli_real_escape_string($this->conn, $_POST['reg_no']);
         $indexNo = mysqli_real_escape_string($this->conn, $_POST['index_no']);
-
 
         $student = new PdcStudentModel($id, $email, $firstName, $lastName, null, $regNo, $indexNo, array(), array());
         $this->studentRepository->update($student);
@@ -356,7 +380,7 @@ class Pdc extends Controller
             <strong>Email:</strong> 2021is033@stu.ucsc.cmb.ac.lk<br>
             <strong>Name:</strong> Valarmathy<br>
             <strong>Registration No:</strong> 2021/IS/033<br>
-            <strong>Password:</strong> @033
+            <strong>Password:</strong> Vala@033
         </div>
     </div>
 </body>

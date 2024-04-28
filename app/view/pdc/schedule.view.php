@@ -8,7 +8,7 @@ if (isset($_GET['query'])) {
 } else {
     $pageData = $pdcController->getAllCompanyVisits($page);
 }
-
+$techTalks = $pdcController->getAllTechTalks();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,32 +139,25 @@ if (isset($_GET['query'])) {
                             <td>Company Name</td>
                             <td>Topic</td>
                             <td>Date</td>
-                            <td>Date</td>
                             <td>Status</td>
                             <td>Action</td>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($pageData->data as $v) { ?>
+                        foreach ($techTalks as $techTalk) { ?>
                             <tr>
-                                <td><?php echo $v->companyName; ?></td>
-                                <td><?php echo $v->requestDate; ?></td>
-                                <td><?php echo $v->visitDate ?? "Not Set"; ?></td>
-                                <td><?php echo $v->reason; ?></td>
-                                <td style="color: <?php echo $v->status == 0 ? "blue" : ($v->status == 1 ? "green" : "red"); ?>"><?php echo $v->status == 0 ? "Pending" : ($v->status == 1 ? "Approved" : "Rejected"); ?></td>
+                                <td><?php echo $techTalk->company->name; ?></td>
+                                <td><?php echo $techTalk->topic; ?></td>
+                                <td><?php echo date("Y-m-d", strtotime($techTalk->fromDate)); ?></td>
+                                <td style="color: <?php echo $techTalk->status == 0 ? "blue" : ($techTalk->status == 1 ? "green" : "red"); ?>"><?php echo $techTalk->status == 0 ? "Pending" : ($techTalk->status == 1 ? "Approved" : "Rejected"); ?></td>
                                 <td>
-                                    <!--                        <a href="viewstudent?id=-->
-                                    <?php //echo $v->id; ?><!--">view</a>-->
-                                <td>
-                                    <a href="<?= ROOT ?>/pdc/acceptVisit?id=<?php echo $v->id; ?>"
-                                       style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                                    <a href="<?= ROOT ?>/pdc/rejectVisit?id=<?php echo $v->id; ?>"
-                                       style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
-                                    <a href="<?= ROOT ?>/pdc/deleteVisit?id=<?php echo $v->id; ?>"
-                                       style="display: <?php echo $v->status == 0 && $v->visitDate == null ? "inline" : "none" ?>;color: red;text-decoration: none">Delete</a>
+                                    <a href="<?= ROOT ?>/pdc/acceptTechTalk?id=<?php echo $techTalk->techTalkId; ?>"
+                                       style="display: <?php echo $techTalk->status == 0 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
+                                    <a href="<?= ROOT ?>/pdc/rejectTechTalk?id=<?php echo $techTalk->techTalkId; ?>"
+                                       style="display: <?php echo $techTalk->status == 0 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                                 </td>
-                                </td>
+
                             </tr>
                         <?php } ?>
                         </tbody>
