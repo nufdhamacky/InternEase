@@ -165,7 +165,7 @@
                     'topic' => $_POST['title'] ?? '',
                     'from_date' => $_POST['start'] ?? '',
                     'to_date' => $_POST['end'] ?? '',
-                    'status' => 1,
+                    'status' => 0,
                     'location' => $_POST['location'] ?? '',
                 ];
                 

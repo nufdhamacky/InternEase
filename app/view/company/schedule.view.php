@@ -196,46 +196,125 @@
 
 <script>
     $(document).ready(function() {
+        var existingEvents = []; 
         var selectedStart;
         var selectedEnd;
-        $('#calendar').fullCalendar();
-        $('#tech_talk_calendar').fullCalendar({
-            height: 600,
-            aspectRatio: 2,
-            contentHeight: 500,
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'agendaWeek,agendaDay'
-                },
-                dayClick: function(date, jsEvent, view) {
-                    if (date.day() === 5 && date.hour() >= 8 && date.hour() < 11) {
-                        selectedStart = date.clone().hour(8).minute(0).second(0).format('YYYY-MM-DDTHH:mm');
-                        selectedEnd = date.clone().hour(9).minute(0).second(0).format('YYYY-MM-DDTHH:mm');
+
+        function fetchEvents() {
+                return $.ajax({
+                    url: '<?=ROOT?>/company/request_techtalks',
+                    type: 'GET',
+                    dataType: 'json'
+                }).then(function(response) {
+                    // Update the existingEvents array
+                    existingEvents = response;
+                }).fail(function() {
+                    alert('There was an error while fetching events!');
+                });
+            }
+
+
+        fetchEvents().then(function() {
+                setupCalendar();
+            });
+
+        
+        function setupCalendar() {
+            $('#calendar').fullCalendar();
+            $('#tech_talk_calendar').fullCalendar({
+                height: 600,
+                aspectRatio: 2,
+                contentHeight: 500,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'agendaWeek,agendaDay'
+                    },
+                    dayClick: function(date, jsEvent, view) {
+                    if (date.day() === 5 && date.hour() >= 8 ) {    
+                        selectedStart = date.format('YYYY-MM-DDTHH:mm');
+        // Set the end time to one hour after the start time
+                        selectedEnd = date.clone().add(2, 'hour').format('YYYY-MM-DDTHH:mm');
 
                         startdate = selectedStart.split('A')[0];
                         starttime = selectedStart.split('A')[1];
 
                         enddate = selectedEnd.split('A')[0];
                         endtime = selectedEnd.split('A')[1];
+                   
 
-                        $('#start').text("Scheduling for the date: "+startdate+"  From:"+starttime+"  To:"+endtime);
-                        $('#techTalkModal').modal('show');
+                    // Only after fetching the events we allow the check
+                    
+                            console.log("events",existingEvents);
+                        if (isTimeSlotAvailable(selectedStart, selectedEnd)) {
+                            $('#start').text("Scheduling for the date: "+startdate+"  From:"+starttime+"  To:"+endtime);
+
+                            $('#techTalkModal').modal('show');
+                        } else {
+                            alert('This time slot is already taken.');
+                        }
+                        
                     } else {
-                        alert('You can only schedule tech talks on Fridays between 8 AM to 11 AM.');
-                    }
-                },
-                events: {
-                    url: '<?=ROOT?>/company/request_techtalks',
-                    type: 'GET',
-                    error: function() {
-                        alert('There was an error while fetching events!');
+                                alert('You can only schedule tech talks on Fridays between 8 AM to 11 AM.');
+                        }
                     },
-                    eventClick: function(calEvent, jsEvent, view) {
-                        alert('Event: ' + calEvent.title + '\nCompany: ' + calEvent.company + '\nLocation: ' + calEvent.location);
+                    events: {
+                        url: '<?=ROOT?>/company/request_techtalks',
+                        type: 'GET',
+                        error: function() {
+                            alert('There was an error while fetching events!');
+                        },
+                        eventClick: function(calEvent, jsEvent, view) {
+                            alert('Event: ' + calEvent.title + '\nCompany: ' + calEvent.company + '\nLocation: ' + calEvent.location);
+                        }
                     }
+                });
+            }
+
+            
+            function isTimeSlotAvailable(start, end) {
+                // Correct the formatting of the start and end times
+                var formattedStart = start.replace('A', 'T');
+                var formattedEnd = end.replace('A', 'T');
+
+                console.log('Formatted start:', formattedStart);
+                console.log('Formatted end:', formattedEnd);
+
+                var startMoment = moment(formattedStart);
+                var endMoment = moment(formattedEnd);
+
+                if (!startMoment.isValid()) {
+                    console.error('Invalid start date:', formattedStart);
                 }
-            });
+
+                if (!endMoment.isValid()) {
+                    console.error('Invalid end date:', formattedEnd);
+                }
+
+                console.log('Start moment:', startMoment.format());
+                console.log('End moment:', endMoment.format());
+
+                // Check for time slot availability
+                return !existingEvents.some(function(event) {
+                    var eventStart = moment(event.start);
+                    var eventEnd = moment(event.end);
+
+                    console.log('eventStart', eventStart.format());
+                    console.log('eventEnd:', eventEnd.format());
+
+                    var startsDuringEvent = startMoment.isBetween(eventStart, eventEnd, null, '[]');
+                    var endsDuringEvent = endMoment.isBetween(eventStart, eventEnd, null, '[]');
+                    var wrapsEvent = eventStart.isBetween(startMoment, endMoment, null, '[]') || 
+                                    eventEnd.isBetween(startMoment, endMoment, null, '[]');
+
+                    return startsDuringEvent || endsDuringEvent || wrapsEvent;
+                });
+            }
+
+
+
+
+    
 
             $('#techTalkModal').on('shown.bs.modal', function() {
                 $('#techTalkStart').val(selectedStart);

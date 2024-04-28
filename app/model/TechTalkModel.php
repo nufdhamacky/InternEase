@@ -22,8 +22,8 @@ class TechTalkModel extends Model{
             $techtalks[] = [
                 
                 'title' => $r['topic'], // FullCalendar expects 'title'
-                'start' => date(DATE_ISO8601, strtotime($r['from_date'])), // Convert to ISO 8601 format
-                'end' => date(DATE_ISO8601, strtotime($r['to_date'])), // Convert to ISO 8601 format
+                'start' => date('Y-m-d\TH:i', strtotime($r['from_date'])),
+                'end' => date('Y-m-d\TH:i', strtotime($r['to_date'])),
                 'location' => $r['location'] ,
 
             ];
