@@ -69,6 +69,14 @@ class AdminModel extends model {
                 FROM company
                 JOIN company_ad ON company.user_id = company_ad.company_id";
 
+        if(isset($_SESSION['filter']) && $_SESSION['filter'] == 1){
+            $company=$_SESSION['search_company'];
+            $query = "SELECT company.user_id, company.company_name, company_ad.from_date, company_ad.to_date, company_ad.no_of_intern
+            FROM company
+            JOIN company_ad ON company.user_id = company_ad.company_id WHERE LOWER(company.company_name) = LOWER('$company')";
+
+        } 
+
         $results = $this->query($query);
 
     
@@ -151,6 +159,14 @@ class AdminModel extends model {
                   FROM company
                   JOIN company_ad ON company.user_id = company_ad.company_id";
     
+        if(isset($_SESSION['filter']) && $_SESSION['filter'] == 1){
+            $company=$_SESSION['search_company'];
+            $query = "SELECT company.company_name, company_ad.no_of_intern, company_ad.position, company_ad.from_date, company_ad.to_date
+            FROM company
+            JOIN company_ad ON company.user_id = company_ad.company_id WHERE LOWER(company.company_name) = LOWER('$company')";
+
+        } 
+
         $results = $this->query($query);
     
         $YearP = [];
@@ -335,55 +351,6 @@ class AdminModel extends model {
         $query = "SELECT * FROM company_ad ";
         return $this->query($query);
     }
-
-/*   public function companyInternTrend() {
-        $query = "SELECT company.user_id, company.company_name, company_ad.from_date, company_ad.to_date, company_ad.no_of_intern
-                  FROM company
-                  JOIN company_ad ON company.user_id = company_ad.company_id";
-    
-        $results = $this->query($query);
-    
-        // Initialize arrays to store data for each year
-        $companies = []; // Array to store company names
-        $interns2022 = []; // Array to store number of interns for 2022
-        $interns2023 = []; // Array to store number of interns for 2023
-    
-        // Process the fetched data
-        foreach ($results as $row) {
-            $companyName = $row['company_name'];
-            $fromDate = $row['from_date'];
-            $toDate = $row['to_date'];
-            $noOfInterns = $row['no_of_intern'];
-    
-            // Check if the company_ad falls within 2022
-            if (strpos($fromDate, '2022') !== false || strpos($toDate, '2022') !== false) {
-                if (!isset($interns2022[$companyName])) {
-                    $interns2022[$companyName] = 0;
-                }
-                $interns2022[$companyName] += $noOfInterns;
-            }
-    
-            // Check if the company_ad falls within 2023
-            if (strpos($fromDate, '2023') !== false || strpos($toDate, '2023') !== false) {
-                if (!isset($interns2023[$companyName])) {
-                    $interns2023[$companyName] = 0;
-                }
-                $interns2023[$companyName] += $noOfInterns;
-            }
-    
-            // Add company name to the list
-            if (!in_array($companyName, $companies)) {
-                $companies[] = $companyName;
-            }
-        }
-    
-        return [
-            'companies' => $companies,
-            'interns2022' => $interns2022,
-            'interns2023' => $interns2023
-        ];
-    }
-*/
 
 
 

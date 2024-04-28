@@ -7,10 +7,9 @@
     include_once('../app/model/TechTalkModel.php');
 
     include_once('../app/repository/CompanyStudentRepository.php');
-    // include_once('../app/model/StudentReqModel.php');
+    // include_once('../app/model/CompanyStudentModel.php');
 
     include_once('../app/repository/CompanyDetailsRepository.php');
-    // include_once('../app/model/CompanyDetailsModel.php');
 
     class Company extends Controller {
 
@@ -26,6 +25,7 @@
             $this->techTalkRepository = new TechTalkRepository($this->conn);
             $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
             $this->companyDetailsRepository = new CompanyDetailsRepository($this->conn);
+            $this->companyStudentRepository = new CompanyStudentRepository($this->conn);
 
         }
         public function isLoggedIn() {
@@ -85,14 +85,76 @@
             
         }
 
-        public function studentReq(){
-            $std = new CompanyStudentRepository;
-            $data=['stdrequests'=>$std->getStudentRequests()];
+        // public function studentReq(){
+        //     $std = new CompanyStudentRepository;
+        //     $data=['stdrequests'=>$std->getStudentRequests()];
             
-            $this->view('company/studentReq',$data);
+        //     $this->view('company/studentReq',$data);
 
+        // }
+
+        public function studentReq() {
+            $ads = $this->getAllApprovedAds();
+            $students = array();
+    
+            if (isset($_GET["ad_id"]) && $_GET["ad_id"] !== "all") {
+                $students = $this->companyStudentRepository->getStudentRequestsByAd($_GET["ad_id"]);
+            } else {
+                $students = $this->companyStudentRepository->getStudentRequests();
+            }
+    
+            $this->view('company/studentReq', ['ads' => $ads, 'students' => $students]);
         }
 
+        public function updateStatus() {
+            $input = json_decode(file_get_contents('php://input'), true);
+        
+            if (!isset($input['applied_id']) || !isset($input['status'])) {
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid input parameters']);
+                return;
+            }
+        
+            $appliedId = intval($input['applied_id']);
+            $status = intval($input['status']); // Convert status to an integer
+        
+            $statusMapping = [
+                'shortlist' => 0,
+                'recruited' => 1,
+                'reject' => 2
+            ];
+        
+            if (!array_key_exists($status, $statusMapping)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Invalid status']);
+                return;
+            }
+        
+            $result = $this->companyStudentRepository->updateStudentStatus($appliedId, $statusMapping[$status]);
+        
+            if ($result) {
+                http_response_code(200);
+                echo json_encode(['message' => 'Status updated successfully']);
+            } else {
+                http_response_code(500); // Internal Server Error
+                echo json_encode(['error' => 'Failed to update status']);
+            }
+        }
+        
+
+        public function getAllApprovedAds(): array 
+        {
+            return $this->companyStudentRepository->getAds();
+        }
+
+        public function getAllStudents(?int $ad_id = null): array {
+            return $this->companyStudentRepository->getStudentRequests($ad_id);
+        }
+
+        public function filterStudents(): array
+        {
+            return $this->companyStudentRepository->getStudentRequests();
+        }
 
 
         public function tech(){
@@ -214,10 +276,11 @@
         }
         
 
-        public function getTotalAd(){
+        public function getTotalAd() {
+            // Get the user ID from the session
+            $userId = $_SESSION['userId'] ?? 0;
             $CompanyModel = $this->model('CompanyModel');
-            $adCount = $CompanyModel->getTotalAd($this->conn);
-            return $adCount;
+            return $CompanyModel->getTotalAd($this->conn, $userId);
         }
 
         public function getTotalStudents(){ 
@@ -227,45 +290,50 @@
         }
         
         public function addNewAd() {
-            $position = mysqli_real_escape_string($this->conn, $_POST['position']);
+            // Collect data and handle form submissions
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $position = mysqli_real_escape_string($this->conn, $_POST['position']);
+                $requirements = isset($_POST['req']) ? implode(", ", $_POST['req']) : '';
+                $interns = intval($_POST['no_of_intern'] ?? 0);
+                $workingMode = mysqli_real_escape_string($this->conn, $_POST['working_mode'] ?? 'Remote');
+                $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']);
+                $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']);
+                $companyId = $_SESSION['userId'];
+                $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
+                $otherQualifications = mysqli_real_escape_string($this->conn, $_POST['description'] ?? '');
+                $no_of_cvs_required = intval($_POST['no_of_cvs_required'] ?? 0);
+                $status = 'Open';
+                $imageUrl = ''; // If there are no image uploads, you can leave this empty.
     
-            // Initialize an empty array to store selected requirements
-            $requirements = array();
+                // Create AdvertisementModel
+                $advertisement = new AdvertisementModel(
+                    $position,
+                    $requirements,
+                    $interns,
+                    $workingMode,
+                    $fromDate,
+                    $toDate,
+                    $companyId,
+                    $qualification,
+                    $otherQualifications,
+                    $status,
+                    $imageUrl,
+                    $no_of_cvs_required
+                );
     
-            // Check if any checkboxes are checked
-            if (isset($_POST['req'])) {
-                // Loop through each selected checkbox value and store it in the array
-                foreach ($_POST['req'] as $requirement) {
-                    $requirements[] = mysqli_real_escape_string($this->conn, $requirement);
+                // Save to repository
+                $result = $this->advertisementRepository->save($advertisement);
+    
+                if ($result) {
+                    header("Location: /internease/public/company/ad");
+                    exit();
+                } else {
+                    echo "Data Insertion Unsuccessful";
                 }
+            } else {
+                echo "Invalid Request Method";
             }
-    
-            // Convert the array of selected requirements into a comma-separated string
-            $requirementsString = implode(", ", $requirements);
-    
-            // Check if each field is set, otherwise assign a default value
-            $interns = isset($_POST['no_of_intern']) ? mysqli_real_escape_string($this->conn, $_POST['no_of_intern']) : 0;
-            $workMode = isset($_POST['working_mode']) ? mysqli_real_escape_string($this->conn, $_POST['working_mode']) : 'Online';
-            $fromDate = isset($_POST['start_date']) ? mysqli_real_escape_string($this->conn, $_POST['start_date']) : '';
-            $toDate = isset($_POST['end_date']) ? mysqli_real_escape_string($this->conn, $_POST['end_date']) : '';
-            $qualification = isset($_POST['qualification']) ? mysqli_real_escape_string($this->conn, $_POST['qualification']) : '';
-            $status = isset($_POST['status']) ? mysqli_real_escape_string($this->conn, $_POST['status']) : 'Open';
-            $image_url = isset($_POST['image_url']) ? mysqli_real_escape_string($this->conn, $_POST['image_url']) : '';
-            $no_of_cvs_required = isset($_POST['no_of_cvs_required']) ? mysqli_real_escape_string($this->conn, $_POST['no_of_cvs_required']) : 0;
-    
-            // Assuming you have a company_id available somewhere
-            $companyId = $_SESSION['userId'];
-             
-             $advertisement = new AdvertisementModel($position,  $requirementsString, $interns, $workMode, $fromDate, $toDate, $companyId, $qualification, $status, $image_url, $no_of_cvs_required); 
-
-             $result = $this->advertisementRepository->save($advertisement);
-
-            if($result){
-                echo "<script> window.location.href='http://localhost/internease/public/company/ad'</script>";
-            }  else {
-                echo "Data Inserted Unsuccessful";
-            }
-         }
+        }
         
 
 

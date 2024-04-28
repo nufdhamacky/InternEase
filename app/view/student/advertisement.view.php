@@ -20,6 +20,10 @@
                 </div>
             </div>
 
+            <div class="filterSection">
+                <a href="applied"><button class="btn">View Applications</button></a>
+                <a href="wishlisted"><button class="btn">View Your Wishlist</button></a>
+            </div>
 
             <div class="ad-cards">
             
@@ -29,6 +33,7 @@
                         echo '<div class="ad-card" onclick="displayAdDetails(' . $index . ')">';
                         echo '<img src="' . ROOT . '/assets/images/' . $ad['user_profile'] . '" alt="Advertisement ' . ($index + 1) . '">';
                         echo '<h3>' . $ad['company_name'] . '</h3>';
+                        echo '<h5>' . $ad['position'] . '</h5>';
                         echo '<p>' . $ad['requirements'] . '</p>';
                         // echo '<p>' . $ad['ad_id'] . '</p>';
                         echo '</div>';
@@ -58,7 +63,7 @@
                 for ($i = 1; $i <= 3; $i++) {
                     echo "<label for='preference$i'>Preference $i:</label>";
                     echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    // echo "<option value=''>None</option>"; // Add None option as the default
+                    echo "<option value=''>None</option>"; // Add None option as the default
 
                     // Add options for each job role
                     foreach ($jobRoles as $role) {
@@ -109,33 +114,63 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
     
 
         function displayAdDetails(index) {
-           
             var adData = <?php echo json_encode($ads); ?>;
-
             var adDetailsWindow = document.getElementById('adDetailsWindow');
             var adContent = document.querySelector('.ad-details .ad-content');
 
-            // Assuming your data structure includes additional details like 'position', 'modeOfWork', 'internshipPeriod', 'requirements'
             var ad = adData[index];
             console.log(ad);
 
-            adContent.innerHTML = `
-                <span class="close" onclick="closeAdDetails()">&times;</span>
-                <h2>${ad.company_name}</h2>
-                <p><strong>Job Position:</strong> ${ad.position}</p>
-                <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
-                <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
-                <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
-                <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
-                <p><strong>Qualifications:</strong> ${ad.qualification}</p>
-                <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
-                <p><strong>Requirements:</strong> ${ad.requirements}</p>
-                <button id="apply" onclick="applyToJob(${ad.ad_id}, ${userId})">Apply</button>
-                <button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>
-            `;
+            // Make an AJAX request to check if the student has already applied
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                        var data = JSON.parse(this.responseText);
+                        var hasApplied = data.hasApplied; 
 
-            adDetailsWindow.style.display = 'block';
+                        console.log(hasApplied);
+
+                        // Update UI accordingly
+                        var applyButtonHtml = hasApplied ? "Applied" : "Apply";
+                        var applyButtonOnClick = hasApplied ? `onclick="alert('You have already applied for this position')"` : `onclick="applyToJob(${ad.ad_id}, ${userId})"`;
+                        var applyButtonBackground = hasApplied ? "violet" : "";
+
+                        var applyButton = `
+                            <button id="apply" style="background: ${applyButtonBackground}" ${applyButtonOnClick}>
+                                ${applyButtonHtml}
+                            </button>
+                        `;
+
+                        var wishlistButton = hasApplied ? "" : `<button id="wishlist" onclick="wishlistJob(${ad.ad_id}, ${userId})"><i class="fa-regular fa-heart"></i></button>`;
+
+                        adContent.innerHTML = `
+                            <span class="close" onclick="closeAdDetails()">&times;</span>
+                            <h2>${ad.company_name}</h2>
+                            <p><strong>Job Position:</strong> ${ad.position}</p>
+                            <p><strong>Mode of Work:</strong> ${ad.working_mode}</p>
+                            <p><strong>Vacancies:</strong> ${ad.no_of_intern}</p>
+                            <p><strong>Internship period begins:</strong> ${ad.from_date}</p>
+                            <p><strong>Internship period ends:</strong> ${ad.to_date}</p>
+                            <p><strong>Qualifications:</strong> ${ad.qualification}</p>
+                            <p><strong>Expected Applications Count:</strong> ${ad.no_of_cvs_required}</p>
+                            <p><strong>Requirements:</strong> ${ad.requirements}</p>
+                            ${applyButton}
+                            ${wishlistButton}
+                        `;
+
+                        adDetailsWindow.style.display = 'block';
+                    } else {
+                        console.error('Error checking application status:', this.status);
+                    }
+                }
+            };
+
+            xhr.open("GET", `hasApplied?adId=${ad.ad_id}`, true);
+            xhr.send();
         }
+
+
 
         function closeAdDetails() {
             document.getElementById('adDetailsWindow').style.display = 'none';
@@ -186,6 +221,8 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                             var applyButton = document.getElementById('apply');
                             applyButton.style.background = 'violet';
                             applyButton.innerHTML = `Applied`;
+                            var wishlistButton = document.getElementById('wishlist');
+                            wishlistButton.style.display = `none`;
                             alert('Applied to Job');
                         } else {
                             alert('Error: ' + response.message);
@@ -260,49 +297,57 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Fetch round dates from PHP
-            const roundDates = <?php echo json_encode($roundData); ?>;
-            const currentDate = new Date(); // Current date
+    const roundDates = <?php echo json_encode($roundData); ?>;
+    const currentDate = new Date(); // Current date
 
-            // Flag to check if any round is active
-            let isActive = false;
+    if (!Array.isArray(roundDates) || roundDates.length === 0) {
+        console.error('No round dates found or invalid data format.');
+        return;
+    }
 
-            // Mapping round IDs to database IDs
-            const roundIdMapping = {
-                "firstround": 1,
-                "secondround": 2
-            };
+    let isActive = false;
 
-            // Iterate through round dates
-            roundDates.forEach(function(round) {
-                const roundStartDate = new Date(round.start_date); // Start date of the round
-                const roundEndDate = new Date(round.end_date); // End date of the round
-                const roundElementId = Object.keys(roundIdMapping).find(key => roundIdMapping[key] === round.id); // Round element ID
+    const roundIdMapping = {
+        "firstround": 1,
+        "secondround": 2
+        // Add more mappings if needed
+    };
 
-                if (!roundElementId) {
-                    console.error('Invalid round ID:', round.id);
-                    return;
-                }
+    
 
-                const roundElement = document.getElementById(roundElementId); // Round element
+    roundDates.forEach(function(round) {
+        const roundStartDate = new Date(round.start_date);
+        const roundEndDate = new Date(round.end_date);
+        const roundElementId = Object.keys(roundIdMapping).find(key => roundIdMapping[key] === round.id);
 
-                if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
-                    roundElement.classList.add('active');
-                    // isActive = true;
-                } else {
-                    roundElement.classList.remove('active');
-                }
-            });
+        if (!roundElementId) {
+            console.error('Invalid round ID:', round.id);
+            return;
+        }
 
-            console.log(roundStartDate);
+        console.log(round.id);
+    console.log(roundIdMapping[key]);   
 
-            // If no round is active, you can set a default active round (e.g., the first round)
-            // if (!isActive && roundDates.length > 0) {
-            //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
-            //     const firstRoundElement = document.getElementById(firstRoundElementId);
-            //     firstRoundElement.classList.add('active');
-            // }
-        });
+        const roundElement = document.getElementById(roundElementId);
+
+        if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
+            roundElement.classList.add('active');
+            isActive = true;
+        } else {
+            roundElement.classList.remove('active');
+        }
+
+        console.log(roundStartDate); // Log start date for debugging
+    });
+
+    // Uncomment this section if you want to set a default active round
+    // if (!isActive) {
+    //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
+    //     const firstRoundElement = document.getElementById(firstRoundElementId);
+    //     firstRoundElement.classList.add('active');
+    // }
+});
+
 
 
 

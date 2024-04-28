@@ -103,6 +103,7 @@ class Mailer extends Database
 
     }
 
+
     public function sendMail($to, $subject, $body)
     {
         try {
@@ -110,6 +111,21 @@ class Mailer extends Database
             $this->mail->isHTML(true);        // Set email format to HTML
             $this->mail->Subject = $subject;
             $this->mail->Body = $body;
+
+    function validateOTP($email, $otp) {
+        $sql = "SELECT otp, expiry FROM otp_storage WHERE email = '{$email}' AND otp = {$otp}";
+        $ValidateOTP = $this->query($sql);
+        if(empty($ValidateOTP) || count($ValidateOTP)==0){
+            return false;
+        }
+        foreach ($ValidateOTP AS $v){
+            if ($v) {
+                if ($v['otp'] == $otp && time() < $v['expiry']) {
+                    return true;  // OTP is correct and not expired
+                }
+            }
+            return false;  // OTP is incorrect or expired
+
 
             $this->mail->send();
             return 'Message has been sent';

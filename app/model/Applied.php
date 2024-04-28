@@ -11,11 +11,6 @@ class Applied extends Model {
         $this->connection = $this->connection();
     }
 
-    public function hasApplied($userId, $adId) {
-        $result = $this->where('user_id', $userId)->where('ad_id', $adId);
-        return !empty($result);
-    }
-
     // public function apply($userId, $adId)
     // {
     //     // Check if the user has already applied for the job
@@ -67,6 +62,35 @@ class Applied extends Model {
 
     //     return $success;
     // }
+
+    public function alreadyApplied($studentId, $adId){
+        // Check if the user has already applied for any job
+        $query = "SELECT COUNT(*) AS num_applied FROM applyadvertisement AS aa 
+                  JOIN first_round_data AS frd ON aa.id = frd.applied_id 
+                  WHERE aa.applied_by = ? AND frd.ad_id = ?";
+        $stmt = $this->connection->prepare($query);
+        
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return ['success' => false, 'message' => 'Error preparing statement'];
+        }
+    
+        $stmt->bind_param('ii', $studentId, $adId);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+    
+        $row = $result->fetch_assoc();
+    
+        if ($row['num_applied'] > 0) {
+            // User has already applied for this ad
+            return true;
+        } else {
+            // User has not applied for this ad
+            return false;
+        }
+    }
+    
 
     public function apply($studentId, $adId)
 {
@@ -176,7 +200,28 @@ class Applied extends Model {
     }
     
 
-    
+    public function fetchApplicationStatus($studentId, $adId){
+        $query =    "SELECT status 
+                    FROM first_round_data
+                    JOIN applyadvertisement ON applyadvertisement.id = first_round_data.applied_id
+                    WHERE first_round_data.ad_id = ?
+                    AND applyadvertisement.applied_by = ?";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('ii', $adId, $studentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // If there is a row in the result set, fetch the status
+            $row = $result->fetch_assoc();
+            $status = $row['status'];
+            return $status;
+        } else {
+            // If no row is found, return null or handle the absence of status as needed
+            return null;
+        }
+    }
 
     // public function apply($userId, $adId){
     //     $query = "SELECT * FROM $this->table WHERE applied_by = ? AND ad_id = ?";
