@@ -148,6 +148,22 @@ class CompanyRepository
 
     }
 
+    public function getCompanyMail($id)
+    {
+        $sql = "SELECT email FROM company WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
+
+    public function getBlockCompanyMail($id)
+    {
+        $sql = "SELECT email FROM company WHERE user_id={$id}";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
+
     public function getFullByStatus($status): array
     {
 
@@ -174,6 +190,18 @@ class CompanyRepository
 
         return $companies;
     }
+
+//    public function getPendingByEmail(): array
+//    {
+//        $sql = "SELECT c.email FROM company c JOIN users u ON c.user_id=u.user_id where u.user_status=0";
+//        $result = $this->conn->query($sql);
+//
+//        $emails = [];
+//        while ($row = $result->fetch_assoc()) {
+//            $emails[] = $row['email'];
+//        }
+//        return $emails;
+//    }
 
     public function getCountByStatus($status): int
     {

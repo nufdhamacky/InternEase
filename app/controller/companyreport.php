@@ -41,8 +41,24 @@ class CompanyReport extends Controller
     {
         $id = $_GET["id"];
         $reason = $_GET["reason"];
-        $this->companyBlockReasonRepository->blockCompany($id, $reason);
-        echo "<script> window.location.replace('http://localhost/internease/public/pdc/index');</script>";
+        $email = $this->companyBlockReasonRepository->getBlockMail($id);
+        $subject = "Your company has been blacklisted";
+        $message = "Your company has been blacklisted due to the following reason: " . $reason;
+        $mail = new mailer;
+        $success = $mail->sendMail($email, $subject, $message);
+        if ($success == "Message has been sent") {
+            $rejected = 1;
+            $data = ['rejected' => $rejected];
+            $this->companyBlockReasonRepository->blockCompany($id, $reason);
+
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/dashboard');</script>";
+
+        } else {
+            $rejected = 0;
+            $data = ['rejected' => $rejected];
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/dashboard');</script>";
+
+        }
 
     }
 

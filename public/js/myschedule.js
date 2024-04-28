@@ -8,10 +8,25 @@ function search(e) {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function (event) {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+    console.log(type);
+    if (type === 'visit') {
+        toggleContent('visit');
+    }
+    if (type === 'tech') {
+        toggleContent('tech');
+    }
+});
+
 function toggleContent(type) {
     var toggleId = type + "Toggle";
     var content = document.getElementById(toggleId);
     var icon = document.getElementById(type + "I");
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('query');
 
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
@@ -27,7 +42,7 @@ function toggleContent(type) {
         // If the content is visible, it hides the content, changes the icon to a downward caret, and fades out the content.
     } else {
         content.style.display = "none";
-        content.sty
+
         icon.setAttribute("name", "caret-down-outline");
 
         if (type === 'visit') {

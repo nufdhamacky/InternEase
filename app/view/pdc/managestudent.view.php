@@ -42,7 +42,7 @@ if (isset($_GET['course'])) {
                     <form id="csvForm" action="<?= ROOT ?>/pdc/addBulkStudent" method="post"
                           enctype="multipart/form-data">
                         <input type="file" id="csv" name="csv" accept="text/csv" onchange="uploadCsvStudents()">
-                        <label for="csv" class="upload-btn"><span>Select File</span></label>
+
                         <span id="csvName"></span>
                     </form>
                     <a href="addstudent" class="btn">Add</a>
@@ -58,6 +58,7 @@ if (isset($_GET['course'])) {
                             <option value="IS" <?php echo isset($_GET["course"]) ? $_GET["course"] == "IS" ? "selected" : "" : ""; ?>>
                                 IS
                             </option>
+                            7
                         </select>
                         <button type="submit" class="btn">Filter</button>
                     </div>
