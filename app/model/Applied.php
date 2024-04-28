@@ -182,7 +182,8 @@ class Applied extends Model {
         $query = "SELECT COUNT(DISTINCT aa.id) AS applied_count, r.count AS round_count 
                   FROM applyadvertisement AS aa
                   JOIN round AS r ON r.id = aa.round_id
-                  WHERE aa.applied_by = ?";
+                  WHERE aa.applied_by = ?
+                  GROUP BY aa.applied_by, r.count";
         
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param('i', $studentId);
