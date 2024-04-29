@@ -11,6 +11,7 @@ include_once('../app/repository/CompanyStudentRepository.php');
 
 include_once('../app/repository/CompanyDetailsRepository.php');
 
+
 class Company extends Controller
 {
 
@@ -18,6 +19,7 @@ class Company extends Controller
     private $techTalkRepository;
     private $companyStudentRepository;
     private $companyDetailsRepository;
+
 
     public function __construct()
     {
@@ -176,7 +178,8 @@ class Company extends Controller
     }
 
 
-    public function tech(){
+    public function tech()
+    {
 
         $this->view('company/tech');
 
@@ -277,7 +280,8 @@ class Company extends Controller
         }
     }
 
-    public function schedule_tech_talk(){
+    public function schedule_tech_talk()
+    {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Access the POST data
@@ -292,7 +296,7 @@ class Company extends Controller
             // Output the POST data for debugging
             echo "<pre>";
 
-            foreach($data as $d){
+            foreach ($data as $d) {
                 echo "<br>";
                 var_dump($d);
                 echo "<br>";
@@ -319,12 +323,12 @@ class Company extends Controller
 
     }
 
-    public function request_techtalks() {
+    public function request_techtalks()
+    {
         header('Content-Type: application/json');
         $TechModel = new TechTalkModel;
         echo $TechModel->get_techtalks();
     }
-
 
 
     public function shortlistedSE()
