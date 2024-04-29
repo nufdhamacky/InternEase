@@ -439,6 +439,82 @@ class Company extends Controller
         }
     }
 
+    public function getScheduledInterviews()
+    {
+        $interviewModel = $this->model('InterviewModel');
+        try {
+            $interviews = $interviewModel->getAllInterviews();
+            echo json_encode($interviews);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to fetch interviews']);
+        }
+    }
+
+    // Add a new interview
+    public function addInterview()
+{
+    // Only handle POST requests
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Invalid request method']);
+        return;
+    }
+
+    // Get data from the POST request
+    $date = $_POST['date'] ?? null;
+    $startTime = $_POST['startTime'] ?? null;
+    $endTime = $_POST['endTime'] ?? null;
+    $title = $_POST['title'] ?? null;
+    $description = $_POST['description'] ?? null;
+    $candidateCount = (int)($_POST['candidateCount'] ?? 0);
+
+    echo $date;
+
+    // Validate inputs
+    if (empty($date) || empty($startTime) || empty($endTime) || empty($title) || $candidateCount < 1) {
+        http_response_code(400); // Bad Request
+        echo json_encode(['error' => 'Invalid input']);
+        return;
+    }
+
+    // Check if the start time is before the end time
+    if (strtotime($startTime) >= strtotime($endTime)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Start time must be before end time']);
+        return;
+    }
+
+    // Try adding the interview to the database
+    try {
+        $interviewModel = $this->model("InterviewModel");
+        $interviewModel->addInterview($date, $startTime, $endTime, $title, $description, $candidateCount);
+        http_response_code(201); // Created
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        http_response_code(500); // Internal Server Error
+        echo json_encode(['error' => 'Failed to add interview']);
+    }
+}
+
+
+    // Delete an interview by ID
+    public function deleteInterview()
+    {
+        $interviewId = (int)$_GET['id'];
+
+        $interviewModel = $this->model('InterviewModel');
+
+        try {
+            $interviewModel->deleteInterview($interviewId);
+            http_response_code(200); // OK
+            echo json_encode(['message' => 'Interview deleted']);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to delete interview']);
+        }
+    }
+
 
     public function logout()
     {
