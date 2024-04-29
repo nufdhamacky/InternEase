@@ -57,8 +57,9 @@
     function otp() {
         var modal = document.getElementById('otpModal');
         var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
+        var sent = <?php echo json_encode(isset($sent) ? $sent : null); ?>;
         console.log("OTP:", otp);
-        if (otp === 1) {
+        if (otp === 1 || sent==0) {
             modal.style.display = 'block';
         }
     }
@@ -84,5 +85,18 @@
     }
 
     </script>
+<?php
+if (isset($sent) && $sent == 0) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'OTP incorrect or expired',
+            text: 'Please try again',
+            icon: 'error',
+            confirmButtonText: 'Close'
+        });
+    </script>";
+}
+?>
 </body>
 </html>
