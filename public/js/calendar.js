@@ -156,7 +156,7 @@ function createEventTooltip(date, month, year) {
 
 // Function to get events on a specific date
 function getEventsOnDate(date, month, year) {
-	return events.filter(function (event) {
+	return existingEvents.filter(function (event) {
 		let eventDate = new Date(event.date);
 		return (
 			eventDate.getDate() === date &&
