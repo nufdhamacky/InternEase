@@ -466,13 +466,24 @@ class Company extends Controller
         return;
     }
 
-    // Get data from the POST request
-    $date = $_POST['date'] ?? null;
-    $startTime = $_POST['startTime'] ?? null;
-    $endTime = $_POST['endTime'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $description = $_POST['description'] ?? null;
-    $candidateCount = (int)($_POST['candidateCount'] ?? 0);
+    
+    // Retrieve raw data and decode JSON
+    $rawData = file_get_contents("php://input");
+    $postData = json_decode($rawData, true); // 'true' for associative array
+
+    if ($postData === null) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid JSON']);
+        return;
+    }
+
+    // Extract fields from the decoded data
+    $date = $postData['date'] ?? null;
+    $startTime = $postData['startTime'] ?? null;
+    $endTime = $postData['endTime'] ?? null;
+    $title = $postData['title'] ?? null;
+    $description = $postData['description'] ?? null;
+    $candidateCount = (int)($postData['candidateCount'] ?? 0);
 
     echo $date;
 

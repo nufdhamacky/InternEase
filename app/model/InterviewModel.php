@@ -13,7 +13,7 @@ class InterviewModel extends Model {
         $query = "SELECT i.*, t.*
                 FROM interviews AS i
                 JOIN time_slots AS t
-                ON t.interview_id = i.interview_id";
+                ON i.interview_id = t.interview_id";
 
         $stmt = $this->connection->prepare($query);
         $stmt->execute();

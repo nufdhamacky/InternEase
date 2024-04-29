@@ -89,7 +89,7 @@
                             </button>
                         </div>
                         <div id="reminder-section">
-                            <h3>Reminders</h3>
+                            <h3>Scheduled Interviews</h3>
                             <!-- List to display reminders -->
                             <ul id="reminderList">
                                 <li data-event-id="1">
@@ -225,7 +225,9 @@ function addInterview() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(newInterview),
+        body: JSON.stringify({
+            newInterview
+        }),
     })
 
         .then((response) => {
@@ -274,6 +276,8 @@ function isTimeSlotAvailable(start, end) {
     });
 }
 
+console.log(existingEvents);
+
 // Function to display scheduled interviews as reminders
 function displayReminders() {
     let reminderList = document.getElementById("reminderList");
@@ -318,6 +322,7 @@ function deleteEvent(eventId) {
 
 // Initialize the calendar with existing interviews
 fetchEvents();
+
     </script>
 </body>
 </html>
