@@ -44,7 +44,7 @@ if (isset($sent) && $sent == 1) {
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '" . ROOT . "/home/index'; // Correctly concatenated
+                window.location.href = '" . ROOT . "/home/'; // Correctly concatenated
             }
         });
     </script>";

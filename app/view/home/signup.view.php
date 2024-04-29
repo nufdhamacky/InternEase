@@ -73,36 +73,8 @@
     <script src="<?=ROOT?>/js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
 
-<?php var_dump($otp)?>
-<script>
-    otp();  
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
 
-    function otp() {
-        var modal = document.getElementById('otpModal');
-        var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
-        var sent = <?php echo json_encode(isset($sent) ? $sent : null); ?>;
-        console.log("OTP:", otp);
-        if (otp == 1 || sent==0) {
-            modal.style.display = 'block';
-        }
-    }
-
-    var modal = document.getElementById('otpModal');
-    var emailInput = document.getElementById('emailInput');
-    var close = document.querySelector('.close');
-
-
-    close.onclick = function() {
-        modal.style.display = 'none';
-    };
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    };
-
-</script>
 <?php 
 if (isset($sent) && $sent == 1) {
     echo "
@@ -114,29 +86,26 @@ if (isset($sent) && $sent == 1) {
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '" . ROOT . "/home/index'; // Correctly concatenated
+                window.location.href = '" . ROOT . "/home/'; // Correctly concatenated
             }
         });
     </script>";
 }
 
 
-if (isset($sent) && $sent == 0) {
+if (isset($failure) && $failure == 1) {
     echo "
     <script>
         Swal.fire({
-            title: 'OTP incorrect or expired',
-            text: 'Please try again or sign-up again to get a new otp',
+            title: 'Something went wrong!',
+            text: 'Please try again later',
             icon: 'error',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '" . ROOT . "/home/signup'; // Correctly concatenated
-            }
+            confirmButtonText: 'Close'
         });
     </script>";
 }
 ?>
+
 
 </body>
 

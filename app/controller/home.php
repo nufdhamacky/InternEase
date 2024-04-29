@@ -162,12 +162,8 @@
             $signupAccess = $user->signup( $_SESSION['company'],   $_SESSION['email'], $_SESSION['password'], $_SESSION['company_site'],
             $_SESSION['address'],$_SESSION['contact_person'],$_SESSION['contact_no'] , $this->conn);
 
-            if($signupAccess == 0){
-                $data['signupError'] = 'Email already registered !';
-                $this->view('home/signup', $data);
-            }
-            else if($signupAccess == 2){
-                $data['signupError'] = 'Something went wrong. Try again later !';
+            if($signupAccess == 2){
+                $data= ['failure'=>1];
                 $this->view('home/signup', $data);
                 
             }else{
