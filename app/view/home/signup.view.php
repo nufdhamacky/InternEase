@@ -63,31 +63,52 @@
                     <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
                 </div>
                 <div class="submit" align="center">
-                    <button type="submit">Sign Up</button>
+                   <input type='submit' name='submitcompany'> 
                 </div>
             </form>
         </div>  
     </div>
 
-    <div class="modal" id="otpModal" style="display:none;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form action="<?=ROOT?>/home/validate_otp" method="POST" id="otpForm">
-                <h3>Enter OTP</h3>
-                <input type="text" name="otp" placeholder="Enter OTP" required>
-                <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
-            </form>
-        </div>
-    </div>
+  
     <script src="<?=ROOT?>/js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
-<?php 
 
+<?php var_dump($otp)?>
+<script>
+    otp();  
+
+    function otp() {
+        var modal = document.getElementById('otpModal');
+        var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
+        var sent = <?php echo json_encode(isset($sent) ? $sent : null); ?>;
+        console.log("OTP:", otp);
+        if (otp == 1 || sent==0) {
+            modal.style.display = 'block';
+        }
+    }
+
+    var modal = document.getElementById('otpModal');
+    var emailInput = document.getElementById('emailInput');
+    var close = document.querySelector('.close');
+
+
+    close.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+</script>
+<?php 
 if (isset($sent) && $sent == 1) {
     echo "
     <script>
         Swal.fire({
-            title: 'Company Signed up',
+            title: 'Company Signed up and now is pending.',
             text: 'Your request will be reviewd',
             icon: 'success',
             confirmButtonText: 'OK'
@@ -110,40 +131,13 @@ if (isset($sent) && $sent == 0) {
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '" . ROOT . "/home/index'; // Correctly concatenated
+                window.location.href = '" . ROOT . "/home/signup'; // Correctly concatenated
             }
         });
     </script>";
 }
 ?>
-<script>
-    otp();  
 
-    function otp() {
-        var modal = document.getElementById('otpModal');
-        var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
-        console.log("OTP:", otp);
-        if (otp === 2 || sent=0) {
-            modal.style.display = 'block';
-        }
-    }
-
-    var modal = document.getElementById('otpModal');
-    var emailInput = document.getElementById('emailInput');
-    var close = document.querySelector('.close');
-
-
-    close.onclick = function() {
-        modal.style.display = 'none';
-    };
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    };
-
-</script>
 </body>
 
 </html>

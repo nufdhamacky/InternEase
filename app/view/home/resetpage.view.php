@@ -71,11 +71,24 @@ if (isset($pwd) && $pwd == 1) {
             title: 'Updated Successful',
             text: 'Your Password has been updated successfully!',
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'Done'
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = '" . ROOT . "/home'; // Correctly concatenated
             }
+        });
+    </script>";
+}
+
+
+if (isset($sent) && $sent == 0) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'OTP incorrect or expired',
+            text: 'Please try again',
+            icon: 'error',
+            confirmButtonText: 'Close'
         });
     </script>";
 }

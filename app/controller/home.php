@@ -110,9 +110,6 @@
             $confirmPassword = $_POST['confirmPassword'];
 
 
-            //including validation file
-            require_once '../app/controller/helper/validation.php';
-
             //creating validation object
             $validation = new Validation();
            
@@ -124,45 +121,68 @@
             ];
             
 
+            $errors = array_filter($errors);
 
-            if(!$errors){
-
-                $smtp = new Mailer;
+            if(empty($errors)){
                
-                if(!$smtp->sendOTPEmail($email,"Your OTP for company Registration!")){
+                
+                $_SESSION['company'] = $_POST['companyName'] ?? null;
+                $_SESSION['contact_person'] = $_POST['contactPerson'] ?? null;
+                $_SESSION['contact_no'] = $_POST['contactNo'] ?? null;
+                $_SESSION['company_site'] = $_POST['compsite'] ?? null;
+                $_SESSION['email'] = $_POST['email'] ?? null;
+                $_SESSION['password'] = $_POST['password'] ?? null;
+                $_SESSION['address'] = $_POST['password'] ?? null;
+                
+                $smtp = new Mailer;
+                $error = $smtp->sendOTPEmail($email,"Your OTP for company Registration!");
+                if ($error == false){
                     $errors['OTP_failed'] = "OTP failure, try again";
                     $data = ['errors'=>$errors];
-                    $this->view('home/resetPassword',$data);
+                    $this->view('home/signup',$data);
                     return 0;
-                }else{
-                    $data = ['otp'=>1];
-                    $this->view('home/signup', $data);
                 }
+
+                $this->view('home/companyotp');
+                return 0;
                 
-                $user = $this->model('User');
-
-                //calling signup function from user model to check signup
-                $signupAccess = $user->signup($company, $email, $password, $compsite, $address, $contactPerson, $contactNo, $this->conn);
-
-                if($signupAccess == 0){
-                    $data['signupError'] = 'Email already registered !';
-                    $this->view('home/signup', $data);
-                }
-                else if($signupAccess == 2){
-                    $data['signupError'] = 'Something went wrong. Try again later !';
-                    $this->view('home/signup', $data);
-                    
-                }else{
-                    $data = ['sent'=>1];
-                    $this->view('home/signup', $data);
-
-                }
 
             } else {
                 $data['errors'] = $errors;
                 $this->view('home/signup', $data);
+                return 0;
             }
 
+        }
+
+        public function proceed_signup(){
+
+            $user = $this->model('User');
+            //calling signup function from user model to check signup
+            $signupAccess = $user->signup( $_SESSION['company'],   $_SESSION['email'], $_SESSION['password'], $_SESSION['company_site'],
+            $_SESSION['address'],$_SESSION['contact_person'],$_SESSION['contact_no'] , $this->conn);
+
+            if($signupAccess == 0){
+                $data['signupError'] = 'Email already registered !';
+                $this->view('home/signup', $data);
+            }
+            else if($signupAccess == 2){
+                $data['signupError'] = 'Something went wrong. Try again later !';
+                $this->view('home/signup', $data);
+                
+            }else{
+                $data = ['sent'=>1];
+                $this->view('home/signup', $data);
+
+            }
+            unset($_SESSION['company'] );
+            unset($_SESSION['contact_person']) ;
+            unset($_SESSION['contact_no'] );
+            unset($_SESSION['company_site'] );
+            unset( $_SESSION['email'] );
+            unset($_SESSION['password'] );
+            unset($_SESSION['address']) ;
+            return 0;
         }
 
         public function signupcheck_student(){
@@ -232,7 +252,7 @@
                 }else{
                     $errors['Email_notfound'] = "No user registered for the email entered.";
                     $data = ['errors'=>$errors];
-                    $this->view('home/resetPassword',$data);
+                    $this->view('home/resetpage',$data);
                     return 0;
                 }
             }else{
@@ -253,14 +273,15 @@
                 $validate = new User;
                 if($validate->validate_email($email)){
                     $smtp = new Mailer;
-                    $data = ['otp'=>1];
                     if(!$smtp->sendOTPEmail($email,"Password Reset OTP")){
                         $errors['OTP_failed'] = "OTP failure, try again";
                         $data = ['errors'=>$errors];
                         $this->view('home/resetPassword',$data);
                         return 0;
+                    }else{
+                        $data = ['otp'=>1];
+                        $this->view('home/resetPassword',$data);
                     }
-                    $this->view('home/resetPassword',$data);
 
                 }else{
                     $errors['Email_notfound'] = "No user registered for the email entered.";
@@ -268,10 +289,7 @@
                     $this->view('home/resetPassword',$data);
                     return 0;
                 }
-            }else{
-                echo "ERR";  
             }
-
         }
 
         public function validate_otp(){
@@ -280,7 +298,7 @@
                 if(isset($_SESSION['resetEmail'])){
                     $email = $_SESSION['resetEmail'];
                 }else{
-                    $email = $_SESSION['signupEmail'];
+                    $email = $_SESSION['email'];
                 }
                
                 $otp = $_POST['otp'];
@@ -290,12 +308,17 @@
                         $this->view('home/resetpage',$data);
                     }
                     else{
-                        $data=['sent'=> 1];
-                        $this->view('home/signup',$data);
+                        $this->proceed_signup();
                     }
                 }else{
-                    $data=['sent'=> 0];
-                    $this->view('home/signup',$data);
+                    if(isset($_SESSION['email'])){
+                        $data=['sent'=> 0];
+                        
+                        $this->view('home/companyotp',$data);
+                    }else{
+                        $data=['sent'=> 0];
+                        $this->view('home/resetPassword',$data);
+                    }
                 }
 
             }
