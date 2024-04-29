@@ -56,7 +56,9 @@
                     // Assume $jobRoles is an array of available IT internship roles
                     $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
 
-                    for ($i = 1; $i <= 3; $i++) {
+                    // echo $secondRoundCount;
+
+                    for ($i = 1; $i <= $secondRoundCount; $i++) {
                         echo "<label for='preference$i'>Preference $i:</label>";
                         echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
                         echo "<option value=''>None</option>"; // Add None option as the default
@@ -79,27 +81,7 @@
     <div id="preferencesModal2" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Job Role Preferences</h2>
-            <form id="preferencesForm">
-                <?php
-                // Assume $jobRoles is an array of available IT internship roles
-                $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
-
-                for ($i = 1; $i <= 3; $i++) {
-                    echo "<label for='preference$i'>Preference $i:</label>";
-                    echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    echo "<option value=''>None</option>"; // Add None option as the default
-
-                    // Add options for each job role
-                    foreach ($jobRoles as $role) {
-                        echo "<option value='$role'>$role</option>";
-                    }
-
-                    echo "</select><br>";
-                }
-                ?>
-                <input type="submit" value="Save Preferences">
-            </form>
+            <h2>Choose Job Role Preferences to carry on with 2nd round</h2>
         </div>
     </div>
     
@@ -401,6 +383,43 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
 
 
 
+
+
+        // ajax to send 2nd round preferences to back end
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add event listener to form submission
+            document.getElementById("preferencesForm").addEventListener("submit", function(event) {
+                // Prevent default form submission behavior
+                event.preventDefault();
+
+                // Serialize form data
+                var formData = new FormData(this);
+
+                // Send AJAX request
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "your_backend_controller_url_here", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Handle successful response
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.success) {
+                                // Optionally, do something on success
+                                alert("Preferences saved successfully!");
+                            } else {
+                                // Optionally, handle errors
+                                alert("Error: " + response.message);
+                            }
+                        } else {
+                            // Handle errors
+                            console.error("Error:", xhr.status, xhr.statusText);
+                        }
+                    }
+                };
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(new URLSearchParams(formData).toString());
+            });
+        });
 
 
 
