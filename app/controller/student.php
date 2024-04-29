@@ -314,6 +314,19 @@ class Student extends Controller
         return null;
     }
 
+    public function companyprofile(){
+
+        $companyId = $_GET['companyId'];
+
+        $companyModel = $this->model('StudentCompanyModel');
+        $company = $companyModel->getCompanyById($companyId);
+
+        $data = [
+            'company' => $company
+        ];
+
+        $this->view('student/companyprofile', $data);
+    }
 
     public function logout()
     {
