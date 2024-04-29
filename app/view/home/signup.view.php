@@ -63,7 +63,7 @@
                     <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
                 </div>
                 <div class="submit" align="center">
-                   <input type='submit' name='submitcompany'> 
+                   <input type='submit' class="btn "name='submitcompany'> 
                 </div>
             </form>
         </div>  

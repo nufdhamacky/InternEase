@@ -252,7 +252,7 @@
                     return 0;
                 }
             }else{
-                echo "ERR";  
+                return false;
             }
         }
 
