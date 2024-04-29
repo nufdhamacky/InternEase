@@ -440,7 +440,8 @@ class Admin extends Controller {
             $pwd =$data['password'];
             $add = NULL;
             
-            if(empty($errorlist)){
+            $errors = array_filter($errors);
+            if(empty($errors)){
                 if ($adminModel->insertPDC($data)) {
                     $add = 1;
                     $smtp = new Mailer;
