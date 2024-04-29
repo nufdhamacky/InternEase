@@ -64,11 +64,14 @@ class CompanyVisitRepository
         $this->conn->query($sql);
     }
 
-    public function reject(int $id)
+    public function reject(int $id, string $reason)
     {
         $sql = "UPDATE company_visit SET status=2 WHERE id=$id";
         $this->conn->query($sql);
+        $reasonSql = "INSERT INTO companyvisit_reject_reason (id,reason) VALUES ($id,'$reason')";
+        $this->conn->query($reasonSql);
     }
+
 
     public function delete(int $id)
     {

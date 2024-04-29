@@ -30,9 +30,11 @@ class PDCTechTalkRepository
         $this->conn->query($sql);
     }
 
-    public function reject($id)
+    public function reject($id, $reason)
     {
         $sql = "UPDATE tech_talk SET status=2 WHERE techtalk_id=$id";
         $this->conn->query($sql);
+        $reasonSql = "INSERT INTO techtalk_reject_reason (techtalk_id,reason) VALUES ($id,'$reason')";
+        $this->conn->query($reasonSql);
     }
 }

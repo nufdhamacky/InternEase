@@ -227,7 +227,8 @@ class Pdc extends Controller
     public function rejectVisit()
     {
         $id = $_GET["id"];
-        $this->companyVisitRepository->reject($id);
+        $reason = $_GET["reason"];
+        $this->companyVisitRepository->reject($id, $reason);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
     }
 
@@ -259,7 +260,8 @@ class Pdc extends Controller
     public function rejectTechTalk()
     {
         $id = $_GET["id"];
-        $this->pdcTechTalkRepository->reject($id);
+        $reason = $_GET["reason"];
+        $this->pdcTechTalkRepository->reject($id, $reason);
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
 
     }
