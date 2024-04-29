@@ -381,20 +381,21 @@ button {
             var today = moment().format('YYYY-MM-DD');
             $('#calendar').fullCalendar();
             $('#tech_talk_calendar').fullCalendar({
+                defaultView: 'agendaWeek',
                 height: 600,
                 aspectRatio: 2,
                 contentHeight: 500,
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'agendaWeek,agendaDay'
+                        right: 'agendaMonth,agendaWeek,agendaDay'
                     },
                     validRange: {
                         start: today
                     },
                     dayClick: function(date, jsEvent, view) {
                     if (date.day() === 5 && date.hour() >= 8
-                     && date.hour() <= 11) {    
+                     && date.hour() <= 10) {    
                         selectedStart = date.format('YYYY-MM-DDTHH:mm');
 
                         selectedEnd = date.clone().add(2, 'hour').format('YYYY-MM-DDTHH:mm');
@@ -498,7 +499,7 @@ button {
         function wrong_datetime(){
             Swal.fire({
                 title: 'Invalid Date and Time',
-                text: 'You can only schedule Tech-Talks on Fridays between 8 AM to 11 AM.',
+                text: 'You can only schedule Tech-Talks on Fridays between 8 AM to 10 AM.',
                 icon: 'warning',
                 confirmButtonText: 'Close'
             });;
@@ -512,6 +513,17 @@ button {
                 confirmButtonText: 'Close'
             });
         }
+
+        // Listen for changes to the radio buttons
+        $('input[name="slider"]').change(function() {
+            // If the techschedule radio button is checked, render the calendar
+            if ($('#techschedule').is(':checked')) {
+                setTimeout(function() { // timeout for transition
+                    $('#tech_talk_calendar').fullCalendar('render');
+                }, 10);
+            }
+        });
+
 
 
    
