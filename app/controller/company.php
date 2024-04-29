@@ -76,14 +76,15 @@ class Company extends Controller
 
     public function schedule()
     {
+        $get = new TechTalkModel;
+        $data = ['schedule' =>$get->tt_schedule()];
 
-        $this->view('company/schedule');
+        $this->view('company/schedule',$data);
 
     }
 
     public function scheduleInt()
     {
-
         $this->view('company/scheduleInt');
 
     }
