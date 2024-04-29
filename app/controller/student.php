@@ -87,6 +87,13 @@ class Student extends Controller
         }
     }
 
+    public function secondRoundApp(){
+        $studentId = $_SESSION['studentId'];
+
+        $prefernces = $_POST;
+        
+    }
+
 
     public function apply()
     {
@@ -96,7 +103,7 @@ class Student extends Controller
 
         // Instantiate the Applied model and perform the required operations
         $appliedModel = $this->model('Applied');
-        $result = $appliedModel->apply($_SESSION['studentId'], $adId);
+        $result = $appliedModel->apply($_SESSION['studentId'], $adId, 1);
 
         // Return a JSON response
         if ($result['success']) {
