@@ -16,20 +16,20 @@
             <div class="notification" >
         
                 <div class="notibutton">
-                        <div> 1st Round Selections </div>
-                        <div> Total Applied :<?php   echo htmlspecialchars($first_round_data['applied']);?> </div>
-                        <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div>
-                        <div> CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
+                        <div>First Round Selections</div>
+                        <div>Total Applications - <?php   echo htmlspecialchars($first_round_data['applied']);?> </div>
+                        <div>IS recruited - <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div>
+                        <div>CS recruited - <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
                         <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
 
                 </div>
 
                 
                 <div class="notibutton">
-                        <div> 2nd Round Selections </div>
-                        <div> Total Applied : <?php   echo htmlspecialchars($second_round_data['applied_2nd']);?> </div>
-                        <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div>
-                        <div> CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
+                        <div>Second Round Selections</div>
+                        <div>Total Applications - <?php   echo htmlspecialchars($second_round_data['applied_2nd']);?> </div>
+                        <div>IS recruited - <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div>
+                        <div>CS recruited - <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
                         <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
                 </div>
 

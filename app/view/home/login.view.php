@@ -64,7 +64,7 @@
             </form>
 
             <div class="dontacc">
-                Don't have an acoount?  <a href="./signup" style="text-decoration:none;"><button id="signupBtn" class="">Sign Up</button></a>
+                Don't have an acoount?  <a href="./signup" style="text-decoration:none;"><button id="signupBtn" class="btn">Sign Up</button></a>
             </div>
 
             

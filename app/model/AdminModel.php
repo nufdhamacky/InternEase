@@ -91,11 +91,9 @@ class AdminModel extends model {
             $toDate = $row['to_date'];
             $noOfInterns = $row['no_of_intern'];
 
-            // Extract the year from from_date and to_date
             $fromYear = date('Y', strtotime($fromDate));
             $toYear = date('Y', strtotime($toDate));
 
-            // Add the years to the years array
             if (!in_array($fromYear, $years)) {
                 $years[] = $fromYear;
             }
@@ -103,7 +101,6 @@ class AdminModel extends model {
                 $years[] = $toYear;
             }
 
-            // Add company name to the list
             if (!in_array($companyName, $companies)) {
                 $companies[] = $companyName;
             }
@@ -134,10 +131,8 @@ class AdminModel extends model {
         $count = 0;
 
         if (is_array($results)) {
-            // Check if the array is not empty
             if (!empty($results)) {
-                $count = count($results); // Count the number of rows in the array
-                // Extract company names from the results
+                $count = count($results); 
                
                 foreach ($results as $row) {
                     $blacklistedCompanies[] = $row['company_name'];
@@ -181,15 +176,12 @@ class AdminModel extends model {
             $fromYear = substr($row['from_date'], 0, 4);
             $toYear = substr($row['to_date'], 0, 4);
     
-            // Ensure years are stored efficiently
             $YearP[$fromYear] = true;
             $YearP[$toYear] = true;
     
-            // Store companies and positions
             $CompaniesP[$companyName] = true;
             $Positions[$position] = true;
     
-            // Accumulate intern counts
             for ($year = $fromYear; $year <= $toYear; $year++) {
                 if (!isset($internsByYear[$companyName][$year][$position])) {
                     $internsByYear[$companyName][$year][$position] = 0;
@@ -198,7 +190,6 @@ class AdminModel extends model {
             }
         }
     
-        // Convert keys to arrays for years, companies, and positions
         $YearP = array_keys($YearP);
         sort($YearP); // Sort years
         $CompaniesP = array_keys($CompaniesP);
@@ -227,12 +218,12 @@ class AdminModel extends model {
         $query = "SELECT COUNT(*) AS selected_cs
         FROM second_round_data AS frd 
         JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
-        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
+        WHERE frd.status = 3 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
 
         $query1 = "SELECT COUNT(*) AS selected_is
         FROM second_round_data AS frd 
         JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
-        WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
+        WHERE frd.status = 3 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
 
         $query2 = "SELECT COUNT(*) AS notselected 
                    FROM applyadvertisement where round_id=2";
@@ -256,22 +247,19 @@ class AdminModel extends model {
     public function getStudentCounts() {
         $query1 = "SELECT COUNT(*) AS countCS FROM student WHERE reg_no LIKE '%CS%'";
         $query2 = "SELECT COUNT(*) AS countIS FROM student WHERE reg_no LIKE '%IS%'";
-    
-        // Execute the queries
+
         $result1 = $this->connection->query($query1);
         $result2 = $this->connection->query($query2);
-    
-        // Check for errors
+
         if (!$result1 || !$result2) {
-            // Handle query execution errors
+
             return false;
         }
     
-        // Fetch counts directly
         $countCS = $result1->fetch_assoc()['countCS'];
         $countIS = $result2->fetch_assoc()['countIS'];
     
-        // Return the counts
+
         return $students = [
             'CS' => $countCS,
             'IS' => $countIS
@@ -286,12 +274,12 @@ class AdminModel extends model {
         $query_cs = "SELECT COUNT(*) AS selected_cs
                       FROM first_round_data AS frd 
                       JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
-                      WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
+                      WHERE frd.status = 3 AND frd.applied_id = a.id AND s.reg_no LIKE '%CS%' " ;
       
         $query_is = "SELECT COUNT(*) AS selected_is
                 FROM first_round_data AS frd 
                 JOIN student AS s JOIN applyadvertisement AS a ON a.applied_by = s.id 
-                WHERE frd.status = 1 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
+                WHERE frd.status = 3 AND frd.applied_id = a.id AND s.reg_no LIKE '%IS%' " ;
 
         $query_not_selected = "SELECT COUNT(*) AS notselected 
                                FROM applyadvertisement where round_id=1";
@@ -300,18 +288,15 @@ class AdminModel extends model {
         $result_is = $this->connection->query($query_is);
         $result3 = $this->connection->query($query_not_selected);
       
-        // Check if any errors occurred during queries
+       
         if (!$result_cs || !$result_is || !$result3) {
-          // Handle the error here, potentially throw an exception or log the error
           return null;
         }
       
-        // Use fetch_object to get results as objects
         $data_cs = $result_cs->fetch_object();
         $data_is = $result_is->fetch_object();
         $data_not_selected = $result3->fetch_object();
       
-        // Access data using object properties
         $total_1st_cs = $data_cs->selected_cs;
         $total_1st_is = $data_is->selected_is;
         $not_selected = $data_not_selected->notselected;
@@ -357,7 +342,6 @@ class AdminModel extends model {
     
 
 
-//COMPLAINTS FUNCTIONS ADMIN
     public function getComplaints() {
         $query = "SELECT * FROM " . $this->getTable()." WHERE type ='system_complaint'";
         $complaints = $this->query($query);

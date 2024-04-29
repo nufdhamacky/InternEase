@@ -250,3 +250,24 @@
 .myBtn span{
     font-size: 10px;
 }
+
+.btn
+{   
+    text-align: center;
+    color: #ffffff;
+    background-color: #095570;
+    border-color:  white;
+    border-radius: 0.5vw;
+    padding:0.7vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.3vw;
+    font-weight: 300px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    color: #080606;
+    background-color: #d2d2f7; 
+}
+

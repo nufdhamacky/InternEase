@@ -41,9 +41,8 @@
 
     <div class="modal" id="otpModal" style="display:none;">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <form action="<?=ROOT?>/home/validate_otp" method="POST" id="otpForm">
-                <h3>Enter OTP</h3>
+                <h3>OTP has been sent to <?php echo $_SESSION['resetEmail'] ;?></h3>
                 <input type="text" name="otp" placeholder="Enter OTP" required>
                 <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
             </form>
