@@ -94,8 +94,8 @@
         <div class="chart_container">
             
             <div id='chartdiv' style="display:block;">
-                <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
-                <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
+                <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 8vw);width: calc(<?php echo count($companies); ?> * 13vw);" ></div>  
+                <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> *8vw);width: calc(<?php echo count($companies); ?> * 13vw);" ></div>  
             </div>
             
         </div>
@@ -223,7 +223,7 @@
 
     var options = {
         title: 'Number of Interns per Position by Company and Year',
-        chartArea: { width: '50%' },
+        chartArea: { width: '80%' },
         hAxis: { title: 'Number of Interns', minValue: 0 }, // Horizontal axis is now the value axis
         vAxis: { title: 'Company' }, // Vertical axis is now the category axis
         tooltip: { isHtml: true },

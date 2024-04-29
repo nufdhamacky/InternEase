@@ -64,19 +64,14 @@
             </form>
 
             <div class="dontacc">
-                Don't have an acoount? <button id="signupBtn" class="">Sign Up</button>
+                Don't have an acoount?  <a href="./signup" style="text-decoration:none;"><button id="signupBtn" class="">Sign Up</button></a>
             </div>
 
             
         </div>
             
       
-        <div class="modal" id="myModal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <a href="./signup" class="myBtn"><span>Sign Up as</span><br>Company</a>
-        <a href="./signupStudent" class="myBtn"><span>Sign Up as</span><br>Student</a>
-    </div>
+     
 </div>
 
 <script>
