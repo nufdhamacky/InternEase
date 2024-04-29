@@ -79,16 +79,13 @@ $techTalks = $pdcController->getAllTechTalks();
                                 <td><?php echo $v->reason; ?></td>
                                 <td style="color: <?php echo $v->status == 0 ? "blue" : ($v->status == 1 ? "green" : "red"); ?>"><?php echo $v->status == 0 ? "Pending" : ($v->status == 1 ? "Approved" : "Rejected"); ?></td>
                                 <td>
-                                    <!--                        <a href="viewstudent?id=-->
-                                    <?php //echo $v->id; ?><!--">view</a>-->
-                                <td>
                                     <a href="<?= ROOT ?>/pdc/acceptVisit?id=<?php echo $v->id; ?>"
                                        style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                                    <a href="<?= ROOT ?>/pdc/rejectVisit?id=<?php echo $v->id; ?>"
+                                    <a href="#"
+                                       onclick="rejectVisit(<?php echo $v->id; ?>)"
                                        style="display: <?php echo $v->status == 0 && $v->visitDate != null ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                                     <a href="<?= ROOT ?>/pdc/deleteVisit?id=<?php echo $v->id; ?>"
                                        style="display: <?php echo $v->status == 0 && $v->visitDate == null ? "inline" : "none" ?>;color: red;text-decoration: none">Delete</a>
-                                </td>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -154,7 +151,8 @@ $techTalks = $pdcController->getAllTechTalks();
                                 <td>
                                     <a href="<?= ROOT ?>/pdc/acceptTechTalk?id=<?php echo $techTalk->techTalkId; ?>"
                                        style="display: <?php echo $techTalk->status == 0 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                                    <a href="<?= ROOT ?>/pdc/rejectTechTalk?id=<?php echo $techTalk->techTalkId; ?>"
+                                    <a href="#"
+                                       onclick="rejectTechTalk(<?php echo $techTalk->techTalkId; ?>)"
                                        style="display: <?php echo $techTalk->status == 0 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                                 </td>
 

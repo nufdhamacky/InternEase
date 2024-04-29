@@ -112,8 +112,8 @@
                                 <div class="modal-body">
                                     <form id="techTalkForm">
                                         <div class="form-group">
-                                            <label for="techTalkTitle">Topic</label>
-                                            <input type="text" class="form-control" id="techTalkTitle" placeholder="Enter title">
+                                            <label for="techTalkTitle">Description</label>
+                                            <input type="text" class="form-control" id="Compan" placeholder="Enter Description">
                                         </div>
                                         <div class="form-group">
                                             <label for="techTalkStart" id="start">Start Date and Time</label>
@@ -191,6 +191,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
 
 
 <script>
@@ -233,7 +234,8 @@
                         start: today
                     },
                     dayClick: function(date, jsEvent, view) {
-                    if (date.day() === 5 && date.hour() >= 8 ) {    
+                    if (date.day() === <?php echo json_encode($schedule['date']); ?> && date.hour() >= <?php echo json_encode($schedule['from']); ?>
+                     && date.hour() <= <?php echo json_encode($schedule['to']); ?>) {    
                         selectedStart = date.format('YYYY-MM-DDTHH:mm');
 
                         selectedEnd = date.clone().add(2, 'hour').format('YYYY-MM-DDTHH:mm');
@@ -251,11 +253,11 @@
 
                             $('#techTalkModal').modal('show');
                         } else {
-                            alert('This time slot is already taken.');
+                           slottaken();
                         }
                         
                     } else {
-                                alert('You can only schedule tech talks on Fridays between 8 AM to 11 AM.');
+                            wrong_datetime();
                         }
                     },
                     events: {
@@ -273,7 +275,7 @@
 
             
             function isTimeSlotAvailable(start, end) {
-                // Correct the formatting of the start and end times
+
                 var formattedStart = start.replace('A', 'T');
                 var formattedEnd = end.replace('A', 'T');
 
@@ -294,7 +296,6 @@
                 console.log('Start moment:', startMoment.format());
                 console.log('End moment:', endMoment.format());
 
-                // Check for time slot availability
                 return !existingEvents.some(function(event) {
                     var eventStart = moment(event.start);
                     var eventEnd = moment(event.end);
@@ -305,14 +306,11 @@
                     var startsDuringEvent = startMoment.isBetween(eventStart, eventEnd, null, '[]');
                     var endsDuringEvent = endMoment.isBetween(eventStart, eventEnd, null, '[]');
                     var wrapsEvent = eventStart.isBetween(startMoment, endMoment, null, '[]') || 
-                                    eventEnd.isBetween(startMoment, endMoment, null, '[]');
+                    eventEnd.isBetween(startMoment, endMoment, null, '[]');
 
                     return startsDuringEvent || endsDuringEvent || wrapsEvent;
                 });
             }
-
-
-
 
     
 
@@ -357,17 +355,49 @@
                 type: 'POST',
                 success: function(response) {
                     console.log(response); 
-                    console.log('Tech talk scheduled successfully.');
-                
-                    window.location.href = '<?=ROOT?>/company/schedule';
+                    setevent();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending schedule data: ' + error);
                 }
             });
         }
+
+        function setevent(){
+            Swal.fire({
+                title: 'Tech Talk scheduled and set for confirmation',
+                text: 'Time slot and date will reviewed and confirmed.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '<?=ROOT?>/company/schedule'; 
+                }
+            });
+        }
+
+        function wrong_datetime(){
+            Swal.fire({
+                title: 'Invalid Date and Time',
+                text: 'You can only schedule Tech-Talks on Fridays between 8 AM to 11 AM.',
+                icon: 'warning',
+                confirmButtonText: 'Close'
+            });;
+        }
+
+        function slottaken(){
+            Swal.fire({
+                title: 'Slot already taken',
+                text: 'Please choose another slot',
+                icon: 'error',
+                confirmButtonText: 'Close'
+            });
+        }
+
+
     });
 
+   
        
 
 </script>

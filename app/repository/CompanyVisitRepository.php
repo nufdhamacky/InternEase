@@ -53,7 +53,7 @@ class CompanyVisitRepository
         $count = $this->conn->query("SELECT count(cv.id) as count FROM company c JOIN company_visit cv ON c.user_id=cv.company_id WHERE c.company_name like CONCAT('%', '{$query}', '%')")->fetch_assoc()["count"];
         $totalPage = ceil($count / $limit);
         $pageData = new PageDataModel($page, $totalPage, $list);
-        
+
         return $pageData;
     }
 
@@ -64,15 +64,30 @@ class CompanyVisitRepository
         $this->conn->query($sql);
     }
 
-    public function reject(int $id)
+    public function reject(int $id, string $reason)
     {
         $sql = "UPDATE company_visit SET status=2 WHERE id=$id";
         $this->conn->query($sql);
+        $reasonSql = "INSERT INTO companyvisit_reject_reason (id,reason) VALUES ($id,'$reason')";
+        $this->conn->query($reasonSql);
     }
+
 
     public function delete(int $id)
     {
         $sql = "DELETE FROM company_visit WHERE id=$id";
         $this->conn->query($sql);
+    }
+
+    public function getByStatus($status): array
+    {
+        $sql = "SELECT c.company_name,cv.* , u.user_status FROM company c JOIN company_visit cv ON c.user_id=cv.company_id JOIN users u on u.user_id = c.user_id WHERE cv.status!=$status AND u.user_status=1";
+        $result = $this->conn->query($sql);
+        $list = [];
+        while ($row = $result->fetch_assoc()) {
+            $companyVisit = new CompanyVisitModel($row["id"], $row["company_id"], $row["company_name"], $row["request_date"], $row["visit_date"], $row["reason"], $row["status"]);
+            $list[] = $companyVisit;
+        }
+        return $list;
     }
 }

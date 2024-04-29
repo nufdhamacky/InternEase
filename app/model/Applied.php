@@ -92,9 +92,9 @@ class Applied extends Model {
     }
     
 
-    public function apply($studentId, $adId)
+    public function apply($studentId, $adId, $round)
 {
-    $validity = $this->validateApplication($studentId);
+    $validity = $this->validateApplication($studentId, $round);
     if($validity){
         // Check if the user has already applied for any job
         $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
@@ -177,16 +177,17 @@ class Applied extends Model {
 
     
 
-    public function validateApplication($studentId) {
+    public function validateApplication($studentId, $round) {
         // Query to get the count of unique entries in the applyadvertisement table for the given student
         $query = "SELECT COUNT(DISTINCT aa.id) AS applied_count, r.count AS round_count 
                   FROM applyadvertisement AS aa
                   JOIN round AS r ON r.id = aa.round_id
                   WHERE aa.applied_by = ?
+                  AND aa.round_id = ?
                   GROUP BY aa.applied_by, r.count";
         
         $stmt = $this->connection->prepare($query);
-        $stmt->bind_param('i', $studentId);
+        $stmt->bind_param('ii', $studentId, $round);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -199,6 +200,8 @@ class Applied extends Model {
             return true;
         }
     }
+
+    
     
 
     public function fetchApplicationStatus($studentId, $adId){

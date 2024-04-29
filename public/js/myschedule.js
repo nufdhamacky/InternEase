@@ -74,3 +74,17 @@ function fadeInElement(element) {
     // It increments the opacity gradually by 5% (0.05) every 10 milliseconds until it reaches 1, effectively fading in the element.
     // Once the opacity reaches 1, the interval timer is cleared to stop further updates.
 }
+
+function rejectVisit(id) {
+    let p = prompt("Enter reason for rejection", "Time is not suitable");
+    if (p != null) {
+        window.location.href = "http://localhost/internease/public/pdc/rejectVisit?id=" + id + "&reason=" + p;
+    }
+}
+
+function rejectTechTalk(id) {
+    let p = prompt("Enter reason for rejection", "Date is not suitable");
+    if (p != null) {
+        window.location.href = "http://localhost/internease/public/pdc/rejectTechTalk?id=" + id + "&reason=" + p;
+    }
+}

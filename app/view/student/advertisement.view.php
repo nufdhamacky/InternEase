@@ -25,7 +25,8 @@
                 <a href="wishlisted"><button class="btn">View Your Wishlist</button></a>
             </div>
 
-            <div class="ad-cards">
+            
+            <div class="ad-cards" id="ad-cards">
             
                 <?php
                 if (isset($ads) && count($ads) > 0) {
@@ -47,34 +48,46 @@
                     <!-- js handling -->
                 </div>
             </div>            
+
+            <div id="preferences-panel">
+                <h2>Job Role Preferences</h2>
+                <form id="preferencesForm">
+                    <?php
+                    // Assume $jobRoles is an array of available IT internship roles
+                    $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
+
+                    // echo $secondRoundCount;
+
+                    for ($i = 1; $i <= $secondRoundCount; $i++) {
+                        echo "<label for='preference$i'>Preference $i:</label>";
+                        echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
+                        echo "<option value=''>None</option>"; // Add None option as the default
+
+                        // Add options for each job role
+                        foreach ($jobRoles as $role) {
+                            echo "<option value='$role'>$role</option>";
+                        }
+
+                        echo "</select><br>";
+                    }
+                    ?>
+                    <input type="submit" value="Save Preferences">
+                </form>
+            </div>
         </div>
     </div>
 
 <!-- Second Round -->
-    <div id="preferencesModal" class="modal">
+    <div id="preferencesModal2" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Job Role Preferences</h2>
-            <form id="preferencesForm">
-                <?php
-                // Assume $jobRoles is an array of available IT internship roles
-                $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
-
-                for ($i = 1; $i <= 3; $i++) {
-                    echo "<label for='preference$i'>Preference $i:</label>";
-                    echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                    echo "<option value=''>None</option>"; // Add None option as the default
-
-                    // Add options for each job role
-                    foreach ($jobRoles as $role) {
-                        echo "<option value='$role'>$role</option>";
-                    }
-
-                    echo "</select><br>";
-                }
-                ?>
-                <input type="submit" value="Save Preferences">
-            </form>
+            <h2>Choose Job Role Preferences to carry on with 2nd round</h2>
+        </div>
+    </div>
+    
+    <div id="preferencesModal" class="modal">
+        <div class="modal-content">
+            <h2>Round is yet to begin</h2>
         </div>
     </div>
 
@@ -297,59 +310,116 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-    const roundDates = <?php echo json_encode($roundData); ?>;
-    const currentDate = new Date(); // Current date
+            const roundDates = <?php echo json_encode($roundData); ?>;
+            const currentDate = new Date(); // Current date
 
-    if (!Array.isArray(roundDates) || roundDates.length === 0) {
-        console.error('No round dates found or invalid data format.');
-        return;
-    }
+            console.log(roundDates);
 
-    let isActive = false;
+            if (!Array.isArray(roundDates) || roundDates.length === 0) {
+                console.error('No round dates found or invalid data format.');
+                return;
+            }
 
-    const roundIdMapping = {
-        "firstround": 1,
-        "secondround": 2
-        // Add more mappings if needed
-    };
+            let isActive = false;
 
-    
+            const roundIdMapping = {
+                "1": "firstround", 
+                "2": "secondround" 
+            };
 
-    roundDates.forEach(function(round) {
-        const roundStartDate = new Date(round.start_date);
-        const roundEndDate = new Date(round.end_date);
-        const roundElementId = Object.keys(roundIdMapping).find(key => roundIdMapping[key] === round.id);
+            console.log('Round ID Mapping:', roundIdMapping);
 
-        if (!roundElementId) {
-            console.error('Invalid round ID:', round.id);
-            return;
-        }
+            roundDates.forEach(function(round) {
+                const roundStartDate = new Date(round.start_date);
+                const roundEndDate = new Date(round.end_date);
+                
+                // Convert round id to number
+                const roundId = parseInt(round.id);
 
-        console.log(round.id);
-    console.log(roundIdMapping[key]);   
+                console.log('Round ID:', roundId);
 
-        const roundElement = document.getElementById(roundElementId);
+                // Check if the round id exists in the mapping
+                if (!roundIdMapping.hasOwnProperty(roundId)) {
+                    console.error('Invalid round ID:', roundId);
+                    return;
+                }
 
-        if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
-            roundElement.classList.add('active');
-            isActive = true;
-        } else {
-            roundElement.classList.remove('active');
-        }
+                const roundElementId = roundIdMapping[roundId];
 
-        console.log(roundStartDate); // Log start date for debugging
-    });
+                console.log('Round Element ID:', roundElementId);
 
-    // Uncomment this section if you want to set a default active round
-    // if (!isActive) {
-    //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
-    //     const firstRoundElement = document.getElementById(firstRoundElementId);
-    //     firstRoundElement.classList.add('active');
-    // }
-});
+                const roundElement = document.getElementById(roundElementId);
+
+                if (currentDate >= roundStartDate && currentDate <= roundEndDate) {
+                    roundElement.classList.remove('active');
+                    isActive = true;
+
+                    if (roundId === 2) {
+                        const preferencesModal = document.getElementById('preferencesModal');
+                        const preferencesModal2 = document.getElementById('preferencesModal2');
+                        preferencesModal.id = 'preferencesModal2';
+                        preferencesModal2.id = 'preferencesModal';
+                        document.getElementById('ad-cards').style.display = 'none';
+                        document.getElementById('preferences-anel').style.display = 'flex';
+                    }
+                    else {
+                        document.getElementById('ad-cards').style.display = 'flex';
+                        document.getElementById('preferences-panel').style.display = 'none';
+                    }
+                } else {
+                    roundElement.classList.add('active');
+                }
+
+                console.log(roundStartDate); // Log start date for debugging
+            });
+
+            // Uncomment this section if you want to set a default active round
+            // if (!isActive) {
+            //     const firstRoundElementId = Object.keys(roundIdMapping)[0];
+            //     const firstRoundElement = document.getElementById(firstRoundElementId);
+            //     firstRoundElement.classList.add('active');
+            // }
+        });
 
 
 
+
+
+        // ajax to send 2nd round preferences to back end
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add event listener to form submission
+            document.getElementById("preferencesForm").addEventListener("submit", function(event) {
+                // Prevent default form submission behavior
+                event.preventDefault();
+
+                // Serialize form data
+                var formData = new FormData(this);
+
+                // Send AJAX request
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "your_backend_controller_url_here", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Handle successful response
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.success) {
+                                // Optionally, do something on success
+                                alert("Preferences saved successfully!");
+                            } else {
+                                // Optionally, handle errors
+                                alert("Error: " + response.message);
+                            }
+                        } else {
+                            // Handle errors
+                            console.error("Error:", xhr.status, xhr.statusText);
+                        }
+                    }
+                };
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(new URLSearchParams(formData).toString());
+            });
+        });
 
 
 
