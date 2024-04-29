@@ -1,7 +1,7 @@
 <?php
 
 class User extends Model
-{
+{ 
 
     public function login($username, $password, $conn)
     {

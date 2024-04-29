@@ -34,7 +34,7 @@
                     <thead>
                         <tr>
                             <td>Position</td>
-                            <td>No. of Shortlisted Students</td>
+                            <td >No. of Shortlisted Students</td>
                             <td></td>
                         </tr>
                     </thead>

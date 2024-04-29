@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortlisted Students - QA</title>
+    <title>Shortlisted Students</title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companyShortlistedStu.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
         <div class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Shortlisted Students for Quality Assurance</h2>
+                    <h2>Shortlisted Students</h2>
                 </div>
                 
                 <table>
@@ -63,8 +63,8 @@
                         </tr>
                         <?php endforeach;?>
                     <?php else:?>
-                        <tr>
-                            <td colspan="5">No students found.</td>
+                        <tr class="no-students">
+                            <td colspan="5">No students found</td>
                         </tr>
                     <?php endif;?>
                     
@@ -76,6 +76,8 @@
             
         </div>
     </div>
+
+    
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

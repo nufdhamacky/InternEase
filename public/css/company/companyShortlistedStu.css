@@ -208,6 +208,11 @@ body
   border-radius: 20px;
 }
 
+.no-students td {
+    color: red; 
+    text-align: center;
+}
+
 .details .cardHeader {
     display: flex;
     justify-content: space-between;
@@ -254,9 +259,6 @@ body
     padding: 7.25px;
 }
 
-.details .studentdetails table tr td:last-child {
-    text-align: end;
-}
 
 .details .studentdetails table tr td select {
     cursor: pointer;
