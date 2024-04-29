@@ -76,14 +76,6 @@ class Company extends Controller
 
     }
 
-    public function schedule()
-    {
-        $get = new TechTalkModel;
-        $data = ['schedule' =>$get->tt_schedule()];
-
-        $this->view('company/schedule',$data);
-
-    }
 
     public function scheduleInt()
     {
@@ -280,12 +272,73 @@ class Company extends Controller
             throw new Exception("User not logged in");
         }
     }
-
-    public function schedule_tech_talk()
+    public function schedule()
     {
+        $get = new TechTalkModel;
+        $data = [];
+        $data = ['schedule' =>$get->tt_schedule()];
+        $this->model('CompanyVisitCompany');
+        $companyvisit = new CompanyVisitCompany;
+        $data = ['rows' =>$companyvisit->get_CompanyVisit()];
+        $this->view('company/schedule',$data);
+
+    }
+
+    public function send_action() {
+
+        $rawData = file_get_contents("php://input");
+    
+
+        $data = json_decode($rawData, true);
+        var_dump($data);
+        $reason = $data['reason'];
+
+        if($data['status']=='Accepted')
+        {   
+            $status = 1;
+            $reason ="";
+        }else{
+            $status = 0;
+        }
+
+        $date = $data['rejectedDate'].":00";
+        $date = explode("T",$date);
+       
+        $rdate =  $data['requestedDate'];
+        $rtime =  $data['requestedTime'];
+      
+        $user_id = $_SESSION['userId'];
+        
+       
+        $requested_date = $rdate." ".$rtime;
+        if($status == 1){
+           $visit_date = $requested_date;
+        }else{
+            $visit_date = $date[0]." ".$date[1];
+        }
+
+       
+        echo "user: $user_id<br>";
+        echo "req: $requested_date<br>";
+        echo "visit: $visit_date<br>";
+
+        echo "status: $status<br>";
+        echo "reason: $reason<br>";
+
+
+
+       
+        $this->model('CompanyVisitCompany');
+        $companyvisit = new CompanyVisitCompany;
+        $companyvisit->send_visit_data($user_id,$requested_date,$visit_date,$status,$reason);
+    
+        echo json_encode(["message" => "Success", "status" => $status, "reason" => $reason]);
+    }
+    
+    public function schedule_tech_talk(){
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Access the POST data
+
             $data = [
                 'company_id' => $_SESSION['userId'] ?? 'default_id',
                 'topic' => $_POST['title'] ?? '',
@@ -294,7 +347,7 @@ class Company extends Controller
                 'status' => 0,
             ];
 
-            // Output the POST data for debugging
+
             echo "<pre>";
 
             foreach ($data as $d) {

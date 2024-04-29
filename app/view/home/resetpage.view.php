@@ -81,16 +81,5 @@ if (isset($pwd) && $pwd == 1) {
 }
 
 
-if (isset($sent) && $sent == 0) {
-    echo "
-    <script>
-        Swal.fire({
-            title: 'OTP incorrect or expired',
-            text: 'Please try again',
-            icon: 'error',
-            confirmButtonText: 'Close'
-        });
-    </script>";
-}
 ?>
 </html>
