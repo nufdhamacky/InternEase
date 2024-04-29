@@ -238,6 +238,11 @@ class Pdc extends Controller
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/schedule');</script>";
     }
 
+    public function getVisitByStatus()
+    {
+        return $this->companyVisitRepository->getByStatus(1);
+    }
+
     public function getAllTechTalks()
     {
         return $this->pdcTechTalkRepository->getAll();
