@@ -165,9 +165,12 @@ class Student extends Controller
         $roundModel = $this->model('StudentRoundModel');
         $roundData = $roundModel->fetchRoundDates();
         // $adsWithStatus = $admodel->fetchAdsWithStatus($userId);
+        $secondRoundCount = $roundModel->countround2();
+
         $data = [
             'ads' => $ads,
-            'roundData' => $roundData
+            'roundData' => $roundData,
+            'secondRoundCount' => $secondRoundCount
         ];
 
 

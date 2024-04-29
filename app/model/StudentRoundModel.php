@@ -19,4 +19,15 @@ class STudentRoundModel extends Model{
         mysqli_free_result($result);
         return $rounds;
     }
+
+    public function countround2(){
+        $query = "SELECT count FROM round WHERE id = 2";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc();
+
+        return $count;
+    }
 }

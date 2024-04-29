@@ -199,6 +199,8 @@ class Applied extends Model {
             return true;
         }
     }
+
+    
     
 
     public function fetchApplicationStatus($studentId, $adId){
