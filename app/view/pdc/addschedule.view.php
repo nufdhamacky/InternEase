@@ -1,7 +1,7 @@
 <?php
 include_once('../app/controller/pdc.php');
 $pdcController = new Pdc();
-$companies = $pdcController->getFullApprovedCompany();
+$companies = $pdcController->getVisitByStatus();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,7 @@ $companies = $pdcController->getFullApprovedCompany();
                             <select id='testSelect1' name="company[]" multiple>
                                 <?php
                                 foreach ($companies as $c) { ?>
-                                    <option value='<?php echo $c->userId; ?>'><?php echo $c->name; ?></option>
+                                    <option value='<?php echo $c->companyID; ?>'><?php echo $c->companyName; ?></option>
                                 <?php } ?>
                             </select>
                         </div>

@@ -11,7 +11,7 @@ class TechTalkModel extends Model{
                 t.to_date
             FROM `tech_talk` AS t
             JOIN company AS c ON t.company_id = c.user_id
-            WHERE t.status = 1
+            WHERE t.status = 1 OR t.status=0
         ";
     
         $results = $this->query($query);
@@ -38,6 +38,21 @@ class TechTalkModel extends Model{
         $this->setTable('tech_talk');
         $this->insert($data);  
         return 1;
+    }
+
+    function tt_schedule(){
+        $query = "
+            SELECT
+            * FROM techtalk_schedule
+        ";
+
+    $results = $this->query($query);
+    $default = [ 'from' => $results[0]['from_time'], 'to' => $results[0]['to_time'], 
+    'date' => $results[0]['date']
+    ];
+
+    return $default;
+
     }
     
     

@@ -13,6 +13,47 @@
 .modal-backdrop{
     z-index: -1;
 }
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+}
+
 </style>
 </head>
 
@@ -99,83 +140,101 @@
                         </div>
                         <div id="tech_talk_calendar"></div>
 
-                <!-- Bootstrap Modal for Tech-Talk Schedules -->
-                <div class="modal fade" id="techTalkModal"  role="dialog"  aria-labelledby="techTalkModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="techTalkModalLabel">Schedule Tech Talk</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="techTalkForm">
-                                        <div class="form-group">
-                                            <label for="techTalkTitle">Topic</label>
-                                            <input type="text" class="form-control" id="techTalkTitle" placeholder="Enter title">
+                        <div class="modal fade" id="techTalkModal"  role="dialog"  aria-labelledby="techTalkModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="techTalkModalLabel">Schedule Tech Talk</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="techTalkStart" id="start">Start Date and Time</label>
-                                            <input type="datetime-local" class="form-control" id="techTalkStart" style="display:none" readonly >
+                                        <div class="modal-body">
+                                            <form id="techTalkForm">
+                                                <div class="form-group">
+                                                    <label for="techTalkTitle">Description</label>
+                                                    <input type="text" class="form-control" id="Compan" placeholder="Enter Description">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="techTalkStart" id="start">Start Date and Time</label>
+                                                    <input type="datetime-local" class="form-control" id="techTalkStart" style="display:none" readonly >
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="datetime-local" class="form-control" id="techTalkEnd" style="display:none" readonly >
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </form>
                                         </div>
-                                        <div class="form-group">
-                                            <input type="datetime-local" class="form-control" id="techTalkEnd" style="display:none" readonly >
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
                     </div>
 
 
                     <div class="content content-3">
-                        
-                        <div class="compdetails"> 
-                            <div class = "cardHeader">
-                                <h2>Schedule Company Visit</h2>
-                            </div>   
+                            
+                  
+                        <table>
+                            <thead>
+                            <tr>
+                                <td>Request Date</td>
+                                <td>Request Time</td>
+                                <td>Visit Date</td>
+                                <td>Visit Time</td>
+                                <td>Status</td>
+                                <td>Action</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($rows as $r){?>
+                                <tr>
+                                    <td><?php echo $r['requested_date'];?></td>
+                                    <td><?php echo $r['requested_time'];?></td>
+                                    <td><?php echo $r['visit_date'];?></td>
+                                    <td><?php echo $r['visit_time'];?></td>
+                                    <td style="<?php if($r['status']=='Pending'){                                       
+                                        echo "color:blue;" ;
+                                    }else if($r['status']=='Approved'){
+                                        echo "color:green;" ;
+                                    }else{
+                                        echo "color:red;" ;
+                                    }     ?>"
+                                    
+                                    ><?php echo $r['status'];?></td>
+                                    <td>
+                                    <?php if($r['status']=='Pending'){ ?>
+                                        <button onclick="openModal(this)"
+                                            data-requested_date="<?php echo $r['requested_date'];?>"
+                                            data-requested_time="<?php echo $r['requested_time'];?>">Take Action</button>
 
-                            <h4>Date:</h4>
-                            <div class = "input-container">
-                                <input type = "date" class = "bx1">
-                            </div>
+                                    <?php }?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                            </table>
 
-                            <h4>Duration:</h4>
-                            <div>
-                                <select>
-                                    <option value = "1hr">1 hour</option>
-                                    <option value = "2hr">2 hours</option>
-                                </select>
-                            </div>
-
-                            <h4>Time Slot:</h4>
-                            <div class = "timeslot">
-                                <div class = "select">
-                                    <select>
-                                        <option value = "9">09.00 AM</option>
-                                        <option value = "10">10.00 AM</option>
-                                        <option value = "1030">10.30 AM</option>
-                                        <option value = "11">11.00 AM</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <select>
-                                        <option value = "10">10.00 AM</option>
-                                        <option value = "1030">10.30 AM</option>
-                                        <option value = "11">11.00 AM</option>
-                                        <option value = "1130">11.30 AM</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="submit">
-                                    <button type="submit" class="btn">SAVE</button>
-                                </div>
                         </div>
+
+                        <div id="actionModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModal()">&times;</span>
+                                <h4>Take Action</h4>
+                                <button id="acceptBtn" onclick="submitAction('Accepted', '')">Accept</button>
+                                <button id="rejectBtn" onclick="showReject()">Reject</button>
+                                <div id="rejectReason" style="display:none;">
+                                    <textarea id="reasonText" placeholder="Enter reason for rejection..."></textarea>
+                                    <label for="rejectionDate">Date:</label>
+                                    <input type="datetime-local" id="rejectionDate">
+                                    <button onclick="submitAction('Rejected', document.getElementById('reasonText').value)">Submit Reason</button>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+    
 
                 </section>
             </div>
@@ -191,10 +250,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
 
 
 <script>
-    $(document).ready(function() {
+
+    let currentRequestedDate = '';
+    let currentRequestedTime = '';
+
+    function openModal(element) {
+        currentRequestedDate = element.getAttribute('data-requested_date');
+        currentRequestedTime = element.getAttribute('data-requested_time');
+        document.getElementById('actionModal').style.display = 'block';
+    }
+   
+
+        function closeModal() {
+            document.getElementById('actionModal').style.display = 'none';
+            document.getElementById('rejectReason').style.display = 'none'; 
+            }
+
+
+        function showReject() {
+            document.getElementById('rejectReason').style.display = 'block';
+        }
+
+
+        function submitAction(status, reason) {
+                var rejectionDate = '';
+                if (status === 'Rejected') {
+                    rejectionDate = document.getElementById('rejectionDate').value;
+                    if (!rejectionDate) {
+                        alert('Please select a possible date for a visit');
+                        return;
+                    }
+                }
+
+                let data = {
+                    status: status,
+                    reason: reason,
+                    rejectedDate: rejectionDate,
+                    requestedDate: currentRequestedDate, 
+                    requestedTime: currentRequestedTime  
+                };
+
+                sendDataToServer(data);
+            }
+
+
+        function sendDataToServer(data) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "<?=ROOT?>/company/send_action", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Response from server:', xhr.responseText);
+                    alert("Data submitted successfully.");
+                    closeModal(); 
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+
+    $(document).ready(function(){
         var existingEvents = []; 
         var selectedStart;
         var selectedEnd;
@@ -233,7 +352,8 @@
                         start: today
                     },
                     dayClick: function(date, jsEvent, view) {
-                    if (date.day() === 5 && date.hour() >= 8 ) {    
+                    if (date.day() === 5 && date.hour() >= 8
+                     && date.hour() <= 11) {    
                         selectedStart = date.format('YYYY-MM-DDTHH:mm');
 
                         selectedEnd = date.clone().add(2, 'hour').format('YYYY-MM-DDTHH:mm');
@@ -251,11 +371,11 @@
 
                             $('#techTalkModal').modal('show');
                         } else {
-                            alert('This time slot is already taken.');
+                           slottaken();
                         }
                         
                     } else {
-                                alert('You can only schedule tech talks on Fridays between 8 AM to 11 AM.');
+                            wrong_datetime();
                         }
                     },
                     events: {
@@ -273,7 +393,7 @@
 
             
             function isTimeSlotAvailable(start, end) {
-                // Correct the formatting of the start and end times
+
                 var formattedStart = start.replace('A', 'T');
                 var formattedEnd = end.replace('A', 'T');
 
@@ -294,7 +414,6 @@
                 console.log('Start moment:', startMoment.format());
                 console.log('End moment:', endMoment.format());
 
-                // Check for time slot availability
                 return !existingEvents.some(function(event) {
                     var eventStart = moment(event.start);
                     var eventEnd = moment(event.end);
@@ -305,14 +424,11 @@
                     var startsDuringEvent = startMoment.isBetween(eventStart, eventEnd, null, '[]');
                     var endsDuringEvent = endMoment.isBetween(eventStart, eventEnd, null, '[]');
                     var wrapsEvent = eventStart.isBetween(startMoment, endMoment, null, '[]') || 
-                                    eventEnd.isBetween(startMoment, endMoment, null, '[]');
+                    eventEnd.isBetween(startMoment, endMoment, null, '[]');
 
                     return startsDuringEvent || endsDuringEvent || wrapsEvent;
                 });
             }
-
-
-
 
     
 
@@ -357,17 +473,53 @@
                 type: 'POST',
                 success: function(response) {
                     console.log(response); 
-                    console.log('Tech talk scheduled successfully.');
-                
-                    window.location.href = '<?=ROOT?>/company/schedule';
+                    setevent();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending schedule data: ' + error);
                 }
             });
         }
+
+        
+
+        function setevent(){
+            Swal.fire({
+                title: 'Tech Talk scheduled and set for confirmation',
+                text: 'Time slot and date will reviewed and confirmed.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '<?=ROOT?>/company/schedule'; 
+                }
+            });
+        }
+
+        function wrong_datetime(){
+            Swal.fire({
+                title: 'Invalid Date and Time',
+                text: 'You can only schedule Tech-Talks on Fridays between 8 AM to 11 AM.',
+                icon: 'warning',
+                confirmButtonText: 'Close'
+            });;
+        }
+
+        function slottaken(){
+            Swal.fire({
+                title: 'Slot already taken',
+                text: 'Please choose another slot',
+                icon: 'error',
+                confirmButtonText: 'Close'
+            });
+        }
+
+       
+
     });
 
+
+   
        
 
 </script>

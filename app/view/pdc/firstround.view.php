@@ -168,7 +168,7 @@ if (isset($_GET["company"]) && $_GET["company"] != "all") {
                             <td>
                                 <?php foreach ($student->ads as $r) { ?>
 
-                                    <span style="color: <?php echo $r->firstRoundData->status == 1 ? "green" : "transparent"; ?>"><?php echo $r->firstRoundData->status == 1 ? "RECRUITED" : ""; ?>  </span>
+                                    <span style="color: <?php echo $r->firstRoundData->status == 1 ? "blue" : ($r->firstRoundData->status == 3 ? "green" : "transparent"); ?>"><?php echo $r->firstRoundData->status == 1 ? "SHORT-LISTED" : ($r->firstRoundData->status == 3 ? "RECRUITED" : ""); ?>  </span>
                                     <br>
                                 <?php } ?>
                             </td>

@@ -69,10 +69,7 @@
                                         <ion-icon name="person-outline"></ion-icon> 
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
+                                    
                                     </td>
                                 </tr>
 
@@ -129,7 +126,7 @@
 
                         <a href="path_to_cv_file" class="download-btn">Download List</a>
 
-                        <a href="path_to_cv_file" class="send-btn">Send List</a>
+                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
 
                     </div>
 
@@ -200,7 +197,7 @@
 
                         <a href="path_to_cv_file" class="download-btn">Download List</a>
 
-                        <a href="path_to_cv_file" class="send-btn">Send List</a>
+                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
 
                     </div>
 
@@ -256,7 +253,7 @@
 
                         <a href="path_to_cv_file" class="download-btn">Download List</a>
 
-                        <a href="path_to_cv_file" class="send-btn">Send List</a>
+                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
 
                     </div>
                 </section>

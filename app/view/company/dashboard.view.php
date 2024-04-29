@@ -29,7 +29,7 @@
 
             </div>
             <div class ="cardBox">
-                <div class ="card">
+                <!-- <div class ="card">
                     <div>
                         <div class="number">23-Nov 2024</div>
                         <div class="cardName">Final Date for Applications</div>
@@ -37,7 +37,7 @@
                     <div class="iconBx">
                         <ion-icon name="calendar-outline"></ion-icon>
                     </div>
-                </div>
+                </div> -->
                 
                 <div class ="card">
                 <a href="studentReq">
