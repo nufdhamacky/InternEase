@@ -3,6 +3,8 @@ include_once('../app/repository/CompanyRepository.php');
 include_once('../app/repository/StudentRepository.php');
 include_once('../app/repository/CompanyVisitRepository.php');
 include_once('../app/repository/PdcComplaintRepository.php');
+include_once('../app/repository/CompanyBlockReasonRepository.php');
+include_once('../app/model/CompanyBlockReasonModel.php');
 include_once('../app/model/PdcStudentModel.php');
 include_once('../app/model/AddCompanyVisitModel.php');
 include_once('../app/model/PdcComplaintModel.php');
@@ -16,6 +18,9 @@ class Pdc extends Controller
 
     private PdcComplaintRepository $pdcComplaintRepository;
 
+    private CompanyBlockReasonRepository $companyBlockReasonRepository;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +28,7 @@ class Pdc extends Controller
         $this->studentRepository = new StudentRepository($this->conn);
         $this->companyVisitRepository = new CompanyVisitRepository($this->conn);
         $this->pdcComplaintRepository = new PdcComplaintRepository($this->conn);
+        $this->companyBlockReasonRepository = new CompanyBlockReasonRepository($this->conn);
 
     }
 
@@ -41,16 +47,16 @@ class Pdc extends Controller
 
     public function getBlackListCompanyCount(): int
     {
-        $count = $this->companyRepository->getBlackListCount();
+        $count = $this->companyBlockReasonRepository->getCount();
         return $count;
     }
 
     public function getStudentCount()
     {
-        $pdcModel = $this->model('PdcModel');
         $count = $this->studentRepository->getCount();
         return $count;
     }
+
 
     public function getAllCompany(): array
     {
@@ -80,42 +86,91 @@ class Pdc extends Controller
 
     public function sendEmail()
     {
-        ini_set("SMTP", "tls://smtp.gmail.com");
-        ini_set("smtp_port", "587");
-        $to = "sayisenthil@gmail.com";
-        $subject = "Test Email";
-        $message = "This is a test email.";
 
-// Additional headers
-        $headers = "From: 2021is033@stu.ucsc.ac.lk.com\r\n";
-        $headers .= "Reply-To: 2021is033@stu.ucsc.ac.lk.com\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-// Send email
-        $mail_sent = mail($to, $subject, $message, $headers);
-
-        if ($mail_sent) {
-            echo "Email sent successfully.";
+        $companies = $this->companyRepository->getFullByEmail();
+        if (empty($companies)) {
+            echo "No companies to send email";
         } else {
-            echo "Email sending failed.";
+            foreach ($companies as $company) {
+                $to = $company;
+                $subject = "Test Email";
+                $body = "This is a test email.";
+
+                $email = new mailer;
+                $email->sendMail($to, $subject, $body);
+            }
         }
+
+        $this->schedule();
     }
 
+    public function schedule()
+    {
+        $this->view('pdc/schedule');
+    }
 
     public function rejectCompany()
     {
         $id = $_GET["id"];
-        $this->companyRepository->reject($id);
-        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        $reason = $_GET["reason"];
+        $email = $this->companyRepository->getCompanyMail($id);
+        $subject = "Company Request Rejected";
+        $body = "Your company request has been rejected. Reason: " . $reason;
+        $mail = new mailer;
+        $sucess = $mail->sendMail($email, $subject, $body);
+        if ($sucess == 'Message has been sent') {
+            $rejected = 1;
+            $data = ['rejected' => $rejected];
+            $this->companyRepository->reject($id, $reason);
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/request');</script>";
+        } else {
+            $rejected = 0;
+            $data = ['rejected' => $rejected];
+            echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        }
+
     }
 
     public function acceptCompany()
     {
         $id = $_GET["id"];
-        $this->companyRepository->accept($id);
-        echo "<script> window.location.replace('http://localhost/internease/public/pdc/companyrequest');</script>";
+        $email = $this->companyRepository->getCompanyMail($id);
+        $subject = "Company Request Accepted";
+        $body = "Your company request has been accepted. You can now login to your account.";
+        $mail = new mailer;
+        $sucess = $mail->sendMail($email, $subject, $body);
+        if ($sucess == 'Message has been sent') {
+            $pending = 1;
+            $data = ['pending' => $pending];
+
+            $this->companyRepository->accept($id);
+
+            $this->view('pdc/companyrequest', $data);
+        } else {
+            $pending = 0;
+            $data = ['pending' => $pending];
+            $this->view('pdc/companyrequest', $data);
+
+        }
+
     }
 
+
+//    public function acceptEmail()
+//    {
+//        if (empty($companies)) {
+//            echo "No companies to send email";
+//        } else {
+//            foreach ($companies as $company) {
+//                $to = $company;
+//                $subject = "Test Email";
+//                $body = "This is a test email.";
+//
+//                $email = new mailer;
+//                $email->sendMail($to, $subject, $body);
+//            }
+//        }
+//    }
 
     public function getAllStudent($page): PageDataModel
     {
@@ -147,7 +202,6 @@ class Pdc extends Controller
         }
         return $this->studentRepository->filterByCourse($course, $page);
     }
-
 
     public function getAllCompanyVisits($page): PageDataModel
     {
@@ -236,9 +290,11 @@ class Pdc extends Controller
         $filename = $_FILES["csv"]["tmp_name"];
         if ($_FILES["csv"]["size"] > 0) {
             $file = fopen($filename, "r");
+            $list = [];
 
             while (($row = fgetcsv($file, 10000, ",")) !== FALSE) {
                 if ($row[4] === "email") continue;
+                if (trim($row[4]) == "") continue;
                 $email = mysqli_real_escape_string($this->conn, $row[4]);
                 $password = mysqli_real_escape_string($this->conn, $row[5]);
                 $firstName = mysqli_real_escape_string($this->conn, $row[0]);
@@ -248,23 +304,100 @@ class Pdc extends Controller
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $student = new PdcStudentModel(null, $email, $firstName, $lastName, $hashed_password, $regNo, $indexNo, array(), array());
                 $this->studentRepository->save($student);
+                $list[] = $email;
 
             }
+            $subject = "Welcome to InternEase";
+            $body = "
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Welcome to InternEase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Welcome to InternEase</h1>
+        <p>Your account has been created successfully. You can now login to your account.</p>
+        <p>Your username is your email and the password is your first four letters and the @ sign with your registration number.</p>
+        <div class='info'>
+            <strong>Example:</strong><br>
+            <strong>Email:</strong> 2021is033@stu.ucsc.cmb.ac.lk<br>
+            <strong>Name:</strong> Valarmathy<br>
+            <strong>Registration No:</strong> 2021/IS/033<br>
+            <strong>Password:</strong> Nirm@033
+        </div>
+    </div>
+</body>
+</html>";
+
+
+            $mail = new mailer;
+            $sucess = $mail->sendBulkMail($list, $subject, $body);
+
         }
 
 
         echo "<script> window.location.replace('http://localhost/internease/public/pdc/managestudent');</script>";
     }
 
-
     public function getStudentRequest($order): array
     {
         return $this->pdcComplaintRepository->getAll($order);
     }
 
+    public function getStudentRequestById($id): PdcComplaintModel
+    {
+        return $this->pdcComplaintRepository->findById($id);
+    }
+
+    public function getStudentRequestCount(): int
+    {
+        return $this->pdcComplaintRepository->getCount();
+    }
+
     public function filterStudentRequest($status, $order): array
     {
         return $this->pdcComplaintRepository->filter($status, $order);
+    }
+
+    public function replyComplaint()
+    {
+        $id = $_POST["id"];
+        $reply = mysqli_real_escape_string($this->conn, $_POST['reply']);
+        $this->pdcComplaintRepository->reply($id, $reply);
+        echo "<script> window.location.replace('http://localhost/internease/public/pdc/studentrequest');</script>";
     }
 
     public function index()
@@ -337,6 +470,11 @@ class Pdc extends Controller
         $this->view('pdc/studentrequest');
     }
 
+    public function complaintdes()
+    {
+        $this->view('pdc/complaintdes');
+    }
+
     public function ads()
     {
         $this->view('pdc/ads');
@@ -362,9 +500,9 @@ class Pdc extends Controller
         $this->view('pdc/companyreport');
     }
 
-    public function schedule()
+    public function companyreportpercentage()
     {
-        $this->view('pdc/schedule');
+        $this->view('pdc/companyreportpercentage');
     }
 
     public function addschedule()

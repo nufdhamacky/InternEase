@@ -46,8 +46,10 @@ $pageData = $pdController->getPendingCompany($page);
                     <td>
                         <a href="<?= ROOT ?>/pdc/acceptCompany?id=<?php echo $company->userId; ?>"
                            style="display: <?php echo $company->status == 0 || $company->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
-                        <a href="<?= ROOT ?>/pdc/rejectCompany?id=<?php echo $company->userId; ?>"
+                        <a href="#"
+                           onclick="rejectCompany(<?php echo $company->userId; ?>)"
                            style="display: <?php echo $company->status == 0 || $company->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+
                     </td>
                 </tr>
             <?php } ?>
@@ -63,6 +65,77 @@ $pageData = $pdController->getPendingCompany($page);
         </div>
     </div>
 </div>
+<script src="<?= ROOT ?>/js/pdcCompany.js">
 
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
+
+if (isset($pending) && $pending == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Accepted',
+            text: 'Company is allowed to log in.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+
+if (isset($pending) && $pending == 0) {
+    echo "
+<script>
+    Swal.fire({
+        title: 'There was a issue acccepting company',
+        text: 'Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+        }
+    });
+</script>
+";
+}
+
+if (isset($rejected) && $rejected == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Rejected',
+            text: 'Company is not allowed to log in.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+
+if (isset($rejected) && $rejected == 0) {
+    echo "
+<script>
+    Swal.fire({
+        title: 'There was a issue acccepting company',
+        text: 'Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '" . ROOT . "/pdc/request'; // Correctly concatenated
+        }
+    });
+</script>
+";
+} ?>
 </body>
 </html>

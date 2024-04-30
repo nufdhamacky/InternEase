@@ -1,21 +1,46 @@
 <?php
 
-class TechTalkModel{
+class TechTalkModel extends Model{
 
-    public $userId;
-    public $date;
-    public $duration;
-    public $start_time;
-    public $end_time;   
+    public function get_techtalks() {
+        $query = "
+            SELECT
+                c.company_name,
+                t.topic,
+                t.from_date,
+                t.to_date,
+                t.location
+            FROM `tech_talk` AS t
+            JOIN company AS c ON t.company_id = c.user_id
+            WHERE t.status = 1
+        ";
+    
+        $results = $this->query($query);
+        $techtalks = [];
+    
+        foreach ($results as $r) {
+            $techtalks[] = [
+                
+                'title' => $r['topic'], // FullCalendar expects 'title'
+                'start' => date('Y-m-d\TH:i', strtotime($r['from_date'])),
+                'end' => date('Y-m-d\TH:i', strtotime($r['to_date'])),
+                'location' => $r['location'] ,
 
-    public function __construct( $userId, $date, $duration, $start_time, $end_time){
-
-        $this->userId = $userId;
-        $this->date = $date;
-        $this->duration = $duration;
-        $this->start_time = $start_time;
-        $this->end_time = $end_time;
+            ];
+        }
+    
+        // Encode the array as JSON and return it
+        return json_encode($techtalks);
     }
 
+    public function store_techtalk($data){
+        $this->setTable('tech_talk');
+        $this->insert($data);  
+        return 1;
+    }
+    
+    
+
+   
 
 }

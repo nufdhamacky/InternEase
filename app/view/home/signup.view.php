@@ -4,117 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/css/home/signup.css">
-
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
     <title>Sign Up</title>
 </head>
-
 <body>
     <div class="main-div">
         <div class="leftpart">
-        <a href="../home"><img src="<?=ROOT?>/assets/images/logo.png" alt="" class="img1"></a>
+            <a href="../home"><img src="<?=ROOT?>/assets/images/logo.png" alt="Logo" class="img1"></a>
             <h1>Internship</h1>
             <h1>Management</h1>
             <h1>System</h1>
-            <img src="<?=ROOT?>/assets/images/loginimage.png" alt="" class="img2">                
+            <img src="<?=ROOT?>/assets/images/loginimage.png" alt="Login Image" class="img2">                
         </div>
-
         <div class="rightpart">
-            
-        <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
-            <h4>Create Account</h4>
+            <form action="<?=ROOT?>/home/signupcheck" class="box" method="POST">
+                <h4>Create Account</h4>
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" class="box1" value="<?= $_POST['companyName'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['companyName'] ?? '' ?></span>
 
-            <p class="label1">Company Name: 
-                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="box1" value="<?= $_POST['email'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['email'] ?? '' ?></span>
 
-                    <span class="error"><?= isset($data['signupError']['companyName']) ?></span>
+                <label for="compsite">Company Website:</label>
+                <input type="text" id="compsite" name="compsite" class="box1" value="<?= $_POST['compsite'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['website'] ?? '' ?></span>
 
-    
-                <br>
-            </p>
-            <input type="text" name="companyName" class="box1" value="<?= isset($_POST['companyName']) ? $_POST['companyName'] : '' ?>">
-            
-            <p class="label1">Email:
-                
-                
-                    <span class="error"><?= isset($data['signupError']['email']) ?></span>
-                    <br>
-            </p>
-            <input type="email" name="email" class="box1" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+                <label for="contactPerson">Contact Person:</label>
+                <input type="text" id="contactPerson" name="contactPerson" class="box1" value="<?= $_POST['contactPerson'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['contactPerson'] ?? '' ?></span>
 
-            <p class="label1">Company Website:
-                
-                
-                    <span class="error"><?= isset($data['signupError']['website']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="compsite" class="box1" value="<?= isset($_POST['compsite']) ? $_POST['email'] : '' ?>">
+                <label for="contactNo">Contact No:</label>
+                <input type="text" id="contactNo" name="contactNo" class="box1" value="<?= $_POST['contactNo'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['contactNo'] ?? '' ?></span>
 
-            <p class="label1">Contact Person: 
-                
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" class="box1" value="<?= $_POST['address'] ?? '' ?>">
+                <span class="error"><?= $data['signupError']['address'] ?? '' ?></span>
 
-                    <span class="error"><?= isset($data['signupError']['contactPerson']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="contactPerson" class="box1" value="<?= isset($_POST['contactPerson']) ? $_POST['contactPerson'] : '' ?>">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="box2" value="<?= $_POST['password'] ?? '' ?>">
+                <i class='bx bxs-show eye-icon'></i>
+                <span class="error"><?= $data['signupError']['password'] ?? '' ?></span>
 
-            <p class="label1">Contact No:
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="box2">
+                <span class="error"><?= $data['signupError']['confirmPassword'] ?? '' ?></span>
 
-                    <span class="error"><?= isset($data['signupError']['contactNo']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="contactNo" class="box1" value="<?= isset($_POST['contactNo']) ? $_POST['contactNo'] : '' ?>">
-
-            <p class="label1">Address: 
-                
-                    <span class="error"><?= isset($data['signupError']['address']) ?></span>
-                    <br>
-            </p>
-            <input type="text" name="address" class="box1" value="<?= isset($_POST['address']) ? $_POST['address'] : '' ?>">
-            
-            <p class="label1">Password:
-                
-                    
-                    <span class="error"><?= isset($data['signupError']['password']) ?></span>
-
-                
-                <br>
-            </p>
-            <input type="password" name="password" class="box2" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
-            <i class='bx bxs-show eye-icon'></i>
-            
-            <p class="label1">Confirm Password:
-                
-                    <span class="error"><?= isset($data['signupError']['confirmPassword']) ?></span>
-                    <br>
-            </p>
-            <input type="password" name="confirmPassword" class="box2">
-            
-
-            <div class="member">
-                <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
-            </div>
-
-            <div class="submit" align="center">
-                <button type="submit">Sign Up</button>
-            </div>
-
-        </form>
+                <div class="member">
+                    <p class="mem">Already a member? <a href="./login" class="login">Log In</a></p>
+                </div>
+                <div class="submit" align="center">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
         </div>  
-        
     </div>
-
     <script src="<?=ROOT?>/js/login.js"></script>
-    <?php
-        // // Check if the form is submitted and there are no signup errors
-        // if (isset($_POST['signup']) && empty($data['signupError'])) {
-        //     // Redirect to the home page
-        //     header("Location: " . ROOT . "../login");
-        //     exit();
-        // }
-    ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
+<?php 
 
+if (isset($sent) && $sent == 1) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Company Signed up',
+            text: 'Your request will be reviewd',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '" . ROOT . "/home/index'; // Correctly concatenated
+            }
+        });
+    </script>";
+}
+?>
 </body>
+
 </html>
- 

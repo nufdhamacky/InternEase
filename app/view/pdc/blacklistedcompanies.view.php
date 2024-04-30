@@ -5,6 +5,7 @@ $reportController = new CompanyReport();
 //$pageData = $reportController->getAll($page);
 
 $reports = $reportController->getAll();
+$companies = $reportController->getBlackCompanies();
 
 ?>
 
@@ -18,6 +19,22 @@ $reports = $reportController->getAll();
     <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/pdc/com.css">
 </head>
 <body>
+<div class="cardBox">
+    <div class="card">
+        <a style="text-decoration: none"
+           href="<?php echo $reportController->getReportCount() > 0 ? "companyreportpercentage" : "#"; ?>">
+            <div>
+                <div class="number"><?php echo $reportController->getReportCount(); ?></div>
+
+                <div class="cardName">Company Complaints</div>
+            </div>
+        </a>
+        <div class="iconBx">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+        </div>
+
+    </div>
+</div>
 <div class="details">
     <div class="companyList">
         <!--        <div class="cardHeader">-->
@@ -26,23 +43,25 @@ $reports = $reportController->getAll();
 
         <!--        </div>-->
         <div class="cardHeader">
-            <h2>Company Blacklist Complaints</h2>
+            <h2>Blacklisted Companies</h2>
         </div>
         <table>
             <thead>
             <tr>
                 <td>Company Name</td>
-                <td>Total Report</td>
-                <td>Action</td>
+                <td>Contact Person</td>
+                <td>Contact No</td>
+                <td>Reason</td>
             </tr>
             </thead>
 
             <tbody>
-            <?php foreach ($reports as $report) { ?>
+            <?php foreach ($companies as $company) { ?>
                 <tr>
-                    <td><?php echo $report->name; ?></td>
-                    <td><?php echo round((count($report->reports) / $report->totalRecruitments) * 100.0) . "%"; ?></td>
-                    <td><a href="companyreport?id=<?php echo $report->userId; ?>">view</a></td>
+                    <td><?php echo $company->company->name; ?></td>
+                    <td><?php echo $company->company->contactPerson; ?></td>
+                    <td><?php echo $company->company->contact; ?></td>
+                    <td><?php echo $company->reason; ?></td>
                 </tr>
             <?php } ?>
             </tbody>
@@ -54,3 +73,4 @@ $reports = $reportController->getAll();
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
+

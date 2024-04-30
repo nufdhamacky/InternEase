@@ -15,9 +15,10 @@ class CompanyAdModel
     public string $qualification;
     public MyCompanyModel $company;
     public int $status;
+    public int $noOfCvsRequired;
     public FirstRoundDataModel $firstRoundData;
 
-    public function __construct($adId, $position, $requirements, $noOfIntern, $workingMode, $fromDate, $toDate, $companyId, $qualification, MyCompanyModel $company, $status)
+    public function __construct($adId, $position, $requirements, $noOfIntern, $workingMode, $fromDate, $toDate, $companyId, $qualification, MyCompanyModel $company, $status, $noOfCvsRequired)
     {
         $this->adId = $adId;
         $this->position = $position;
@@ -30,5 +31,6 @@ class CompanyAdModel
         $this->qualification = $qualification;
         $this->company = $company;
         $this->status = $status;
+        $this->noOfCvsRequired = $noOfCvsRequired;
     }
 }

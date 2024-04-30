@@ -28,7 +28,6 @@ $ads = $companyAdController->getAll();
             </div>
             <div class="user">
                 <ion-icon name="notifications-circle-outline"></ion-icon>
-                <span><?php echo $_SESSION['userRole']; ?></span>
                 <ion-icon name="person-circle-outline"></ion-icon>
             </div>
 
@@ -69,7 +68,8 @@ $ads = $companyAdController->getAll();
 
             </div> -->
             <div class="card">
-                <a style="text-decoration: none" href="blacklistedcompanies">
+                <a style="text-decoration: none"
+                   href="<?php echo $pdController->getBlackListCompanyCount() > 0 ? "blacklistedcompanies" : "#"; ?>">
                     <div>
                         <div class="number"><?php echo $pdController->getBlackListCompanyCount(); ?></div>
                         <div class="cardName">Black listed Companies</div>

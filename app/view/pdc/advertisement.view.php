@@ -39,8 +39,14 @@ $ads = $companyAdController->getAll();
                     <thead>
                     <tr>
                         <td>Company Name</td>
-                        <td>No of Interns</td>
+                        <td>Vacancies</td>
                         <td>Job</td>
+                        <td>Requirements</td>
+                        <td>Qualifications</td>
+                        <td>Working mode</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td>No of Applicants Required</td>
                         <td>Status</td>
                         <td>Action</td>
                     </tr>
@@ -48,18 +54,24 @@ $ads = $companyAdController->getAll();
                     <tbody>
                     <?php
                     foreach ($ads as $a) { ?>
-                        
+
                         <tr>
                             <td><?php echo $a->company->name; ?></td>
                             <td><?php echo $a->noOfIntern; ?></td>
                             <td><?php echo $a->position; ?></td>
+                            <td><?php echo $a->requirements; ?></td>
+                            <td><?php echo $a->qualification; ?></td>
+                            <td><?php echo $a->workingMode; ?></td>
+                            <td><?php echo $a->fromDate; ?></td>
+                            <td><?php echo $a->toDate; ?></td>
+                            <td><?php echo $a->noOfCvsRequired ?></td>
                             <td style="color: <?php echo $a->status == 0 ? "blue" : ($a->status == 1 ? "green" : "red"); ?>"><?php echo $a->status == 0 ? "Pending" : ($a->status == 1 ? "Approved" : "Rejected"); ?></td>
                             <td>
                                 <a href="<?= ROOT ?>/companyad/accept?id=<?php echo $a->adId; ?>"
-                                   style="display: <?php echo $a->status == 0 || $a->status == 2 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
+                                   style="display: <?php echo $a->status == 0 ? "inline" : "none" ?>;color: green;text-decoration: none">Accept</a>
                                 <a href="#"
                                    onclick="rejectAd(<?php echo $a->adId; ?>)"
-                                   style="display: <?php echo $a->status == 0 || $a->status == 1 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
+                                   style="display: <?php echo $a->status == 0 ? "inline" : "none" ?>;color: red;text-decoration: none">Reject</a>
                             </td>
                         </tr>
                     <?php } ?>
