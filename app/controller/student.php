@@ -10,7 +10,6 @@ class Student extends Controller
 
     public function dashboard()
     {
-
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
@@ -295,6 +294,7 @@ class Student extends Controller
             $userId = $_SESSION['userId'];
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
+            $qualification = $POST['qualification'];
 
             $studentModel = $this->model('StudentModel');
             $studentData = $studentModel->getStudentByUserId($userId);
@@ -303,7 +303,8 @@ class Student extends Controller
                 // Update first name and last name
                 $studentModel->updateStudent($userId, [
                     'first_name' => $firstName,
-                    'last_name' => $lastName
+                    'last_name' => $lastName,
+                    'qualification' => $qualification
                 ]);
 
                 // Handle file upload
@@ -356,6 +357,7 @@ class Student extends Controller
 
         $companyModel = $this->model('StudentCompanyModel');
         $company = $companyModel->getCompanyById($companyId);
+        var_dump($company);
 
         $data = [
             'company' => $company

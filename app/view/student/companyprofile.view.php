@@ -11,22 +11,22 @@
                 </div>
                 <div class="company-info">
                     <div class="com-name">
-                        <?php echo $company['company_name']; ?>
+                        <?php echo $data['company_name']; ?>
                     </div>
                     <div class="com-description">
-                        <?php echo $company['description']; ?>
+                        <?php echo $data['description']; ?>
                     </div>
                     <div class="website">
-                        <a href="<?php echo $company['website']; ?>"><?php echo $company['website']; ?></a>
+                        <a href="<?php echo $data['website']; ?>"><?php echo $data['website']; ?></a>
                     </div>
                     <div class="contact-person">
-                        Contact Person: <span class="person"><?php echo $company['contact_person']; ?></span>
+                        Contact Person: <span class="person"><?php echo $data['contact_person']; ?></span>
                     </div>
                     <div class="contact-number">
-                        Contact Number: <span class="num"><?php echo $company['contact_number']; ?></span>
+                        Contact Number: <span class="num"><?php echo $data['contact_number']; ?></span>
                     </div>
                     <div class="address">
-                        Address: <span class="addr"><?php echo $company['address']; ?></span>
+                        Address: <span class="addr"><?php echo $data['address']; ?></span>
                     </div>
                 </div>
             </div>

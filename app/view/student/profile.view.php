@@ -20,6 +20,8 @@
                     echo "<p><strong>Email:</strong> " . $studentData['email'] . "</p>";
                     echo "<p><strong>Index No:</strong> " . $studentData['index_no'] . "</p>";
                     echo "<p><strong>Registration No:</strong> " . $studentData['reg_no'] . "</p>";
+                    echo "<p><strong>Qualification:</strong> " . $studentData['qualification'] . "</p>";
+
                     if ($studentData['cv']) {
                         echo "<p><strong>CV:</strong> <a href='" . ROOT . "/uploads/" . $studentData['cv'] . "' target='_blank'>View CV</a></p>";
                     }
@@ -40,10 +42,26 @@
         <span class="close" onclick="closeEditModal()">&times;</span>
         <h2>Edit Profile</h2>
         <form action="<?=ROOT?>/student/updateProfile" method="post" enctype="multipart/form-data">
+        
             <label for="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" value="<?= $studentData['first_name'] ?>">
             <label for="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastName" value="<?= $studentData['last_name'] ?>">
+            <?php 
+            //Assume $qualification is an array of student qualification
+            $qualification = ["BSc. in Information Systems","BSc. in Computer Science"];
+                
+            for ($i = 1; $i <= $qualification; $i++){
+                echo "<label for ='qualification$i'Qualification $i:</label>";
+                echo "<select name ='qualification$i class= 'qualification' onchange='updateOptions(this)'>";
+                echo "<option value=''>None</option>"; // Add None option as the default
+
+            }
+            ?>
+            <label for="qualification">Qualification</label>
+            <input type="dropdown-menu" id="qualification" name="qualification" value="<?= $studentData['qualification'] ?>">
+
+            
             <label for="cv">Upload CV</label>
             <input type="file" id="cv" name="cv">
             <button type="submit" name="submit">Save Changes</button>
