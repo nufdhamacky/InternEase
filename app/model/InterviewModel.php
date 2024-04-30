@@ -25,7 +25,7 @@ class InterviewModel extends Model {
 
     }
 
-    public function addInterview($date, $startTime, $endTime, $title, $description, $candidateCount)
+    public function addInterview($date, $startTime, $endTime, $title, $description, $candidateCount, $studentIds)
     {
         // Get the company ID from the session
         $company_id = $_SESSION['userId'];
@@ -47,6 +47,21 @@ class InterviewModel extends Model {
             $stmt->bind_param("isss", $interview_id, $date, $startTime, $endTime);
 
             if ($stmt->execute()) {
+                // Retrieve the slot_id of the inserted time slot
+                $slot_id = $this->connection->insert_id;
+
+                // Insert into the `student_interview_slots` table for each student ID
+                $query = "INSERT INTO student_interview_slots (slot_id, student_id) VALUES (?, ?)";
+                $stmt = $this->connection->prepare($query);
+                $stmt->bind_param("ii", $slot_id, $student_id);
+
+                foreach ($studentIds as $student_id) {
+                    // Insert a separate entry for each student ID
+                    for ($i = 0; $i < $candidateCount; $i++) {
+                        $stmt->execute();
+                    }
+                }
+
                 return ['success' => true, 'interview_id' => $interview_id];
             } else {
                 // Error inserting into `time_slots`

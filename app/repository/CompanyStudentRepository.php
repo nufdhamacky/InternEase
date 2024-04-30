@@ -117,6 +117,50 @@ class CompanyStudentRepository extends model {
         }
     }
 
+    public function fetchShortlistedStuId($companyId){
+        $query = "
+            SELECT 
+                s.id
+            FROM 
+                student AS s 
+            JOIN 
+                applyadvertisement AS aa 
+            ON 
+                s.id = aa.applied_by 
+            JOIN 
+                first_round_data as frd
+            ON 
+                frd.applied_id = aa.id 
+            JOIN 
+                company_ad as ca 
+            ON 
+                frd.ad_id = ca.ad_id
+            WHERE 
+                ca.company_id = ?  
+                AND frd.status = 1
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        
+        if ($stmt) {
+            $stmt->bind_param('i', $companyId);
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            
+            // Fetch all results as an associative array
+            $students = $result->fetch_all(MYSQLI_ASSOC);
+    
+            // Close the statement
+            $stmt->close();
+            
+            return $students;
+
+        } else {
+            throw new Exception("Statement preparation failed: " . $this->conn->error);
+        }
+    }
+
     public function fetchShortlistedStuByPos($companyId, $position){
         $query = "
             SELECT 

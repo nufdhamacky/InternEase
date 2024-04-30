@@ -603,6 +603,8 @@ public function addInterview()
         return;
     }
 
+    $studentIds = $this->companyStudentRepository->fetchShortlistedStuId($_SESSION['userId']);
+
     // Try adding the interview to the database
     try {
         $interviewModel = $this->model("InterviewModel");
@@ -612,8 +614,12 @@ public function addInterview()
             $newInterview['endTime'],
             $newInterview['title'],
             $newInterview['description'] ?? null, // Check if description is set
-            (int)($newInterview['candidateCount'] ?? 0) // Ensure candidateCount is an integer
+            (int)($newInterview['candidateCount'] ?? 0), // Ensure candidateCount is an integer
+            $studentIds
         );
+
+        
+
         http_response_code(201); // Created
         echo json_encode(['success' => true]);
     } catch (Exception $e) {
