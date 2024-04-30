@@ -94,87 +94,110 @@ class Applied extends Model {
 
     public function apply($studentId, $adId, $round)
 {
-    $validity = $this->validateApplication($studentId, $round);
-    if($validity){
-        // Check if the user has already applied for any job
-        $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
-        $stmt = $this->connection->prepare($query);
-        
-        $stmt->bind_param('i', $studentId);
-        $stmt->execute();
-        
-        $result = $stmt->get_result();
-
-        $existingEntries = $result->fetch_all(MYSQLI_ASSOC);
-    
-        foreach ($existingEntries as $existingEntry) {
-            $appliedId = $existingEntry['id'];
-    
-            // Check if the user has already applied for the same ad
-            $query2 = "SELECT ad_id FROM first_round_data WHERE applied_id = ?";
-            $stmt2 = $this->connection->prepare($query2);
+    $cvFlood = $this->checkForCVFlooding($adId);
+    if(!$cvFlood){
+        $validity = $this->validateApplication($studentId, $round);
+        if($validity){
+            // Check if the user has already applied for any job
+            $query = "SELECT id FROM applyadvertisement WHERE applied_by = ?";
+            $stmt = $this->connection->prepare($query);
             
-            if (!$stmt2) {
+            $stmt->bind_param('i', $studentId);
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+
+            $existingEntries = $result->fetch_all(MYSQLI_ASSOC);
+        
+            foreach ($existingEntries as $existingEntry) {
+                $appliedId = $existingEntry['id'];
+        
+                // Check if the user has already applied for the same ad
+                $query2 = "SELECT ad_id FROM first_round_data WHERE applied_id = ?";
+                $stmt2 = $this->connection->prepare($query2);
+                
+                if (!$stmt2) {
+                    // Handle the error if prepare() fails
+                    return ['success' => false, 'message' => 'Error preparing statement'];
+                }
+        
+                $stmt2->bind_param('i', $appliedId);
+                $stmt2->execute();
+                
+                $result2 = $stmt2->get_result();
+        
+                if (!$result2) {
+                    // Handle the error if get_result() fails
+                    return ['success' => false, 'message' => 'Error executing statement'];
+                }
+        
+                $existingAdEntry = $result2->fetch_assoc();
+        
+                if ($existingAdEntry && $existingAdEntry['ad_id'] == $adId) {
+                    // User has already applied for this ad, return false
+                    return ['success' => false, 'message' => 'You have already applied for this job'];
+                }
+            }
+        
+            // If the loop completes without finding a match, insert new entries
+            $query = "INSERT INTO applyadvertisement (applied_by, round_id) VALUES (?, 1)";
+            $stmt = $this->connection->prepare($query);
+            
+            if (!$stmt) {
                 // Handle the error if prepare() fails
                 return ['success' => false, 'message' => 'Error preparing statement'];
             }
-    
-            $stmt2->bind_param('i', $appliedId);
-            $stmt2->execute();
             
-            $result2 = $stmt2->get_result();
-    
-            if (!$result2) {
-                // Handle the error if get_result() fails
-                return ['success' => false, 'message' => 'Error executing statement'];
+            $stmt->bind_param('i', $studentId);
+            $success = $stmt->execute();
+        
+            if (!$success) {
+                // Failed to insert into the applyadvertisement table
+                return ['success' => false, 'message' => 'Error applying for job'];
             }
-    
-            $existingAdEntry = $result2->fetch_assoc();
-    
-            if ($existingAdEntry && $existingAdEntry['ad_id'] == $adId) {
-                // User has already applied for this ad, return false
-                return ['success' => false, 'message' => 'You have already applied for this job'];
+        
+            // Get the inserted id
+            $appliedId = $stmt->insert_id;
+        
+            // Insert a new entry into the first_round_data table
+            $query = "INSERT INTO first_round_data (ad_id, applied_id) VALUES (?, ?)";
+            $stmt = $this->connection->prepare($query);
+            
+            if (!$stmt) {
+                // Handle the error if prepare() fails
+                return ['success' => false, 'message' => 'Error preparing statement'];
             }
-        }
-    
-        // If the loop completes without finding a match, insert new entries
-        $query = "INSERT INTO applyadvertisement (applied_by, round_id) VALUES (?, 1)";
-        $stmt = $this->connection->prepare($query);
+            
+            $stmt->bind_param('ii', $adId, $appliedId);
+            $success = $stmt->execute();
         
-        if (!$stmt) {
-            // Handle the error if prepare() fails
-            return ['success' => false, 'message' => 'Error preparing statement'];
+            return ['success' => $success];
+        } else {
+            return ['success' => false, 'message' => 'You have reached the maximum number of applications'];
         }
-        
-        $stmt->bind_param('i', $studentId);
-        $success = $stmt->execute();
-    
-        if (!$success) {
-            // Failed to insert into the applyadvertisement table
-            return ['success' => false, 'message' => 'Error applying for job'];
-        }
-    
-        // Get the inserted id
-        $appliedId = $stmt->insert_id;
-    
-        // Insert a new entry into the first_round_data table
-        $query = "INSERT INTO first_round_data (ad_id, applied_id) VALUES (?, ?)";
-        $stmt = $this->connection->prepare($query);
-        
-        if (!$stmt) {
-            // Handle the error if prepare() fails
-            return ['success' => false, 'message' => 'Error preparing statement'];
-        }
-        
-        $stmt->bind_param('ii', $adId, $appliedId);
-        $success = $stmt->execute();
-    
-        return ['success' => $success];
-    } else {
-        return ['success' => false, 'message' => 'You have reached the maximum number of applications'];
+    }
+    else {
+        return ['success' => false, 'message' => 'No more applications are accepted for this ad'];
     }
 }
 
+    public function checkForCVFlooding($adId){
+        $query = "SELECT no_of_cvs_required AS count FROM company_ad WHERE ad_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('i', $adId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $cvCount = $result->fetch_assoc();
+
+        if($cvCount['count']>0){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
     
 
     public function validateApplication($studentId, $round) {
