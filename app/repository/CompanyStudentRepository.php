@@ -117,6 +117,51 @@ class CompanyStudentRepository extends model {
         }
     }
 
+    public function fetchShortlistedStuByPos($companyId){
+        $query = "
+            SELECT 
+                s.*
+            FROM 
+                student AS s 
+            JOIN 
+                applyadvertisement AS aa 
+            ON 
+                s.id = aa.applied_by 
+            JOIN 
+                first_round_data as frd
+            ON 
+                frd.applied_id = aa.id 
+            JOIN 
+                company_ad as ca 
+            ON 
+                frd.ad_id = ca.ad_id
+            WHERE 
+                ca.company_id = ? 
+                AND frd.status = 1
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        
+        if ($stmt) {
+            $stmt->bind_param('i', $companyId);
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            
+            // Fetch all results as an associative array
+            $students = $result->fetch_all(MYSQLI_ASSOC);
+    
+            // Close the statement
+            $stmt->close();
+            
+            return $students;
+
+        } else {
+            throw new Exception("Statement preparation failed: " . $this->conn->error);
+        }
+
+    }
+
     public function fetchShortlistedStuId($companyId){
         $query = "
             SELECT 
@@ -161,10 +206,42 @@ class CompanyStudentRepository extends model {
         }
     }
 
-    public function fetchShortlistedStuByPos($companyId, $position){
+    public function updatestatus($companyId, $stu_id, $status, $position) {
+        $query = "
+            UPDATE first_round_data AS frd
+            JOIN applyadvertisement AS aa ON frd.applied_id = aa.id
+            JOIN student AS s ON aa.applied_by = s.id
+            JOIN company_ad AS ca ON frd.ad_id = ca.ad_id
+            SET frd.status = ?
+            WHERE s.reg_no = ?
+            AND ca.company_id = ?
+            AND ca.position = ?
+        ";
+    
+        $stmt = $this->conn->prepare($query);
+    
+        if ($stmt) {
+            $stmt->bind_param('isis', $status, $stu_id, $companyId, $position);
+            $stmt->execute();
+    
+            // No need to fetch results unless necessary for specific logic
+            // $result = $stmt->get_result();
+            // $students = $result->fetch_all(MYSQLI_ASSOC);
+    
+            $stmt->close();
+    
+            // Return success or failure indication (optional)
+            return true;  // Or a more specific message
+        } else {
+            throw new Exception("Statement preparation failed: " . $this->conn->error);
+        }
+    }
+    
+
+    public function getshortlist($companyId){
         $query = "
             SELECT 
-                s.*
+                s.*,ca.position
             FROM 
                 student AS s 
             JOIN 
@@ -181,14 +258,13 @@ class CompanyStudentRepository extends model {
                 frd.ad_id = ca.ad_id
             WHERE 
                 ca.company_id = ? 
-                AND ca.position = ? 
                 AND frd.status = 1
         ";
 
         $stmt = $this->conn->prepare($query);
         
         if ($stmt) {
-            $stmt->bind_param('is', $companyId, $position);
+            $stmt->bind_param('i', $companyId);
             $stmt->execute();
             
             $result = $stmt->get_result();

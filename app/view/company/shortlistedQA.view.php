@@ -54,11 +54,17 @@
                             <td><a href="#" span class = "view"></span>View Profile</td>
                             <td><a href="scheduleInt" span class = "view"></span>Schedule Interview</td>
                             <td>
-                                <select>
-                                    <option value = "" selected hidden>--Select Action--</option>
-                                    <option value="recruited">Recruited</option> 
-                                    <option value="rejected">Rejected</option>
+                            <form action="<?=ROOT?>/company/Shortlist" method="post">
+                                <input type="hidden" name="student_reg" value="<?= $student['reg_no'] ?>">
+                                <input type="hidden" name="position" value="<?=  $_GET['position'];?>">
+                                <select name="status">
+                                    <option value="" selected hidden>--Select Action--</option>
+                                    <option value="3">Recruited</option>
+                                    <option value="1">Shortlist</option>
+                                    <option value="2">Rejected</option>
                                 </select>
+                                <button type="submit">Update</button>
+                            </form>
                             </td>
                         </tr>
                         <?php endforeach;?>

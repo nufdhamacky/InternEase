@@ -46,7 +46,11 @@
                         <tr>
                             <td><?= htmlspecialchars($position['position']) ?></td>
                             <td><?= $position['application_count']?></td>
-                            <td><a href="shortlistedQA?position=<?= urlencode($position['position']) ?>" span class = "view"></span>View List</a></td>
+                            <td>
+                            <a href="shortlistedQA?position=<?php echo urlencode($position['position']); ?>">
+                                <span class="view"></span>View List
+                            </a>
+                            </td>
                         </tr>
                         <?php endforeach;?>
                             

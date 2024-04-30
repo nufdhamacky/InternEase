@@ -47,13 +47,16 @@
                     </thead>
 
                     <tbody>
-                    
+                            <?php if(isset($list)){?>
+                            <?php foreach($list as $stu){ ?>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?php echo htmlspecialchars($stu['first_name']."".$stu['last_name'] );?></td>
+                                <td><?php echo htmlspecialchars($stu['reg_no']);?></td>
+                                <td><?php echo htmlspecialchars($stu['position']);?></td>
                             </tr>
-                         <tr>
+
+                            <?php }?>
+                        <?php }?>
                             <td colspan="5">No student applications found.</td>
                         </tr>
                     </tbody>
