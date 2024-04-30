@@ -323,10 +323,6 @@ section .content .title{
     padding: 7.25px;
 }
 
-.details .studentdetails table tr td:last-child {
-    text-align: end;
-}
-
 .details .studentdetails table tr td select {
     cursor: pointer;
 }
