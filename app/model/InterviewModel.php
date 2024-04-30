@@ -179,6 +179,24 @@ class InterviewModel extends Model {
         }
     }
 
+    // Model method to fetch scheduled interviews for a student
+    public function getScheduledInterviewsForStudent($studentId)
+    {
+        // Prepare SQL query to fetch scheduled interviews
+        $query = "SELECT * FROM interviews 
+                INNER JOIN time_slots ON interviews.interview_id = time_slots.interview_id
+                INNER JOIN student_interview_slots ON time_slots.slot_id = student_interview_slots.slot_id
+                WHERE student_interview_slots.student_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("i", $studentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Fetch and return scheduled interviews as an array
+        $scheduledInterviews = $result->fetch_all(MYSQLI_ASSOC);
+        return $scheduledInterviews;
+    }
+
 
 
 }
