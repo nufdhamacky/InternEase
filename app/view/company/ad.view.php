@@ -39,12 +39,12 @@
                 </div>
                 <br>
                 <div class="filter-details">
-                    <div class = "secondbar">
-                        <!-- <div class = "search">
+                    <!-- <div class = "secondbar">
+                        <div class = "search">
                             <ion-icon name="search-outline"></ion-icon>
                             <input type = "text" placeholder = "Search Position" class = "box1">
-                        </div> -->
-                    </div>
+                        </div>
+                    </div> -->
                 </div><br>
 
                 
