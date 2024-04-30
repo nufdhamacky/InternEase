@@ -279,9 +279,6 @@ class Company extends Controller
     }
     public function schedule()
     {
-        $get = new TechTalkModel;
-        $data = [];
-        $data = ['schedule' =>$get->tt_schedule()];
         $this->model('CompanyVisitCompany');
         $companyvisit = new CompanyVisitCompany;
         $data = ['rows' =>$companyvisit->get_CompanyVisit()];
@@ -353,15 +350,6 @@ class Company extends Controller
             ];
 
 
-            echo "<pre>";
-
-            foreach ($data as $d) {
-                echo "<br>";
-                var_dump($d);
-                echo "<br>";
-            }
-
-            echo "</pre>";
             if (ob_get_level() > 0) {
                 ob_flush();
             }
@@ -374,7 +362,6 @@ class Company extends Controller
 
 
         } else {
-            // Handle the error for non-POST requests
             echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
         }
 

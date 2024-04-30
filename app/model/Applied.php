@@ -170,6 +170,10 @@ class Applied extends Model {
             
             $stmt->bind_param('ii', $adId, $appliedId);
             $success = $stmt->execute();
+
+            if($success){
+                $this->updateNoCVsRequired($adId);
+            }
         
             return ['success' => $success];
         } else {
@@ -199,6 +203,21 @@ class Applied extends Model {
 
     }
     
+    private function updateNoCVsRequired($adId) {
+        // Update no_cvs_required column in company_ad table
+        $query = "UPDATE company_ad SET no_of_cvs_required = no_cvs_required - 1 WHERE ad_id = ?";
+        $stmt = $this->connection->prepare($query);
+        
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return false;
+        }
+        
+        $stmt->bind_param('i', $adId);
+        $success = $stmt->execute();
+        
+        return $success;
+    }
 
     public function validateApplication($studentId, $round) {
         // Query to get the count of unique entries in the applyadvertisement table for the given student
@@ -439,6 +458,7 @@ class Applied extends Model {
                 // Log the error or perform error handling actions
                 error_log("Failed to apply to advertisement with ID: " . $ad['ad_id']);
             }
+            $this->updateNoCVsRequired($adId);
         }
     
         return ['success' => true];    
