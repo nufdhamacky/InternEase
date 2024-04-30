@@ -91,7 +91,7 @@
                             <td>Student Name</td>
                             <td>Student Degree</td>
                             <td>Job</td>
-                            <td>Status</td>
+                            <!-- <td>Status</td> -->
                             <td></td>
                         </tr>
                     </thead>
@@ -101,7 +101,7 @@
                             <td>Hamsayini Senthilrasa</td>
                             <td>CS</td>
                             <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
+                            <!-- <td><span class="status pending">Pending</span></td> -->
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
@@ -109,7 +109,7 @@
                             <td>Nufdha Macky</td>
                             <td>IS</td>
                             <td>QA</td>
-                            <td><span class="status recruited">Recruited</span></td>
+                            <!-- <td><span class="status recruited">Recruited</span></td> -->
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
@@ -117,7 +117,7 @@
                             <td>Gien Gawesh</td>
                             <td>CS</td>
                             <td>Web Development</td>
-                            <td><span class="status rejected">Rejected</span></td>
+                            <!-- <td><span class="status rejected">Rejected</span></td> -->
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
@@ -125,41 +125,11 @@
                             <td>Shamah Lafir</td>
                             <td>IS</td>
                             <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
+                            <!-- <td><span class="status pending">Pending</span></td> -->
                             <td><a href="#" span class = "view"></span>View</td>
                         </tr>
 
-                        <tr>
-                            <td>Nufdha Macky</td>
-                            <td>IS</td>
-                            <td>QA</td>
-                            <td><span class="status recruited">Recruited</span></td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Hamsayini Senthilrasa</td>
-                            <td>CS</td>
-                            <td>Software Engineering</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Gien Gawesh</td>
-                            <td>CS</td>
-                            <td>Web Development</td>
-                            <td><span class="status rejected">Rejected</span></td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Shamah Lafir</td>
-                            <td>IS</td>
-                            <td>Web Development</td>
-                            <td><span class="status rejected">Rejected</span></td>
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
 
