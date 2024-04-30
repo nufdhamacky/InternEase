@@ -150,7 +150,7 @@
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="<?=ROOT?>/js/calendar.js"></script>
+    
     <script>
         // Array to hold existing interviews
 let existingEvents = [];
@@ -324,5 +324,6 @@ function deleteEvent(eventId) {
 fetchEvents();
 
     </script>
+    <script src="<?=ROOT?>/js/calendar.js"></script>
 </body>
 </html>

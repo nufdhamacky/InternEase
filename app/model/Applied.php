@@ -300,7 +300,107 @@ class Applied extends Model {
     
         return $appliedAdsCount['count'];
     }
+
+
+    // second round applications
+
+    public function applySecondRound($studentId, $preferences){
+
+        // Convert preferences array to string if it's not already a string
+        if (is_array($preferences)) {
+            $preferences = implode(',', $preferences);
+        }
+    
+        // Parse preferences string to extract job roles
+        $jobRoles = $this->extractJobRoles($preferences);
+        
+        // Check if job roles were successfully extracted
+        if (!$jobRoles) {
+            return ['success' => false, 'message' => 'Error parsing preferences'];
+        }
+    
+        // Insert student application
+        $success = $this->insertApplication($studentId);
+        
+        if (!$success) {
+            return ['success' => false, 'message' => 'Error applying for job'];
+        }
+    
+        // Get the applied ID
+        $appliedId = $this->connection->insert_id;
+    
+        // Insert job roles into second_round_data table
+        $success = $this->insertJobRoles($appliedId, $jobRoles);
+        
+        if (!$success) {
+            return ['success' => false, 'message' => 'Error inserting job roles'];
+        }
+    
+        // Search for relevant job ads based on job roles
+        $relevantAds = $this->findRelevantJobAds($jobRoles);
+        
+        // Apply to relevant advertisements
+        foreach ($relevantAds as $ad) {
+            $applySuccess = $this->applyToSecondRoundAds($appliedId, $ad['ad_id']);
+            if (!$applySuccess) {
+                error_log("Failed to apply to advertisement with ID: " . $ad['ad_id']);
+            }
+        }
+    
+        return ['success' => true];    
+    }
     
     
+    
+    private function extractJobRoles($preferences) {
+        $jobRoles = [];
+        $pairs = explode(',', $preferences);
+        foreach ($pairs as $pair) {
+            $parts = explode(':', $pair);
+            if (count($parts) == 2) {
+                $jobRoles[] = trim($parts[1]);
+            }
+        }
+        return $jobRoles;
+    }
+    
+    
+    private function findRelevantJobAds($preferences) {
+        // Prepare statement to search for relevant job ads
+        $placeholders = str_repeat('?,', count($preferences) - 1) . '?'; // Create placeholders for each preference
+        $query = "SELECT * FROM company_ad WHERE position IN ($placeholders)";
+        $stmt = $this->connection->prepare($query);
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return [];
+        }
+    
+        // Bind parameters with proper types
+        $types = str_repeat('s', count($preferences)); // Assuming all preferences are strings
+        $stmt->bind_param($types, ...$preferences);
+    
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $relevantAds = $result->fetch_all(MYSQLI_ASSOC);
+        return $relevantAds;
+    }
+    
+    
+
+    private function applyToSecondRoundAds($appliedId, $adId) {
+        // Insert application for a specific advertisement
+        $query = "INSERT INTO second_round_application (applied_id, ad_id) VALUES (?, ?)";
+        $stmt = $this->connection->prepare($query);
+        
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return false;
+        }
+        
+        $stmt->bind_param('ii', $appliedId, $adId);
+        $success = $stmt->execute();
+        
+        return $success;
+    }
     
 }
