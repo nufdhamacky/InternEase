@@ -382,7 +382,7 @@ class Pdc extends Controller
         <h1>Welcome to InternEase</h1>
         <p>Your account has been created successfully. You can now login to your account.</p>
         <p>Your username is your email and the password is your first four letters and the @ sign with your registration number.</p>
-        <div class='info'>
+        <div class='info'>lo
             <strong>Example:</strong><br>
             <strong>Email:</strong> 2021is033@stu.ucsc.cmb.ac.lk<br>
             <strong>Name:</strong> Valarmathy<br>
