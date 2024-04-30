@@ -55,7 +55,7 @@
                 <div class ="card">
                 <a href="shortlistedStu">
                     <div>
-                        <div class="number">5</div>
+                        <div class="number"><?php echo $companyController->getShortlistedStudents(); ?></div>
                         <div class="cardName">Total Students Shortlisted</div>
                     </div>
                     <div class="iconBx">

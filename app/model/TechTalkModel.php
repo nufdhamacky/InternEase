@@ -23,14 +23,13 @@ class TechTalkModel extends Model{
         foreach ($results as $r) {
             $techtalks[] = [
                 
-                'title' => $r['topic'], // FullCalendar expects 'title'
+                'title' => $r['topic'],
                 'start' => date('Y-m-d\TH:i', strtotime($r['from_date'])),
                 'end' => date('Y-m-d\TH:i', strtotime($r['to_date'])),
 
             ];
         }
     
-        // Encode the array as JSON and return it
         return json_encode($techtalks);
     }
 
@@ -40,20 +39,6 @@ class TechTalkModel extends Model{
         return 1;
     }
 
-    function tt_schedule(){
-        $query = "
-            SELECT
-            * FROM techtalk_schedule
-        ";
-
-    $results = $this->query($query);
-    $default = [ 'from' => $results[0]['from_time'], 'to' => $results[0]['to_time'], 
-    'date' => $results[0]['date']
-    ];
-
-    return $default;
-
-    }
     
     
 
