@@ -304,45 +304,116 @@ class Applied extends Model {
 
     // second round applications
 
+    // public function applySecondRound($studentId, $preferences){
+
+    //     $query = "INSERT INTO applyadvertisement (applied_by, round_id) VALUES (?, 2)";
+    //     $stmt = $this->connection->prepare($query);
+        
+    //     if (!$stmt) {
+    //         // Handle the error if prepare() fails
+    //         return ['success' => false, 'message' => 'Error preparing statement'];
+    //     }
+        
+    //     $stmt->bind_param('i', $studentId);
+    //     $success = $stmt->execute();
+    
+    //     if (!$success) {
+    //         // Failed to insert into the applyadvertisement table
+    //         return ['success' => false, 'message' => 'Error applying for job'];
+    //     }
+    
+    //     // Get the inserted id
+    //     $appliedId = $stmt->insert_id;
+
+    //     $preferencesString = implode("','", $preferences);
+    //     // Insert a new entry into the first_round_data table
+    //     $query = "INSERT INTO second_round_data (applied_id, job_role) VALUES (?, ?)";
+    //     $stmt = $this->connection->prepare($query);
+    //     if (!$stmt) {
+    //         // Handle the error if prepare() fails
+    //         return ['success' => false, 'message' => 'Error preparing statement'];
+    //     }
+    //     $preferencesString = "'" . $preferencesString . "'";
+    //     $stmt->bind_param('is', $appliedId, $preferencesString);
+    //     $success = $stmt->execute();
+    
+    //     if (!$success) {
+    //         // Failed to insert preferences into second_round_data table
+    //         return ['success' => false, 'message' => 'Error inserting preferences'];
+    //     }
+    
+    //     // Search for relevant job ads based on preferences
+    //     $relevantAds = $this->findRelevantJobAds($preferences);
+    
+    //     // Apply to relevant advertisements
+    //     foreach ($relevantAds as $ad) {
+    //         $applySuccess = $this->applyToSecondRoundAds($appliedId, $ad['ad_id']);
+    //         if (!$applySuccess) {
+    //             // Log the error or perform error handling actions
+    //             error_log("Failed to apply to advertisement with ID: " . $ad['ad_id']);
+    //         }
+    //     }
+        
+    
+    //     return ['success' => true];    
+    // }
     public function applySecondRound($studentId, $preferences){
 
-        // Convert preferences array to string if it's not already a string
-        if (is_array($preferences)) {
-            $preferences = implode(',', $preferences);
+        // Extract job roles from preferences
+        $jobRoles = [];
+        foreach ($preferences as $key => $value) {
+            // Check if the value is not an empty string
+            if (!empty($value)) {
+                $jobRoles[] = $value;
+            }
+        }
+        
+        // Insert application for second round
+        $query = "INSERT INTO applyadvertisement (applied_by, round_id) VALUES (?, 2)";
+        $stmt = $this->connection->prepare($query);
+    
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return ['success' => false, 'message' => 'Error preparing statement'];
         }
     
-        // Parse preferences string to extract job roles
-        $jobRoles = $this->extractJobRoles($preferences);
-        
-        // Check if job roles were successfully extracted
-        if (!$jobRoles) {
-            return ['success' => false, 'message' => 'Error parsing preferences'];
-        }
+        $stmt->bind_param('i', $studentId);
+        $success = $stmt->execute();
     
-        // Insert student application
-        $success = $this->insertApplication($studentId);
-        
         if (!$success) {
+            // Failed to insert into the applyadvertisement table
             return ['success' => false, 'message' => 'Error applying for job'];
         }
     
-        // Get the applied ID
-        $appliedId = $this->connection->insert_id;
+        // Get the inserted id
+        $appliedId = $stmt->insert_id;
     
         // Insert job roles into second_round_data table
-        $success = $this->insertJobRoles($appliedId, $jobRoles);
-        
-        if (!$success) {
-            return ['success' => false, 'message' => 'Error inserting job roles'];
+        $query = "INSERT INTO second_round_data (applied_id, job_role) VALUES (?, ?)";
+        $stmt = $this->connection->prepare($query);
+        if (!$stmt) {
+            // Handle the error if prepare() fails
+            return ['success' => false, 'message' => 'Error preparing statement'];
+        }
+    
+        foreach ($jobRoles as $role) {
+            $stmt->bind_param('is', $appliedId, $role);
+            $success = $stmt->execute();
+    
+            if (!$success) {
+                // Failed to insert job role into second_round_data table
+                return ['success' => false, 'message' => 'Error inserting job role'];
+            }
         }
     
         // Search for relevant job ads based on job roles
         $relevantAds = $this->findRelevantJobAds($jobRoles);
-        
+    
         // Apply to relevant advertisements
         foreach ($relevantAds as $ad) {
             $applySuccess = $this->applyToSecondRoundAds($appliedId, $ad['ad_id']);
             if (!$applySuccess) {
+                // Log the error or perform error handling actions
                 error_log("Failed to apply to advertisement with ID: " . $ad['ad_id']);
             }
         }
@@ -352,20 +423,15 @@ class Applied extends Model {
     
     
     
-    private function extractJobRoles($preferences) {
-        $jobRoles = [];
-        $pairs = explode(',', $preferences);
-        foreach ($pairs as $pair) {
-            $parts = explode(':', $pair);
-            if (count($parts) == 2) {
-                $jobRoles[] = trim($parts[1]);
-            }
-        }
-        return $jobRoles;
-    }
-    
-    
     private function findRelevantJobAds($preferences) {
+        // Filter out empty preferences
+        $preferences = array_filter($preferences);
+    
+        // Check if there are any preferences left
+        if (empty($preferences)) {
+            return []; // Return empty array if there are no preferences
+        }
+    
         // Prepare statement to search for relevant job ads
         $placeholders = str_repeat('?,', count($preferences) - 1) . '?'; // Create placeholders for each preference
         $query = "SELECT * FROM company_ad WHERE position IN ($placeholders)";
@@ -384,6 +450,7 @@ class Applied extends Model {
         $relevantAds = $result->fetch_all(MYSQLI_ASSOC);
         return $relevantAds;
     }
+    
     
     
 
