@@ -271,6 +271,10 @@ body
     margin-top: 10px;
 }
 
+.details .studentdetails table thead{
+    background-color: #D9D9D9;
+}
+
 .details table thead td {
     font-weight: 600;
 }
@@ -290,11 +294,13 @@ body
 
 .details .studentdetails table tr td {
     padding: 7.25px;
+    text-align: center; /* Center text horizontally */
+    vertical-align: middle;
 }
 
-.details .studentdetails table tr td:last-child {
+/* .details .studentdetails table tr td:last-child {
     text-align: end;
-}
+} */
 
 .status.recruited {
     color: #8de02c;

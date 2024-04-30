@@ -1,6 +1,7 @@
 <?php
     include_once('../app/controller/Company.php');
     $companyController = new Company();
+    $students = $data['students'];
 ?>
 
 <!DOCTYPE html>
@@ -85,51 +86,33 @@
                     <h2>Student Applications</h2>
                     <a href="studentReq" class="btn">View All</a> 
                 </div>
+                
+
                 <table>
                     <thead>
-                        <tr>
-                            <td>Student Name</td>
-                            <td>Student Degree</td>
-                            <td>Job</td>
-                            <!-- <td>Status</td> -->
-                            <td></td>
-                        </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Registration No.</th>
+                        <th>Position</th>
+                        
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Hamsayini Senthilrasa</td>
-                            <td>CS</td>
-                            <td>Software Engineering</td>
-                            <!-- <td><span class="status pending">Pending</span></td> -->
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
+                    <?php if ($students): ?>
+                        <?php foreach ($students as $student): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?></td>
+                                <td><?= htmlspecialchars($student['reg_no']) ?></td>
+                                <td><?= htmlspecialchars($student['position']) ?></td>                                
+                            </tr>
+                        <?php endforeach; ?>
 
+                    <?php else: ?>
                         <tr>
-                            <td>Nufdha Macky</td>
-                            <td>IS</td>
-                            <td>QA</td>
-                            <!-- <td><span class="status recruited">Recruited</span></td> -->
-                            <td><a href="#" span class = "view"></span>View</td>
+                            <td colspan="5">No student applications found.</td>
                         </tr>
-
-                        <tr>
-                            <td>Gien Gawesh</td>
-                            <td>CS</td>
-                            <td>Web Development</td>
-                            <!-- <td><span class="status rejected">Rejected</span></td> -->
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        <tr>
-                            <td>Shamah Lafir</td>
-                            <td>IS</td>
-                            <td>Software Engineering</td>
-                            <!-- <td><span class="status pending">Pending</span></td> -->
-                            <td><a href="#" span class = "view"></span>View</td>
-                        </tr>
-
-                        
+                    <?php endif; ?>
                     </tbody>
                 </table>
 

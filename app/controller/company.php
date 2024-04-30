@@ -38,7 +38,13 @@ class Company extends Controller
         $isLoggedIn = $this->isLoggedIn();
 
         if ($isLoggedIn == 1) {
-            $this->view('company/dashboard');
+            
+        $students = array();
+
+       
+        $students = $this->companyStudentRepository->getStudentRequests();
+        $data['students'] = $students;
+            $this->view('company/dashboard',$data);
         } else {
             $_SESSION['loginError'] = "Please login first!";
             echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
@@ -116,7 +122,6 @@ class Company extends Controller
     {
         return $this->companyStudentRepository->getAds();
     }
-
     public function updateStatus()
     {
         $input = json_decode(file_get_contents('php://input'), true);
@@ -220,7 +225,7 @@ class Company extends Controller
                 echo "Data Insertion Failed";
             }
         } else {
-            // Handle GET request if needed
+            // Handle GET request if neededf
         }
     }
 
