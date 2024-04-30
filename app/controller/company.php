@@ -447,7 +447,7 @@ class Company extends Controller
     public function getTotalStudents()
     {
         $CompanyModel = $this->model('CompanyModel');
-        $studentCount = $CompanyModel->getTotalStudents($this->conn);
+        $studentCount = $CompanyModel->getTotalStudents($this->conn, );
         return $studentCount;
     }
 
