@@ -1,0 +1,43 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.modal {
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10vw;
+    margin-bottom:10vw;
+    border: 2vw;
+    border-color: black;
+
+}
+
+
+
+.modal h3 {
+    
+
+    margin-top:1vw;
+    margin-bottom:1vw;
+
+
+}
+
+.modal-content{
+    margin: 1vw;
+
+}
+
+
+
+.modal-content>form{
+    margin:1vw;
+    padding: 1vw;
+}
+
+.modal-content>form input{
+    font-size: medium;
+    padding: 0.5vw;
+}

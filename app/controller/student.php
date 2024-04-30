@@ -87,6 +87,22 @@ class Student extends Controller
         }
     }
 
+    public function secondRoundApp(){
+        $studentId = $_SESSION['studentId'];
+
+        $prefernces = $_POST;
+
+        $appliedModel = $this->model('Applied');
+        $result = $appliedModel->applySecondRound($studentId, $prefernces);
+
+        if ($result['success']) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $result['message']]);
+        }
+        
+    }
+
 
     public function apply()
     {
@@ -96,7 +112,7 @@ class Student extends Controller
 
         // Instantiate the Applied model and perform the required operations
         $appliedModel = $this->model('Applied');
-        $result = $appliedModel->apply($_SESSION['studentId'], $adId);
+        $result = $appliedModel->apply($_SESSION['studentId'], $adId, 1);
 
         // Return a JSON response
         if ($result['success']) {
@@ -165,9 +181,12 @@ class Student extends Controller
         $roundModel = $this->model('StudentRoundModel');
         $roundData = $roundModel->fetchRoundDates();
         // $adsWithStatus = $admodel->fetchAdsWithStatus($userId);
+        $secondRoundCount = $roundModel->countround2();
+
         $data = [
             'ads' => $ads,
-            'roundData' => $roundData
+            'roundData' => $roundData,
+            'secondRoundCount' => $secondRoundCount
         ];
 
 
@@ -231,6 +250,33 @@ class Student extends Controller
         } catch (InvalidArgumentException $e) {
             // Pass the exception object to the view
             $this->view('student/wishlist', ['exception' => $e]);
+        }
+    }
+
+    // Controller method to handle the request to view scheduled interviews
+    public function viewScheduledInterviews()
+    {
+        // Check if the user is logged in
+        if (!isset($_SESSION['userId'])) {
+            http_response_code(401); // Unauthorized
+            echo json_encode(['error' => 'User not logged in']);
+            return;
+        }
+
+        // Get the student ID from the session
+        $studentId = $_SESSION['studentId'];
+
+        try {
+            // Fetch scheduled interviews for the student
+            $interviewModel = $this->model("InterviewModel");
+            $scheduledInterviews = $interviewModel->getScheduledInterviewsForStudent($studentId);
+
+            // Return the scheduled interviews as JSON response
+            http_response_code(200); // OK
+            echo json_encode(['success' => true, 'scheduledInterviews' => $scheduledInterviews]);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'Failed to fetch scheduled interviews']);
         }
     }
 
@@ -304,6 +350,19 @@ class Student extends Controller
         return null;
     }
 
+    public function companyprofile(){
+
+        $companyId = $_GET['companyId'];
+
+        $companyModel = $this->model('StudentCompanyModel');
+        $company = $companyModel->getCompanyById($companyId);
+
+        $data = [
+            'company' => $company
+        ];
+
+        $this->view('student/companyprofile', $data);
+    }
 
     public function logout()
     {

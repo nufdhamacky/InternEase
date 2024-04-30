@@ -46,7 +46,7 @@ class User extends Model
                     $_SESSION['userName'] = $row['user_name'];
                     return 1;
 
-                }else{
+                } else {
                     return 0;
                 }
             } else if ($row['user_role'] == 'admin') {
@@ -64,7 +64,8 @@ class User extends Model
                 } else {
                     return 0;
                 }
-            }else if ($row['user_role'] == 'student') {
+            } else if ($row['user_role'] == 'student') {
+               
                 if (password_verify($password, $row['password'])) {
 
                     $sql = "SELECT * FROM student WHERE user_id = {$row['user_id']}";
@@ -90,16 +91,17 @@ class User extends Model
 
     }
 
-    public function signup($company, $email, $password, $companySite, $address, $contactPerson, $contactNo) {
+    public function signup($company, $email, $password, $companySite, $address, $contactPerson, $contactNo)
+    {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connection(); // Use this single connection for all queries within this function
-    
+
         // Check if the email already exists
         $stmt = $conn->prepare("SELECT user_id FROM users WHERE user_name = ? AND user_role ='company'");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         if ($result->num_rows > 0) {
             echo "EMAIL EXISTS";
             return 0;
@@ -108,16 +110,16 @@ class User extends Model
             $stmt = $conn->prepare("INSERT INTO users (user_name, user_role, password) VALUES (?, 'company', ?)");
             $stmt->bind_param('ss', $email, $hashedPassword);
             $userInsertion = $stmt->execute();
-    
+
             if ($userInsertion) {
                 // Retrieve the last inserted ID
                 $lastId = $conn->insert_id;
-    
+
                 // Insert into company table
                 $stmt = $conn->prepare("INSERT INTO company (company_name, user_id, contact_person, email, contact_no, company_site, address) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param('sisssss', $company, $lastId, $contactPerson, $email, $contactNo, $companySite, $address);
                 $companyInsertion = $stmt->execute();
-    
+
                 if ($companyInsertion) {
                     // Set session variables
                     $_SESSION['userId'] = $lastId;
@@ -139,9 +141,7 @@ class User extends Model
             }
         }
     }
-    
-      
-    
+
 
     public function signupStudent($username, $email, $password, $conn)
     {
@@ -168,17 +168,19 @@ class User extends Model
 
     }
 
-    function validate_email($email){
+    function validate_email($email)
+    {
         $query = "SELECT user_name from users where user_name = '{$email}'";
         $result = $this->query($query);
-        if(empty($result)){
+        if (empty($result)) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    public function resetPassword($data) {
+    public function resetPassword($data)
+    {
         extract($data);
         $password = password_hash($confirmPassword, PASSWORD_DEFAULT);
         $query = "UPDATE users SET password = ? WHERE user_name= ?";

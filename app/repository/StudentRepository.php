@@ -16,8 +16,8 @@ class StudentRepository
 
     public function save(PdcStudentModel $student): ?PdcStudentModel
     {
-        $password = password_hash($student->password, PASSWORD_DEFAULT);
-        $userSql = "INSERT INTO users(user_name,user_role,user_status,password) VALUES('{$student->email}','student',1,'{$password}')";
+
+        $userSql = "INSERT INTO users(user_name,user_role,user_status,password) VALUES('{$student->email}','student',1,'{$student->password}')";
         $userResult = $this->conn->query($userSql);
         if ($userResult) {
             $userId = $this->conn->insert_id;

@@ -71,7 +71,7 @@ if (isset($pwd) && $pwd == 1) {
             title: 'Updated Successful',
             text: 'Your Password has been updated successfully!',
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'Done'
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = '" . ROOT . "/home'; // Correctly concatenated
@@ -79,5 +79,7 @@ if (isset($pwd) && $pwd == 1) {
         });
     </script>";
 }
+
+
 ?>
 </html>

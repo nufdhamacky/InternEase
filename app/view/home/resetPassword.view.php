@@ -41,9 +41,8 @@
 
     <div class="modal" id="otpModal" style="display:none;">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <form action="<?=ROOT?>/home/validate_otp" method="POST" id="otpForm">
-                <h3>Enter OTP</h3>
+                <h3>OTP has been sent to <?php echo $_SESSION['resetEmail'] ;?></h3>
                 <input type="text" name="otp" placeholder="Enter OTP" required>
                 <input type="submit" class="btn" value="Submit OTP" name="submit_otp">
             </form>
@@ -57,8 +56,9 @@
     function otp() {
         var modal = document.getElementById('otpModal');
         var otp = <?php echo json_encode(isset($otp) ? $otp : null); ?>;
+        var sent = <?php echo json_encode(isset($sent) ? $sent : null); ?>;
         console.log("OTP:", otp);
-        if (otp === 1) {
+        if (otp === 1 || sent==0) {
             modal.style.display = 'block';
         }
     }
@@ -84,5 +84,18 @@
     }
 
     </script>
+<?php
+if (isset($sent) && $sent == 0) {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'OTP incorrect or expired',
+            text: 'Please try again',
+            icon: 'error',
+            confirmButtonText: 'Close'
+        });
+    </script>";
+}
+?>
 </body>
 </html>

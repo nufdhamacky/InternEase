@@ -292,6 +292,7 @@ body
 .details .studentdetails table thead{
     background-color: #D9D9D9;
 }
+
 .details .studentdetails table tr:last-child {
     border-bottom: none;
     height: 40px;

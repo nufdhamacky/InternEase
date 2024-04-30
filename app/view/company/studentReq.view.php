@@ -1,4 +1,4 @@
-<?php
+-<?php
 $ads = $data['ads'];
 $students = $data['students'];
 ?>
@@ -8,7 +8,7 @@ $students = $data['students'];
 <head>
     <meta charset="UTF-8">
     <title>Student Requests</title>
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/css/company/companyStudentReq.css">
+    <link rel="stylesheet" type="text/css" href="<?= ROOT ?>/css/company/companyStudentReq.css">
 </head>
 <body>
 
@@ -29,15 +29,19 @@ $students = $data['students'];
             <form action="" method="GET" class="allstudents">
                 <div>
                     <select name="ad_id" id="ads">
-                        <option value="all" <?= (!isset($_GET['ad_id']) || $_GET['ad_id'] === 'all') ? 'selected' : ''; ?>>All</option>
+                        <option value="all" <?= (!isset($_GET['ad_id']) || $_GET['ad_id'] === 'all') ? 'selected' : ''; ?>>
+                            All
+                        </option>
                         <?php foreach ($ads as $ad): ?>
-                            <option value="<?= htmlspecialchars($ad['ad_id']) ?>" 
-                                    <?= (isset($_GET['ad_id']) && $_GET['ad_id'] === $ad['ad_id']) ? 'selected' : ''; ?>>
+                            <option value="<?= htmlspecialchars($ad['ad_id']) ?>"
+                                <?= (isset($_GET['ad_id']) && $_GET['ad_id'] === $ad['ad_id']) ? 'selected' : ''; ?>>
                                 <?= htmlspecialchars($ad['position']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
-                    <button type="submit" class="btn"><ion-icon name="search-outline"></ion-icon></button>
+                    <button type="submit" class="btn">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
                 </div>
             </form>
         </div>
@@ -50,40 +54,48 @@ $students = $data['students'];
 
                 <table>
                     <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Registration No.</th>
-                            <th>Position</th>
-                            <th>CV</th>
-                            <th>Action</th>
-                        </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Registration No.</th>
+                        <th>Position</th>
+                        <th>CV</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <?php if ($students): ?>
-                            <?php foreach ($students as $student): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?></td>
-                                    <td><?= htmlspecialchars($student['reg_no']) ?></td>
-                                    <td><?= htmlspecialchars($student['position']) ?></td>
-                                    <td>
-                                        <a href="<?= htmlspecialchars($student['cv']) ?>" download class="download-cv-btn">Download CV</a>
-                                    </td>
-                                    <td>
-                                    <select class="status-select" data-student-id="<?= htmlspecialchars($student['id']) ?>">
-                                        <option value="pending" <?= ($student['status'] == 0) ? 'selected' : '' ?>>Pending</option>
-                                        <option value="shortlist" <?= ($student['status'] == 1) ? 'selected' : '' ?>>Shortlist</option>
-                                        <option value="reject" <?= ($student['status'] == 2) ? 'selected' : '' ?>>Reject</option>
-                                    </select>
-                                    </td>
-                                </tr>
-                            <?php endforeach;?>
-                            
-                        <?php else: ?>
+                    <?php if ($students): ?>
+                        <?php foreach ($students as $student): ?>
                             <tr>
-                                <td colspan="5">No student applications found.</td>
+                                <td><?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?></td>
+                                <td><?= htmlspecialchars($student['reg_no']) ?></td>
+                                <td><?= htmlspecialchars($student['position']) ?></td>
+                                <td>
+                                    <a href="<?= htmlspecialchars($student['cv']) ?>" download class="download-cv-btn">Download
+                                        CV</a>
+                                </td>
+                                <td>
+                                    <select class="status-select"
+                                            data-student-id="<?= htmlspecialchars($student['id']) ?>">
+                                        <option value="pending" <?= ($student['status'] == 0) ? 'selected' : '' ?>>
+                                            Pending
+                                        </option>
+                                        <option value="shortlist" <?= ($student['status'] == 1) ? 'selected' : '' ?>>
+                                            Shortlist
+                                        </option>
+                                        <option value="reject" <?= ($student['status'] == 2) ? 'selected' : '' ?>>
+                                            Reject
+                                        </option>
+                                    </select>
+                                </td>
                             </tr>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No student applications found.</td>
+                        </tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -116,16 +128,16 @@ $students = $data['students'];
                         status: selectedValue, // Map the action to the correct status code
                     }),
                 })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Status updated successfully.');
-                    } else {
-                        console.error('Error updating status.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Status updated successfully.');
+                        } else {
+                            console.error('Error updating status.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                    });
             }
         });
     });

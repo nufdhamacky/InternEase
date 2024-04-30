@@ -16,20 +16,20 @@
             <div class="notification" >
         
                 <div class="notibutton">
-                        <div> 1st Round Selections </div>
-                        <div> Total Applied :<?php   echo htmlspecialchars($first_round_data['applied']);?> </div>
-                        <div>IS : <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div>
-                        <div> CS : <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
+                        <div>First Round Selections</div>
+                        <div>Total Applications - <?php   echo htmlspecialchars($first_round_data['applied']);?> </div>
+                        <div>IS recruited - <?php   echo htmlspecialchars($first_round_data['total_1st_is']);?> </div>
+                        <div>CS recruited - <?php   echo htmlspecialchars($first_round_data['total_1st_cs']);?> </div> 
                         <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
 
                 </div>
 
                 
                 <div class="notibutton">
-                        <div> 2nd Round Selections </div>
-                        <div> Total Applied : <?php   echo htmlspecialchars($second_round_data['applied_2nd']);?> </div>
-                        <div>IS : <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div>
-                        <div> CS : <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
+                        <div>Second Round Selections</div>
+                        <div>Total Applications - <?php   echo htmlspecialchars($second_round_data['applied_2nd']);?> </div>
+                        <div>IS recruited - <?php   echo htmlspecialchars($second_round_data['total_2nd_is']);?> </div>
+                        <div>CS recruited - <?php   echo htmlspecialchars($second_round_data['total_2nd_cs']);?> </div>
                         <div><ion-icon  name="briefcase" size="medium"></ion-icon></div>
                 </div>
 
@@ -94,8 +94,8 @@
         <div class="chart_container">
             
             <div id='chartdiv' style="display:block;">
-                <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
-                <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> 6vw);width: calc(<?php echo count($companies); ?> * 6vw);" ></div>  
+                <div class="chart"  id="chart_bar2" style="height: calc(<?php if(!isset($_SESSION['search_company'])){echo count($companies);}else{echo 4;} ?> * 8vw);width: calc(<?php echo count($companies); ?> * 13vw);" ></div>  
+                <div class="chart" id="chart_bar" style="height: calc(<?php echo count($companies); ?> *8vw);width: calc(<?php echo count($companies); ?> * 13vw);" ></div>  
             </div>
             
         </div>
@@ -223,7 +223,7 @@
 
     var options = {
         title: 'Number of Interns per Position by Company and Year',
-        chartArea: { width: '50%' },
+        chartArea: { width: '80%' },
         hAxis: { title: 'Number of Interns', minValue: 0 }, // Horizontal axis is now the value axis
         vAxis: { title: 'Company' }, // Vertical axis is now the category axis
         tooltip: { isHtml: true },

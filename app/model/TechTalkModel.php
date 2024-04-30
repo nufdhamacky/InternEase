@@ -11,7 +11,7 @@ class TechTalkModel extends Model{
                 t.to_date
             FROM `tech_talk` AS t
             JOIN company AS c ON t.company_id = c.user_id
-            WHERE t.status = 1
+            WHERE t.status = 1 OR t.status=0
         ";
     
         $results = $this->query($query);
@@ -23,14 +23,13 @@ class TechTalkModel extends Model{
         foreach ($results as $r) {
             $techtalks[] = [
                 
-                'title' => $r['topic'], // FullCalendar expects 'title'
+                'title' => $r['topic'],
                 'start' => date('Y-m-d\TH:i', strtotime($r['from_date'])),
                 'end' => date('Y-m-d\TH:i', strtotime($r['to_date'])),
 
             ];
         }
     
-        // Encode the array as JSON and return it
         return json_encode($techtalks);
     }
 
@@ -39,6 +38,7 @@ class TechTalkModel extends Model{
         $this->insert($data);  
         return 1;
     }
+
     
     
 

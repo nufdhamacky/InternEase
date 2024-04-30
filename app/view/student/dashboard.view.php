@@ -33,7 +33,7 @@
             <div class="container-calendar">
                 <div id="left">
                     <h1>Undergraduate Calendar</h1>
-                    <div id="event-section">
+                    <!-- <div id="event-section">
                         <h3>Add Event</h3>
                         <input type="date" id="eventDate">
                         <input type="text"
@@ -45,9 +45,9 @@
                         <button id="addEvent" onclick="addEvent()">
                             Add
                         </button>
-                    </div>
+                    </div> -->
                     <div id="reminder-section">
-                        <h3>Reminders</h3>
+                        <h3>Scheduled Interviews</h3>
                         <!-- List to display reminders -->
                         <ul id="reminderList">
                             <li data-event-id="1">
@@ -148,6 +148,44 @@
 
         </div>
 </div>
+
+<script>
+    // JavaScript function to fetch and display scheduled interviews
+    function fetchScheduledInterviews() {
+        fetch("<?=ROOT?>/student/viewScheduledInterviews", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch scheduled interviews");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            // Clear existing list items
+            const reminderList = document.getElementById("reminderList");
+            reminderList.innerHTML = "";
+
+            // Iterate through scheduled interviews and create list items
+            data.scheduledInterviews.forEach((interview) => {
+                const listItem = document.createElement("li");
+                listItem.dataset.eventId = interview.id;
+                listItem.innerHTML = `<strong>${interview.title}</strong> - ${interview.description} on ${interview.interview_date} from ${interview.start_time} to ${interview.end_time}`;
+                reminderList.appendChild(listItem);
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching scheduled interviews:", error);
+        });
+    }
+
+    // Call the function on page load
+    window.onload = fetchScheduledInterviews;
+
+</script>
 
 <script src="<?=ROOT?>/js/calendar.js"></script>
 

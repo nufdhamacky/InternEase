@@ -74,8 +74,13 @@ class Mailer extends Database
         $subject = "InternEase: Your OTP";
         $body = "<p><b>InternEase</b></p><br><p>Your One-Time Password (OTP) for verification is: <strong>$otp</strong></p>
                  <p>This OTP is valid for the next 10 minutes.</p>";
-        $mailer->sendMail($email, $subject, $body);
-        return $otp;
+        $email = $mailer->sendMail($email, $subject, $body);
+        if($email == 'Message has been sent'){
+            return $otp;
+        }else{
+            return false;
+        }
+       
 
     }
 
