@@ -1,7 +1,11 @@
 <?php
 include_once('../app/controller/companyad.php');
 $companyAdController = new CompanyAd();
-$ads = $companyAdController->getAll();
+if (isset($_GET['query'])) {
+    $ads = $companyAdController->search($_GET['query']);
+} else {
+    $ads = $companyAdController->getAll();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +38,17 @@ $ads = $companyAdController->getAll();
             <div class="internshipAds">
                 <div class="cardHeader">
                     <h2>Internship Advertisements</h2>
+                </div>
+                <div class="secondbar">
+                    <div class="search">
+                        <form action="" id="searchForm" method="get">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <input type="text" name="query" id="searchField" value="<?php echo $_GET["query"] ?? ""; ?>"
+                                   placeholder="Search Company" class="box1">
+                            <button type="submit">Search</button>
+                        </form>
+
+                    </div>
                 </div>
                 <table>
                     <thead>

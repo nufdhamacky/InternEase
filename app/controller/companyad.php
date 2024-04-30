@@ -19,6 +19,11 @@ class CompanyAd extends Controller
         return $this->companyAdRepository->getAll();
     }
 
+    public function search($query): array
+    {
+        return $this->companyAdRepository->search($query);
+    }
+
     public function reject()
     {
         $id = $_GET["id"];

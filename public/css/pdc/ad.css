@@ -135,6 +135,43 @@ body {
     margin-right: 10px;
 }
 
+/* Second bar styles */
+.secondbar {
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search form {
+    display: flex;
+    align-items: center;
+}
+
+.search form ion-icon {
+    margin-right: 10px;
+    color: #0b596f;
+}
+
+.search form input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.search form button {
+    padding: 10px 20px;
+    background-color: #0b596f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 /* Advertisement page styles */
 .details {
     padding: 20px;

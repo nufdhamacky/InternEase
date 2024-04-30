@@ -4,3 +4,13 @@ function rejectAd(id) {
         window.location.href = "http://localhost/internease/public/companyad/reject?id=" + id + "&reason=" + p;
     }
 }
+
+function search(e) {
+    const form = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchField");
+    if (searchInput.value === "") {
+        e.preventDefault();
+    } else {
+        form.submit();
+    }
+}

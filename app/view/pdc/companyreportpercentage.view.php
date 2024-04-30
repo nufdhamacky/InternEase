@@ -32,7 +32,7 @@ $reports = $reportController->getAll();
             <thead>
             <tr>
                 <td>Company Name</td>
-                <td>Total Report</td>
+                <!--                <td>Total Report</td>-->
                 <td>Action</td>
             </tr>
             </thead>
@@ -41,7 +41,8 @@ $reports = $reportController->getAll();
             <?php foreach ($reports as $report) { ?>
                 <tr>
                     <td><?php echo $report->name; ?></td>
-                    <td><?php echo round((count($report->reports) / $report->totalRecruitments) * 100.0) . "%"; ?></td>
+                    <!--                    <td>-->
+                    <?php //echo round((count($report->reports) / $report->totalRecruitments) * 100.0) . "%"; ?><!--</td>-->
                     <td><a href="companyreport?id=<?php echo $report->userId; ?>">view</a></td>
                 </tr>
             <?php } ?>
