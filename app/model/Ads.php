@@ -45,22 +45,33 @@ class Ads extends Model{
     
         // Prepare the statement
         $stmt = $this->connection->prepare($query);
+        
+        // Check if the statement prepared successfully
+        if (!$stmt) {
+            throw new RuntimeException("Failed to prepare the SQL statement.");
+        }
     
         // Bind the ad IDs as parameters
         $types = str_repeat('i', count($ad_ids)); // Assuming ad IDs are integers
         $stmt->bind_param($types, ...$ad_ids);
-    
+        
         // Execute the query
         $stmt->execute();
-    
+        
         // Get the result set
         $result = $stmt->get_result();
+        
+        // Check if there are results
+        if ($result->num_rows === 0) {
+            return [];
+        }
     
         // Fetch all rows
         $ads = $result->fetch_all(MYSQLI_ASSOC);
-    
+        
         return $ads;
     }
+    
     
     
     

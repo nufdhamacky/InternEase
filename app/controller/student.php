@@ -10,34 +10,41 @@ class Student extends Controller
 
     public function dashboard()
     {
-
         $userId = $_SESSION['userId'];
         $admodel = $this->model('Ads');
         $appliedModel = $this->model('Applied');
         $wishlistModel = $this->model('Wishlist');
-
+    
+        // Initialize an empty array for applied ads
+        $appliedAds = [];
+    
         // Retrieve applied ad IDs and their statuses
         $appliedAdIds = $appliedModel->fetchAppliedAdIds($_SESSION['studentId']);
-        $appliedAds = $admodel->fetchAdsWithId($appliedAdIds);
-        $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($_SESSION['studentId']);
-
-        // Fetch and attach application status to each applied ad
-        foreach ($appliedAds as &$ad) {
-            $status = $appliedModel->fetchApplicationStatus($_SESSION['studentId'], $ad['ad_id']);
-            $ad['applicationStatus'] = $status;
+    
+        if (!empty($appliedAdIds)) {
+            // Only fetch ads if there are applied ad IDs
+            $appliedAds = $admodel->fetchAdsWithId($appliedAdIds);
+    
+            // Fetch and attach application status to each applied ad
+            foreach ($appliedAds as &$ad) {
+                $status = $appliedModel->fetchApplicationStatus($_SESSION['studentId'], $ad['ad_id']);
+                $ad['applicationStatus'] = $status;
+            }
         }
-
+        
+        // Fetch the count of applied ads
+        $appliedAdsCount = $appliedModel->fetchAppliedAdsCount($_SESSION['studentId']);
+    
         // Prepare data to be passed to the view
         $data = [
             'appliedAds' => $appliedAds,
             'appliedAdsCount' => $appliedAdsCount
         ];
-
+    
         // Load the view with the data
         $this->view('student/dashboard', $data);
-
-
     }
+    
 
     public function addCalendarEvent()
     {
