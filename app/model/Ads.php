@@ -28,37 +28,39 @@ class Ads extends Model{
     }
 
     public function fetchAdsWithId($ad_ids){
-        // Ensure $ad_ids is an array and not empty
+
         if (!is_array($ad_ids) || empty($ad_ids)) {
             throw new InvalidArgumentException("Input must be a non-empty array of ad IDs");
         }
     
-        // Prepare the placeholders for the ad IDs in the SQL query
+
         $placeholders = implode(',', array_fill(0, count($ad_ids), '?'));
     
-        // Construct the SQL query
         $query = "SELECT company_ad.*, company.company_name, users.user_profile
                 FROM company_ad 
                 JOIN company ON company.user_id = company_ad.company_id
                 JOIN users ON users.user_id = company_ad.company_id 
                 WHERE company_ad.ad_id IN ($placeholders)";
     
-        // Prepare the statement
         $stmt = $this->connection->prepare($query);
+        
+        if (!$stmt) {
+            throw new RuntimeException("Failed to prepare the SQL statement.");
+        }
     
-        // Bind the ad IDs as parameters
-        $types = str_repeat('i', count($ad_ids)); // Assuming ad IDs are integers
+        $types = str_repeat('i', count($ad_ids)); 
         $stmt->bind_param($types, ...$ad_ids);
-    
-        // Execute the query
+        
         $stmt->execute();
-    
-        // Get the result set
+        
         $result = $stmt->get_result();
+        
+        if ($result->num_rows === 0) {
+            return [];
+        }
     
-        // Fetch all rows
         $ads = $result->fetch_all(MYSQLI_ASSOC);
-    
+        
         return $ads;
     }
     
