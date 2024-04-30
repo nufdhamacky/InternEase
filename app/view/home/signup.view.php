@@ -37,7 +37,7 @@
 
                 <label for="contactNo">Contact No:</label>
                 <input type="text" id="contactNo" name="contactNo" class="box1" value="<?= $_POST['contactNo'] ?? '' ?>"   required>
-                <span class="error"></span>
+                <span class="error"><?php if(isset($errors['contact_no'])){foreach ($errors['contact_no'] as $err){ echo $err; }} ?></span>
 
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" class="box1" value="<?= $_POST['address'] ?? '' ?>"   required>

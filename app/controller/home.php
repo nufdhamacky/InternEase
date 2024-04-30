@@ -112,6 +112,7 @@ class Home extends Controller
             'company_name' => $validation->validate_name('Company Name', $company),
             'password' => $validation->validate_pwd($password, $confirmPassword),
             'contact_person' => $validation->validate_name('Contact Person', $contactPerson),
+            'contact_no' =>  $validation->digit($contactNo),
         ];
 
 

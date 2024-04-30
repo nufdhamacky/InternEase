@@ -1,4 +1,4 @@
--<?php
+<?php
 $ads = $data['ads'];
 $students = $data['students'];
 ?>

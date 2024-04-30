@@ -59,7 +59,7 @@
             }
             ?>
             <label for="qualification">Qualification</label>
-            <input type="dropdown-menu" id="qualification" name="qualification" value="<?= $studentData['qualification'] ?>">
+            <input type="select" id="qualification" name="qualification" value="<?= $studentData['qualification'] ?>">
 
             
             <label for="cv">Upload CV</label>

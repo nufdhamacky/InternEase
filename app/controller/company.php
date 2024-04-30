@@ -38,7 +38,13 @@ class Company extends Controller
         $isLoggedIn = $this->isLoggedIn();
 
         if ($isLoggedIn == 1) {
-            $this->view('company/dashboard');
+            
+        $students = array();
+
+       
+        $students = $this->companyStudentRepository->getStudentRequests();
+        $data['students'] = $students;
+            $this->view('company/dashboard',$data);
         } else {
             $_SESSION['loginError'] = "Please login first!";
             echo "<script> window.location.href='http://localhost/internease/public/home/login';</script>";
@@ -84,9 +90,22 @@ class Company extends Controller
     }
 
     public function recruitedStu()
+    
     {
 
-        $this->view('company/recruitedStu');
+        $companyId = $_SESSION['userId'];
+        $l = $this->companyStudentRepository->getshortlist($companyId);
+        $list = [];
+        foreach ($l as $a){
+            $list[] = [ 'first_name' => $a['first_name'],
+                'last_name' => $a['last_name'],
+                'reg_no' => $a['reg_no'],
+                'position' => $a['position']
+
+            ];
+        }
+        $data = ['list'=>$list];
+        $this->view('company/recruitedStu',$data);
 
     }
 
@@ -116,7 +135,6 @@ class Company extends Controller
     {
         return $this->companyStudentRepository->getAds();
     }
-
     public function updateStatus()
     {
         $input = json_decode(file_get_contents('php://input'), true);
@@ -220,7 +238,7 @@ class Company extends Controller
                 echo "Data Insertion Failed";
             }
         } else {
-            // Handle GET request if needed
+            // Handle GET request if neededf
         }
     }
 
@@ -277,6 +295,14 @@ class Company extends Controller
         $this->model('CompanyVisitCompany');
         $companyvisit = new CompanyVisitCompany;
         $data = ['rows' =>$companyvisit->get_CompanyVisit()];
+
+        $companyId = $_SESSION['userId'];
+        $positions = $this->companyStudentRepository->getCompanyPosWithCounts($companyId);
+
+        $data = [
+            'positions' => $positions
+        ];
+        $this->view('company/shortlistedStu', $data);
         $this->view('company/schedule',$data);
 
     }
@@ -643,6 +669,17 @@ public function addInterview()
             http_response_code(500);
             echo json_encode(['error' => 'Failed to delete interview']);
         }
+    }
+
+    public function shortlist(){
+        $reg = $_POST['student_reg'];
+        $status = $_POST['status'];
+        $position = $_POST['position'];
+        $this->companyStudentRepository->updatestatus($_SESSION['userId'],$reg,$status,$position);
+        $this->shortlistedStu();
+
+     
+
     }
 
 
