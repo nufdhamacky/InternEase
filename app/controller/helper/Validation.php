@@ -150,6 +150,16 @@
             return $errors;
         }
 
+        public function digit($string) {
+            $errors = [];
+            // Check if the string contains only digits
+            if (!preg_match("/^[0-9]+$/", $string)) {
+                $errors['contact_err'] = "conatct number must contain only numbers.";
+            }
+            return $errors;
+        }
+        
+
         
     }
 
