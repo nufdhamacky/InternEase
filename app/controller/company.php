@@ -446,10 +446,21 @@ class Company extends Controller
 
     public function getTotalStudents()
     {
+        $id = $_SESSION['userId'];
         $CompanyModel = $this->model('CompanyModel');
-        $studentCount = $CompanyModel->getTotalStudents($this->conn);
+        $studentCount = $CompanyModel->getTotalStudents($this->conn,$id);
         return $studentCount;
     }
+
+    public function getShortlistedStudents()
+    {
+        $id = $_SESSION['userId'];
+        $CompanyModel = $this->model('CompanyModel');
+        $studentCount = $CompanyModel->getShortlistedStudents($this->conn,$id);
+        return $studentCount;
+    }
+
+
 
     public function addNewAd()
     {
