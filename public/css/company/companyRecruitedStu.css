@@ -199,7 +199,19 @@ body
     top: 47px;
     filter: blur(0.5px);
 }
+.details .studentdetails table thead{
+    background-color: #D9D9D9;
+}
 
+.details .studentdetails table tr:last-child {
+    border-bottom: none;
+    height: 40px;
+}
+
+.details .studentdetails table tr td:last-child {
+    text-align: center;
+    color: red;
+}
 .studentdetails label{
     position: relative;
     display: block;

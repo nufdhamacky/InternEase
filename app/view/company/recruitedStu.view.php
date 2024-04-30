@@ -30,230 +30,34 @@
         <div class="details">
             <div class="studentdetails">
                 <div class = "cardHeader">
-                    <h2>Recruited Details</h2>
+                    <h2>Recruited Student List</h2>
                 </div>
                 
-                <input type="radio" name="slider" id="qa" checked>
-                <input type="radio" name="slider" id="se">
-                <input type="radio" name="slider" id="ba">
-
-                <nav>
-                    <label for="qa" class="qa">Quality Assurance</label>
-                    <label for="se" class="se">Software Engineer</label>
-                    <label for="ba" class="ba">Business Analyst</label>
-                    <div class="slider"></div>
-                </nav>
 
                 <section>
-                    <div class="content content-1">
 
-                        <div class = "cardHeader">
-                            <h2>Quality Assurance</h2><br>
-                        </div>
+                        
                         <table>
-                            <thead>
-                                <tr>
-                                    <td>Student Name</td>
-                                    <td>Registration No.</td>
-                                    
-                                </tr>
-                            </thead>
+                    <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Registration No.</th>
+                        <th>Position</th>
+                    </tr>
+                    </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td>Hamsayini Senthilrasa</td>
-                                    <td>2021/CS/065</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt"><!--link should redirect to the student's profile-->
-                                        <ion-icon name="person-outline"></ion-icon> 
-                                        </a>
-                                    </td>
-                                    
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Nufdha Macky</td>
-                                    <td>2021/CS/058</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                            <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Binali Ukwatte</td>
-                                    <td>2021/IS/097</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                            <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Gien Gawesh</td>
-                                    <td>2021/IS/024</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt"> 
-                                            
-                                            <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <a href="path_to_cv_file" class="download-btn">Download List</a>
-
-                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
-
-                    </div>
-
-                    <div class="content content-2">
-                        <div class = "cardHeader">
-                            <h2>Software Engineer</h2><br>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Student Name</td>
-                                    <td>Registration No.</td>
-                                    
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>Hamsayini Senthilrasa</td>
-                                    <td>2021/CS/065</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Gien Gawesh</td>
-                                    <td>2021/IS/024</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Binali Ukwatte</td>
-                                    <td>2021/IS/097</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-                        <a href="path_to_cv_file" class="download-btn">Download List</a>
-
-                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
-
-                    </div>
-
-                    <div class="content content-3">
-
-                        <div class = "cardHeader">
-                            <h2>Business Analyst</h2><br>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Student Name</td>
-                                    <td>Registration No.</td>
-                                    
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                
-                                <tr>
-                                    <td>Nufdha Macky</td>
-                                    <td>2021/CS/058</td>
-                                    
-                                    <td>
-                                        <a href="scheduleInt">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Gien Gawesh</td>
-                                    <td>2021/IS/024</td>
-                                   
-                                    <td>
-                                        <a href="scheduleInt">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="delete">
-                                            <ion-icon name="trash-outline" class="del"></ion-icon>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <a href="path_to_cv_file" class="download-btn">Download List</a>
-
-                        <!-- <a href="path_to_cv_file" class="send-btn">Send List</a> -->
+                    <tbody>
+                    
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                         <tr>
+                            <td colspan="5">No student applications found.</td>
+                        </tr>
+                    </tbody>
+                </table>
 
                     </div>
                 </section>
