@@ -253,6 +253,33 @@ class Student extends Controller
         }
     }
 
+    // Controller method to handle the request to view scheduled interviews
+    public function viewScheduledInterviews()
+    {
+        // Check if the user is logged in
+        if (!isset($_SESSION['userId'])) {
+            http_response_code(401); // Unauthorized
+            echo json_encode(['error' => 'User not logged in']);
+            return;
+        }
+
+        // Get the student ID from the session
+        $studentId = $_SESSION['studentId'];
+
+        try {
+            // Fetch scheduled interviews for the student
+            $interviewModel = $this->model("InterviewModel");
+            $scheduledInterviews = $interviewModel->getScheduledInterviewsForStudent($studentId);
+
+            // Return the scheduled interviews as JSON response
+            http_response_code(200); // OK
+            echo json_encode(['success' => true, 'scheduledInterviews' => $scheduledInterviews]);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'Failed to fetch scheduled interviews']);
+        }
+    }
+
 
     public function fetchStudentProfile()
     {
