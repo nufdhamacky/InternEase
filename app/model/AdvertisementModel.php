@@ -14,6 +14,7 @@ class AdvertisementModel
     public $status;
 
     public $no_of_cvs_required;
+    public $scale;
 
     public function __construct(
         $position,
@@ -26,7 +27,8 @@ class AdvertisementModel
         $qualification,
         $other_qualifications, // Ensure this field is expected
         $status,
-        $no_of_cvs_required
+        $no_of_cvs_required,
+        $scale
     )
     {
         $this->position = $position;
@@ -40,5 +42,6 @@ class AdvertisementModel
         $this->other_qualifications = $other_qualifications; // Initialize properly
         $this->status = $status;
         $this->no_of_cvs_required = $no_of_cvs_required; // Initialize this
+        $this->scale = $scale;
     }
 }

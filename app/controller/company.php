@@ -223,9 +223,7 @@ class Company extends Controller
 
     public function shortlistedBA()
     {
-
         $this->view('company/shortlistedBA');
-
     }
 
     public function totAd()
@@ -280,52 +278,78 @@ class Company extends Controller
         return $studentCount;
     }
 
+//   // public function addNewAd()
+//    {
+//        // Collect data and handle form submissions
+//        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//            $position = mysqli_real_escape_string($this->conn, $_POST['position']);
+//            $requirements = isset($_POST['req']) ? implode(", ", $_POST['req']) : '';
+//            $interns = intval($_POST['no_of_intern'] ?? 0);
+//            $workingMode = mysqli_real_escape_string($this->conn, $_POST['working_mode'] ?? 'Remote');
+//            $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']);
+//            $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']);
+//            $companyId = $_SESSION['userId'];
+//            $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
+//            $otherQualifications = mysqli_real_escape_string($this->conn, $_POST['description'] ?? '');
+//            $no_of_cvs_required = intval($_POST['no_of_cvs_required'] ?? 0);
+//            $scale = intval($_POST['scale'] ?? 0);
+//            $status = 'Open';
+//            // If there are no image uploads, you can leave this empty.
+//
+//            // Create AdvertisementModel
+//            $advertisement = new AdvertisementModel(
+//                $position,
+//                $requirements,
+//                $interns,
+//                $workingMode,
+//                $fromDate,
+//                $toDate,
+//                $companyId,
+//                $qualification,
+//                $otherQualifications,
+//                $status,
+//                $no_of_cvs_required,
+//                $scale
+//            );
+//
+//            // Save to repository
+//            $result = $this->advertisementRepository->save($advertisement);
+//
+//            if ($result) {
+//                header("Location: /internease/public/company/ad");
+//                exit();
+//            } else {
+//                echo "Data Insertion Unsuccessful";
+//            }
+//        } else {
+//            echo "Invalid Request Method";
+//        }
+//    }
+//
     public function addNewAd()
     {
-        // Collect data and handle form submissions
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $position = mysqli_real_escape_string($this->conn, $_POST['position']);
-            $requirements = isset($_POST['req']) ? implode(", ", $_POST['req']) : '';
-            $interns = intval($_POST['no_of_intern'] ?? 0);
-            $workingMode = mysqli_real_escape_string($this->conn, $_POST['working_mode'] ?? 'Remote');
-            $fromDate = mysqli_real_escape_string($this->conn, $_POST['start_date']);
-            $toDate = mysqli_real_escape_string($this->conn, $_POST['end_date']);
-            $companyId = $_SESSION['userId'];
-            $qualification = mysqli_real_escape_string($this->conn, $_POST['qualification']);
-            $otherQualifications = mysqli_real_escape_string($this->conn, $_POST['description'] ?? '');
-            $no_of_cvs_required = intval($_POST['no_of_cvs_required'] ?? 0);
-            $status = 'Open';
-            // If there are no image uploads, you can leave this empty.
+        $position = $_POST["position"];
+        $requirements = implode(', ', $_POST["req"]); // Convert array to string
+        $no_of_intern = $_POST["no_of_intern"];
+        $working_mode = $_POST["working_mode"];
+        $from_date = $_POST["start_date"];
+        $to_date = $_POST["end_date"];
+        $company_id = $_SESSION["userId"];
+        $qualification = $_POST["qualification"];
+        $other_qualifications = $_POST["other_qualifications"];
+        $status = "Open";
+        $no_of_cvs_required = $_POST["no_of_cvs_required"];
+        $scale = $_POST["scale"];
 
-            // Create AdvertisementModel
-            $advertisement = new AdvertisementModel(
-                $position,
-                $requirements,
-                $interns,
-                $workingMode,
-                $fromDate,
-                $toDate,
-                $companyId,
-                $qualification,
-                $otherQualifications,
-                $status,
-                $no_of_cvs_required
-            );
+        $inserted_id = $this->advertisementRepository->save($position, $requirements, $no_of_intern, $working_mode, $from_date, $to_date, $company_id, $qualification, $other_qualifications, $status, $no_of_cvs_required, $scale);
 
-            // Save to repository
-            $result = $this->advertisementRepository->save($advertisement);
-
-            if ($result) {
-                header("Location: /internease/public/company/ad");
-                exit();
-            } else {
-                echo "Data Insertion Unsuccessful";
-            }
+        if ($inserted_id) {
+            header("Location: http://localhost/internease/public/company/ad");
+            exit();
         } else {
-            echo "Invalid Request Method";
+            // Handle error
         }
     }
-
 
     public function logout()
     {
