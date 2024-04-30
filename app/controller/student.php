@@ -91,6 +91,15 @@ class Student extends Controller
         $studentId = $_SESSION['studentId'];
 
         $prefernces = $_POST;
+
+        $appliedModel = $this->model('Applied');
+        $result = $appliedModel->applySecondRound($studentId, $prefernces);
+
+        if ($result['success']) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $result['message']]);
+        }
         
     }
 

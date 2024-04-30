@@ -52,26 +52,39 @@
             <div id="preferences-panel">
                 <h2>Job Role Preferences</h2>
                 <form id="preferencesForm">
-                    <?php
-                    // Assume $jobRoles is an array of available IT internship roles
-                    $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
+                <?php
+                // Assume $jobRoles is an array of available IT internship roles
+                $jobRoles = ["Web Developer", "Data Analyst", "Software Engineer", "Network Administrator", "UI/UX Designer", "DevOps Engineer", "Cybersecurity Analyst"];
 
-                    // echo $secondRoundCount;
+                // Loop through each preference
+                for ($i = 1; $i <= $secondRoundCount; $i++) {
+                    echo "<label for='preference$i'>Preference $i:</label>";
+                    echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
+                    echo "<option value=''>None</option>"; // Add None option as the default
 
-                    for ($i = 1; $i <= $secondRoundCount; $i++) {
-                        echo "<label for='preference$i'>Preference $i:</label>";
-                        echo "<select name='preference$i' class='preference' onchange='updateOptions(this)'>";
-                        echo "<option value=''>None</option>"; // Add None option as the default
-
-                        // Add options for each job role
-                        foreach ($jobRoles as $role) {
+                    // Add options for each job role
+                    foreach ($jobRoles as $role) {
+                        // Check if the role has been selected in previous preferences
+                        $disabled = false;
+                        for ($j = 1; $j < $i; $j++) {
+                            $selectedRole = $_POST["preference$j"] ?? ''; // Assuming the form is submitted via POST
+                            if ($role == $selectedRole) {
+                                $disabled = true;
+                                break; // No need to check further, role is already selected
+                            }
+                        }
+                        // Output the option with appropriate disabled attribute
+                        if ($disabled) {
+                            echo "<option value='$role' disabled>$role (Already chosen)</option>";
+                        } else {
                             echo "<option value='$role'>$role</option>";
                         }
-
-                        echo "</select><br>";
                     }
-                    ?>
-                    <input type="submit" value="Save Preferences">
+
+                    echo "</select><br>";
+                }
+                ?>
+                    <input type="submit" name="submit" value="Save Preferences">
                 </form>
             </div>
         </div>
@@ -280,34 +293,45 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
         }
 
 
-        function updateOptions(select) {
-            var preferenceSelects = document.getElementsByClassName('preference');
-            var selectedOptions = [];
+        // // Call updateOptions for all preference fields on page load
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     var preferenceSelects = document.getElementsByClassName('preference');
+        //     for (var i = 0; i < preferenceSelects.length; i++) {
+        //         updateOptions(preferenceSelects[i]);
+        //     }
+        // });
 
-            // Collect all selected options
-            for (var i = 0; i < preferenceSelects.length; i++) {
-                if (preferenceSelects[i].value !== '') {
-                    selectedOptions.push(preferenceSelects[i].value);
-                }
-            }
+        // function updateOptions(select) {
+        //     var preferenceSelects = document.getElementsByClassName('preference');
+        //     var selectedOptions = [];
 
-            // Iterate through all select boxes
-            for (var i = 0; i < preferenceSelects.length; i++) {
-                var options = preferenceSelects[i].getElementsByTagName('option');
-                // Reset all options to enabled
-                for (var j = 0; j < options.length; j++) {
-                    options[j].disabled = false;
-                }
-                // Disable selected options in other select boxes
-                if (preferenceSelects[i] !== select) {
-                    for (var j = 0; j < options.length; j++) {
-                        if (selectedOptions.includes(options[j].value)) {
-                            options[j].disabled = true;
-                        }
-                    }
-                }
-            }
-        }
+        //     // Collect all selected options
+        //     for (var i = 0; i < preferenceSelects.length; i++) {
+        //         if (preferenceSelects[i].value !== '') {
+        //             selectedOptions.push(preferenceSelects[i].value);
+        //         }
+        //     }
+
+        //     // Iterate through all select boxes
+        //     for (var i = 0; i < preferenceSelects.length; i++) {
+        //         var options = preferenceSelects[i].getElementsByTagName('option');
+
+        //         // Enable all options first
+        //         for (var j = 0; j < options.length; j++) {
+        //             options[j].disabled = false;
+        //         }
+
+        //         // Disable selected options in other select boxes
+        //         if (preferenceSelects[i] !== select) {
+        //             for (var j = 0; j < options.length; j++) {
+        //                 if (selectedOptions.includes(options[j].value) && options[j].value !== select.value) {
+        //                     options[j].disabled = true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
 
         document.addEventListener("DOMContentLoaded", function() {
             const roundDates = <?php echo json_encode($roundData); ?>;
@@ -394,10 +418,19 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
 
                 // Serialize form data
                 var formData = new FormData(this);
+                var encodedFormData = new URLSearchParams();
+
+                // Add all preference fields to the encoded form data
+                for (var i = 1; i <= <?php echo $secondRoundCount; ?>; i++) {
+                    var preferenceValue = formData.get(`preference${i}`) || '';
+                    encodedFormData.append(`preference${i}`, preferenceValue);
+                }
+
+                console.log(encodedFormData.toString());
 
                 // Send AJAX request
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "your_backend_controller_url_here", true);
+                xhr.open("POST", "<?=ROOT?>/student/secondRoundApp", true);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
@@ -417,7 +450,7 @@ echo "<script>var userId = " . json_encode($_SESSION['userId']) . ";</script>";
                     }
                 };
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.send(new URLSearchParams(formData).toString());
+                xhr.send(encodedFormData.toString());
             });
         });
 
