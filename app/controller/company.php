@@ -272,49 +272,50 @@ class Company extends Controller
             throw new Exception("User not logged in");
         }
     }
+
     public function schedule()
     {
         $this->model('CompanyVisitCompany');
         $companyvisit = new CompanyVisitCompany;
-        $data = ['rows' =>$companyvisit->get_CompanyVisit()];
-        $this->view('company/schedule',$data);
+        $data = ['rows' => $companyvisit->get_CompanyVisit()];
+        $this->view('company/schedule', $data);
 
     }
 
-    public function send_action() {
+    public function send_action()
+    {
 
         $rawData = file_get_contents("php://input");
-    
+
 
         $data = json_decode($rawData, true);
         var_dump($data);
         $reason = $data['reason'];
 
-        if($data['status']=='Accepted')
-        {   
+        if ($data['status'] == 'Accepted') {
             $status = 1;
-            $reason ="";
-        }else{
+            $reason = "";
+        } else {
             $status = 0;
         }
 
-        $date = $data['rejectedDate'].":00";
-        $date = explode("T",$date);
-       
-        $rdate =  $data['requestedDate'];
-        $rtime =  $data['requestedTime'];
-      
+        $date = $data['rejectedDate'] . ":00";
+        $date = explode("T", $date);
+
+        $rdate = $data['requestedDate'];
+        $rtime = $data['requestedTime'];
+
         $user_id = $_SESSION['userId'];
-        
-       
-        $requested_date = $rdate." ".$rtime;
-        if($status == 1){
-           $visit_date = $requested_date;
-        }else{
-            $visit_date = $date[0]." ".$date[1];
+
+
+        $requested_date = $rdate . " " . $rtime;
+        if ($status == 1) {
+            $visit_date = $requested_date;
+        } else {
+            $visit_date = $date[0] . " " . $date[1];
         }
 
-       
+
         echo "user: $user_id<br>";
         echo "req: $requested_date<br>";
         echo "visit: $visit_date<br>";
@@ -323,16 +324,15 @@ class Company extends Controller
         echo "reason: $reason<br>";
 
 
-
-       
         $this->model('CompanyVisitCompany');
         $companyvisit = new CompanyVisitCompany;
-        $companyvisit->send_visit_data($user_id,$requested_date,$visit_date,$status,$reason);
-    
+        $companyvisit->send_visit_data($user_id, $requested_date, $visit_date, $status, $reason);
+
         echo json_encode(["message" => "Success", "status" => $status, "reason" => $reason]);
     }
-    
-    public function schedule_tech_talk(){
+
+    public function schedule_tech_talk()
+    {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -435,7 +435,7 @@ class Company extends Controller
     {
         $id = $_SESSION['userId'];
         $CompanyModel = $this->model('CompanyModel');
-        $studentCount = $CompanyModel->getTotalStudents($this->conn,$id);
+        $studentCount = $CompanyModel->getTotalStudents($this->conn, $id);
         return $studentCount;
     }
 
@@ -443,10 +443,9 @@ class Company extends Controller
     {
         $id = $_SESSION['userId'];
         $CompanyModel = $this->model('CompanyModel');
-        $studentCount = $CompanyModel->getShortlistedStudents($this->conn,$id);
+        $studentCount = $CompanyModel->getShortlistedStudents($this->conn, $id);
         return $studentCount;
     }
-
 
 
     public function addNewAd()
@@ -465,8 +464,9 @@ class Company extends Controller
             $no_of_cvs_required = intval($_POST['no_of_cvs_required'] ?? 0);
             $status = 'Open';
             $imageUrl = ''; // If there are no image uploads, you can leave this empty.
-
+            $scale = $_POST['scale'];
             // Create AdvertisementModel
+
             $advertisement = new AdvertisementModel(
                 $position,
                 $requirements,
@@ -478,7 +478,8 @@ class Company extends Controller
                 $qualification,
                 $otherQualifications,
                 $status,
-                $no_of_cvs_required
+                $no_of_cvs_required,
+                $scale
             );
 
             // Save to repository
@@ -517,7 +518,7 @@ class Company extends Controller
 //         return;
 //     }
 
-    
+
 //     // Retrieve raw data and decode JSON
 //     $rawData = file_get_contents("php://input");
 //     $postData = json_decode($rawData, true); // 'true' for associative array
@@ -565,67 +566,65 @@ class Company extends Controller
 // }
 
 // Modify the PHP controller method to access properties from the nested object
-public function addInterview()
-{
-    // Only handle POST requests
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        http_response_code(405); // Method Not Allowed
-        echo json_encode(['error' => 'Invalid request method']);
-        return;
+    public function addInterview()
+    {
+        // Only handle POST requests
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405); // Method Not Allowed
+            echo json_encode(['error' => 'Invalid request method']);
+            return;
+        }
+
+        // Retrieve raw data and decode JSON
+        $rawData = file_get_contents("php://input");
+        $postData = json_decode($rawData, true); // 'true' for associative array
+
+        if ($postData === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON']);
+            return;
+        }
+
+        // Extract fields from the nested object
+        $newInterview = $postData['newInterview'] ?? null; // Access the nested object
+
+        // Validate inputs
+        if (empty($newInterview['date']) || empty($newInterview['startTime']) || empty($newInterview['endTime']) || empty($newInterview['title']) || $newInterview['candidateCount'] < 1) {
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Invalid input']);
+            return;
+        }
+
+        // Check if the start time is before the end time
+        if (strtotime($newInterview['startTime']) >= strtotime($newInterview['endTime'])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Start time must be before end time']);
+            return;
+        }
+
+        $studentIds = $this->companyStudentRepository->fetchShortlistedStuId($_SESSION['userId']);
+
+        // Try adding the interview to the database
+        try {
+            $interviewModel = $this->model("InterviewModel");
+            $interviewModel->addInterview(
+                $newInterview['date'],
+                $newInterview['startTime'],
+                $newInterview['endTime'],
+                $newInterview['title'],
+                $newInterview['description'] ?? null, // Check if description is set
+                (int)($newInterview['candidateCount'] ?? 0), // Ensure candidateCount is an integer
+                $studentIds
+            );
+
+
+            http_response_code(201); // Created
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'Failed to add interview']);
+        }
     }
-
-    // Retrieve raw data and decode JSON
-    $rawData = file_get_contents("php://input");
-    $postData = json_decode($rawData, true); // 'true' for associative array
-
-    if ($postData === null) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Invalid JSON']);
-        return;
-    }
-
-    // Extract fields from the nested object
-    $newInterview = $postData['newInterview'] ?? null; // Access the nested object
-
-    // Validate inputs
-    if (empty($newInterview['date']) || empty($newInterview['startTime']) || empty($newInterview['endTime']) || empty($newInterview['title']) || $newInterview['candidateCount'] < 1) {
-        http_response_code(400); // Bad Request
-        echo json_encode(['error' => 'Invalid input']);
-        return;
-    }
-
-    // Check if the start time is before the end time
-    if (strtotime($newInterview['startTime']) >= strtotime($newInterview['endTime'])) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Start time must be before end time']);
-        return;
-    }
-
-    $studentIds = $this->companyStudentRepository->fetchShortlistedStuId($_SESSION['userId']);
-
-    // Try adding the interview to the database
-    try {
-        $interviewModel = $this->model("InterviewModel");
-        $interviewModel->addInterview(
-            $newInterview['date'],
-            $newInterview['startTime'],
-            $newInterview['endTime'],
-            $newInterview['title'],
-            $newInterview['description'] ?? null, // Check if description is set
-            (int)($newInterview['candidateCount'] ?? 0), // Ensure candidateCount is an integer
-            $studentIds
-        );
-
-        
-
-        http_response_code(201); // Created
-        echo json_encode(['success' => true]);
-    } catch (Exception $e) {
-        http_response_code(500); // Internal Server Error
-        echo json_encode(['error' => 'Failed to add interview']);
-    }
-}
-
 
 
     // Delete an interview by ID
