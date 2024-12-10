@@ -13,14 +13,14 @@ class AdvertisementRepository
 
     public function save(AdvertisementModel $advertisement)
     {
-        /* $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required)
+          $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required)
 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        */
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
         // Add scale
-        $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required , scale) 
+        // $sql = "INSERT INTO company_ad (position, requirements, no_of_intern, working_mode, from_date, to_date, company_id, qualification, other_qualifications, status, no_of_cvs_required , scale) 
 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
+        //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
 
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -28,7 +28,7 @@ class AdvertisementRepository
         }
 
         $stmt->bind_param(
-            'ssisssissiii',
+            'ssisssissii',
             $advertisement->position,
             $advertisement->requirements,
             $advertisement->interns,
@@ -39,8 +39,7 @@ class AdvertisementRepository
             $advertisement->qualification,
             $advertisement->other_qualifications,
             $advertisement->status,
-            $advertisement->no_of_cvs_required,
-            $advertisement->scale
+            $advertisement->no_of_cvs_required
         );
 
         $result = $stmt->execute();
@@ -72,8 +71,7 @@ class AdvertisementRepository
                 $row['qualification'],
                 $row['other_qualifications'], // Use correct field name
                 $row['status'],
-                $row['no_of_cvs_required'],
-                $row['scale']
+                $row['no_of_cvs_required']
             );
             $advertisements[] = $advertisement;
         }
