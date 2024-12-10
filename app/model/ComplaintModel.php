@@ -9,10 +9,12 @@ class ComplaintModel extends Model{
         $this->connection = $this->connection();
     }
     
-    public function createStudentComplaint($userId, $description){
-        $query = "INSERT INTO complaint('user_id', 'description') VALUES (?, ?)";
+    public function createStudentComplaint($userId, $description) {
+        $query = "INSERT INTO complaint(user_id, description) VALUES (?, ?)";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param('is', $userId, $description);
-        $stmt->execute(); 
+        $success = $stmt->execute();
+
+        return $success;
     }
 }
