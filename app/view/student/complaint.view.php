@@ -1,4 +1,13 @@
 <?php require_once("../app/view/inc/header.php"); ?>
+<?php
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Optional: Display startup errors
+ini_set('display_startup_errors', 1);
+?>
+
 
 <div class="container">
     <?php require_once("../app/view/inc/sidebar.php"); ?>

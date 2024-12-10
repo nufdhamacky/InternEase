@@ -10,7 +10,7 @@ class ComplaintModel extends Model{
     }
     
     public function createStudentComplaint($userId, $description){
-        $query = "INSERT INTO complaint('user_id', 'description') VALUES ('?','?')";
+        $query = "INSERT INTO complaint('user_id', 'description') VALUES (?, ?)";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param('is', $userId, $description);
         $stmt->execute(); 
