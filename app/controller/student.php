@@ -216,6 +216,25 @@ class Student extends Controller
     public function complaint()
     {
         $this->view('student/complaint');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get the form data
+            $userId = $_SESSION['userId'];
+            $email = $_POST['email'];
+            $complaint = $_POST['complaint'];
+        
+            // Validate the form data (you may add more validation as needed)
+            if (empty($student_name) || empty($student_email) || empty($complaint)) {
+                $error_message = "Please fill in all the required fields.";
+            } else {
+                // Process the complaint (e.g., save it to a database, send an email)
+                $success_message = "Your complaint has been submitted successfully.";
+        
+                // Clear the form data
+                $student_name = '';
+                $student_email = '';
+                $complaint = '';
+            }
+        }
 
     }
 

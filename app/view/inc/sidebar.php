@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="FAQ">
+                    <a href="complaint">
                         <span class="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>
                         <span class="title">Complaints & FAQ</span>
                     </a>
