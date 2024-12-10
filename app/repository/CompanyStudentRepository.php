@@ -97,7 +97,7 @@ class CompanyStudentRepository extends model {
                 ca.position
         ";
         
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         
         if ($stmt) {
             $stmt->bind_param('i', $companyId);
