@@ -301,6 +301,7 @@ class Student extends Controller
             $userId = $_SESSION['userId'];
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
+            $qualification = $_POST['qualification'];
 
             $studentModel = $this->model('StudentModel');
             $studentData = $studentModel->getStudentByUserId($userId);
@@ -309,7 +310,8 @@ class Student extends Controller
                 // Update first name and last name
                 $studentModel->updateStudent($userId, [
                     'first_name' => $firstName,
-                    'last_name' => $lastName
+                    'last_name' => $lastName,
+                    'qualification' => $qualification
                 ]);
 
                 // Handle file upload
