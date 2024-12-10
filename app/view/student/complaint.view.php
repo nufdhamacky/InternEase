@@ -15,15 +15,15 @@
         <?php if (isset($success_message)): ?>
             <p class="success-message"><?php echo $success_message; ?></p>
         <?php endif; ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <form method="post" action="<?=ROOT?>/student/registercomplaint">
             <label for="student_name">Student Name:</label>
-            <input type="text" id="student_name" name="student_name" value="<?php echo $student_name; ?>">
+            <input type="text" id="student_name" name="student_name">
 
             <label for="student_email">Student Email:</label>
-            <input type="text" id="student_email" name="student_email" value="<?php echo $student_email; ?>">
+            <input type="text" id="student_email" name="student_email">
 
             <label for="complaint">Complaint:</label>
-            <textarea id="complaint" name="complaint"><?php echo $complaint; ?></textarea>
+            <textarea id="complaint" name="description"></textarea>
 
             <button type="submit">Submit Complaint</button>
         </form>
