@@ -464,7 +464,6 @@ class Company extends Controller
             $no_of_cvs_required = intval($_POST['no_of_cvs_required'] ?? 0);
             $status = 'Open';
             $imageUrl = ''; // If there are no image uploads, you can leave this empty.
-            $scale = $_POST['scale'];
             // Create AdvertisementModel
 
             $advertisement = new AdvertisementModel(
@@ -478,8 +477,7 @@ class Company extends Controller
                 $qualification,
                 $otherQualifications,
                 $status,
-                $no_of_cvs_required,
-                $scale
+                $no_of_cvs_required
             );
 
             // Save to repository
