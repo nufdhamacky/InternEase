@@ -62,7 +62,6 @@ $allAdvertisements = $data['advertisements'];
                         <td>No. of CVs Required</td>
                         <td>Working Mode</td>
                         <td>Status</td>
-                        <td>Scale</td>
                     </tr>
                     </thead>
 
@@ -80,7 +79,6 @@ $allAdvertisements = $data['advertisements'];
                             <td><?php echo $ad->no_of_cvs_required; ?> </td>
                             <td><?php echo $ad->workingMode; ?> </td>
                             <td style="color: <?php echo $ad->status == 0 ? "blue" : ($ad->status == 1 ? "green" : "red"); ?>"><?php echo $ad->status == 0 ? "Pending" : ($ad->status == 1 ? "Approved" : "Rejected"); ?></td>
-                            <td><?php echo $ad->scale; ?> </td>
 
                             <!-- <td>
                                 <a href="">
