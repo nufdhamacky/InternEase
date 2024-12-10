@@ -213,6 +213,12 @@ class Student extends Controller
 
     }
 
+    public function complaint()
+    {
+        $this->view('student/complaint');
+
+    }
+
     public function selectionlist()
     {
         $this->view('student/selectionlist');
