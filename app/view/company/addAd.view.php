@@ -39,6 +39,7 @@ $companyController = new Company();
                         <option value="Sofware Engineer(Front-End)">Sofware Engineer(Front-End)</option>
                         <option value="Sofware Engineer(Back-End)">Sofware Engineer(Back-End)</option>
                         <option value="QA(Manual Testing)">QA(Manual Testing)</option>
+                        <option value="QA(Automation Testing)">QA(Automation Testing)</option>
                         <option value="Business Analyst">Business Analyst</option>
                         <option value="Data Analayst">Data Analyst</option>
                         <option value="Graphic Design">Graphic Design</option>
@@ -104,10 +105,6 @@ $companyController = new Company();
                             <option value="Onsite">Onsite</option>
                             <option value="Hybrid">Hybrid</option>
                         </select>
-                    </div>
-                    <div>
-                        <label for="scale">Scale</label>
-                        <input id="scale" name="scale" type="number"/>
                     </div>
 
                     <div class="submit">
