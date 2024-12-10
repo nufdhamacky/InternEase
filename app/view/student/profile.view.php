@@ -20,7 +20,7 @@
                     echo "<p><strong>Email:</strong> " . $studentData['email'] . "</p>";
                     echo "<p><strong>Index No:</strong> " . $studentData['index_no'] . "</p>";
                     echo "<p><strong>Registration No:</strong> " . $studentData['reg_no'] . "</p>";
-                    echo "<p><strong>Qualification:</strong> " . $studentData['qualification'] . "</p>";
+                    // echo "<p><strong>Qualification:</strong> " . $studentData['qualification'] . "</p>";
                     if ($studentData['cv']) {
                         echo "<p><strong>CV:</strong> <a href='" . ROOT . "/uploads/" . $studentData['cv'] . "' target='_blank'>View CV</a></p>";
                     }
@@ -47,7 +47,7 @@
             <input type="text" id="lastName" name="lastName" value="<?= $studentData['last_name'] ?>">
             <label for="cv">Upload CV</label>
             <input type="file" id="cv" name="cv">
-            <label for="qualification">Qualification</label>
+            <!-- <label for="qualification">Qualification</label>
             <select name="qualification" id="qualification">
                 <option value="" selected hidden>Select Position</option>
                 <option value="BSc. in Information Systems">BSc. in Information Systems</option>
@@ -56,7 +56,7 @@
                 <option value="BSc.(Hons) in Computer Science">BSc.(Hons) in Computer Science</option>
             </select>
             <br>
-            <hr>
+            <hr> -->
             <button type="submit" name="submit">Save Changes</button>
         </form>
 
