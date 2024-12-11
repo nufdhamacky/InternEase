@@ -240,6 +240,9 @@ class Student extends Controller
         $complaintmodel = $this->model('ComplaintModel');
 
         $success = $complaintmodel->createStudentComplaint($userId, $description);
+        if($success){
+            $this->redirect('complaint');
+        }
     }
 
     public function selectionlist()
