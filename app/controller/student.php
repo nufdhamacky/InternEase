@@ -219,8 +219,18 @@ class Student extends Controller
     }
 
     public function complaint()
-    {
-        $this->view('student/complaint');
+    {   
+        $userId = $_SESSION['userId'];
+        $complaintmodel=$this->model('ComplaintModel');
+        $complaints = $complaintmodel->fetchStudentComplaint($userId);
+
+        $data =[
+            'complaints'=>$complaints
+        ];
+
+        // $complaints = $this->model('ComplaintModel')->fetchStudentComplaint($_SESSION['userId']);
+
+        $this->view('student/complaint', $data);
 
     }
 
