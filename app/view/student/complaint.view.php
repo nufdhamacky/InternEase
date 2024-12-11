@@ -15,19 +15,23 @@
         <?php if (isset($success_message)): ?>
             <p class="success-message"><?php echo $success_message; ?></p>
         <?php endif; ?>
-        <form method="post" action="<?=ROOT?>/student/registercomplaint">
-            <label for="student_name">Student Name:</label>
-            <input type="text" id="student_name" name="student_name">
-
-            <label for="student_email">Student Email:</label>
-            <input type="text" id="student_email" name="student_email">
-
-            <label for="complaint">Complaint:</label>
-            <textarea id="complaint" name="description"></textarea>
-
-            <button type="submit">Submit Complaint</button>
+        <form method="post" action="<?=ROOT?>/student/registercomplaint" id="complaint-form">
+            <div class="form-group">
+                <label for="student_name">Student Name:</label>
+                <input type="text" id="student_name" name="student_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="student_email">Student Email:</label>
+                <input type="email" id="student_email" name="student_email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="complaint">Complaint:</label>
+                <textarea id="complaint" name="description" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Complaint</button>
         </form>
     </div>
+<<<<<<< HEAD
     <!-- TODO: need to fe -->
     <div class='complaint-container'>
         <?php foreach($data['complaints'] as $complaint): ?>
@@ -35,6 +39,11 @@
         <?php endforeach; ?>
     </div>
 </body>
+=======
+>>>>>>> 5617474cbf1250a04f38df5994a3a9ee269f4a87
 </div>
+</div>
+<?php require_once("../app/view/inc/footer.php"); ?>
+<script src="<?=ROOT?>/public/js/complaint.js"></script>
 
 <?php require_once("../app/view/inc/footer.php"); ?>
