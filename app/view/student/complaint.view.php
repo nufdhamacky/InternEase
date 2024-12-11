@@ -31,7 +31,6 @@
             <button type="submit" class="btn btn-primary">Submit Complaint</button>
         </form>
     </div>
-<<<<<<< HEAD
     <!-- TODO: need to fe -->
     <div class='complaint-container'>
         <?php foreach($data['complaints'] as $complaint): ?>
@@ -39,8 +38,6 @@
         <?php endforeach; ?>
     </div>
 </body>
-=======
->>>>>>> 5617474cbf1250a04f38df5994a3a9ee269f4a87
 </div>
 </div>
 <?php require_once("../app/view/inc/footer.php"); ?>
