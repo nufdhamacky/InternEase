@@ -57,3 +57,47 @@ button:hover {
     color: green;
     margin-top: 10px;
 }
+
+.complaint-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 1rem;
+}
+
+.complaint-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Description styling */
+.complaint-description {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Date styling */
+.complaint-date {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .complaint-card {
+        padding: 10px;
+    }
+
+    .complaint-description {
+        font-size: 14px;
+    }
+
+    .complaint-date {
+        font-size: 12px;
+    }
+}

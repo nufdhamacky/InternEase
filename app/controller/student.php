@@ -222,10 +222,10 @@ class Student extends Controller
     {   
         $userId = $_SESSION['userId'];
         $complaintmodel=$this->model('ComplaintModel');
-        $complaints = $complaintmodel->fetchStudentComplaint($userId);
+        $complaints = $complaintmodel->fetchStudentComplaints($userId);
 
-        $data =[
-            'complaints'=>$complaints
+        $data = [
+            'complaints' => $complaints
         ];
 
         // $complaints = $this->model('ComplaintModel')->fetchStudentComplaint($_SESSION['userId']);
@@ -240,6 +240,9 @@ class Student extends Controller
         $complaintmodel = $this->model('ComplaintModel');
 
         $success = $complaintmodel->createStudentComplaint($userId, $description);
+        if($success){
+            $this->redirect('complaint');
+        }
     }
 
     public function selectionlist()
