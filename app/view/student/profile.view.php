@@ -47,7 +47,7 @@
             <input type="text" id="lastName" name="lastName" value="<?= $studentData['last_name'] ?>">
             <label for="cv">Upload CV</label>
             <input type="file" id="cv" name="cv">
-            <label for="homeaddress">Homeaddress</label>
+            <label for="homeaddress">Home address</label>
             <input type="text" id="homeaddress" name="homeaddress" value="<?= $studentData['homeaddress'] ?>">
             <br>
             <hr>
