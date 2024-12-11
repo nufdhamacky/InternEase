@@ -32,9 +32,13 @@
         </form>
     </div>
     <!-- TODO: need to fe -->
-    <div class='complaint-container'>
+    <div class="complaint-container">
+        <h2>Registered Complaints</h2>
         <?php foreach($data['complaints'] as $complaint): ?>
-            <p><?php echo $complaint;?></p>
+            <div class="complaint-card">
+                <p class="complaint-description"><?php echo htmlspecialchars($complaint['description']); ?></p>
+                <p class="complaint-date"><?php echo htmlspecialchars($complaint['created_at']); ?></p>
+            </div>
         <?php endforeach; ?>
     </div>
 </body>

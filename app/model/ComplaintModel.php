@@ -18,16 +18,19 @@ class ComplaintModel extends Model{
         return $success;
     }
 
-    public function fetchStudentComplaint($userId){
-        $query = "SELECT description FROM complaint where user_id = ?";
+    public function fetchStudentComplaints($userId){
+        $query = "SELECT * FROM complaint WHERE user_id = ?";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param('i', $userId);
         $stmt->execute();
-
+    
         $result = $stmt->get_result();
-
-        $row = $result->fetch_assoc();
-
-        return $row;
-    }
+        $rows = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row; // Collect all rows in an array
+        }
+    
+        return $rows; // Return all rows
+    }    
 }
